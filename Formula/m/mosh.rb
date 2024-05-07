@@ -4,16 +4,16 @@ class Mosh < Formula
   url "https://github.com/mobile-shell/mosh/releases/download/mosh-1.4.0/mosh-1.4.0.tar.gz"
   sha256 "872e4b134e5df29c8933dff12350785054d2fd2839b5ae6b5587b14db1465ddd"
   license "GPL-3.0-or-later"
-  revision 8
+  revision 14
 
   bottle do
-    sha256 cellar: :any,                 arm64_sonoma:   "d7aea82f60f0933b35bab857c48e0d200e5c2bcffdb3748bc838cd45cfcf4100"
-    sha256 cellar: :any,                 arm64_ventura:  "29b964018f1f0173b023abddc806fb73902e71f30d8dc8c9293334da8fa47465"
-    sha256 cellar: :any,                 arm64_monterey: "aa0e43e028aae30cbf6ff37582016a8057c7185521193e15ae7ec41509e6e1eb"
-    sha256 cellar: :any,                 sonoma:         "b0793b904c499756f0cb7ede18a0e0a6e3011d741f32a38554582ea88f6f8fe7"
-    sha256 cellar: :any,                 ventura:        "020b3c9a05aa43829f6f8d8f65754e73c23cb59daea16e898d14bd7e346c98f2"
-    sha256 cellar: :any,                 monterey:       "82a63af034edd9125b108fc6140e2d31ee8fcbefe1033999387798a0ed5d8c5e"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "89eb0c0de944e7f6f0d43ef0fe8d1332c9ca78779384f848e1a4e2b58dd7b17d"
+    sha256 cellar: :any,                 arm64_sonoma:   "153379d64ac0d29a5b7b158bfe377666dedc79e1825f62885e0189595a50c014"
+    sha256 cellar: :any,                 arm64_ventura:  "1abb5eb5703298f896613df87618929011af09cf24e78504aef9365e63363e08"
+    sha256 cellar: :any,                 arm64_monterey: "17dd344410bf603a3a43ce02fc05abf36b51102e8e5600efcf0a1b78a559d709"
+    sha256 cellar: :any,                 sonoma:         "de02050dd7c07547579082c4a4f04eceaab8fd5c41ebd19aecf48f9631566192"
+    sha256 cellar: :any,                 ventura:        "7e260d2917ae7fd84129cb366d3b0572199fed99d3906775aad304bb6e08d497"
+    sha256 cellar: :any,                 monterey:       "9d3133a677dd298a293a1855dd16815f40e84b14f212e820b1c9ee7c493aedbb"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "1250d81704306853b527b2a2445c492005cb48ef684c70e1b22925d6e21ff8ee"
   end
 
   head do

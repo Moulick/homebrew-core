@@ -1,8 +1,8 @@
 class FluentBit < Formula
   desc "Fast and Lightweight Logs and Metrics processor"
   homepage "https://github.com/fluent/fluent-bit"
-  url "https://github.com/fluent/fluent-bit/archive/refs/tags/v2.1.10.tar.gz"
-  sha256 "d7ed402bd79d4c219ee6a30ae52c9d788812271c23e96fe633837f8c3c630181"
+  url "https://github.com/fluent/fluent-bit/archive/refs/tags/v3.0.3.tar.gz"
+  sha256 "2f3b82e8b7802fe92625009531592f12d500ff61a02ecf4cd27e0f138a6dc566"
   license "Apache-2.0"
   head "https://github.com/fluent/fluent-bit.git", branch: "master"
 
@@ -12,13 +12,13 @@ class FluentBit < Formula
   end
 
   bottle do
-    sha256                               arm64_sonoma:   "3f0fd81d568678badd6e4953fba86a6e010741381e33a8eebeb94ed23f6b58af"
-    sha256                               arm64_ventura:  "02ab877ea13f764a66050f2ffb8cb5b9dbbbaef6ea4ad8f925f0982cc44dd55a"
-    sha256                               arm64_monterey: "7ce25fe862f403b478e0d6327ba7a3e3984c853d984a3f4f094b6a8badbcb39b"
-    sha256                               sonoma:         "3ae6cc39c8e7960df83222deda23a6bbb0fe5b09de46138caadd070776c0e06b"
-    sha256                               ventura:        "61ef1f693961155ce13134e2c7217bd5f935e70175c8a942ebb8b30c50d3e05f"
-    sha256                               monterey:       "9c6ecc14cc2bc8368c5e7c6482d7d11c9f8b220487a1bc4e9eb429ed48c7ec99"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "96b52ea33a8720111cf1db08dcb221194b836cdf96218d3260305cb5d32c64b5"
+    sha256                               arm64_sonoma:   "a3426a33e9598faa5f09faf3722723fc8b3e8d41c4b955e23be2c8c7d37f14fa"
+    sha256                               arm64_ventura:  "8859d5d23f42c8ae06b9e6348fc13736438ffbf70ecfec6cca34a1495b84b160"
+    sha256                               arm64_monterey: "9336feca26225a447e69ca42f771674773f08677dc4db8bf28aa6b7786473518"
+    sha256                               sonoma:         "2f6d863a0ef8f31b1adbb8310888343eab5e7dc72474c455fc2a2c530111860b"
+    sha256                               ventura:        "82bc34fadbe4bc9e443aef1b07e38c0e225666a0b6aee5895c46f866d7a043d1"
+    sha256                               monterey:       "0505f73a84efac43979c04a268e0c1810506253780b959e102d719e54e89fee7"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "09660b080c3f171e3c58deb64b15f746fb41a672885a3197c6dce13e1e3b011a"
   end
 
   depends_on "bison" => :build
@@ -43,7 +43,7 @@ class FluentBit < Formula
     # Per https://luajit.org/install.html: If MACOSX_DEPLOYMENT_TARGET
     # is not set then it's forced to 10.4, which breaks compile on Mojave.
     # fluent-bit builds against a vendored Luajit.
-    ENV["MACOSX_DEPLOYMENT_TARGET"] = MacOS.version.to_s
+    ENV["MACOSX_DEPLOYMENT_TARGET"] = MacOS.version.to_s if OS.mac?
 
     system "cmake", "-S", ".", "-B", "build", *std_cmake_args
     system "cmake", "--build", "build"
@@ -70,7 +70,7 @@ __END__
 -    ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR})
 +    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBEXECDIR}/lib
 +    ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBEXECDIR}/lib)
- 
+
  # Build the luajit binary
 -if (LUAJIT_BUILD_EXE)
 +if (FALSE)

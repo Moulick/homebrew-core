@@ -8,19 +8,22 @@ class Cfv < Formula
   license "GPL-2.0-or-later"
 
   bottle do
-    rebuild 1
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "bd204e237e4363490e5b674f2859ed641fadcbca5ecf6f16bc591c4907b1c9d0"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "50269d4d596252ea86878243275fa520591b5d1265f6716751f326b85761b1cf"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "719e2978b0b1384b0755e8bcdfd54c42a4847c20ecde4e087caeed6b04089703"
-    sha256 cellar: :any_skip_relocation, sonoma:         "a81236ef1d60b01c9fe0343648a82788b1812a12bd02a6c96823e331ef431249"
-    sha256 cellar: :any_skip_relocation, ventura:        "c2f32bad443d50238558580ef9513f3eeaded2890c370f0d301abc53d387c5fd"
-    sha256 cellar: :any_skip_relocation, monterey:       "d3900d70867cee31bfc595da20cca9b0beb68f1ca41d2e14c14741b453e6788f"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "560380993073f6543d0ff516d56578525ec80108b863256b308ef0b9fa59829e"
+    rebuild 4
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "45d0cc0d275d2abce31dc68f6b588cd2b6542700079e914f5313536069105df4"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "73de17963f67bb975bfba11b8f3e69ac80a47a7729b5b384082a95241a13ff07"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "34d37ec148d00f729be8d759b3d9b9dbd146169f5632e5b1027baeb8f1a8d968"
+    sha256 cellar: :any_skip_relocation, sonoma:         "dbc8899ec58d62eb0510d40f9d379dcb6c30d95689577e8ddabacccbdbc2cee0"
+    sha256 cellar: :any_skip_relocation, ventura:        "5617ab20813e0f0e396bf33cf97ef6ed25e7af735afe7771052b0caa63041440"
+    sha256 cellar: :any_skip_relocation, monterey:       "2ece33d693e3d3182fd24bbebe315d5ae40e65795810158caec543ed32ffa3e6"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "ebd9e777458f000cd6cdf0fccec16a5c50399a07607f15076519d6cbc181da5d"
   end
 
   depends_on "python@3.12"
 
   def install
+    # fix man folder location issue
+    inreplace "setup.py", "'man/man1'", "'share/man/man1'"
+
     virtualenv_install_with_resources
   end
 

@@ -1,18 +1,18 @@
 class Opensearch < Formula
   desc "Open source distributed and RESTful search engine"
   homepage "https://github.com/opensearch-project/OpenSearch"
-  url "https://github.com/opensearch-project/OpenSearch/archive/refs/tags/2.11.0.tar.gz"
-  sha256 "fa4d7b7300fbb95ae9becbf099c6c33be3ae306a2a067fbee69108212524778e"
+  url "https://github.com/opensearch-project/OpenSearch/archive/refs/tags/2.13.0.tar.gz"
+  sha256 "5cdac814f233df2c98e2f65662e803cc36dcf665ce20eaaea0dd43059f27a2fb"
   license "Apache-2.0"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "ff3cc4d2be0460aab18e3d05a689f80b257d47e0099e13535eef2dacbf5eaa2a"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "24591ffff5324baab365b9e79d6f55603befe538f2b997ae61535baa4f32440a"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "0ab5928d7c478826a613af6c99bb5b4ed36a7c1feaaddececf35c4a1c2f043e8"
-    sha256 cellar: :any_skip_relocation, sonoma:         "f6b0f089dc1a9127d8febda2e41fd7cfe13b7474235b6eb9b5343738ca95e567"
-    sha256 cellar: :any_skip_relocation, ventura:        "757f7d7869b3d1f03d75f50654fe5f1151c045f429fd259d2719305b41f08806"
-    sha256 cellar: :any_skip_relocation, monterey:       "2dd01125ef2d1d663d4048da0c0be9c9d3d7a356dac4d5518ea05122d3cf1b96"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "f6dd98d381364c0e782ffc9fce7992c1939b2986298bd6fbbe71e7e88d30a2ef"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "3ef6c7c35a11fa9e06ec5768f357044f3e16bbec3f3803e9e56d9b01ba005270"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "d08be458f2496e3b70d42a6916a39c61a46e1296cb5211053bf66f13f73ca94c"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "d2e1834b4f8d67040d4ef0bdb8c6b058389184c0a9027cdb96f2b81c14041e96"
+    sha256 cellar: :any_skip_relocation, sonoma:         "f75b9224071783b5d7e51c5c0531dba5e62eea2846bbdd228149cbf6001a2edf"
+    sha256 cellar: :any_skip_relocation, ventura:        "5c1add80ed47189a22edba9cb77bf2c6b0495653e2e1d338114f009cf9dbbdd8"
+    sha256 cellar: :any_skip_relocation, monterey:       "13ab1436d5eec4768c4ea82d8eea2244e4eb18fd46186dad6efe48c815d943f3"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "83d26221098d4ca3fa8b5b2b1e17b172629214973b6f85de50c36638fedc7918"
   end
 
   depends_on "gradle" => :build

@@ -1,8 +1,8 @@
 class PythonAT39 < Formula
   desc "Interpreted, interactive, object-oriented programming language"
   homepage "https://www.python.org/"
-  url "https://www.python.org/ftp/python/3.9.18/Python-3.9.18.tar.xz"
-  sha256 "01597db0132c1cf7b331eff68ae09b5a235a3c3caa9c944c29cac7d1c4c4c00a"
+  url "https://www.python.org/ftp/python/3.9.19/Python-3.9.19.tar.xz"
+  sha256 "d4892cd1618f6458cb851208c030df1482779609d0f3939991bd38184f8c679e"
   license "Python-2.0"
 
   livecheck do
@@ -11,15 +11,13 @@ class PythonAT39 < Formula
   end
 
   bottle do
-    sha256 arm64_sonoma:   "5a7c3513a42d6dc43ebafc786942d2d5e902953af445d842b901a157b50d2da7"
-    sha256 arm64_ventura:  "6198bbf2dcf7b65bc1d79442535461cf25e9e107b45242fada5ce6d9b14a0cb5"
-    sha256 arm64_monterey: "664f17cdf9287c7c0427da286e179efc380012cfd921a9b6eb5bcce5e26e2f74"
-    sha256 arm64_big_sur:  "befeb12bec907ab4d5654184f9db934916591a2d760544f8b20fd2b532b16f68"
-    sha256 sonoma:         "7e9f3644b2771ae4c570335c297d2103fc86f87a84fc5d329a8c5f273fad8dd9"
-    sha256 ventura:        "b7c8617b520b598249ba0d53c8f4d50df4a4b5fd13a46c55b85da4352d1d34e5"
-    sha256 monterey:       "b58ea46116112d70714bf7e25c2916cda7a23234fd11d6c58d26f449316f5f72"
-    sha256 big_sur:        "e58848cf91fb879f8c3f8ee1b3377a40319bff2f60ec84a4baa62b9c01299948"
-    sha256 x86_64_linux:   "b6492638916159f403a1d968f6ff339075c023d09829ee33ea012cc336e7f17b"
+    sha256 arm64_sonoma:   "319f081c34bf76d041207f00f656049ff426c606a323d65299802592ecae70b0"
+    sha256 arm64_ventura:  "31d4bcaaa9494e8456214645bc9a6db3016a43bfa4fc4850cffe442327beb27c"
+    sha256 arm64_monterey: "3bb77d551a75893ca85af0bb623bc554a6481ffae09bdbab81aee9c39be27785"
+    sha256 sonoma:         "476cbc8a597dc7c2c643f4e3a2289c713830a8f6f975d0b7942d674d9dd2eb0b"
+    sha256 ventura:        "51a99f9764848380b80404bce6d18adaa71ce6c8aff190e1978280ac6977c1fd"
+    sha256 monterey:       "51f81a0594493575ef073d699661cdc91475a69310cf2331a6753913956eacff"
+    sha256 x86_64_linux:   "1926a3db8dc8b9411395fceba654eaa36cac135c3d14fe55f2cfb15d8fce1848"
   end
 
   # setuptools remembers the build flags python is built with and uses them to
@@ -56,19 +54,19 @@ class PythonAT39 < Formula
     sha256 "72ad266176c4a3fcfab5f2930d76896059851240570ce9a98733b658cb786eba"
   end
 
-  resource "setuptools" do
-    url "https://files.pythonhosted.org/packages/19/20/d8dd9d8becaf3e2d6fdc17cc41870d5ada5ceda518996cf5968c2ca71bd8/setuptools-68.1.2.tar.gz"
-    sha256 "3d4dfa6d95f1b101d695a6160a7626e15583af71a5f52176efa5d39a054d475d"
+  resource "pip" do
+    url "https://files.pythonhosted.org/packages/94/59/6638090c25e9bc4ce0c42817b5a234e183872a1129735a9330c472cc2056/pip-24.0.tar.gz"
+    sha256 "ea9bd1a847e8c5774a5777bb398c19e80bcd4e2aa16a4b301b718fe6f593aba2"
   end
 
-  resource "pip" do
-    url "https://files.pythonhosted.org/packages/ba/19/e63fb4e0d20e48bd2167bb7e857abc0e21679e24805ba921a224df8977c0/pip-23.2.1.tar.gz"
-    sha256 "fb0bd5435b3200c602b5bf61d2d43c2f13c02e29c1707567ae7fbc514eb9faf2"
+  resource "setuptools" do
+    url "https://files.pythonhosted.org/packages/4d/5b/dc575711b6b8f2f866131a40d053e30e962e633b332acf7cd2c24843d83d/setuptools-69.2.0.tar.gz"
+    sha256 "0ff4183f8f42cd8fa3acea16c45205521a4ef28f73c6391d8a25e92893134f2e"
   end
 
   resource "wheel" do
-    url "https://files.pythonhosted.org/packages/a4/99/78c4f3bd50619d772168bec6a0f34379b02c19c9cced0ed833ecd021fd0d/wheel-0.41.2.tar.gz"
-    sha256 "0c5ac5ff2afb79ac23ab82bab027a0be7b5dbcf2e54dc50efe4bf507de1f7985"
+    url "https://files.pythonhosted.org/packages/b8/d6/ac9cd92ea2ad502ff7c1ab683806a9deb34711a1e2bd8a59814e8fc27e69/wheel-0.43.0.tar.gz"
+    sha256 "465ef92c69fa5c5da2d1cf8ac40559a8c940886afcef87dcf14b9470862f1d85"
   end
 
   # Link against libmpdec.so.3, update for mpdecimal.h symbol cleanup.
@@ -130,13 +128,6 @@ class PythonAT39 < Formula
       --with-system-libmpdec
     ]
 
-    if OS.mac?
-      args << "--enable-framework=#{frameworks}"
-      args << "--with-dtrace"
-    else
-      args << "--enable-shared"
-    end
-
     # Python re-uses flags when building native modules.
     # Since we don't want native modules prioritizing the brew
     # include path, we move them to [C|LD]FLAGS_NODIST.
@@ -148,14 +139,21 @@ class PythonAT39 < Formula
     ldflags_nodist = ["-L#{HOMEBREW_PREFIX}/lib", "-Wl,-rpath,#{HOMEBREW_PREFIX}/lib"]
     cppflags       = ["-I#{HOMEBREW_PREFIX}/include"]
 
-    if MacOS.sdk_path_if_needed
-      # Help Python's build system (setuptools/pip) to build things on SDK-based systems
-      # The setup.py looks at "-isysroot" to get the sysroot (and not at --sysroot)
-      cflags  << "-isysroot #{MacOS.sdk_path}"
-      ldflags << "-isysroot #{MacOS.sdk_path}"
+    if OS.mac?
+      args << "--enable-framework=#{frameworks}"
+      args << "--with-dtrace"
+
+      if MacOS.sdk_path_if_needed
+        # Help Python's build system (setuptools/pip) to build things on SDK-based systems
+        # The setup.py looks at "-isysroot" to get the sysroot (and not at --sysroot)
+        cflags  << "-isysroot #{MacOS.sdk_path}"
+        ldflags << "-isysroot #{MacOS.sdk_path}"
+      end
+      # Avoid linking to libgcc https://mail.python.org/pipermail/python-dev/2012-February/116205.html
+      args << "MACOSX_DEPLOYMENT_TARGET=#{MacOS.version}"
+    else
+      args << "--enable-shared"
     end
-    # Avoid linking to libgcc https://mail.python.org/pipermail/python-dev/2012-February/116205.html
-    args << "MACOSX_DEPLOYMENT_TARGET=#{MacOS.version}"
 
     # Disable _tkinter - this is built in a separate formula python-tk
     inreplace "setup.py", "DISABLED_MODULE_LIST = []", "DISABLED_MODULE_LIST = ['_tkinter']"
@@ -285,6 +283,7 @@ class PythonAT39 < Formula
     rm lib_cellar.glob("ensurepip/_bundled/{setuptools,pip}-*.whl")
     %w[setuptools pip].each do |r|
       resource(r).stage do
+        system whl_build/"bin/pip3", "install", *common_pip_args, "." if r == "setuptools"
         system whl_build/"bin/pip3", "wheel", *common_pip_args,
                                               "--wheel-dir=#{lib_cellar}/ensurepip/_bundled",
                                               "."

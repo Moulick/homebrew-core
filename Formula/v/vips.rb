@@ -1,8 +1,8 @@
 class Vips < Formula
   desc "Image processing library"
   homepage "https://github.com/libvips/libvips"
-  url "https://github.com/libvips/libvips/releases/download/v8.14.5/vips-8.14.5.tar.xz"
-  sha256 "90374e9f6fbd5657b5faf306cacda20658d6144d385316b59b865bc1a487b68d"
+  url "https://github.com/libvips/libvips/releases/download/v8.15.2/vips-8.15.2.tar.xz"
+  sha256 "a2ab15946776ca7721d11cae3215f20f1f097b370ff580cd44fc0f19387aee84"
   license "LGPL-2.1-or-later"
   revision 1
 
@@ -12,19 +12,19 @@ class Vips < Formula
   end
 
   bottle do
-    sha256 arm64_sonoma:   "2cbe1d771809811fa56a2acb028fb0820785795fc794af9b1b72e66b44f4f3fd"
-    sha256 arm64_ventura:  "c97a9b9780926184cf907c97b0ed7e554e25c038d72b3af8ba5d6cc12b064e78"
-    sha256 arm64_monterey: "00463fb1bd0925f36c8059e9f9754da0983388f07289f3b50ad6eacf128dc49a"
-    sha256 sonoma:         "4308408e413d3ac7296d7d8a0d0fdae068a2395cc49c6e2c161aba1d573223f2"
-    sha256 ventura:        "7986a5899d22a0fa29ad780261ca9f5284e36cf5ecdfbfa153f66ccd3592bb86"
-    sha256 monterey:       "91aeaa35b6e30fc59943d1ffa25719724dd458a5b31533cdfc5919372e90e5fd"
-    sha256 x86_64_linux:   "7139751abe3b9991dfde262b24cda79dc424874d9c6b0f7512b34a8a753a88c5"
+    sha256 arm64_sonoma:   "50c8d330fae9dd68f6949d9076cc9383a258988bc7539b1822e84419655b39c4"
+    sha256 arm64_ventura:  "6d370076f82459111c781a4f0d986d4a98a53e45938e5aedcf0d3553603dd6ff"
+    sha256 arm64_monterey: "9203d37040f877adc69533d06aa797d6d495b2a280759c6e5f88839b161836d5"
+    sha256 sonoma:         "2e9c8b59f7c6085466b6ca3262b38784ca20b010e1603acac2ddcb7bb55dbb1d"
+    sha256 ventura:        "9e36a24bcaec2528d5bec1b7cd432315dccbb95a5f0b054be85f59eef407cf7b"
+    sha256 monterey:       "58cb16ffcc869c425fe28da42e9e047e369f53dc00b4843d58e8093585096fc2"
+    sha256 x86_64_linux:   "0210e24b2f4c93ac6786d44dcb539fad4710343f0f23281f35deb7aaccb1842c"
   end
 
   depends_on "gobject-introspection" => :build
   depends_on "meson" => :build
   depends_on "ninja" => :build
-  depends_on "pkg-config" => :build
+  depends_on "pkg-config" => [:build, :test]
   depends_on "cairo"
   depends_on "cfitsio"
   depends_on "cgif"
@@ -32,10 +32,11 @@ class Vips < Formula
   depends_on "fontconfig"
   depends_on "gettext"
   depends_on "glib"
+  depends_on "highway"
   depends_on "imagemagick"
   depends_on "jpeg-xl"
+  depends_on "libarchive"
   depends_on "libexif"
-  depends_on "libgsf"
   depends_on "libheif"
   depends_on "libimagequant"
   depends_on "libmatio"
@@ -47,11 +48,11 @@ class Vips < Formula
   depends_on "openexr"
   depends_on "openjpeg"
   depends_on "openslide"
-  depends_on "orc"
   depends_on "pango"
   depends_on "poppler"
   depends_on "webp"
 
+  uses_from_macos "python" => :build
   uses_from_macos "expat"
   uses_from_macos "zlib"
 
@@ -61,10 +62,19 @@ class Vips < Formula
     # mozjpeg needs to appear before libjpeg, otherwise it's not used
     ENV.prepend_path "PKG_CONFIG_PATH", Formula["mozjpeg"].opt_lib/"pkgconfig"
 
-    mkdir "build" do
-      system "meson", *std_meson_args, ".."
-      system "ninja"
-      system "ninja", "install"
+    system "meson", "setup", "build", *std_meson_args
+    system "meson", "compile", "-C", "build", "--verbose"
+    system "meson", "install", "-C", "build"
+
+    if OS.mac?
+      # `pkg-config --libs vips` includes libarchive, but that package is
+      # keg-only so it needs to look for the pkgconfig file in libarchive's opt
+      # path.
+      libarchive = Formula["libarchive"].opt_prefix
+      inreplace [lib/"pkgconfig/vips.pc", lib/"pkgconfig/vips-cpp.pc"] do |s|
+        s.gsub!(/^Requires\.private:(.*)\blibarchive\b(.*?)(,.*)?$/,
+                "Requires.private:\\1#{libarchive}/lib/pkgconfig/libarchive.pc\\3")
+      end
     end
   end
 
@@ -80,5 +90,9 @@ class Vips < Formula
     # [palette] requires libimagequant, vips warns if it's not present
     cmd = "#{bin}/vips copy #{test_fixtures("test.png")} #{testpath}/test.png[palette] 2>&1"
     assert_equal "", shell_output(cmd)
+
+    # Make sure `pkg-config` can parse `vips.pc` and `vips-cpp.pc` after the `inreplace`.
+    system "pkg-config", "vips"
+    system "pkg-config", "vips-cpp"
   end
 end

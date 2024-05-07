@@ -6,32 +6,126 @@ class Cruft < Formula
   url "https://files.pythonhosted.org/packages/d8/59/bb9e052fba37972e4b27db74d0bc770bade501d48336dec3c89fe57e9513/cruft-2.15.0.tar.gz"
   sha256 "9802af66037418655e7e4b6f30b531591e0761939b3ff5dd45d27c3a3f588abe"
   license "MIT"
-  revision 5
+  revision 7
   head "https://github.com/cruft/cruft.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "557c20920b34919b1acc303a550f67e5197111a54920a93d7cec1820112a4abc"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "3d4f24153c2245770c2650cf3674c834c305ad38e0dac66bd8b767e2b9bfe8fb"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "3b85f1f4fab09015ae89cb63c79a65f24f1b2cc8c77baedf07b0b906e6cc9be5"
-    sha256 cellar: :any_skip_relocation, sonoma:         "47f16d1c7709a921bda8542fb82217b06503646d8a38445e6cd6e48c4ef00525"
-    sha256 cellar: :any_skip_relocation, ventura:        "339d30c7a708535daa26d0681ac9e4b5a7b84c495e9fc488233d5dc391a2d59c"
-    sha256 cellar: :any_skip_relocation, monterey:       "42089654b741fcef152cc2c37ccd5eb686453a4398231dcf49d49e50d7e93405"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "a08eae5f76ee5b4ae0061b567851dced87a28fdd4926ac1e7139f7e66aca617b"
+    sha256 cellar: :any,                 arm64_sonoma:   "97753e30167df2d948bcef45e37ba5b7dc9994327ccbb31e8433496355f35d20"
+    sha256 cellar: :any,                 arm64_ventura:  "00d7d8d99cb5d3b1dffa88a3d7b9457755cf88dc44869f0233373d2f6f086c73"
+    sha256 cellar: :any,                 arm64_monterey: "5c5e3022313378a0ed70928f25bf6fb4f3b1d80098e7fc12322c4ff20532f227"
+    sha256 cellar: :any,                 sonoma:         "30502babf273cef970520a01a5482c6b262baa0df7adf9cc1b37d3d52d4813af"
+    sha256 cellar: :any,                 ventura:        "3af04d152ca4c1e9120fb77b81e244e23ecb5e1554fc54f07707be0b6366f85b"
+    sha256 cellar: :any,                 monterey:       "6b16336b10c2f4fd1418b27f9c6c0056d998abd91f57b204e1f1636148724665"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "ffd9e7b8becfa5d3be635a1258fb43c167b43d8925a8424dc6c245420797f6c0"
   end
 
-  depends_on "cookiecutter"
-  depends_on "python-typing-extensions"
+  depends_on "certifi"
+  depends_on "libyaml"
   depends_on "python@3.12"
-  depends_on "six"
+
+  resource "arrow" do
+    url "https://files.pythonhosted.org/packages/2e/00/0f6e8fcdb23ea632c866620cc872729ff43ed91d284c866b515c6342b173/arrow-1.3.0.tar.gz"
+    sha256 "d4540617648cb5f895730f1ad8c82a65f2dad0166f57b75f3ca54759c4d67a85"
+  end
+
+  resource "binaryornot" do
+    url "https://files.pythonhosted.org/packages/a7/fe/7ebfec74d49f97fc55cd38240c7a7d08134002b1e14be8c3897c0dd5e49b/binaryornot-0.4.4.tar.gz"
+    sha256 "359501dfc9d40632edc9fac890e19542db1a287bbcfa58175b66658392018061"
+  end
+
+  resource "chardet" do
+    url "https://files.pythonhosted.org/packages/f3/0d/f7b6ab21ec75897ed80c17d79b15951a719226b9fababf1e40ea74d69079/chardet-5.2.0.tar.gz"
+    sha256 "1b3b6ff479a8c414bc3fa2c0852995695c4a026dcd6d0633b2dd092ca39c1cf7"
+  end
+
+  resource "charset-normalizer" do
+    url "https://files.pythonhosted.org/packages/63/09/c1bc53dab74b1816a00d8d030de5bf98f724c52c1635e07681d312f20be8/charset-normalizer-3.3.2.tar.gz"
+    sha256 "f30c3cb33b24454a82faecaf01b19c18562b1e89558fb6c56de4d9118a032fd5"
+  end
+
+  resource "click" do
+    url "https://files.pythonhosted.org/packages/96/d3/f04c7bfcf5c1862a2a5b845c6b2b360488cf47af55dfa79c98f6a6bf98b5/click-8.1.7.tar.gz"
+    sha256 "ca9853ad459e787e2192211578cc907e7594e294c7ccc834310722b41b9ca6de"
+  end
+
+  resource "cookiecutter" do
+    url "https://files.pythonhosted.org/packages/52/17/9f2cd228eb949a91915acd38d3eecdc9d8893dde353b603f0db7e9f6be55/cookiecutter-2.6.0.tar.gz"
+    sha256 "db21f8169ea4f4fdc2408d48ca44859349de2647fbe494a9d6c3edfc0542c21c"
+  end
 
   resource "gitdb" do
-    url "https://files.pythonhosted.org/packages/4b/47/dc98f3d5d48aa815770e31490893b92c5f1cd6c6cf28dd3a8ae0efffac14/gitdb-4.0.10.tar.gz"
-    sha256 "6eb990b69df4e15bad899ea868dc46572c3f75339735663b81de79b06f17eb9a"
+    url "https://files.pythonhosted.org/packages/19/0d/bbb5b5ee188dec84647a4664f3e11b06ade2bde568dbd489d9d64adef8ed/gitdb-4.0.11.tar.gz"
+    sha256 "bf5421126136d6d0af55bc1e7c1af1c397a34f5b7bd79e776cd3e89785c2b04b"
   end
 
   resource "gitpython" do
-    url "https://files.pythonhosted.org/packages/c6/33/5e633d3a8b3dbec3696415960ed30f6718ed04ef423ce0fbc6512a92fa9a/GitPython-3.1.37.tar.gz"
-    sha256 "f9b9ddc0761c125d5780eab2d64be4873fc6817c2899cbcb34b02344bdc7bc54"
+    url "https://files.pythonhosted.org/packages/b6/a1/106fd9fa2dd989b6fb36e5893961f82992cf676381707253e0bf93eb1662/GitPython-3.1.43.tar.gz"
+    sha256 "35f314a9f878467f5453cc1fee295c3e18e52f1b99f10f6cf5b1682e968a9e7c"
+  end
+
+  resource "idna" do
+    url "https://files.pythonhosted.org/packages/21/ed/f86a79a07470cb07819390452f178b3bef1d375f2ec021ecfc709fc7cf07/idna-3.7.tar.gz"
+    sha256 "028ff3aadf0609c1fd278d8ea3089299412a7a8b9bd005dd08b9f8285bcb5cfc"
+  end
+
+  resource "jinja2" do
+    url "https://files.pythonhosted.org/packages/b2/5e/3a21abf3cd467d7876045335e681d276ac32492febe6d98ad89562d1a7e1/Jinja2-3.1.3.tar.gz"
+    sha256 "ac8bd6544d4bb2c9792bf3a159e80bba8fda7f07e81bc3aed565432d5925ba90"
+  end
+
+  resource "markdown-it-py" do
+    url "https://files.pythonhosted.org/packages/38/71/3b932df36c1a044d397a1f92d1cf91ee0a503d91e470cbd670aa66b07ed0/markdown-it-py-3.0.0.tar.gz"
+    sha256 "e3f60a94fa066dc52ec76661e37c851cb232d92f9886b15cb560aaada2df8feb"
+  end
+
+  resource "markupsafe" do
+    url "https://files.pythonhosted.org/packages/87/5b/aae44c6655f3801e81aa3eef09dbbf012431987ba564d7231722f68df02d/MarkupSafe-2.1.5.tar.gz"
+    sha256 "d283d37a890ba4c1ae73ffadf8046435c76e7bc2247bbb63c00bd1a709c6544b"
+  end
+
+  resource "mdurl" do
+    url "https://files.pythonhosted.org/packages/d6/54/cfe61301667036ec958cb99bd3efefba235e65cdeb9c84d24a8293ba1d90/mdurl-0.1.2.tar.gz"
+    sha256 "bb413d29f5eea38f31dd4754dd7377d4465116fb207585f97bf925588687c1ba"
+  end
+
+  resource "pygments" do
+    url "https://files.pythonhosted.org/packages/55/59/8bccf4157baf25e4aa5a0bb7fa3ba8600907de105ebc22b0c78cfbf6f565/pygments-2.17.2.tar.gz"
+    sha256 "da46cec9fd2de5be3a8a784f434e4c4ab670b4ff54d605c4c2717e9d49c4c367"
+  end
+
+  resource "python-dateutil" do
+    url "https://files.pythonhosted.org/packages/66/c0/0c8b6ad9f17a802ee498c46e004a0eb49bc148f2fd230864601a86dcf6db/python-dateutil-2.9.0.post0.tar.gz"
+    sha256 "37dd54208da7e1cd875388217d5e00ebd4179249f90fb72437e91a35459a0ad3"
+  end
+
+  resource "python-slugify" do
+    url "https://files.pythonhosted.org/packages/87/c7/5e1547c44e31da50a460df93af11a535ace568ef89d7a811069ead340c4a/python-slugify-8.0.4.tar.gz"
+    sha256 "59202371d1d05b54a9e7720c5e038f928f45daaffe41dd10822f3907b937c856"
+  end
+
+  resource "pyyaml" do
+    url "https://files.pythonhosted.org/packages/cd/e5/af35f7ea75cf72f2cd079c95ee16797de7cd71f29ea7c68ae5ce7be1eda0/PyYAML-6.0.1.tar.gz"
+    sha256 "bfdf460b1736c775f2ba9f6a92bca30bc2095067b8a9d77876d1fad6cc3b4a43"
+  end
+
+  resource "requests" do
+    url "https://files.pythonhosted.org/packages/9d/be/10918a2eac4ae9f02f6cfe6414b7a155ccd8f7f9d4380d62fd5b955065c3/requests-2.31.0.tar.gz"
+    sha256 "942c5a758f98d790eaed1a29cb6eefc7ffb0d1cf7af05c3d2791656dbd6ad1e1"
+  end
+
+  resource "rich" do
+    url "https://files.pythonhosted.org/packages/b3/01/c954e134dc440ab5f96952fe52b4fdc64225530320a910473c1fe270d9aa/rich-13.7.1.tar.gz"
+    sha256 "9be308cb1fe2f1f57d67ce99e95af38a1e2bc71ad9813b0e247cf7ffbcc3a432"
+  end
+
+  resource "shellingham" do
+    url "https://files.pythonhosted.org/packages/58/15/8b3609fd3830ef7b27b655beb4b4e9c62313a4e8da8c676e142cc210d58e/shellingham-1.5.4.tar.gz"
+    sha256 "8dbca0739d487e5bd35ab3ca4b36e11c4078f3a234bfce294b0a0291363404de"
+  end
+
+  resource "six" do
+    url "https://files.pythonhosted.org/packages/71/39/171f1c67cd00715f190ba0b100d606d440a28c93c7714febeca8b79af85e/six-1.16.0.tar.gz"
+    sha256 "1e61c37477a1626458e36f7b1d82aa5c9b094fa4802892072e49de9c60c4c926"
   end
 
   resource "smmap" do
@@ -39,22 +133,33 @@ class Cruft < Formula
     sha256 "dceeb6c0028fdb6734471eb07c0cd2aae706ccaecab45965ee83f11c8d3b1f62"
   end
 
-  resource "typer" do
-    url "https://files.pythonhosted.org/packages/5b/49/39f10d0f75886439ab3dac889f14f8ad511982a754e382c9b6ca895b29e9/typer-0.9.0.tar.gz"
-    sha256 "50922fd79aea2f4751a8e0408ff10d2662bd0c8bbfa84755a699f3bada2978b2"
+  resource "text-unidecode" do
+    url "https://files.pythonhosted.org/packages/ab/e2/e9a00f0ccb71718418230718b3d900e71a5d16e701a3dae079a21e9cd8f8/text-unidecode-1.3.tar.gz"
+    sha256 "bad6603bb14d279193107714b288be206cac565dfa49aa5b105294dd5c4aab93"
   end
 
-  def python3
-    which("python3.12")
+  resource "typer" do
+    url "https://files.pythonhosted.org/packages/ac/0a/d55af35db5f50f486e3eda0ada747eed773859e2699d3ce570b682a9b70a/typer-0.12.3.tar.gz"
+    sha256 "49e73131481d804288ef62598d97a1ceef3058905aa536a1134f90891ba35482"
+  end
+
+  resource "types-python-dateutil" do
+    url "https://files.pythonhosted.org/packages/61/c5/c3a4d72ffa8efc2e78f7897b1c69ec760553246b67d3ce8c4431fac5d4e3/types-python-dateutil-2.9.0.20240316.tar.gz"
+    sha256 "5d2f2e240b86905e40944dd787db6da9263f0deabef1076ddaed797351ec0202"
+  end
+
+  resource "typing-extensions" do
+    url "https://files.pythonhosted.org/packages/f6/f3/b827b3ab53b4e3d8513914586dcca61c355fa2ce8252dea4da56e67bf8f2/typing_extensions-4.11.0.tar.gz"
+    sha256 "83f085bd5ca59c80295fc2a82ab5dac679cbe02b9f33f7d83af68e241bea51b0"
+  end
+
+  resource "urllib3" do
+    url "https://files.pythonhosted.org/packages/7a/50/7fd50a27caa0652cd4caf224aa87741ea41d3265ad13f010886167cfcc79/urllib3-2.2.1.tar.gz"
+    sha256 "d0570876c61ab9e520d776c38acbbb5b05a776d3f9ff98a5c8fd5162a444cf19"
   end
 
   def install
     virtualenv_install_with_resources
-
-    # we depend on cookiecutter, but that's a separate formula, so install a `.pth` file to link them
-    site_packages = Language::Python.site_packages(python3)
-    cookiecutter = Formula["cookiecutter"].opt_libexec
-    (libexec/site_packages/"homebrew-cookiecutter.pth").write cookiecutter/site_packages
   end
 
   test do

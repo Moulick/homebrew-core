@@ -3,18 +3,18 @@ require "language/node"
 class LeappCli < Formula
   desc "Cloud credentials manager cli"
   homepage "https://github.com/noovolari/leapp"
-  url "https://registry.npmjs.org/@noovolari/leapp-cli/-/leapp-cli-0.1.46.tgz"
-  sha256 "543b6f30202c6c0f7ca7b146b64273286a57e2dac87d4c99a8303d404a9e5796"
+  url "https://registry.npmjs.org/@noovolari/leapp-cli/-/leapp-cli-0.1.65.tgz"
+  sha256 "a770256e2ce62f08c17650a30e785e46f92e7acb03e2bcbdec949054467b711c"
   license "MPL-2.0"
 
   bottle do
-    sha256                               arm64_sonoma:   "18c68ab6d6a4840b292da793908fe39939fb2b61a565fc86a4941cffa6986fdd"
-    sha256                               arm64_ventura:  "d57bf66c43f5c65d4327297d3870ad3f062f508b5547e0b4bcdec22bc8b63a28"
-    sha256                               arm64_monterey: "f17d598bca1150d307b0d6a40cdd3cfb73fc0bff5c798eb2f53ffa2df0d19fdc"
-    sha256                               sonoma:         "b1acf5dec524a30bc85af01fa8c32696172a48ffbc3bdbb8402a1383ab030556"
-    sha256                               ventura:        "6bdefc141baa7d4c1e91f0c69fc2eb9a19d29a58e2a45614d1e02631445d94e4"
-    sha256                               monterey:       "6248c6aef75d8d0155c4819429d1ae95a05ae1e5de17c36e3d9746ebf035de0e"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "489da79d90f5555765fa5ceaffa139531017cbb9b1b8f00146228d5d943115d7"
+    sha256                               arm64_sonoma:   "95490933985ac191a11b046a2b032858a03cfd4994342fc65a5736d7d9dcc4e7"
+    sha256                               arm64_ventura:  "08d47e74e06f75c3619d703f29ff8ca67f408a1f2c0c9852f5dcb24a9c66e792"
+    sha256                               arm64_monterey: "5bd83996ed049cc64b2117d7fc4cdd71bd1e0bf401b27bdd5ee0d418657a7193"
+    sha256                               sonoma:         "2d903ae070c2a5dec9c800fa5aec0f05a8b65b08c44556ab283cad5062cc56c3"
+    sha256                               ventura:        "4041465dd93d488dcf06ecf6b0c9bb2835a84b1d8cdd1dc3f9996c014f9e44c7"
+    sha256                               monterey:       "b1e27f9ef7df7dc07dc2de94a7e16d7a0f6610115eb348e045f42f02ae475865"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "e6314712fa2196365e54d599f2482707af827774256690a328921deb1e3fc867"
   end
 
   depends_on "pkg-config" => :build
@@ -23,6 +23,7 @@ class LeappCli < Formula
   uses_from_macos "python" => :build
 
   on_linux do
+    depends_on "python-setuptools" => :build
     depends_on "libsecret"
   end
 

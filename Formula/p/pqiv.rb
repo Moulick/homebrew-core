@@ -1,22 +1,19 @@
 class Pqiv < Formula
   desc "Powerful image viewer with minimal UI"
   homepage "https://github.com/phillipberndt/pqiv"
-  url "https://github.com/phillipberndt/pqiv/archive/refs/tags/2.12.tar.gz"
-  sha256 "1538128c88a70bbad2b83fbde327d83e4df9512a2fb560eaf5eaf1d8df99dbe5"
-  license "GPL-3.0"
-  revision 6
+  url "https://github.com/phillipberndt/pqiv/archive/refs/tags/2.13.1.tar.gz"
+  sha256 "1db8567f75884dfc5dd41208f309b11e4e4ca48ecad537915885b64aa03857a4"
+  license "GPL-3.0-or-later"
   head "https://github.com/phillipberndt/pqiv.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any,                 arm64_sonoma:   "fb41bbf298991047ee6e1d3aa72c6b3d7596c324204b247ab077d76b89cb0334"
-    sha256 cellar: :any,                 arm64_ventura:  "bd472d3115ae616771f87e49202dc724acab4fadc1e4160ee482b7732e469a33"
-    sha256 cellar: :any,                 arm64_monterey: "33b25feb413e20e9251f8894a9ed0bfbcf976e9fef69924346abaa6ef5dd9a32"
-    sha256 cellar: :any,                 arm64_big_sur:  "592107c51d103ec69e312593833579975bccbee9b36390fe37f4234340755731"
-    sha256 cellar: :any,                 sonoma:         "32dfc4568e3a0b82a3e5af35922b2c775d4d76819e33da123628086b12a5317b"
-    sha256 cellar: :any,                 ventura:        "02dcebc9faa615cb079ca3b471da4e892c780b4e0d2e685c6bae3b1c02f543a2"
-    sha256 cellar: :any,                 monterey:       "7a75809c729c1ec7a3e71a94f26de9976f71142b2998edbe5187797646cb1e5b"
-    sha256 cellar: :any,                 big_sur:        "577abb3ab63808e9080afd934bc99bdb305cefd0ee10494b18a2d95e3c48d960"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "d1779c1c2f24884cb7be8cdba82378bee96cf9941a4d51aa7e0268515f489834"
+    sha256 cellar: :any,                 arm64_sonoma:   "e6f3087028f4d04ca7347ebb3148ce7929c4a57800ff39fe68551cfa63ad9203"
+    sha256 cellar: :any,                 arm64_ventura:  "53e710b8e390c8c337300c6e19a4bd733cf633f338b109c00660d09e12c99c9a"
+    sha256 cellar: :any,                 arm64_monterey: "3ae1a16b54299b2dd3da5a4acf2d6281ebedff149b10465f5c740fe7701498a6"
+    sha256 cellar: :any,                 sonoma:         "bad2754af3a373e363387c9d191729f5a355c63a483d3265656a335098b40980"
+    sha256 cellar: :any,                 ventura:        "5fad3776b05dbb2efd7fb21bbb79259da1c3a54b994e7a3dcbc5525769167faf"
+    sha256 cellar: :any,                 monterey:       "fe3a78c6d3cbe81e5ed5914dcfba29048cab230373a617e07b4ab9c71697e91c"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "768372bfe3a90bed0b57dd04f48e018c0fca37207519fd103b520deb0accf4e5"
   end
 
   depends_on "pkg-config" => :build

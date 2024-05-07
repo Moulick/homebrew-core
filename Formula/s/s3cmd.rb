@@ -3,24 +3,23 @@ class S3cmd < Formula
 
   desc "Command-line tool for the Amazon S3 service"
   homepage "https://s3tools.org/s3cmd"
-  url "https://files.pythonhosted.org/packages/97/10/5ae9b5c69d0482dda2927c67a4db26a3e9e064964577a81be9239a419b3f/s3cmd-2.3.0.tar.gz"
-  sha256 "15330776e7ff993d8ae0ac213bf896f210719e9b91445f5f7626a8fa7e74e30b"
+  url "https://files.pythonhosted.org/packages/b3/9c/ad4cd51328bd7a058bfda6739bc061c63ee3531ad2fbc6e672518a1eed01/s3cmd-2.4.0.tar.gz"
+  sha256 "6b567521be1c151323f2059c8feec85ded96b6f184ff80535837fea33798b40b"
   license "GPL-2.0-or-later"
+  revision 1
   head "https://github.com/s3tools/s3cmd.git", branch: "master"
 
   bottle do
-    rebuild 2
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "49c063c7d2a9ebf7ac266f11525017060f22663920a73720956c849ff6dc5dd1"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "9bba070e3a04a80a8004e89aa7e97d765ddd226105bd8f9bb05bb9f440f2d1d0"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "a85c3ca73d459db2aefe03eb0eb2f18ddf2910288fe50517ec41802cd6b6964d"
-    sha256 cellar: :any_skip_relocation, sonoma:         "e127cee8042729628fdfd70c6e122182e1a855ee7a2173be63629ca17b5a5e38"
-    sha256 cellar: :any_skip_relocation, ventura:        "44621e3c588d8d9933fc542f5fee916ca68930fa9c4d5406555fae6c01461c11"
-    sha256 cellar: :any_skip_relocation, monterey:       "d8fb2514382324799db5a36644469aa64905008a72713774493e814da5706ed9"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "9785c7ced06c286975b392882d054a445556ce494d3f0f6c68838b7ac937fdfc"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "cb8d82a6476daf7e1069516fc934dfdafde4efb90c5b8dc6cc611d312d2910d0"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "4b5e0b92c1081b0b87818b8a6550c7bfba1352af37b8472e71f22912c9c1116a"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "098c363759f09a7beb68b69601b83fd94d4a41cdc5a2dac1d591ebf635d0c03d"
+    sha256 cellar: :any_skip_relocation, sonoma:         "6feed405fafd7adc8d59b976fd079d06b00cf8d4d5cbfe1f662ca2268f84a358"
+    sha256 cellar: :any_skip_relocation, ventura:        "fdfd52a2bccbe6d41e7b5d81deb24a0b64d34030f374db37a3ca3a1c47e0a03c"
+    sha256 cellar: :any_skip_relocation, monterey:       "10fc03d1017f9455592e87d770033594252b0bec8b07c881d9f55e3979ef6a42"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "f61705a20689c0d6ba5480e0fc15970a4951fbdb74e1cb124a81ca047d641fc0"
   end
 
   depends_on "python@3.12"
-  depends_on "six"
 
   resource "python-dateutil" do
     url "https://files.pythonhosted.org/packages/4c/c4/13b4776ea2d76c115c1d1b84579f3764ee6d57204f6be27119f13a61d0a9/python-dateutil-2.8.2.tar.gz"
@@ -32,9 +31,13 @@ class S3cmd < Formula
     sha256 "c1ba14b08e4a5f5c31a302b7721239695b2f0f058d125bd5ce1ee36b9d9d3c3b"
   end
 
+  resource "six" do
+    url "https://files.pythonhosted.org/packages/71/39/171f1c67cd00715f190ba0b100d606d440a28c93c7714febeca8b79af85e/six-1.16.0.tar.gz"
+    sha256 "1e61c37477a1626458e36f7b1d82aa5c9b094fa4802892072e49de9c60c4c926"
+  end
+
   def install
-    ENV["S3CMD_INSTPATH_MAN"] = man
-    virtualenv_install_with_resources
+    virtualenv_install_with_resources(link_manpages: true)
   end
 
   test do

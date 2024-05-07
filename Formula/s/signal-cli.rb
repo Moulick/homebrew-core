@@ -1,18 +1,18 @@
 class SignalCli < Formula
   desc "CLI and dbus interface for WhisperSystems/libsignal-service-java"
   homepage "https://github.com/AsamK/signal-cli"
-  url "https://github.com/AsamK/signal-cli/archive/refs/tags/v0.12.4.tar.gz"
-  sha256 "d9aab61f1c0e08e55e0d72a3aeb8b8479aeb02c21d0490b9b2bf1f5167d1b402"
+  url "https://github.com/AsamK/signal-cli/archive/refs/tags/v0.13.3.tar.gz"
+  sha256 "21fafbe086617446f690fcb3f7e591a334b6f3096b2e91a508ba384c2434bbd7"
   license "GPL-3.0-or-later"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "d77a6f5fcb24943a8008b514d608f7c42d6d750522c07ce2c8e5bae8cc470546"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "0583af1b4ed13feaf63389a668e18f1925c1ad3271928cf7ad62bd2ed1eaa4e8"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "22e543a9d6430b49c43c8aadfb3aaca182e9d25aba1f939d4bb40b4042329b3d"
-    sha256 cellar: :any_skip_relocation, sonoma:         "2250862bdee9bc3c2fc7841f424a182b64574bd2664e5f6d72e8647f2cdde8f9"
-    sha256 cellar: :any_skip_relocation, ventura:        "45deed292ad1a70dad9ab624c39ab148ebf1c2a9ce42e14bda7fdfe1c4b3e710"
-    sha256 cellar: :any_skip_relocation, monterey:       "94a2c4a5ece9ddd9d48f36f188fa1baee07870efdffdf15b5756b62bc0410f17"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "16c56075d294e73cdb51e75a8b622e1edef90dbd0998210ebc279df82496b8cf"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "6d57107d132ff001a1d26c625ce371ca3da11e5ae15c5d129a26c0027feb7e87"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "3e6fda8d17b1573470a1d2e8cb3516305f5cc0834861d2e9932d56c204820e4e"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "8df84f15cc5f5e8e420d0aee06814c444228eba12b49f9cd6f7f69fb82524484"
+    sha256 cellar: :any_skip_relocation, sonoma:         "e4164974e77367ae224360dc932fdfaa9fe3d165214a8784fe5cbffcdd17df3b"
+    sha256 cellar: :any_skip_relocation, ventura:        "2af2d6340db1b52eb0dbb821c9b45f0bfaa56036bc079fb176ab32bb8834a2ef"
+    sha256 cellar: :any_skip_relocation, monterey:       "7a21c4ed4a629fe24dc581570cbe8906c3d542e3d32dfeb3bcf871d49218c97f"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "0ac584482c9122716f6d63984b93a1caf042e53c6e93503ce5c462782b6659e7"
   end
 
   depends_on "cmake" => :build # For `boring-sys` crate in `libsignal-client`
@@ -34,8 +34,8 @@ class SignalCli < Formula
   # url=https://github.com/AsamK/signal-cli/releases/download/v$version/signal-cli-$version.tar.gz
   # curl -fsSL $url | tar -tz | grep libsignal-client
   resource "libsignal-client" do
-    url "https://github.com/signalapp/libsignal/archive/refs/tags/v0.32.1.tar.gz"
-    sha256 "4751e197d798555c6e8c9a869c41692ed3c72a4d34738c28c6f6a1761044e777"
+    url "https://github.com/signalapp/libsignal/archive/refs/tags/v0.44.0.tar.gz"
+    sha256 "267d56e543b85d669fdea1036d624ec320e982c2c3abf1f48b319b1d503da4ca"
   end
 
   def install

@@ -3,10 +3,10 @@ class ZabbixCli < Formula
 
   desc "CLI tool for interacting with Zabbix monitoring system"
   homepage "https://github.com/unioslo/zabbix-cli/"
-  url "https://github.com/unioslo/zabbix-cli/archive/refs/tags/2.3.1.tar.gz"
-  sha256 "1d6de0486a5cd6b4fdd53c35810bd14e423ed039ed7ad0865ea08f6082309564"
+  url "https://github.com/unioslo/zabbix-cli/archive/refs/tags/2.3.2.tar.gz"
+  sha256 "e56b6be1c13c42c516c8e8e6b01948fc81591eae83f8babb7bee6d2025299c26"
   license "GPL-3.0-or-later"
-  revision 4
+  revision 1
   head "https://github.com/unioslo/zabbix-cli.git", branch: "master"
 
   livecheck do
@@ -15,26 +15,31 @@ class ZabbixCli < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "642ffe700f81b54022cd4498af1dc1e5d82f8ee7c408b633c438ac1ca3b818dc"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "703124d0588e3ce655d2a3519a556c39547e8fb72751c6bca9ecb40d71e56cbe"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "139cba1805f28b7d8667fc78aa5a2647b6cb6b66bfc8c593a21f8bbf55993d4c"
-    sha256 cellar: :any_skip_relocation, sonoma:         "14509f5004c729fe5a9e68a683c2cab5172b6f50424dca819e6943dff9f2fbd8"
-    sha256 cellar: :any_skip_relocation, ventura:        "c7e1101ab39e7bb2a466aa21fdff21dacaf81a2ed6353dee127d64d5a5ecb6d9"
-    sha256 cellar: :any_skip_relocation, monterey:       "34d01b3935aeba3bcd27d3754b1f848bfef4dfc920e083b090aa079094fc757d"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "4e755c98bf015c689e0b3b2b88e077cd37cf225d6c91f89b9fafd0782e950100"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "75b5d2f0fb2f450c0042a60bd5b4db76f5fdea1c90fcb074e2714388d41caeee"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "75b5d2f0fb2f450c0042a60bd5b4db76f5fdea1c90fcb074e2714388d41caeee"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "75b5d2f0fb2f450c0042a60bd5b4db76f5fdea1c90fcb074e2714388d41caeee"
+    sha256 cellar: :any_skip_relocation, sonoma:         "75b5d2f0fb2f450c0042a60bd5b4db76f5fdea1c90fcb074e2714388d41caeee"
+    sha256 cellar: :any_skip_relocation, ventura:        "75b5d2f0fb2f450c0042a60bd5b4db76f5fdea1c90fcb074e2714388d41caeee"
+    sha256 cellar: :any_skip_relocation, monterey:       "75b5d2f0fb2f450c0042a60bd5b4db76f5fdea1c90fcb074e2714388d41caeee"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "c307e31ab4dbae73849a2fe4915f72753b7cde2a75ba567481937fa0b3dfee2c"
   end
 
-  depends_on "python-certifi"
+  depends_on "certifi"
   depends_on "python@3.12"
 
   resource "charset-normalizer" do
-    url "https://files.pythonhosted.org/packages/cf/ac/e89b2f2f75f51e9859979b56d2ec162f7f893221975d244d8d5277aa9489/charset-normalizer-3.3.0.tar.gz"
-    sha256 "63563193aec44bce707e0c5ca64ff69fa72ed7cf34ce6e11d5127555756fd2f6"
+    url "https://files.pythonhosted.org/packages/63/09/c1bc53dab74b1816a00d8d030de5bf98f724c52c1635e07681d312f20be8/charset-normalizer-3.3.2.tar.gz"
+    sha256 "f30c3cb33b24454a82faecaf01b19c18562b1e89558fb6c56de4d9118a032fd5"
   end
 
   resource "idna" do
-    url "https://files.pythonhosted.org/packages/8b/e1/43beb3d38dba6cb420cefa297822eac205a277ab43e5ba5d5c46faf96438/idna-3.4.tar.gz"
-    sha256 "814f528e8dead7d329833b91c5faa87d60bf71824cd12a7530b5526063d02cb4"
+    url "https://files.pythonhosted.org/packages/21/ed/f86a79a07470cb07819390452f178b3bef1d375f2ec021ecfc709fc7cf07/idna-3.7.tar.gz"
+    sha256 "028ff3aadf0609c1fd278d8ea3089299412a7a8b9bd005dd08b9f8285bcb5cfc"
+  end
+
+  resource "packaging" do
+    url "https://files.pythonhosted.org/packages/ee/b5/b43a27ac7472e1818c4bafd44430e69605baefe1f34440593e0332ec8b4d/packaging-24.0.tar.gz"
+    sha256 "eb82c5e3e56209074766e6885bb04b8c38a0c015d0a30036ebe7ece34c9989e9"
   end
 
   resource "requests" do
@@ -43,8 +48,8 @@ class ZabbixCli < Formula
   end
 
   resource "urllib3" do
-    url "https://files.pythonhosted.org/packages/af/47/b215df9f71b4fdba1025fc05a77db2ad243fa0926755a52c5e71659f4e3c/urllib3-2.0.7.tar.gz"
-    sha256 "c97dfde1f7bd43a71c8d2a58e369e9b2bf692d1334ea9f9cae55add7d0dd0f84"
+    url "https://files.pythonhosted.org/packages/7a/50/7fd50a27caa0652cd4caf224aa87741ea41d3265ad13f010886167cfcc79/urllib3-2.2.1.tar.gz"
+    sha256 "d0570876c61ab9e520d776c38acbbb5b05a776d3f9ff98a5c8fd5162a444cf19"
   end
 
   def install

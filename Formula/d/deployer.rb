@@ -1,17 +1,15 @@
 class Deployer < Formula
   desc "Deployment tool written in PHP with support for popular frameworks"
   homepage "https://deployer.org/"
-  url "https://github.com/deployphp/deployer/releases/download/v7.3.2/deployer.phar"
-  sha256 "ed2cd6b685c25e094c30b9cbfccb3b798459c05e4f7df924332a49d80dafbee7"
+  url "https://github.com/deployphp/deployer/releases/download/v7.4.0/deployer.phar"
+  sha256 "6321441f8b7377881a0524a4ef5fc8a5f7c414ca1377f5aba9effd15146e6be1"
   license "MIT"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, all: "e99a14e01b2aaca3b39223e67f9141339c0b068b3eb5ce7a5bec899903cbb4e3"
+    sha256 cellar: :any_skip_relocation, all: "c1fa14ea13cbf8b9956d3aa64b87526123106f947688588a8f3876d9102ecbcc"
   end
 
   depends_on "php"
-
-  conflicts_with "dep", because: "both install `dep` binaries"
 
   def install
     bin.install "deployer.phar" => "dep"

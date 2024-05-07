@@ -1,20 +1,18 @@
 class Secp256k1 < Formula
   desc "Optimized C library for EC operations on curve secp256k1"
   homepage "https://github.com/bitcoin-core/secp256k1"
-  url "https://github.com/bitcoin-core/secp256k1/archive/refs/tags/v0.4.0.tar.gz"
-  sha256 "d7c956606e7f52b7703fd2967cb31d2e21ec90c0b440ff1cc7c7d764a4092b98"
+  url "https://github.com/bitcoin-core/secp256k1/archive/refs/tags/v0.5.0.tar.gz"
+  sha256 "07934fde88c677abbc4d42c36ef7ef8d3850cd0c065e4f976f66f4f97502c95a"
   license "MIT"
 
   bottle do
-    sha256 cellar: :any,                 arm64_sonoma:   "0c1d369fabdca254603e1f0381a7c8d7465dc90684ea440f07454c9ecd5d9762"
-    sha256 cellar: :any,                 arm64_ventura:  "b8052ad2c3cf363619c481e08ace05aa608524c393a371739877b7cd49644204"
-    sha256 cellar: :any,                 arm64_monterey: "f680e1d8c031b995c3311e45af700851dd48e1e8bb0f6853d31937fa77437234"
-    sha256 cellar: :any,                 arm64_big_sur:  "1f375a5c53f753b0a769a6f5f86dc7b18f6e689e1f452ce495a50cf2135e4d16"
-    sha256 cellar: :any,                 sonoma:         "7a5d2678bbea5a24f36ae4ee56664ac577f6c51081bebab3943a29906259d381"
-    sha256 cellar: :any,                 ventura:        "f844e97ab346d800b0e4b27697788e90fc1df03f23bd557c2bc2ace431aac74a"
-    sha256 cellar: :any,                 monterey:       "e1a96645352094a69c55ca5549b83252dc9166c8492756e79b9db7ce971a8b8b"
-    sha256 cellar: :any,                 big_sur:        "3bf4f57e1445c953e6e2446e9d18f33c9ae6349a850f01d806b3139597abce65"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "4d7c64f8408205f74592dac509f55dae6c896a036c8fd58ba3ff2c67d14edb50"
+    sha256 cellar: :any,                 arm64_sonoma:   "93eee8b392a8688a7bc5c9d4aaa28f118919c87d4deadebe840006e4962f13de"
+    sha256 cellar: :any,                 arm64_ventura:  "b63f652b4fafc0fdbcb6eb19a2648fb23050dc4261338d5adca96374e33f6075"
+    sha256 cellar: :any,                 arm64_monterey: "ade0ac4f6b18b4c15ccd6daad9049d999a12252510863e7bc9cf418cdbf6c449"
+    sha256 cellar: :any,                 sonoma:         "5683c21ad03defb496ecbd4c25678ae41a835aa0f2ac1672fd1a5f30a892e07c"
+    sha256 cellar: :any,                 ventura:        "4bb4dc07b5fc6bde6b609eff5e65cfb5b5b2065a82b3c7629917ec605852ac87"
+    sha256 cellar: :any,                 monterey:       "e516724759530edee3ed7e31db0223af90f6bb23de976ecac0b0289f6064474f"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "09b5d55719eee2b055c887ab7332093c075462d0bb18ba392fe2baf1c41eec78"
   end
 
   depends_on "autoconf" => [:build]

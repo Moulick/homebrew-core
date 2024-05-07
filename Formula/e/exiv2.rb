@@ -1,30 +1,30 @@
 class Exiv2 < Formula
   desc "EXIF and IPTC metadata manipulation library and tools"
   homepage "https://exiv2.org/"
-  url "https://github.com/Exiv2/exiv2/releases/download/v0.27.6/exiv2-0.27.6-Source.tar.gz"
-  sha256 "4c192483a1125dc59a3d70b30d30d32edace9e14adf52802d2f853abf72db8a6"
+  url "https://github.com/Exiv2/exiv2/archive/refs/tags/v0.28.2.tar.gz"
+  sha256 "543bead934135f20f438e0b6d8858c55c5fcb7ff80f5d1d55489965f1aad58b9"
   license "GPL-2.0-or-later"
   head "https://github.com/Exiv2/exiv2.git", branch: "main"
 
   livecheck do
-    url "https://exiv2.org/download.html"
-    regex(/href=.*?exiv2[._-]v?(\d+(?:\.\d+)+)-Source\.t/i)
+    url :stable
+    regex(/^v?(\d+(?:\.\d+)+)$/i)
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_sonoma:   "df28a8d73ace94bf7eec6870222375b91d567fd210a863dac0d6935fc92d4cbd"
-    sha256 cellar: :any,                 arm64_ventura:  "b8bf182b90d97afa7440cd1614a51b48c6a1a3b43ac7d5c4ac6013ab80fb1137"
-    sha256 cellar: :any,                 arm64_monterey: "333f89f2cf93031046718a29a228050d431272e818fe1d89687c3e1981b23884"
-    sha256 cellar: :any,                 arm64_big_sur:  "151aeb245e05e2e0a8f46da4979d0233a5820aea34e22fe191913f5499c259db"
-    sha256 cellar: :any,                 sonoma:         "30083e09e6cd35bca0141e3efcee36b4b599ceefeae1b9b71b3a6e9c846cbbe0"
-    sha256 cellar: :any,                 ventura:        "22a09bf8a504f1ec3c19c4e7e52c47615c37412a8acdd4ec13dddac767f54b79"
-    sha256 cellar: :any,                 monterey:       "80c73e17a8d67741cf13b02959f1fcbe09c64126c469c465a8fa101907c22b9c"
-    sha256 cellar: :any,                 big_sur:        "878bfea27f1f04e01bbeca7203f26a7732cece76cfebf6d1a2b6a71fade9d13b"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "d7613f59e7848995120cf631b90509f45628195a9c18882464594a791f311dd2"
+    sha256 cellar: :any,                 arm64_sonoma:   "ca780563ba656cfc99b0ed142f06d54d26c1ece6d7c6f8e51a4e82163afd3acb"
+    sha256 cellar: :any,                 arm64_ventura:  "9282cad50a3a70ae91e50c67a553745a3e6a8660bb59d258d6c9310eee540124"
+    sha256 cellar: :any,                 arm64_monterey: "99c6f4a05e07799254abbc5b8d86cf680ce0c50f9bc6610491641a16a9f29c3f"
+    sha256 cellar: :any,                 sonoma:         "57d8bdc1c1e4af2f00038a4493c6ed2d65997c6a736e9748c4cc0cca7c2df148"
+    sha256 cellar: :any,                 ventura:        "ab4457297c5b7b439867aec8cf85278ccd98a3fa893b1f898c923ca6dbdc3d35"
+    sha256 cellar: :any,                 monterey:       "8addc4911d8cac340c27b3837ebd618b96888b622f9cbcb35a9e453485652f61"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "5be1cbbf90f04a517dbdb9e8499a877c98714eb3c9da5945c2bead7f87005aae"
   end
 
   depends_on "cmake" => :build
+  depends_on "brotli"
   depends_on "gettext"
+  depends_on "inih"
   depends_on "libssh"
 
   uses_from_macos "curl"
@@ -32,8 +32,7 @@ class Exiv2 < Formula
   uses_from_macos "zlib"
 
   def install
-    args = std_cmake_args
-    args += %W[
+    args = %W[
       -DEXIV2_ENABLE_XMP=ON
       -DEXIV2_ENABLE_VIDEO=ON
       -DEXIV2_ENABLE_PNG=ON
@@ -51,10 +50,10 @@ class Exiv2 < Formula
       -DCMAKE_INSTALL_NAME_DIR:STRING=#{lib}
       ..
     ]
-    mkdir "build.cmake" do
-      system "cmake", "-G", "Unix Makefiles", ".", *args
-      system "make", "install"
-    end
+
+    system "cmake", "-G", "Unix Makefiles", "-S", ".", "-B", "build", *args, *std_cmake_args
+    system "cmake", "--build", "build"
+    system "cmake", "--install", "build"
   end
 
   test do

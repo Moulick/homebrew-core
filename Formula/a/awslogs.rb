@@ -3,70 +3,72 @@ class Awslogs < Formula
 
   desc "Simple command-line tool to read AWS CloudWatch logs"
   homepage "https://github.com/jorgebastida/awslogs"
-  url "https://files.pythonhosted.org/packages/96/7b/20bff9839d6679e25d989f94ca4320466ec94f3441972aadaafbad50560f/awslogs-0.14.0.tar.gz"
-  sha256 "1b249f87fa2adfae39b9867f3066ac00b9baf401f4783583ab28fcdea338f77e"
+  url "https://files.pythonhosted.org/packages/15/f5/8f3bd0f4a927b1fbb3a5e6a5b036f29e4263977fb167b301bc4a5f4db2b9/awslogs-0.15.0.tar.gz"
+  sha256 "19f223bb1c0703cea0689d94b1d293006529095e6ab8971f6b52289a2e545dd5"
   license "BSD-3-Clause"
-  revision 6
   head "https://github.com/jorgebastida/awslogs.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "ca809cd4df271013f3fc169597973c36a2da8aaad1acd013a0030aab9d5a5868"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "1c9ec5106527c47e249a8173243e6f551edc449bcd6bb1f29c5d06e9a0b39e35"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "c35238fd41e03a2adb0a739c86ec556bcd16028ac71c8e89c6dc1823efb0544e"
-    sha256 cellar: :any_skip_relocation, sonoma:         "373433c6c3d27903d791c8ef5b32ba533047bba9e048ac7f77d6cca9407cb7d6"
-    sha256 cellar: :any_skip_relocation, ventura:        "e0b25a41734af4ea468933040f13ee3fc605c5f95f52ca9fbc981e6e8a5b53dc"
-    sha256 cellar: :any_skip_relocation, monterey:       "f223d7f6fb309960d54dcc5f701125dc94103b256f9d17a73bdca6d8ff875117"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "6ebd0d7259d98e9f120fd2f4d1b0377b4c9e2a1bcd97e40cc24c0fd06795faf0"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "574d528a945eec8ffcd125b54a9931591f05993fff9ecb19aa88f9c97cb70bf6"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "574d528a945eec8ffcd125b54a9931591f05993fff9ecb19aa88f9c97cb70bf6"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "574d528a945eec8ffcd125b54a9931591f05993fff9ecb19aa88f9c97cb70bf6"
+    sha256 cellar: :any_skip_relocation, sonoma:         "574d528a945eec8ffcd125b54a9931591f05993fff9ecb19aa88f9c97cb70bf6"
+    sha256 cellar: :any_skip_relocation, ventura:        "574d528a945eec8ffcd125b54a9931591f05993fff9ecb19aa88f9c97cb70bf6"
+    sha256 cellar: :any_skip_relocation, monterey:       "574d528a945eec8ffcd125b54a9931591f05993fff9ecb19aa88f9c97cb70bf6"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "33fd557fb5360b143beb29bdf0df0e00f2fdd2552e8d7da85a8b3f7646f99c8f"
   end
 
-  depends_on "python-setuptools"
   depends_on "python@3.12"
-  depends_on "six"
 
   uses_from_macos "zlib"
 
   resource "boto3" do
-    url "https://files.pythonhosted.org/packages/1b/2f/4ccd05e765a9aa3222125da37ceced40b4133094069c4d011ca7ae37681f/boto3-1.28.65.tar.gz"
-    sha256 "9d52a1605657aeb5b19b09cfc01d9a92f88a616a5daf5479a59656d6341ea6b3"
+    url "https://files.pythonhosted.org/packages/50/71/4382017bf4ddb37250966b077e3347e944522873aea49de546053bbd71fb/boto3-1.34.75.tar.gz"
+    sha256 "eaec72fda124084105a31bcd67eafa1355b34df6da70cadae0c0f262d8a4294f"
   end
 
   resource "botocore" do
-    url "https://files.pythonhosted.org/packages/42/30/e5e2126eca77baedbf51e48241c898d99784d272bcf2fb47f5a10360e555/botocore-1.31.65.tar.gz"
-    sha256 "90716c6f1af97e5c2f516e9a3379767ebdddcc6cbed79b026fa5038ce4e5e43e"
+    url "https://files.pythonhosted.org/packages/8b/c0/14e3d01ff8a58adef587f032e04486cccb4e8137b132f65ddb8123c5578c/botocore-1.34.75.tar.gz"
+    sha256 "06113ee2587e6160211a6bd797e135efa6aa21b5bde97bf455c02f7dff40203c"
   end
 
   resource "jmespath" do
-    url "https://files.pythonhosted.org/packages/3c/56/3f325b1eef9791759784aa5046a8f6a1aff8f7c898a2e34506771d3b99d8/jmespath-0.10.0.tar.gz"
-    sha256 "b85d0567b8666149a93172712e68920734333c0ce7e89b78b3e987f71e5ed4f9"
+    url "https://files.pythonhosted.org/packages/00/2a/e867e8531cf3e36b41201936b7fa7ba7b5702dbef42922193f05c8976cd6/jmespath-1.0.1.tar.gz"
+    sha256 "90261b206d6defd58fdd5e85f478bf633a2901798906be2ad389150c5c60edbe"
   end
 
   resource "python-dateutil" do
-    url "https://files.pythonhosted.org/packages/4c/c4/13b4776ea2d76c115c1d1b84579f3764ee6d57204f6be27119f13a61d0a9/python-dateutil-2.8.2.tar.gz"
-    sha256 "0123cacc1627ae19ddf3c27a5de5bd67ee4586fbdd6440d9748f8abb483d3e86"
+    url "https://files.pythonhosted.org/packages/66/c0/0c8b6ad9f17a802ee498c46e004a0eb49bc148f2fd230864601a86dcf6db/python-dateutil-2.9.0.post0.tar.gz"
+    sha256 "37dd54208da7e1cd875388217d5e00ebd4179249f90fb72437e91a35459a0ad3"
   end
 
   resource "s3transfer" do
-    url "https://files.pythonhosted.org/packages/3f/ff/5fd9375f3fe467263cff9cad9746fd4c4e1399440ea9563091c958ff90b5/s3transfer-0.7.0.tar.gz"
-    sha256 "fd3889a66f5fe17299fe75b82eae6cf722554edca744ca5d5fe308b104883d2e"
+    url "https://files.pythonhosted.org/packages/83/bc/fb0c1f76517e3380eb142af8a9d6b969c150cfca1324cea7d965d8c66571/s3transfer-0.10.1.tar.gz"
+    sha256 "5683916b4c724f799e600f41dd9e10a9ff19871bf87623cc8f491cb4f5fa0a19"
+  end
+
+  resource "six" do
+    url "https://files.pythonhosted.org/packages/71/39/171f1c67cd00715f190ba0b100d606d440a28c93c7714febeca8b79af85e/six-1.16.0.tar.gz"
+    sha256 "1e61c37477a1626458e36f7b1d82aa5c9b094fa4802892072e49de9c60c4c926"
   end
 
   resource "termcolor" do
-    url "https://files.pythonhosted.org/packages/b8/85/147a0529b4e80b6b9d021ca8db3a820fcac53ec7374b87073d004aaf444c/termcolor-2.3.0.tar.gz"
-    sha256 "b5b08f68937f138fe92f6c089b99f1e2da0ae56c52b78bf7075fd95420fd9a5a"
+    url "https://files.pythonhosted.org/packages/10/56/d7d66a84f96d804155f6ff2873d065368b25a07222a6fd51c4f24ef6d764/termcolor-2.4.0.tar.gz"
+    sha256 "aab9e56047c8ac41ed798fa36d892a37aca6b3e9159f3e0c24bc64a9b3ac7b7a"
   end
 
   resource "urllib3" do
-    url "https://files.pythonhosted.org/packages/af/47/b215df9f71b4fdba1025fc05a77db2ad243fa0926755a52c5e71659f4e3c/urllib3-2.0.7.tar.gz"
-    sha256 "c97dfde1f7bd43a71c8d2a58e369e9b2bf692d1334ea9f9cae55add7d0dd0f84"
+    url "https://files.pythonhosted.org/packages/7a/50/7fd50a27caa0652cd4caf224aa87741ea41d3265ad13f010886167cfcc79/urllib3-2.2.1.tar.gz"
+    sha256 "d0570876c61ab9e520d776c38acbbb5b05a776d3f9ff98a5c8fd5162a444cf19"
   end
 
   def install
-    inreplace "setup.py", ">=3.5.*", ">=3.5"
-
     virtualenv_install_with_resources
   end
 
   test do
-    assert_match version.to_s, shell_output("#{bin}/awslogs --version 2>&1")
+    assert_match version.to_s, shell_output("#{bin}/awslogs --version")
+
+    assert_match "You must specify a region", shell_output("#{bin}/awslogs groups 2>&1", 1)
   end
 end

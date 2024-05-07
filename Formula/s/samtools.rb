@@ -1,20 +1,18 @@
 class Samtools < Formula
   desc "Tools for manipulating next-generation sequencing data"
   homepage "https://www.htslib.org/"
-  url "https://github.com/samtools/samtools/releases/download/1.18/samtools-1.18.tar.bz2"
-  sha256 "d686ffa621023ba61822a2a50b70e85d0b18e79371de5adb07828519d3fc06e1"
+  url "https://github.com/samtools/samtools/releases/download/1.20/samtools-1.20.tar.bz2"
+  sha256 "c71be865e241613c2ca99679c074f1a0daeb55288af577db945bdabe3eb2cf10"
   license "MIT"
 
   bottle do
-    sha256 cellar: :any,                 arm64_sonoma:   "dc93dad06bb2653b2bb1e8908e3287eaa3a24d5858406f00d67cb691a004997a"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "e88fadc80bff54c12b710f151870cf66fa9cdd187ba435b3730e0525c2952a12"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "8c5731abfb7cb80c9fd7ef58cf6b804bbeb4c981f440f9f3356b934e2bf64c14"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "480ef4641f0829897b8a0ecb7644bcbe5bf782dbd8ad140bd714deaf85fe70f5"
-    sha256 cellar: :any,                 sonoma:         "c9244823f8cd5cd91d861f5f66ffb30fd909d54535f9923428b44b22c5c13083"
-    sha256 cellar: :any_skip_relocation, ventura:        "9a0d2e9ace4b33dca76dc4e914107e982d54cf73bdcfa4f55254245fd4392a05"
-    sha256 cellar: :any_skip_relocation, monterey:       "ab1123980c1f03e0ccec054f7fdaa34d6bd97095e6ddf786b4f7dac484c11171"
-    sha256 cellar: :any_skip_relocation, big_sur:        "ba3c701142728fc953c87a7cd7a7999146b962959b59ddaabdd0e75b3678afb0"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "f7dd8892054693dd4006fd7fcc1d631507b85615964d50f36ab69d7febd4f457"
+    sha256 cellar: :any,                 arm64_sonoma:   "b466cf7f659e4af5fd47b7ffc9805ed8a33d43b44f627a806d7ae2b06349ea9e"
+    sha256 cellar: :any,                 arm64_ventura:  "126b0c5c624a6bea08ace22d8604cc4bcd2d6492fe06228ce68dd6956f725520"
+    sha256 cellar: :any,                 arm64_monterey: "27bac69761fc5479833af4ca8ebaae31edfb33d9d7512fdb6817aaa6dc344eb4"
+    sha256 cellar: :any,                 sonoma:         "9a03773efc98b5003896c242f437940f3bccae054b31c2b28b393a5144175bd7"
+    sha256 cellar: :any,                 ventura:        "2bb512594b1b6df69f4dcf06eded206f15ed6ff82ae06761b93b0e5c8fddd27f"
+    sha256 cellar: :any,                 monterey:       "c006cb21e1b4934bd58cf76d4f04b905b4ea3fedcdce83d063107a11e105ae8c"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "1390d215456d06f7de7aa10f32d34eedb1dd41d86e47309450e7cca1facb8d2a"
   end
 
   depends_on "htslib"

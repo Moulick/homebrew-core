@@ -1,33 +1,33 @@
 class Gosu < Formula
   desc "Pragmatic language for the JVM"
   homepage "https://gosu-lang.github.io/"
-  url "https://github.com/gosu-lang/gosu-lang/archive/refs/tags/v1.14.20.tar.gz"
-  sha256 "56c4782087c20ed9a5d6e8912d128c3f87d6906d74c0b75d3b63d7fabd705e73"
+  url "https://github.com/gosu-lang/gosu-lang/archive/refs/tags/v1.17.9.tar.gz"
+  sha256 "cd638f2f2091758a85085f39ad175c657b4a1cafbdf416893667daa0a975243e"
   license "Apache-2.0"
   head "https://github.com/gosu-lang/gosu-lang.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, ventura:      "cfa06e74d45922c8c455829273ed19ee5afb3858dfaebcb0a32896f8a9bb5946"
-    sha256 cellar: :any_skip_relocation, monterey:     "c3ee2e77dd6f53dc8dddbacfd55eb157f654ceb208073d38c3ba0485f621a0a2"
-    sha256 cellar: :any_skip_relocation, big_sur:      "693e5dc4f4424b3a38797ca8cfefebee998c157abc23e7f2aee9d86f719f3812"
-    sha256 cellar: :any_skip_relocation, catalina:     "64abc4230c722c02801160e8ed6640c6dba29817ca80f3832f58e47e2ceb58ad"
-    sha256 cellar: :any_skip_relocation, mojave:       "705ebbe2c1b1aafb4ce5995b132b7e65471ab5e24d4889981d1779018b7e610b"
-    sha256 cellar: :any_skip_relocation, x86_64_linux: "35369919495a7d1f544e168c807b8f423d6fa586bc057d56a13328cb0754249d"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "ba6790b14a3283dfc1aa31090ac467bd77ec25ee62266480658ffc4d908f191f"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "32d384b63f35c827a98f084497262830cf6c7a113dce7f489f452efc9ef2ed92"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "8be6e12aea72673cda15dd1cf44e53866b2623c77d4d91376c63899d0daeffd8"
+    sha256 cellar: :any_skip_relocation, sonoma:         "6f26a91dfd734e8195e71b6fad497fa96af4e6cf6f6dfca4697ccf4cbf82fe5e"
+    sha256 cellar: :any_skip_relocation, ventura:        "315fdd6c5f146c4fc0b62c351e3bc6885eca2558d23fa687cec07fc003ef3e00"
+    sha256 cellar: :any_skip_relocation, monterey:       "4d71f14d2ecec1de756ab20c446794254d98647bdc7cf893cdec1f4f4fb2b419"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "461856b862c0da0ddd12784b6e040e62a7a31a80f6544625e422719e00e5200f"
   end
 
   depends_on "maven" => :build
-  depends_on arch: :x86_64 # openjdk@8 is not supported on ARM
-  depends_on "openjdk@8"
+  depends_on "openjdk@11"
 
   skip_clean "libexec/ext"
 
   def install
-    ENV["JAVA_HOME"] = Language::Java.java_home("1.8")
+    ENV["JAVA_HOME"] = Language::Java.java_home("11")
 
     system "mvn", "package"
     libexec.install Dir["gosu/target/gosu-#{version}-full/gosu-#{version}/*"]
     (libexec/"ext").mkpath
-    (bin/"gosu").write_env_script libexec/"bin/gosu", Language::Java.java_home_env("1.8")
+    (bin/"gosu").write_env_script libexec/"bin/gosu", Language::Java.java_home_env("11")
   end
 
   test do

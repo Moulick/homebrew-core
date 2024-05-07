@@ -1,8 +1,8 @@
 class Open62541 < Formula
   desc "Open source implementation of OPC UA"
   homepage "https://open62541.org/"
-  url "https://github.com/open62541/open62541/archive/refs/tags/v1.3.8.tar.gz"
-  sha256 "b6943b564787c4953b77ca8d7f987c4b896b3f3e91f45d9f13e9056b6148bc1d"
+  url "https://github.com/open62541/open62541/archive/refs/tags/v1.4.0.tar.gz"
+  sha256 "22a7a1f821b26f541feb96cc5879e0c76cb3b968e508209b5bf98f2869b11a89"
   license "MPL-2.0"
 
   livecheck do
@@ -11,13 +11,13 @@ class Open62541 < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_sonoma:   "4983d3fb3b6a27895ef3125b2c74a56c33c7f98b501cfc08dfa8a2e753e7236c"
-    sha256 cellar: :any,                 arm64_ventura:  "fa1efbf122c451bb9ca6f9dd00549fcff1d0604e8d2077e74b56105e49f599f8"
-    sha256 cellar: :any,                 arm64_monterey: "b41f5577435d317810bea1a1f9a9176f5daf32f506a09af1e6b29e532f3f95e9"
-    sha256 cellar: :any,                 sonoma:         "19e58c7862e650a3a97204d3599b7ee0c3de5398b0edacf13c3ff706d5dcc506"
-    sha256 cellar: :any,                 ventura:        "150ebde98e87dc8cde21c6fd10d92ce74b19d781957ed9e8b4bdabc0acb81ee9"
-    sha256 cellar: :any,                 monterey:       "6f92d5e0e81659c8058206af01ac1419c181cb3390e9b621f31093f5dead13f4"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "a30b1658d0fe9f7417c3ec9ede429a4919f1751b4cd1ef47217b2f6350f57f00"
+    sha256 cellar: :any,                 arm64_sonoma:   "2a74d2a9c568cd1a23b977397a318b2f22d36032a74f45699c84c1cb590f6016"
+    sha256 cellar: :any,                 arm64_ventura:  "724e7e39ec00121936a88bd0821ba8e72ff4d2aa0f03b9662a92c2d8c43b7ae3"
+    sha256 cellar: :any,                 arm64_monterey: "0937d542b8c22ccf6fc4fd12f5cc8fd75293a4a6f3498c46be3d9c0f4c29bd26"
+    sha256 cellar: :any,                 sonoma:         "4bd9d351596548ebc7d20944d1407cf14fc562d233c65a8f82e2d3334a0d68aa"
+    sha256 cellar: :any,                 ventura:        "31feecdc1c7976effd1ba11c0f64f9d9968643eed7d640c3674f1b85c34a1adb"
+    sha256 cellar: :any,                 monterey:       "e368d2a4819ce8580b6c21a2c2d0de7f163ca671353b18b3a389a6a2bb85394c"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "b3fea3a886fe38f7a167def25b79d3fa065aae6094178aaa45cddf44f2474a7c"
   end
 
   depends_on "cmake" => :build

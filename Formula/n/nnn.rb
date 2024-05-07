@@ -7,14 +7,14 @@ class Nnn < Formula
   head "https://github.com/jarun/nnn.git", branch: "master"
 
   bottle do
-    rebuild 1
-    sha256 cellar: :any,                 arm64_sonoma:   "c8743d31f512639a6424da5c9f37fbfd2c7cb3de66eddba2d697abac4cefc953"
-    sha256 cellar: :any,                 arm64_ventura:  "5f13d617bef10862e45d3a1234a9fb515cb91f665286620b739c1a270830ce5c"
-    sha256 cellar: :any,                 arm64_monterey: "b1898d5e9926e2645a017442cfa66fc3a8b6a0814fc18bdbf7a70f561c2552f4"
-    sha256 cellar: :any,                 sonoma:         "6426f4ac716e4203e1dc6cea5018af7f7bc1225dfc602c19fc6af9a7ce2f09de"
-    sha256 cellar: :any,                 ventura:        "f55965fd3c847e11d74e902214a509456e1c940c9d37a6ccd78f15ca1cb5128d"
-    sha256 cellar: :any,                 monterey:       "31de38134834caa63a2a27d42c0945a97ae13f3f7ca153fae61be4f0f7c3d724"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "503611604b9999f9f9ed73db027403b4ee20f5039c8278e99f47bdd23c9c291c"
+    rebuild 3
+    sha256 cellar: :any,                 arm64_sonoma:   "a661f24f20729323cc44905e72b5e0615809cd6dc00923355276e8bc327e8d2b"
+    sha256 cellar: :any,                 arm64_ventura:  "da99936ce4f9aa649cc5114bf34724dec324e1fe0484258036cd50ccd974d566"
+    sha256 cellar: :any,                 arm64_monterey: "ef086ae9e6fdf3ee271b5c64a5b9355b49b311a6f3afc75aab8a452f8c03e155"
+    sha256 cellar: :any,                 sonoma:         "29597f38dca184b1e8283f788d9feb0d9d610bb20294d49a666864cacaf51ae8"
+    sha256 cellar: :any,                 ventura:        "9c2d3f2668b52cfc5c8cfd9f1970501cc67767ea82e3e033d76e6bc263edfaff"
+    sha256 cellar: :any,                 monterey:       "c3e95d1ca7c575edbc4bfae316b58f218598a5926c4f1c6577b19e0f4cbeae92"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "866a588102383c2f892e434139af2962ab0d179469681cb4e8f2eacb6f55d3ce"
   end
 
   depends_on "gnu-sed"
@@ -22,13 +22,7 @@ class Nnn < Formula
   depends_on "readline"
 
   def install
-    args = %w[
-      O_EMOJI=1
-      O_NERD=1
-      O_ICONS=1
-    ]
-
-    system "make", "install", "PREFIX=#{prefix}", *args
+    system "make", "install", "PREFIX=#{prefix}"
 
     bash_completion.install "misc/auto-completion/bash/nnn-completion.bash"
     zsh_completion.install "misc/auto-completion/zsh/_nnn"

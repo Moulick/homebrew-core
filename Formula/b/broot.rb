@@ -1,19 +1,19 @@
 class Broot < Formula
   desc "New way to see and navigate directory trees"
   homepage "https://dystroy.org/broot/"
-  url "https://github.com/Canop/broot/archive/refs/tags/v1.27.0.tar.gz"
-  sha256 "bf4df0d933efbc2093855c4be3d8bfed29c612a57d14b853a3c729e917505728"
+  url "https://github.com/Canop/broot/archive/refs/tags/v1.38.0.tar.gz"
+  sha256 "1805d8acbf5b31124370a19c1f855a50c7fb929359ef689d9b68957bd95aa000"
   license "MIT"
   head "https://github.com/Canop/broot.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "111d1bfecb0aedab492949020e30e383a06874450324698881b83599a6c8cb71"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "9b0ddbaca23d6d1074d5b39e7a0ff0accd4ffbc079f1ce18a5c6a61e0a55926d"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "bf630f7c0df50e7f30550a16642909f6262b92d054a5ce211b36ac36255a073a"
-    sha256 cellar: :any_skip_relocation, sonoma:         "c8a1929433a283ff00313aaf1f8fdc795ea2dbf198de53c2b632c530af00d3e1"
-    sha256 cellar: :any_skip_relocation, ventura:        "7aa331c6ba7fe44c11d9a72a93bec57ee35aa5b85017986e04f01b9165bbca5a"
-    sha256 cellar: :any_skip_relocation, monterey:       "693a053a813f216bc2020f18b766a6dc8ec17da7d7b32e172ac30b2dbee023f4"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "cee717af36d13befea43567fb27a51c45463938f552eb845c71153e8dc2dc6a2"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "97c60892bfe8300b19180e4d6fc649324ece783dc62632f77a2cf8d9187a4908"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "819d98dde6bb37da8bd25cfd2dc3170e15e125f121cf264560b1cb0f774d096e"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "5db744b68ab5766878334f122154d2f86f8e252feb0f8a37c00befecba2f7dae"
+    sha256 cellar: :any_skip_relocation, sonoma:         "c1f69612aaa7af04cbbceb9eeb07cb193eb9aac30dd98382b597323fbb805ac2"
+    sha256 cellar: :any_skip_relocation, ventura:        "6afae2ed8b86e085f21c60f5a23d04c9b1fe19f8a9c9b3d151c0e2c826dd77da"
+    sha256 cellar: :any_skip_relocation, monterey:       "70f9589190959efd0fe540ea0945329f31945ee09356075e1d1fee75cd87ca62"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "3987c115a7e354b4a14b6f9aac29e6546d7e1a2e89093b930f57cfd05848009a"
   end
 
   depends_on "rust" => :build
@@ -35,12 +35,15 @@ class Broot < Formula
     # Completion scripts are generated in the crate's build directory,
     # which includes a fingerprint hash. Try to locate it first
     out_dir = Dir["target/release/build/broot-*/out"].first
-    bash_completion.install "#{out_dir}/broot.bash"
-    bash_completion.install "#{out_dir}/br.bash"
     fish_completion.install "#{out_dir}/broot.fish"
     fish_completion.install "#{out_dir}/br.fish"
     zsh_completion.install "#{out_dir}/_broot"
     zsh_completion.install "#{out_dir}/_br"
+    # Bash completions are not compatible with Bash 3 so don't use v1 directory.
+    # bash: complete: nosort: invalid option name
+    # Issue ref: https://github.com/clap-rs/clap/issues/5190
+    (share/"bash-completion/completions").install "#{out_dir}/broot.bash" => "broot"
+    (share/"bash-completion/completions").install "#{out_dir}/br.bash" => "br"
   end
 
   test do

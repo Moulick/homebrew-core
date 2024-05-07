@@ -1,8 +1,8 @@
 class Sonarqube < Formula
   desc "Manage code quality"
-  homepage "https://www.sonarqube.org/"
-  url "https://binaries.sonarsource.com/Distribution/sonarqube/sonarqube-10.2.1.78527.zip"
-  sha256 "420784efc123e216d47094ce19a672a70f34822b592917b57412e077b80c3acf"
+  homepage "https://www.sonarsource.com/products/sonarqube/"
+  url "https://binaries.sonarsource.com/Distribution/sonarqube/sonarqube-10.5.0.89998.zip"
+  sha256 "286d5081712344582f5774214807a5671ffdca696f498ba7d184100608c04d65"
   license "LGPL-3.0-or-later"
 
   livecheck do
@@ -11,15 +11,13 @@ class Sonarqube < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "44ebee1874941e877cd007f16595920826cd79c9367d1cac9714e30a221e6d74"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "44ebee1874941e877cd007f16595920826cd79c9367d1cac9714e30a221e6d74"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "44ebee1874941e877cd007f16595920826cd79c9367d1cac9714e30a221e6d74"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "44ebee1874941e877cd007f16595920826cd79c9367d1cac9714e30a221e6d74"
-    sha256 cellar: :any_skip_relocation, sonoma:         "44ebee1874941e877cd007f16595920826cd79c9367d1cac9714e30a221e6d74"
-    sha256 cellar: :any_skip_relocation, ventura:        "44ebee1874941e877cd007f16595920826cd79c9367d1cac9714e30a221e6d74"
-    sha256 cellar: :any_skip_relocation, monterey:       "44ebee1874941e877cd007f16595920826cd79c9367d1cac9714e30a221e6d74"
-    sha256 cellar: :any_skip_relocation, big_sur:        "44ebee1874941e877cd007f16595920826cd79c9367d1cac9714e30a221e6d74"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "d2710c4fffef828ec801770e20c9c236814f732b17234fd1fb81b8ff2157efa8"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "45f52a63977486f5f9a4a29502f0c69d94f8a61e4945b5a81623f842f48416d8"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "45f52a63977486f5f9a4a29502f0c69d94f8a61e4945b5a81623f842f48416d8"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "45f52a63977486f5f9a4a29502f0c69d94f8a61e4945b5a81623f842f48416d8"
+    sha256 cellar: :any_skip_relocation, sonoma:         "45f52a63977486f5f9a4a29502f0c69d94f8a61e4945b5a81623f842f48416d8"
+    sha256 cellar: :any_skip_relocation, ventura:        "45f52a63977486f5f9a4a29502f0c69d94f8a61e4945b5a81623f842f48416d8"
+    sha256 cellar: :any_skip_relocation, monterey:       "45f52a63977486f5f9a4a29502f0c69d94f8a61e4945b5a81623f842f48416d8"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "3da0fdf51c5d05dd59e1b0309dcea11115718342888360b47e317322f4bb8c2d"
   end
 
   depends_on "openjdk@17"

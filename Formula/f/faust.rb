@@ -1,29 +1,34 @@
 class Faust < Formula
   desc "Functional programming language for real time signal processing"
   homepage "https://faust.grame.fr"
-  # TODO: Check if we can use unversioned `llvm` at version bump.
-  url "https://github.com/grame-cncm/faust/releases/download/2.68.1/faust-2.68.1.tar.gz"
-  sha256 "d4ee30e2444bed55b593c6c70ec4e330b71260819d4011b37d8c9b9c061e810f"
+  url "https://github.com/grame-cncm/faust/releases/download/2.72.14/faust-2.72.14.tar.gz"
+  sha256 "dcd5aaf263c59d34c385e65c4f4c5b85b0e9435e57cbfd79bb67a01e5780acf0"
   license "GPL-2.0-or-later"
   revision 1
 
+  # Upstream creates releases that use a stable tag (e.g., `v1.2.3`) but are
+  # labeled as "pre-release" on GitHub before the version is released, so it's
+  # necessary to use the `GithubLatest` strategy.
+  livecheck do
+    url :stable
+    strategy :github_latest
+  end
+
   bottle do
-    sha256 cellar: :any,                 arm64_sonoma:   "e355880d95cc9cb1f0411c8a8327a7d1e87e9b5e78c5f7dd41543084784f531e"
-    sha256 cellar: :any,                 arm64_ventura:  "a0354cdea965ade3b8ca19b3b31c3942690560fcd5bb61016ce32e8e90f6cb8e"
-    sha256 cellar: :any,                 arm64_monterey: "8f3b06b67c43cb8edb447dee45c0fc0df7482e22ba71b31db04f8a11ad9d7fee"
-    sha256 cellar: :any,                 arm64_big_sur:  "8375f27903f2bd0f1dee073b3de81a07e7314040b7236e52278a56a3c492feb5"
-    sha256 cellar: :any,                 sonoma:         "6ee0a0907cd136e82040a82981193a1acc84df99c4e4c27a2e5ba60758072c4f"
-    sha256 cellar: :any,                 ventura:        "c789092307ddfe487c46ea67bc34ee1ec43aa56d6ea79b2ba089f8a54a8b5eae"
-    sha256 cellar: :any,                 monterey:       "1fc2e43214eaed4a924dc27ad6d9409ac5b20259921259d273fdc51b71093869"
-    sha256 cellar: :any,                 big_sur:        "ff8796eed8f6fe52446430ca66fdbb070cbace09e0f30d88bbd230a704c2ba06"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "838c1a2a66a5e8e2c6647e5e8fcb96cdb06f6094bdd8847fe318e86d0d56beb9"
+    sha256 cellar: :any,                 arm64_sonoma:   "cbf99a14a52325f082f45f20b76bac55f04dbb5f151ca7e8182312af4bc75174"
+    sha256 cellar: :any,                 arm64_ventura:  "ba73a779340c6013df8ddb47a52bd46c2d9ff1b2c682b9a33a22f1c2efcbb1ed"
+    sha256 cellar: :any,                 arm64_monterey: "dc57cb1d1bd2bcb8d642b4977f4de43f4c55392e0ab3b2fc980bfbc66c1bd4cb"
+    sha256 cellar: :any,                 sonoma:         "d1a43ccf29d84a1ab5ad6790d5896de3006af509c184ca0d17c615451053e3cc"
+    sha256 cellar: :any,                 ventura:        "23fb89b9c938fe74ce66ed2d24b33ce5d6aebb38e30d8e579852489b9a331e23"
+    sha256 cellar: :any,                 monterey:       "5eef8064dd9e09b88df7962119f2ce8d70841ed837e20cdd50591056e4a2b05f"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "de5e4644e62bd918cf8f66c90b4a006a3f398f6f7368f0fe4fc24920e2449b06"
   end
 
   depends_on "cmake" => :build
   depends_on "pkg-config" => :build
   depends_on "libmicrohttpd"
   depends_on "libsndfile"
-  depends_on "llvm@16"
+  depends_on "llvm"
 
   fails_with gcc: "5"
 

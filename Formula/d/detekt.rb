@@ -1,8 +1,8 @@
 class Detekt < Formula
   desc "Static code analysis for Kotlin"
   homepage "https://github.com/detekt/detekt"
-  url "https://github.com/detekt/detekt/releases/download/v1.23.3/detekt-cli-1.23.3-all.jar"
-  sha256 "2e6f73f1707b05d07b8a48b2272b95b55f1eaa53ee73198c34d0bdd04f7daa90"
+  url "https://github.com/detekt/detekt/releases/download/v1.23.6/detekt-cli-1.23.6-all.jar"
+  sha256 "898dcf810e891f449e4e3f9f4a4e2dc75aecf8e1089df41a42a69adb2cbbcffa"
   license "Apache-2.0"
 
   livecheck do
@@ -11,13 +11,7 @@ class Detekt < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "4fbd39855c01cea206ab8ae3c0e4ec540705ad88c8c53049c83e823fe4ac4603"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "4fbd39855c01cea206ab8ae3c0e4ec540705ad88c8c53049c83e823fe4ac4603"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "4fbd39855c01cea206ab8ae3c0e4ec540705ad88c8c53049c83e823fe4ac4603"
-    sha256 cellar: :any_skip_relocation, sonoma:         "4fbd39855c01cea206ab8ae3c0e4ec540705ad88c8c53049c83e823fe4ac4603"
-    sha256 cellar: :any_skip_relocation, ventura:        "4fbd39855c01cea206ab8ae3c0e4ec540705ad88c8c53049c83e823fe4ac4603"
-    sha256 cellar: :any_skip_relocation, monterey:       "4fbd39855c01cea206ab8ae3c0e4ec540705ad88c8c53049c83e823fe4ac4603"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "247ca743cee104509459e3525f01b9ce6d40c5a279cd2044aba532efae4beb44"
+    sha256 cellar: :any_skip_relocation, all: "b3e9326188f8494eb7805e6b842543c80eb94c292bf8ab87294d0c578818945e"
   end
 
   depends_on "openjdk@17"

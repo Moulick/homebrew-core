@@ -1,9 +1,9 @@
 class X8664ElfBinutils < Formula
   desc "GNU Binutils for x86_64-elf cross development"
   homepage "https://www.gnu.org/software/binutils/"
-  url "https://ftp.gnu.org/gnu/binutils/binutils-2.41.tar.bz2"
-  mirror "https://ftpmirror.gnu.org/binutils/binutils-2.41.tar.bz2"
-  sha256 "a4c4bec052f7b8370024e60389e194377f3f48b56618418ea51067f67aaab30b"
+  url "https://ftp.gnu.org/gnu/binutils/binutils-2.42.tar.bz2"
+  mirror "https://ftpmirror.gnu.org/binutils/binutils-2.42.tar.bz2"
+  sha256 "aa54850ebda5064c72cd4ec2d9b056c294252991486350d9a97ab2a6dfdfaf12"
   license "GPL-3.0-or-later"
 
   livecheck do
@@ -11,16 +11,19 @@ class X8664ElfBinutils < Formula
   end
 
   bottle do
-    sha256 arm64_sonoma:   "a1a00c2e9ec4d85070b8609d42dd1b681423b209fab40f3c0fe70795f9702d3b"
-    sha256 arm64_ventura:  "0b215aa3c7eb7e02560ad78336948f5b785f82f1e44f51d01a064381b268620b"
-    sha256 arm64_monterey: "bb3ceda65be93daf1843c193b7ad7bd7f21cfdcffb7c3345c1533ccc2afd9442"
-    sha256 arm64_big_sur:  "85b7813f719f4be660c3e53faa7951473dd61661c80513ef6569783e0539b05f"
-    sha256 sonoma:         "640fd6f21ccd52ce89207103794967d281f036a7762a174097e7871b026127a0"
-    sha256 ventura:        "fe80fac828ea3708ed487e8164a2f5ae1b1dd6de3287f7e5640b2d683fa956e0"
-    sha256 monterey:       "1c7143c88fced456c2a57a1d002464546e24da925492ad08084c20c39c5df8a0"
-    sha256 big_sur:        "c4bdc39b6a3af918b61c2f60264174444d66aa9392bdd75cc433ed0166055399"
-    sha256 x86_64_linux:   "0fc5cae1e9dd2f3d4a50f3dc5fc85c5788f1301489cdeb21dacf8006921e7638"
+    sha256 arm64_sonoma:   "408df853afe97f881f09a6863c9496255e154926fbca7bd7a26a5da99bd9d780"
+    sha256 arm64_ventura:  "769d0166a2d363a9c453b2f0cb5f41045d82b489a1065fd1ec36f070adb466ea"
+    sha256 arm64_monterey: "09970acd117822df6b2f9a252e7408db0b7fffe0374b9f5d2d63ce0a16ce35fd"
+    sha256 sonoma:         "29a61d605995edf6b47b30e8975e9c713a5125bd9dfab6e0ffeb2ed2ece93789"
+    sha256 ventura:        "3a7528efc85034f001b441e7620fee0b9af9e4077c831cd0ec419870c9ba35a4"
+    sha256 monterey:       "4a16dff918cc61b37d8ca956986bab7ff8f75e3b951d579de0e3dbc4d6e72676"
+    sha256 x86_64_linux:   "402b99039776f2d90825e678749c5a0bf2f04386a8457886beafaa2c9c12ce8e"
   end
+
+  depends_on "pkg-config" => :build
+  depends_on "zstd"
+
+  uses_from_macos "zlib"
 
   on_system :linux, macos: :ventura_or_newer do
     depends_on "texinfo" => :build
@@ -33,6 +36,8 @@ class X8664ElfBinutils < Formula
                           "--prefix=#{prefix}",
                           "--libdir=#{lib}/#{target}",
                           "--infodir=#{info}/#{target}",
+                          "--with-system-zlib",
+                          "--with-zstd",
                           "--disable-nls"
     system "make"
     system "make", "install"

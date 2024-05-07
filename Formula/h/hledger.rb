@@ -1,8 +1,8 @@
 class Hledger < Formula
   desc "Easy plain text accounting with command-line, terminal and web UIs"
   homepage "https://hledger.org/"
-  url "https://github.com/simonmichael/hledger/archive/refs/tags/1.31.tar.gz"
-  sha256 "d846d51a0144c10f78a692ce2bb665247600514214393b43498d37701f197264"
+  url "https://github.com/simonmichael/hledger/archive/refs/tags/1.33.1.tar.gz"
+  sha256 "47c6a1dbcc74a89c0b820745bbdfb247d26040104bc2fbfe4f03f11ecaf7de30"
   license "GPL-3.0-or-later"
   head "https://github.com/simonmichael/hledger.git", branch: "master"
 
@@ -15,16 +15,16 @@ class Hledger < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "ea9e3e381fd70099457677f796af98778042b69386fadcfe1084c253d03b8c03"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "0046566f35f74647d2876fafa231047edc507f9406a6214f9335c4a638907e3f"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "baac4f3451a6478e1961583e92a32bf897adb49dc9bd3692d68205c107e20402"
-    sha256 cellar: :any_skip_relocation, ventura:        "3eb325f2a5e15722199b2d97a409bca26dc09a3df09a28c2957faf33d53b9221"
-    sha256 cellar: :any_skip_relocation, monterey:       "d1afda910d9c5800553111a45c2fc5e2a36c936c8de097d48da08bc46664f06d"
-    sha256 cellar: :any_skip_relocation, big_sur:        "cf26f49ca56472688bb138691711ffc44c9022cb279346737c2a5998506a06b7"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "cb7e74a60da217f73d77779dfbcaf814f06d019b75cb8f0b0eaf4d107723402b"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "e47936cea3a1bc5ac65bd5652589dc18b2637d4bb7b47424eeb572e9ebfeea4e"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "4afa727c2bd64ef2d2c7b5c4e74e22fdfc7e474837d213a41f328c8c796bd930"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "fae4956fdcf9ed15b2dcea6c84884eb0c5a381cd2b8c842e7405f062baf96e81"
+    sha256 cellar: :any_skip_relocation, sonoma:         "0e5aaa4e293ce742edd5c2969917678118d543abc360fc646e68a60c0e603fb8"
+    sha256 cellar: :any_skip_relocation, ventura:        "0ce6839041cef4bd1cf4d3c91d0ea8a0e5807ddadaf6f2a1abd8d083dd1efdac"
+    sha256 cellar: :any_skip_relocation, monterey:       "692f16b655efeca6869891161c80051674da3b30de8851516ec7a82962bb5485"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "935f9ebfe2ce7b1d1fa684e2030a4eb211a2739846d51c34b5813d8d1a3877b5"
   end
 
-  depends_on "ghc@9.2" => :build
+  depends_on "ghc@9.6" => :build
   depends_on "haskell-stack" => :build
 
   uses_from_macos "ncurses"

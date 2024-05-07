@@ -1,19 +1,20 @@
 class Libnghttp3 < Formula
   desc "HTTP/3 library written in C"
   homepage "https://nghttp2.org/nghttp3/"
-  url "https://github.com/ngtcp2/nghttp3/archive/refs/tags/v1.0.0.tar.gz"
-  sha256 "838def499e368b24d8a4656ad9a1f38bb7ca8b2857a44c5de1c006420cc0bbee"
+  url "https://github.com/ngtcp2/nghttp3.git",
+      tag:      "v1.2.0",
+      revision: "2e3cce607fe3e5e248bfd363f616c4fa520a5b95"
   license "MIT"
   head "https://github.com/ngtcp2/nghttp3.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any,                 arm64_sonoma:   "127334f5feedba39e77ce78cd55babfc5ce4ff2d775f60bb852f9c35179e67b5"
-    sha256 cellar: :any,                 arm64_ventura:  "4df3b788e8e86b8f27a52ac01145a119cb17ea5610bf24357abf005b871e0112"
-    sha256 cellar: :any,                 arm64_monterey: "fa489ff71d62930003c540c22375da5620c8246adcb66375afa003bf8b3826a9"
-    sha256 cellar: :any,                 sonoma:         "9ade91c4ac6725e0e2023bb8bf9b257502891dadde3e5be6418700f3fa217eff"
-    sha256 cellar: :any,                 ventura:        "58e9cdf3be7bad3a645ef57269faeb90c536ed90387e9fc49cf6e421ff858b27"
-    sha256 cellar: :any,                 monterey:       "1a35c00d9e2125e057b3bea08dd87526f00807b72537d6927494dade7e727d36"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "35e0ae981233e48d9b4920049e68de7679e0be06fbdac6ce306b331c4aae48e3"
+    sha256 cellar: :any,                 arm64_sonoma:   "276a8ec1843955e4cdf8626f374ceae2ab402b9e650b5fc6943d9878c5187c14"
+    sha256 cellar: :any,                 arm64_ventura:  "f013c978f75bbded75025864eb5767f9a55bb7e6d6560c9378fc47e4115a86ff"
+    sha256 cellar: :any,                 arm64_monterey: "97ebb377467ff9d3f3ef9d9682024d75b9b1d6c4b3c361937dfd2f92053e4788"
+    sha256 cellar: :any,                 sonoma:         "f8d10367cde6637b6ab8610362c1beeea64d463042c0a1cccb0b4f5ad6654f89"
+    sha256 cellar: :any,                 ventura:        "3fe1aa1343ae5fae9956050214a768b07a77a91b50922c0c0b3d8797ca963f7a"
+    sha256 cellar: :any,                 monterey:       "cab18245d0b2e8f5a1d54665397d1d81df18401ebdf91428b693c853a9d28789"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "8b76822612442a9320b522660ede482be86b8da988456a3be80ccdc0ed8a94fb"
   end
 
   depends_on "cmake" => :build

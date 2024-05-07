@@ -1,31 +1,30 @@
 class PetscComplex < Formula
   desc "Portable, Extensible Toolkit for Scientific Computation (complex)"
   homepage "https://petsc.org/"
-  url "https://web.cels.anl.gov/projects/petsc/download/release-snapshots/petsc-3.20.1.tar.gz"
-  sha256 "3d54f13000c9c8ceb13ca4f24f93d838319019d29e6de5244551a3ec22704f32"
+  url "https://web.cels.anl.gov/projects/petsc/download/release-snapshots/petsc-3.20.5.tar.gz"
+  sha256 "fb4e637758737af910b05f30a785245633916cd0a929b7b6447ad1028da4ea5a"
   license "BSD-2-Clause"
+  revision 1
 
   livecheck do
     formula "petsc"
   end
 
   bottle do
-    sha256 arm64_sonoma:   "6cef68a4868821724f227b53a93ad1eafeb8fdd81ca74f6a18bbf82846095db2"
-    sha256 arm64_ventura:  "296e121c488c41ac58289c805674234c8468bb659713e2e16ef26b93c70bb0d6"
-    sha256 arm64_monterey: "279b402f8e81e1144ea796698fdbceea626f0a91a4eecd77508944208b99bc44"
-    sha256 sonoma:         "3bfdf7f31e9beca77e0670cc6e6246e75bbd81ea67f632f5bd77ff81cb77f896"
-    sha256 ventura:        "06d23a564bd3f5df0fa94ba7003f6b21f06a3e4d21e2ba11ae858df66e51d23c"
-    sha256 monterey:       "3790aa6280558007f1b3268b92ffc15d58c5ae3e76132af965451b3c584c17f5"
-    sha256 x86_64_linux:   "db0a4b954acf05a00febad69de279000eeb75869f61c2656217c4bab7821e292"
+    sha256 arm64_sonoma:   "79474f5eac3712c82a73ef28208f32f129a722920ef2efc48061ee6ed82850a1"
+    sha256 arm64_ventura:  "bfdee742583b9fc2d3b1609e837a8b659ea554f0f9d58c232ad6bbe83d3a49bc"
+    sha256 arm64_monterey: "a6cdd1fbecd38ce9a502c89a426691a76779b9e2cfcf57f342316dbe385eacb6"
+    sha256 sonoma:         "e0598cc3ecc9c0c2a52d78fa3b28b8c1e9d3846151d1b73b1b605be2a86e6dea"
+    sha256 ventura:        "90eb7075046e1e7afb15a64429e95419ad0b7ac8e3c48f6ff430f183a7f30f6f"
+    sha256 monterey:       "02c918d0fb776665e9648f07727918f4f99938511cde34a7244c7043349e9e24"
+    sha256 x86_64_linux:   "c63d9a17db67e029d8dc5f783b804efbd7152063451b6f305c3231f88bd2b6a5"
   end
 
-  depends_on "hdf5"
+  depends_on "hdf5-mpi"
   depends_on "hwloc"
   depends_on "metis"
-  depends_on "netcdf"
   depends_on "open-mpi"
   depends_on "openblas"
-  depends_on "python@3.11"
   depends_on "scalapack"
   depends_on "suite-sparse"
 

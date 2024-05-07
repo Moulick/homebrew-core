@@ -1,8 +1,8 @@
 class Cfitsio < Formula
   desc "C access to FITS data files with optional Fortran wrappers"
   homepage "https://heasarc.gsfc.nasa.gov/docs/software/fitsio/fitsio.html"
-  url "https://heasarc.gsfc.nasa.gov/FTP/software/fitsio/c/cfitsio-4.3.0.tar.gz"
-  sha256 "fdadc01d09cf9f54253802c5ec87eb10de51ce4130411415ae88c30940621b8b"
+  url "https://heasarc.gsfc.nasa.gov/FTP/software/fitsio/c/cfitsio-4.4.0.tar.gz"
+  sha256 "95900cf95ae760839e7cb9678a7b2fad0858d6ac12234f934bd1cb6bfc246ba9"
   license "CFITSIO"
 
   livecheck do
@@ -11,14 +11,13 @@ class Cfitsio < Formula
   end
 
   bottle do
-    rebuild 1
-    sha256 cellar: :any,                 arm64_sonoma:   "512da2f12edecd29892ac66e2207f5536f1798ab1c9e808298098e38b1bc003e"
-    sha256 cellar: :any,                 arm64_ventura:  "58e178434c58d120cbed1fed0edfd3596c469c9128a37c3bd13e577539560227"
-    sha256 cellar: :any,                 arm64_monterey: "d0f78706ba8f9b1def5514aa9147d6e50f1259a1e25ce8fc926e36cb86f276d1"
-    sha256 cellar: :any,                 sonoma:         "4cbcbb7e0aa8ff812e637cce6e63b1f72bbf159559daaedf2d4bfef37ebb56d7"
-    sha256 cellar: :any,                 ventura:        "34daf8cbc11f092ac0257788ea20d1687b8ab23b7753791d8715915763924d3c"
-    sha256 cellar: :any,                 monterey:       "e1e2d890fd310cc13bcb0d9c84dae055f1ab318e939c5eeae4c2b2cc9c63d91a"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "bbc06552483533da9056a7937ffdf24109e149da043cd69d0a519614e00657f4"
+    sha256 cellar: :any,                 arm64_sonoma:   "b03ed1452ea75406a4cb032d9ffdff6d0212fe32ed37c804dbed5131326b50b8"
+    sha256 cellar: :any,                 arm64_ventura:  "eeef88260a116dfd268b0da53b5b29f68703a60d1a6d73f548c512c2bc40f8a0"
+    sha256 cellar: :any,                 arm64_monterey: "9cdb23e252f43ad8297eb56127828dd3d57e925e5a697f22a572ea3246888c32"
+    sha256 cellar: :any,                 sonoma:         "6fa804978d31fade2b596e6b7f8c511d7306b48521a1bfbfb99af1fb175bca26"
+    sha256 cellar: :any,                 ventura:        "5dd2a84c1e4b537b80dc95cac5693fb6621407477e3dcdd2d5026d7395330b92"
+    sha256 cellar: :any,                 monterey:       "15c76678e98ca4b654ebafd68915fdca5fa06641a2870bc4f2bf7995a5c7a25c"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "06931190944abe9dd019cb2be0bf2ef97607e80e27610b1e77c550a19294df94"
   end
 
   uses_from_macos "zlib"
@@ -29,7 +28,7 @@ class Cfitsio < Formula
     system "make", "fpack"
     system "make", "funpack"
     system "make", "install"
-    (pkgshare/"testprog").install Dir["testprog*"]
+    (pkgshare/"testprog").install Dir["testprog*", "utilities/testprog.c"]
   end
 
   test do

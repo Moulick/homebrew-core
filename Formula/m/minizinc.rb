@@ -1,21 +1,19 @@
 class Minizinc < Formula
   desc "Medium-level constraint modeling language"
   homepage "https://www.minizinc.org/"
-  url "https://github.com/MiniZinc/libminizinc/archive/refs/tags/2.7.6.tar.gz"
-  sha256 "99de3a1051bd4b3ed2d436f62d965fce067286d954b5693d74a5f7c75877ddfb"
+  url "https://github.com/MiniZinc/libminizinc/archive/refs/tags/2.8.3.tar.gz"
+  sha256 "151ec26165abfb13d709d89be92b3f9bbb5ba3873b8ecf9d88ac15f31042628f"
   license "MPL-2.0"
   head "https://github.com/MiniZinc/libminizinc.git", branch: "develop"
 
   bottle do
-    sha256 cellar: :any,                 arm64_sonoma:   "3da7cd1b53a64b537dc86c93fe99bdaea45ac6f9816c6510d016878f5562d1be"
-    sha256 cellar: :any,                 arm64_ventura:  "8460d8a0b90090470604182e9aa931208d19236e4a4e857fb6a8d8bb6a62440d"
-    sha256 cellar: :any,                 arm64_monterey: "cd531ac0c9ee3103e0049c864cc839537ef4c8de15b5c6e1b756e10272cbbfe4"
-    sha256 cellar: :any,                 arm64_big_sur:  "276493b57d3727f71fa964ab28b935d95bacc961c8cc3b4f3ff7c1f1a40d1a7a"
-    sha256 cellar: :any,                 sonoma:         "e88621801961dff95c34b0a2621f1c1797013c79965f27991a3113d252e4f045"
-    sha256 cellar: :any,                 ventura:        "29e7a31c4fc563fece105bd047b6a64add3a410b49b5589ab3a7a30578446a2a"
-    sha256 cellar: :any,                 monterey:       "3147a04982dc51599f51a1604f5ac6ec4a24ba7482824c44087e8a52f4ce0ace"
-    sha256 cellar: :any,                 big_sur:        "f60a8a6ce92b70c92ece762d49407deb6a54a6b48216be0d8ca9410354292e0a"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "ce0bc5c4b244b6951e0f89ca1387c05b19f7d18dffd5340acd4affa315d3be34"
+    sha256 cellar: :any,                 arm64_sonoma:   "f16fbb920305c15ba2df29feedeb3be6cf719cb8ddcc6a9f2c8eb83726189b61"
+    sha256 cellar: :any,                 arm64_ventura:  "1669fe4bea10e36e02db72af1a214a5ffce1113c3153735fe794ce552f45bdfc"
+    sha256 cellar: :any,                 arm64_monterey: "ac0406db5f6e4938a9107e2eede359be8f92c60900af676467ec8bf6a7f98e30"
+    sha256 cellar: :any,                 sonoma:         "6c94413d2e8235d519f4cae3fa0cd8b582ea285848dfef8668b6f718a0e08145"
+    sha256 cellar: :any,                 ventura:        "a8685926ef8f4e34f57e75ec5063d9a207b541f92697cc05da5c0f5d953a7702"
+    sha256 cellar: :any,                 monterey:       "13a9031a1ff9da632321b0d2d0d1873cd3ffb311d4c00efc28a979b1398eb06e"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "3663e181a5ecbd059199c43c07b30b987ac0ac3509e29a039e74dbc705b752a5"
   end
 
   depends_on "cmake" => :build

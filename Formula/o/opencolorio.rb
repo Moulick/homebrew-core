@@ -1,38 +1,51 @@
 class Opencolorio < Formula
   desc "Color management solution geared towards motion picture production"
   homepage "https://opencolorio.org/"
-  url "https://github.com/AcademySoftwareFoundation/OpenColorIO/archive/refs/tags/v2.2.1.tar.gz"
-  sha256 "36f27c5887fc4e5c241805c29b8b8e68725aa05520bcaa7c7ec84c0422b8580e"
+  url "https://github.com/AcademySoftwareFoundation/OpenColorIO/archive/refs/tags/v2.3.2.tar.gz"
+  sha256 "6bbf4e7fa4ea2f743a238cb22aff44890425771a2f57f62cece1574e46ceec2f"
   license "BSD-3-Clause"
   head "https://github.com/AcademySoftwareFoundation/OpenColorIO.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any,                 arm64_sonoma:   "faefc0f5c3a10047cbce7d285d4fee3f559b119445769f3d5852fd5be50b9b8e"
-    sha256 cellar: :any,                 arm64_ventura:  "24e90581137d74ea93eea49a901df620a6b6e2701b0c0093d2a11536e52759a4"
-    sha256 cellar: :any,                 arm64_monterey: "53198ac5f3461fb2548af12babb164d6693749b2023cf064eb2f5ffd1b71ecc6"
-    sha256 cellar: :any,                 arm64_big_sur:  "d074e606a1c3fec28b0d692c03aa88238074359ad47d56cf06887d9101b564cb"
-    sha256 cellar: :any,                 ventura:        "c3c4653825daa64ab29a454b7fb03407f2b92b0982a4a77e44fbb7e5370c7842"
-    sha256 cellar: :any,                 monterey:       "6ef1226d44426a9159f66d1ee39cbbc9b7954dda1c6f5167ae77e67bdc4a4c3d"
-    sha256 cellar: :any,                 big_sur:        "233b55833ab1b80ab8a7265ac31fe2f63a48b83f885ee0128d00443ff213bf9e"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "14827e687761b816cbeaab2471aba1791d23b080b8525123cbe09e4e78c23491"
+    sha256 cellar: :any,                 arm64_sonoma:   "0db0e5ebd3e423f988a351de2677cde0a027ab10212dd6535263e16900530f69"
+    sha256 cellar: :any,                 arm64_ventura:  "0a35033f31e6aa593f141238895b3fe383527f662592e106a76e175d919d0815"
+    sha256 cellar: :any,                 arm64_monterey: "68193cb0f8b28037f26bfcf1ade5e1ffcc757da8dd9d4782a47307e2f5183e5f"
+    sha256 cellar: :any,                 sonoma:         "583e1b16d1981250865d052511160b254ce71485b82107da6896e4642c254d76"
+    sha256 cellar: :any,                 ventura:        "1841a51311fce945dff91344b05fad32c1ca2e2e96a094ebc6b60b5cc74d0d2a"
+    sha256 cellar: :any,                 monterey:       "3f97660a1b3dff405779ed4480475da7c5389c345f35c4d5837f08fe53c4a725"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "fd944816b1ccf312cd3471d87f0cee4fe2d85712a661d1bf13fa10be77d6a3b8"
   end
 
   depends_on "cmake" => :build
-  depends_on "pkg-config" => :build
+  depends_on "pybind11" => :build
+  depends_on "imath"
   depends_on "little-cms2"
-  depends_on "python@3.11"
+  depends_on "minizip-ng"
+  depends_on "openexr"
+  depends_on "pystring"
+  depends_on "python@3.12"
+  depends_on "yaml-cpp"
+
+  uses_from_macos "expat"
+  uses_from_macos "zlib"
+
+  def python3
+    "python3.12"
+  end
 
   def install
-    python3 = "python3.11"
     args = %W[
       -DCMAKE_INSTALL_RPATH=#{rpath}
-      -DPYTHON=#{python3}
-      -DPYTHON_EXECUTABLE=#{which(python3)}
+      -DOCIO_BUILD_GPU_TESTS=OFF
+      -DOCIO_BUILD_TESTS=OFF
+      -DOCIO_INSTALL_EXT_PACKAGES=NONE
+      -DOCIO_PYTHON_VERSION=#{Language::Python.major_minor_version python3}
+      -DPython_EXECUTABLE=#{which(python3)}
     ]
 
-    system "cmake", "-S", ".", "-B", "macbuild", *args, *std_cmake_args
-    system "cmake", "--build", "macbuild"
-    system "cmake", "--install", "macbuild"
+    system "cmake", "-S", ".", "-B", "build", *args, *std_cmake_args
+    system "cmake", "--build", "build"
+    system "cmake", "--install", "build"
   end
 
   def caveats
@@ -52,5 +65,6 @@ class Opencolorio < Formula
 
   test do
     assert_match "validate", shell_output("#{bin}/ociocheck --help", 1)
+    system python3, "-c", "import PyOpenColorIO as OCIO; print(OCIO.GetCurrentConfig())"
   end
 end

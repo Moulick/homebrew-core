@@ -1,33 +1,39 @@
 class Ord < Formula
   desc "Index, block explorer, and command-line wallet"
   homepage "https://ordinals.com/"
-  url "https://github.com/ordinals/ord/archive/refs/tags/0.10.0.tar.gz"
-  sha256 "310fdb6ee3d6227942249419483851035707094d90c2dea60ac3a852df948a51"
+  url "https://github.com/ordinals/ord/archive/refs/tags/0.18.4.tar.gz"
+  sha256 "fff991609a16392162d98907bdc62121574fc2ccfaf61becebb19ad5ce4f4b8d"
   license "CC0-1.0"
   head "https://github.com/ordinals/ord.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "164772856cedf80101ad38876c6564878eeff18cb0076356963d3178addace92"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "a337dae5b96d04bf352169d2a1ec09431561cd5e63894af30f699d76194a0a3d"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "4251d1f5ce35b50196b4d79589b5a7a4fd0e37adae103fa31ab7cd6a8cc21c00"
-    sha256 cellar: :any_skip_relocation, sonoma:         "680c44b8e750872fc356d662346566fbba41ee76d5f7a708e613d8b68aaab57f"
-    sha256 cellar: :any_skip_relocation, ventura:        "cfcac88176d7bcaf2f8a42ea48a46975a04caa15b4d71889776273351fe5acfc"
-    sha256 cellar: :any_skip_relocation, monterey:       "4bdf246a1f2858c3c05dc216355a3952b19fddacc5662ee89de1f10b04527be2"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "6d4f0ac5968afb2ee9bfba871c50bf2ffa854a78f7fb146cbf44ae6ebfb49561"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "2037721b7bcd43cf37d99b80058ab1a54dcca8dbcf02e24c127e61e5ba9a3643"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "6a5de0e6565b8116258e89aebc5a017921f204aa8280fe7809e8a79f4d859ce1"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "e3cdbb35c2b827b7fe6b9cb1ff3610cd6156cda511a0fadcb06b0927b7bd50be"
+    sha256 cellar: :any_skip_relocation, sonoma:         "eadeae02dd636c4c2e6e1b851a16beeb6ac8f5c4987a951e5db5b79759c08792"
+    sha256 cellar: :any_skip_relocation, ventura:        "a3f37380e6a87fc679be9d16aab9f31718ffe831d72e7356d757f3f50a35e298"
+    sha256 cellar: :any_skip_relocation, monterey:       "58de416deb191ae29f15480edd21a41fd52007ed0f3ba2b85bbe1bf9c23bf274"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "9c26ca90dcca5243eb24082fa65f140bc868ef9a6bc2bb872100b602c0271624"
   end
 
+  depends_on "pkg-config" => :build
   depends_on "rust" => :build
 
+  on_linux do
+    depends_on "openssl@3"
+  end
+
   def install
+    # Ensure that the `openssl` crate picks up the intended library.
+    ENV["OPENSSL_DIR"] = Formula["openssl@3"].opt_prefix
+    ENV["OPENSSL_NO_VENDOR"] = "1"
+
     system "cargo", "install", *std_cargo_args
   end
 
   test do
-    expected = "error: failed to connect to Bitcoin Core RPC at 127.0.0.1:8332/wallet/ord"
-    assert_match expected, shell_output("#{bin}/ord info 2>&1", 1)
-
-    expected = "error: failed to spawn `bitcoind`"
-    assert_match expected, shell_output("#{bin}/ord preview 2>&1", 1)
+    output = shell_output("#{bin}/ord list xx:xx 2>&1", 2)
+    assert_match "invalid value 'xx:xx' for '<OUTPOINT>': error parsing TXID", output
 
     assert_match "ord #{version}", shell_output("#{bin}/ord --version")
   end

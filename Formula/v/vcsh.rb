@@ -1,13 +1,23 @@
 class Vcsh < Formula
   desc "Config manager based on git"
   homepage "https://github.com/RichiH/vcsh"
-  url "https://github.com/RichiH/vcsh/releases/download/v2.0.5/vcsh-2.0.5.tar.xz"
-  sha256 "01d01ebe864fa8ee5c740f909f9fe9b89ef92612c578d4f42c8777bf987ac32d"
+  url "https://github.com/RichiH/vcsh/releases/download/v2.0.10/vcsh-2.0.10.tar.zst"
+  sha256 "6ed8f4eee683f2cc8f885b31196fdc3b333f86ebc3110ecd1bcd60dfac64c0b4"
   license "GPL-2.0-or-later"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, all: "4136305027b39b6c5106a8b598437be2700f60fea9ba422f5f58b3eb99a02cba"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "a2cd3d849d8d93364817eb4a01176c1938a3b9c5510e4fe38e0058449620f4a1"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "66bec02ca7b95d794da587fbf0e1eabdfd5eb1f14b983dee39e1e7f0b2dbd893"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "a2cd3d849d8d93364817eb4a01176c1938a3b9c5510e4fe38e0058449620f4a1"
+    sha256 cellar: :any_skip_relocation, sonoma:         "a2cd3d849d8d93364817eb4a01176c1938a3b9c5510e4fe38e0058449620f4a1"
+    sha256 cellar: :any_skip_relocation, ventura:        "a2cd3d849d8d93364817eb4a01176c1938a3b9c5510e4fe38e0058449620f4a1"
+    sha256 cellar: :any_skip_relocation, monterey:       "a2cd3d849d8d93364817eb4a01176c1938a3b9c5510e4fe38e0058449620f4a1"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "a2cd3d849d8d93364817eb4a01176c1938a3b9c5510e4fe38e0058449620f4a1"
   end
+
+  depends_on "autoconf" => :build
+  depends_on "automake" => :build
+  depends_on "libtool" => :build
 
   def install
     # Set GIT, SED, and GREP to prevent

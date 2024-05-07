@@ -1,8 +1,8 @@
 class Calceph < Formula
   desc "C library to access the binary planetary ephemeris files"
   homepage "https://www.imcce.fr/inpop/calceph"
-  url "https://www.imcce.fr/content/medias/recherche/equipes/asd/calceph/calceph-3.5.3.tar.gz"
-  sha256 "9dd2ebdec1d1f5bd6f01961d111dbf0a4b24d0c0545572f00c1d236800a25789"
+  url "https://www.imcce.fr/content/medias/recherche/equipes/asd/calceph/calceph-4.0.0.tar.gz"
+  sha256 "f083df763e3d8cbbd17060c77b3ecd88beb9ce6c7e7f87630b3debd1bb0091f9"
   license "GPL-2.0-or-later"
 
   livecheck do
@@ -11,32 +11,28 @@ class Calceph < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_sonoma:   "aaabf19a88946b281b82c80f55a7b2540f9495a51a2964bbf4e4da45ed1829b7"
-    sha256 cellar: :any,                 arm64_ventura:  "c26c4cb6eba9c5dc6d5144ec75aa649c64af8d956feb56ad0968168608cb7e24"
-    sha256 cellar: :any,                 arm64_monterey: "c1f882709bc71c3785109466e41e7e2828a79a866190160d781a95fd40a36c38"
-    sha256 cellar: :any,                 arm64_big_sur:  "21265e292c3ba49e39265ce3084bce1afb07f1908911df4d61a80e70c2fadb1d"
-    sha256 cellar: :any,                 sonoma:         "391675fa0bf6d18d7afccafc2ba08f53cade9786ab5e4ac2aaebc4089505afe9"
-    sha256 cellar: :any,                 ventura:        "2d09dfe20da47d176f40a7ad06e76ee8fa9efc597b57983332e1343e6c331851"
-    sha256 cellar: :any,                 monterey:       "c7935ce0cf39131e1c011d29ba2180a0b86dcbe622e7f00e81e6032737ed01cd"
-    sha256 cellar: :any,                 big_sur:        "543c2da4f31607e18b6a20842d093726240c96ab04dfccb5f1c028810aff8387"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "ed60de55e289c40d049b74a19a3a5065adbb2428f25df172e1dea3285bf78f0b"
+    rebuild 1
+    sha256 cellar: :any,                 arm64_sonoma:   "f3eaa36769c57dc20c5b7d0f16deeb6b45ed5c68f3f58630c727225e5d4ff586"
+    sha256 cellar: :any,                 arm64_ventura:  "3ce78bef643795814bbcb10893afecf503f1b01f08534f6aa051d0bb3a27083e"
+    sha256 cellar: :any,                 arm64_monterey: "eddf124a142143cec2c295f7f72577465a2ddea36d572d8b7042e940ed4753c0"
+    sha256 cellar: :any,                 sonoma:         "e57374f3abf1844e583e041d96cf9e96326db74ce07b6f03f21e16a609b9fc5c"
+    sha256 cellar: :any,                 ventura:        "c8433423489014bde56b59e9cacca52de5e243989c1609ffa5b9d1dbaef8c7f8"
+    sha256 cellar: :any,                 monterey:       "f81b50297c00919226302bb6441af824b2f63466530ad73e7f2b76e9de9732d9"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "9ca2fed126afa7575352d456b0e7c6fef6b5a4274ddf1b2607d7347c4434edb2"
   end
 
+  depends_on "cmake" => :build
   depends_on "gcc" # for gfortran
 
-  # Fix -flat_namespace being used on Big Sur and later.
-  patch do
-    url "https://raw.githubusercontent.com/Homebrew/formula-patches/03cf8088210822aa2c1ab544ed58ea04c897d9c4/libtool/configure-pre-0.4.2.418-big_sur.diff"
-    sha256 "83af02f2aa2b746bb7225872cab29a253264be49db0ecebb12f841562d9a2923"
-  end
-
   def install
-    system "./configure", "--disable-debug",
-                          "--disable-dependency-tracking",
-                          "--disable-silent-rules",
-                          "--prefix=#{prefix}"
-    system "make"
-    system "make", "install"
+    args = %W[
+      -DBUILD_SHARED_LIBS=ON
+      -DENABLE_FORTRAN=ON
+      -DCMAKE_INSTALL_RPATH=#{rpath}
+    ]
+    system "cmake", "-S", ".", "-B", "build", *args, *std_cmake_args
+    system "cmake", "--build", "build"
+    system "cmake", "--install", "build"
   end
 
   test do

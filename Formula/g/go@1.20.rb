@@ -1,35 +1,27 @@
 class GoAT120 < Formula
   desc "Open source programming language to build simple/reliable/efficient software"
   homepage "https://go.dev/"
-  url "https://go.dev/dl/go1.20.10.src.tar.gz"
-  mirror "https://fossies.org/linux/misc/go1.20.10.src.tar.gz"
-  sha256 "72d2f51805c47150066c103754c75fddb2c19d48c9219fa33d1e46696c841dbb"
+  url "https://go.dev/dl/go1.20.14.src.tar.gz"
+  mirror "https://fossies.org/linux/misc/go1.20.14.src.tar.gz"
+  sha256 "1aef321a0e3e38b7e91d2d7eb64040666cabdcc77d383de3c9522d0d69b67f4e"
   license "BSD-3-Clause"
 
-  livecheck do
-    url "https://go.dev/dl/?mode=json"
-    regex(/^go[._-]?v?(1\.20(?:\.\d+)*)[._-]src\.t.+$/i)
-    strategy :json do |json, regex|
-      json.map do |release|
-        next if release["stable"] != true
-        next if release["files"].none? { |file| file["filename"].match?(regex) }
-
-        release["version"][/(\d+(?:\.\d+)+)/, 1]
-      end
-    end
-  end
-
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "8676cecce03a3cfdb354f843a3eaa70180bccbacdf3a51f37acb56107971371f"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "8676cecce03a3cfdb354f843a3eaa70180bccbacdf3a51f37acb56107971371f"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "8676cecce03a3cfdb354f843a3eaa70180bccbacdf3a51f37acb56107971371f"
-    sha256 cellar: :any_skip_relocation, sonoma:         "53b4e598de790b5847f220a69b7d8983166b9d5d2a517a2779d16324e41a9a68"
-    sha256 cellar: :any_skip_relocation, ventura:        "53b4e598de790b5847f220a69b7d8983166b9d5d2a517a2779d16324e41a9a68"
-    sha256 cellar: :any_skip_relocation, monterey:       "53b4e598de790b5847f220a69b7d8983166b9d5d2a517a2779d16324e41a9a68"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "36d1bda91ce04157060e060e9852aa4b11b28b08918fb228e04927a200b12e45"
+    rebuild 1
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "2b7719f9f65d0176b3016a973a9c9ee179ed204465670f550aea36878335e644"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "2b7719f9f65d0176b3016a973a9c9ee179ed204465670f550aea36878335e644"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "2b7719f9f65d0176b3016a973a9c9ee179ed204465670f550aea36878335e644"
+    sha256 cellar: :any_skip_relocation, sonoma:         "b6931aff2c86cf18137b5c5b01dd2a842c8660a24724bb02a7880a95fc3590e4"
+    sha256 cellar: :any_skip_relocation, ventura:        "b6931aff2c86cf18137b5c5b01dd2a842c8660a24724bb02a7880a95fc3590e4"
+    sha256 cellar: :any_skip_relocation, monterey:       "b6931aff2c86cf18137b5c5b01dd2a842c8660a24724bb02a7880a95fc3590e4"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "cf015c4d4657340f494946062e329277dba2f466ea0fce812186614f36b78561"
   end
 
   keg_only :versioned_formula
+
+  # EOL with Go 1.22 release (2024-02-06)
+  # Ref: https://go.dev/doc/devel/release#policy
+  deprecate! date: "2024-02-14", because: :unsupported
 
   depends_on "go" => :build
 

@@ -1,26 +1,24 @@
 class Pygobject3 < Formula
   desc "GNOME Python bindings (based on GObject Introspection)"
   homepage "https://wiki.gnome.org/Projects/PyGObject"
-  url "https://download.gnome.org/sources/pygobject/3.46/pygobject-3.46.0.tar.xz"
-  sha256 "426008b2dad548c9af1c7b03b59df0440fde5c33f38fb5406b103a43d653cafc"
+  url "https://download.gnome.org/sources/pygobject/3.48/pygobject-3.48.2.tar.xz"
+  sha256 "0794aeb4a9be31a092ac20621b5f54ec280f9185943d328b105cdae6298ad1a7"
   license "LGPL-2.1-or-later"
-  revision 1
 
   bottle do
-    sha256 cellar: :any, arm64_sonoma:   "67f1311909ef73e7979b64a22d4093685567a8659c8d42c42c82919095364094"
-    sha256 cellar: :any, arm64_ventura:  "b8ba69e7aad0ccffbb266e2c29731e5140cc3fdb920c4b847689a4e76539e056"
-    sha256 cellar: :any, arm64_monterey: "0d2b091dfc7910c3d225431f3cc950ce393cb3486b10e7e50fa7079e39d2b290"
-    sha256 cellar: :any, sonoma:         "cc4a132bdefae49e8147d8db3ffeb86c82c528bce2ffd51e652d913f0a376b0c"
-    sha256 cellar: :any, ventura:        "f61d07a303cef9e600301d80452c5ba4b3f782d6d9fc34578749439bbeee601b"
-    sha256 cellar: :any, monterey:       "14baa25fcb45daffc6419668ac6b8eb0fb22c52c11e74264e19bcb5c0dbfe061"
-    sha256               x86_64_linux:   "934fa9922746ffdc10718b45cbc28c084dd631565d5e64b982a47731a1ce712f"
+    sha256 cellar: :any, arm64_sonoma:   "03a66429468af32cc5ca8458dbff8307cf77a6ccb66ce366be318abb71e6dcb7"
+    sha256 cellar: :any, arm64_ventura:  "91bddd1d00d2c8c7e50190714c21f35e98c37d5945f23d1bbe9e49035cad8fe5"
+    sha256 cellar: :any, arm64_monterey: "6aa5972afb3ac83c880a53bc48d582df92af536f9a616fe40648b3ecd66d2ad7"
+    sha256 cellar: :any, sonoma:         "8db6ac23e2664e8a55aa4ef0d360a2150ff7165e6a209fd39eca0898298fdd4c"
+    sha256 cellar: :any, ventura:        "7be31857d1eb553331fa404029bf6f510c0ea48b83395b268909a67b3eae20c7"
+    sha256 cellar: :any, monterey:       "73c9c2554d086c379912a18614f3870dcf9fbb120e3e63a0ee67736d59eb1eeb"
+    sha256               x86_64_linux:   "e619d0cec5375d3427d05b6cac359b993546ead0f78a3b2205f950d012645d7c"
   end
 
   depends_on "meson" => :build
   depends_on "ninja" => :build
   depends_on "pkg-config" => :build
   depends_on "python-setuptools" => :build
-  depends_on "python@3.10" => [:build, :test]
   depends_on "python@3.11" => [:build, :test]
   depends_on "python@3.12" => [:build, :test]
   depends_on "gobject-introspection"
@@ -45,8 +43,8 @@ class Pygobject3 < Formula
                                          "-Dpython=#{python}",
                                          "-Dpython.platlibdir=#{site_packages(python)}",
                                          "-Dpython.purelibdir=#{site_packages(python)}",
+                                         "-Dtests=false",
                                          *std_meson_args
-
       system "meson", "compile", "-C", builddir, "--verbose"
       system "meson", "install", "-C", builddir
     end

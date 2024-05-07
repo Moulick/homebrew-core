@@ -4,17 +4,16 @@ class Libpeas < Formula
   url "https://download.gnome.org/sources/libpeas/1.36/libpeas-1.36.0.tar.xz"
   sha256 "297cb9c2cccd8e8617623d1a3e8415b4530b8e5a893e3527bbfd1edd13237b4c"
   license "LGPL-2.1-or-later"
+  revision 1
 
   bottle do
-    sha256 arm64_sonoma:   "e1df7d7f1e9e17396322c5dc61b79ed6e2daea812deb5861603c36e8f37e9bce"
-    sha256 arm64_ventura:  "5035cbd0ee756c5ee11237a3a76793f8baddf9efd7ac642942655d7dee6f0263"
-    sha256 arm64_monterey: "c41fbcf2dd609afa94e61573ddc2d696e3319c736be0cb6a7287ab124ab27edb"
-    sha256 arm64_big_sur:  "1e84d7e5d18d247efb35a15750fae0d5639ccf1bdc566d24171527682ee9259e"
-    sha256 sonoma:         "12969ddacdd011c7c5bd9b258738ef47d355dec995e195005189c5dad5d32904"
-    sha256 ventura:        "b1f6f50765a449fb859b31775ee9c8fd3b7719619749e217af51fd34d2b7ddef"
-    sha256 monterey:       "17b8dba6575562741d55c46022e0bfddca9223d389955990712679b1436f27d0"
-    sha256 big_sur:        "ccbf503dc2c680a7f0ba32f0a22e05e68bc2a7d50557c4754c8de7f473f32724"
-    sha256 x86_64_linux:   "3df218b0dcc953b55eb149454943c4ccead6397720b313dd65af783ccd03ab49"
+    sha256 arm64_sonoma:   "249a30363c03546d15f68df7d8c3f0fe102effb6bac4b5ee3af6c1c57266eef5"
+    sha256 arm64_ventura:  "6665b8a64464d0af0bc1a4bfb7f12e8437a163dc76d6f85c0dde4e25e2a35ccd"
+    sha256 arm64_monterey: "33937a96502980298f719024ce5b4ab328e491fc2aca16a1ca65632360e31591"
+    sha256 sonoma:         "625a76fc14d1ded3604b981c1a5464dd5173943b4798292dbf288730863f551a"
+    sha256 ventura:        "0aa535e04f1759c3e6b8de5ca7caf178437149643481e1a2d24ee13b23993ce8"
+    sha256 monterey:       "1d2456328df18f6ab771a2aa3f866078f73cd2be07c07b246baae5c05c773488"
+    sha256 x86_64_linux:   "baa8d94412cd5d63a202de7a2935cfc8aba6879563077f676b59655e2d42bb5a"
   end
 
   depends_on "meson" => :build
@@ -25,9 +24,13 @@ class Libpeas < Formula
   depends_on "gobject-introspection"
   depends_on "gtk+3"
   depends_on "pygobject3"
-  depends_on "python@3.11"
+  depends_on "python@3.12"
 
   def install
+    pyver = Language::Python.major_minor_version "python3.12"
+    # Help pkg-config find python as we only provide `python3-embed` for aliased python formula
+    inreplace "meson.build", "'python3-embed'", "'python-#{pyver}-embed'"
+
     args = %w[
       -Dpython3=true
       -Dintrospection=true

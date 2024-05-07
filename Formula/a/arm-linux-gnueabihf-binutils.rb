@@ -1,9 +1,9 @@
 class ArmLinuxGnueabihfBinutils < Formula
   desc "FSF/GNU binutils for cross-compiling to arm-linux"
   homepage "https://www.gnu.org/software/binutils/binutils.html"
-  url "https://ftp.gnu.org/gnu/binutils/binutils-2.41.tar.bz2"
-  mirror "https://ftpmirror.gnu.org/binutils/binutils-2.41.tar.bz2"
-  sha256 "a4c4bec052f7b8370024e60389e194377f3f48b56618418ea51067f67aaab30b"
+  url "https://ftp.gnu.org/gnu/binutils/binutils-2.42.tar.bz2"
+  mirror "https://ftpmirror.gnu.org/binutils/binutils-2.42.tar.bz2"
+  sha256 "aa54850ebda5064c72cd4ec2d9b056c294252991486350d9a97ab2a6dfdfaf12"
   license "GPL-3.0-or-later"
 
   livecheck do
@@ -11,16 +11,18 @@ class ArmLinuxGnueabihfBinutils < Formula
   end
 
   bottle do
-    sha256 arm64_sonoma:   "3aba2d4a7f901272d7533b144e5dbeafcaf7d3cfc45d8d79fe890fa3a15b9c19"
-    sha256 arm64_ventura:  "d306fde79e15534a42e29d74002e8ffd1a3a07e6d52bbf9a68b71cd31f736004"
-    sha256 arm64_monterey: "89c93b9fc1c407f7ffbd430e4499173a2e29a3fd91ed3a422616e9271c8c7e0f"
-    sha256 arm64_big_sur:  "ec759af2b65961d39e1ba7f1ea3e02e6ad36a9e8c315ce017620f37833b5178c"
-    sha256 sonoma:         "dcc81c1651b6bb13ff46b06abd25d128dfffb4bd1ca3203057c76cf9d984a935"
-    sha256 ventura:        "3a0933c3b448c31d2e4415289da547641bd36a941fe594884e3a181efd910aa6"
-    sha256 monterey:       "a885c09f577446d22596c7f6d87e1c4e4612e77f6e790ca77f5be8bc7e0923d1"
-    sha256 big_sur:        "9ff9eb1dc764fcfa54a4ecb773b405094cfa60fd9391d8f0428a6a1707a8a87a"
-    sha256 x86_64_linux:   "ec5d45bba9e8d1287136d03b6ca3ac4dbae2fe4d88617eafce0604123e82755d"
+    sha256 arm64_sonoma:  "74a5a3cb193d05c8f2917106655e1e1090499c26fab6bdc45d2133a741201e75"
+    sha256 arm64_ventura: "80e4ed787df40fdcacd6554b88847ad04323fa1579fc59b8600282adffbeb98b"
+    sha256 sonoma:        "dad357ce82254a1be31dfc2b4e9655e444c78505d346004d13b73881c1c267f3"
+    sha256 ventura:       "d5df81db688b1cfdaa4ad4d14ffacaf17483aa0ede6894928371f4ccf09ab53e"
+    sha256 x86_64_linux:  "31d10ab761e6f69d2ed8bd21fc94264c2bb515eb3ab99cb6fff4046c1e37c243"
   end
+
+  depends_on "pkg-config" => :build
+  # Requires the <uchar.h> header
+  # https://sourceware.org/bugzilla/show_bug.cgi?id=31320
+  depends_on macos: :ventura
+  depends_on "zstd"
 
   uses_from_macos "zlib"
 
@@ -47,6 +49,7 @@ class ArmLinuxGnueabihfBinutils < Formula
                           "--enable-ld=yes",
                           "--enable-interwork",
                           "--with-system-zlib",
+                          "--with-zstd",
                           "--disable-nls"
     system "make"
     system "make", "install"

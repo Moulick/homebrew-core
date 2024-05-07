@@ -1,8 +1,8 @@
 class NodeAT20 < Formula
   desc "Platform built on V8 to build network applications"
   homepage "https://nodejs.org/"
-  url "https://nodejs.org/dist/v20.9.0/node-v20.9.0.tar.xz"
-  sha256 "a23d96810abf0455426b349d47ce5310f33095b7bc0571b9cc510f481c3a4519"
+  url "https://nodejs.org/dist/v20.12.2/node-v20.12.2.tar.xz"
+  sha256 "d7cbcc5fbfb31e9001f3f0150bbeda59abe5dd7137aaa6273958cd59ce35ced7"
   license "MIT"
 
   livecheck do
@@ -11,20 +11,20 @@ class NodeAT20 < Formula
   end
 
   bottle do
-    sha256 arm64_sonoma:   "76e99d7791e1e9fca565d4513c6995dd8d71489933a86dbfbc022a3b2d7e3d53"
-    sha256 arm64_ventura:  "9d60b9ca5951fd31dcee3a51034b9924bbf836987457fad6cc33ac24a09f1c7c"
-    sha256 arm64_monterey: "0c5d93937a4c1026ca22916ab4c4944ead3867808c66c862a21633e6f963fe11"
-    sha256 sonoma:         "bf84650372f0654bec9480d057d1b54616894d079fdf44df8ad876e191d8eb9d"
-    sha256 ventura:        "1a6fed69e72f611d67032bebbae51054cc6ee49f1617ab5a99688dc9dec42027"
-    sha256 monterey:       "ddf39caa4217aaf058434e6e030a646cc28565cf91cb02b605ed2cd25b402878"
-    sha256 x86_64_linux:   "2ae0a6d389fd1b2c65cc703ee170481a0ece3a3855d00d6a22b1efd445efdf1b"
+    sha256 arm64_sonoma:   "da6c4a7d28beb1854dbd1918cb483f9e36e39dec0da7ad5c9d32c51407ca66ba"
+    sha256 arm64_ventura:  "74e87bd3db877a5cdea0fef2763d747c922b7d37613e930b361fb737fdc19f83"
+    sha256 arm64_monterey: "7ade22ab5bd456ff96a2f9bc2029d38c3f5b23dcd6256c17d57302bb6c724b59"
+    sha256 sonoma:         "ff4fb820ce6ec4e7435c7e40afbe7b4a310559caff07f63531c03de638526f82"
+    sha256 ventura:        "c48d7b3dc6be932df045eb7bf11b7a4feb489cc2bf0a9c9fb8a039d43359d428"
+    sha256 monterey:       "ced5163ff2966cff7068b8860931bd11b2b4a594bd2b02974027a485b8d8670c"
+    sha256 x86_64_linux:   "5ea4c5f74ebae45fa1dadfdb62167376e0dd20d4633321db498a1eae3fa9272c"
   end
 
   keg_only :versioned_formula
 
-  # https://nodejs.org/en/about/releases/
+  # https://github.com/nodejs/release#release-schedule
   # disable! date: "2026-04-30", because: :unsupported
-  deprecate! date: "2024-10-22", because: :unsupported
+  deprecate! date: "2025-10-28", because: :unsupported
 
   depends_on "pkg-config" => :build
   depends_on "python-setuptools" => :build
@@ -51,9 +51,6 @@ class NodeAT20 < Formula
   end
 
   fails_with gcc: "5"
-
-  # Support Python 3.12
-  patch :DATA
 
   def install
     ENV.llvm_clang if OS.mac? && (DevelopmentTools.clang_build_version <= 1100)
@@ -90,7 +87,7 @@ class NodeAT20 < Formula
     # terminate called after throwing an instance of 'std::out_of_range'
     # Pre-Catalina macOS also can't build with LTO
     # LTO is unpleasant if you have to build from source.
-    args << "--enable-lto" if MacOS.version >= :catalina && build.bottle?
+    args << "--enable-lto" if OS.mac? && MacOS.version >= :catalina && build.bottle?
 
     system "./configure", *args
     system "make", "install"
@@ -129,26 +126,3 @@ class NodeAT20 < Formula
     assert_match "< hello >", shell_output("#{bin}/npx --yes cowsay hello")
   end
 end
-
-__END__
-diff --git a/configure b/configure
-index fefb313c..711a3014 100755
---- a/configure
-+++ b/configure
-@@ -4,6 +4,7 @@
- # Note that the mix of single and double quotes is intentional,
- # as is the fact that the ] goes on a new line.
- _=[ 'exec' '/bin/sh' '-c' '''
-+command -v python3.12 >/dev/null && exec python3.12 "$0" "$@"
- command -v python3.11 >/dev/null && exec python3.11 "$0" "$@"
- command -v python3.10 >/dev/null && exec python3.10 "$0" "$@"
- command -v python3.9 >/dev/null && exec python3.9 "$0" "$@"
-@@ -23,7 +24,7 @@ except ImportError:
-   from distutils.spawn import find_executable as which
-
- print('Node.js configure: Found Python {}.{}.{}...'.format(*sys.version_info))
--acceptable_pythons = ((3, 11), (3, 10), (3, 9), (3, 8), (3, 7), (3, 6))
-+acceptable_pythons = ((3, 12), (3, 11), (3, 10), (3, 9), (3, 8), (3, 7), (3, 6))
- if sys.version_info[:2] in acceptable_pythons:
-   import configure
- else:

@@ -1,19 +1,19 @@
 class Roadrunner < Formula
   desc "High-performance PHP application server, load-balancer and process manager"
   homepage "https://roadrunner.dev/"
-  url "https://github.com/roadrunner-server/roadrunner/archive/refs/tags/v2023.3.3.tar.gz"
-  sha256 "143ebad697ffbc780b0f434dd38db55f0cc8b044218fd8e82cf82d0ff5c0dc30"
+  url "https://github.com/roadrunner-server/roadrunner/archive/refs/tags/v2024.1.1.tar.gz"
+  sha256 "2355b240750549fea2c182dc1e637f60c70ec9de23e4d066f8e5b3d0ad62c5ed"
   license "MIT"
   head "https://github.com/roadrunner-server/roadrunner.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "ced603ac7ba0624d459d5c2e2eb313fa05c1cae1c94c625be3bfb0741db879cc"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "131df7938263fcc1b0da7792e276c1b7eed85bed3b0ed21efcf7345ab15d70ff"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "653651905f662e7c576e5b950437f4ceebaa4370824b78bf1704007016ddccb5"
-    sha256 cellar: :any_skip_relocation, sonoma:         "ae0c72f2e58a7704b0e8d6109c779810c190e359f27ac2db9526358720708d2c"
-    sha256 cellar: :any_skip_relocation, ventura:        "cb25da43d37df98c3f8d811d6f8d46c669c1e72a3295fd14185a8a7e4fbdfc50"
-    sha256 cellar: :any_skip_relocation, monterey:       "fe88d1de99bfceee7d25a5ecb8c9b7a64b2d3aee8e61c49e1cef52f2062bd91a"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "c706eebb120bf6ab96417b0ecc61c736af6ca22a7c93795abbed893052f0746e"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "e02a375ed284323a410c73be2620d6096d031d3164212e8b1019b95b22c6ca0f"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "c05ce4c262bce4279160e29da7ec172db263782b076cb7f8327fddbadf9cc88d"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "326b0de7dc429f5eb67407b21ae4e6d37d998845788ea3c547f13319a3fb13fc"
+    sha256 cellar: :any_skip_relocation, sonoma:         "f481fb1782113ee66a475688cf1f827bcdb46c69b10b7b128f1fce3605b25aa0"
+    sha256 cellar: :any_skip_relocation, ventura:        "1e8a48932870ab05cc937ae990745e12d803cb5d1b8a6fa95dc5145c33b21c58"
+    sha256 cellar: :any_skip_relocation, monterey:       "b3c7b6c5ae841fe4691eea2e2f0415950aef4803616759b7e4d21134d5e37f4f"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "1acaef2eb6870a818fc789a73dbd1c55395493d83027303c290fc5207b00613d"
   end
 
   depends_on "go" => :build
@@ -21,10 +21,10 @@ class Roadrunner < Formula
   def install
     ldflags = %W[
       -s -w
-      -X github.com/roadrunner-server/roadrunner/v2023/internal/meta.version=#{version}
-      -X github.com/roadrunner-server/roadrunner/v2023/internal/meta.buildTime=#{time.iso8601}
+      -X github.com/roadrunner-server/roadrunner/v#{version.major}/internal/meta.version=#{version}
+      -X github.com/roadrunner-server/roadrunner/v#{version.major}/internal/meta.buildTime=#{time.iso8601}
     ]
-    system "go", "build", "-tags", "aws", *std_go_args(output: bin/"rr", ldflags: ldflags), "./cmd/rr"
+    system "go", "build", "-tags", "aws", *std_go_args(ldflags:, output: bin/"rr"), "./cmd/rr"
 
     generate_completions_from_executable(bin/"rr", "completion")
   end

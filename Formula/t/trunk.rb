@@ -1,29 +1,28 @@
 class Trunk < Formula
   desc "Build, bundle & ship your Rust WASM application to the web"
-  homepage "https://github.com/thedodd/trunk"
-  url "https://github.com/thedodd/trunk/archive/refs/tags/v0.17.5.tar.gz"
-  sha256 "308b5b24af739e779d05dfbb35f9bbfa87063e8532f09e6cf0b268951db3f604"
-  license any_of: ["MIT", "Apache-2.0"]
-  head "https://github.com/thedodd/trunk.git", branch: "master"
+  homepage "https://trunkrs.dev/"
+  url "https://github.com/trunk-rs/trunk/archive/refs/tags/v0.20.0.tar.gz"
+  sha256 "83e5cf0760d08d78e93ab3aefdcd55ccd2a6fd681742a2ebc2602659b55e94cc"
+  license any_of: ["Apache-2.0", "MIT"]
+  head "https://github.com/trunk-rs/trunk.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "bc397d95cdd959224397771ea39282df1ded8c8dda9f66797ed775e14a8a2e7a"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "0b8bff9b18d37680cae3b330df07f0816245c6659fe9a7f8862d5512ccf4bbd1"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "9ceeb7d47ea5e7c9bec2160f5d68681febcf10d296aee21c6a18f460cf3dcac9"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "e4e5027908ec6bba4d26697aa8044e1d02af138aa3f957442fc1e25df52d5169"
-    sha256 cellar: :any_skip_relocation, sonoma:         "5574aa0accd8833df0cd3793ac64d35e65c76697798e9f8c496bc3c787d6afd5"
-    sha256 cellar: :any_skip_relocation, ventura:        "60937f656bb0138d3e109b72a130e4a9725a1a3500693814be7f055389fbc749"
-    sha256 cellar: :any_skip_relocation, monterey:       "69733721417dc26f65237894104efc04cf1dcaa4bae59b109842a89b15118f2c"
-    sha256 cellar: :any_skip_relocation, big_sur:        "de03a5fec3e832ab3c015bf1d4826cef4792cfc3fe458b98e3c5dfc88a96ecf3"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "c6c9d144b8f442aa3c186be21974655679086cef8dfa0158e4314af31ee597e3"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "97467f46058848b5bd2c90720db1d1bbfafcd2d6ba9bb660b724e024898d0b5f"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "8da66f1507889653efdd48dc3c72ef0f867b5f6e406a20db458e487d8346c17a"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "8e77eb0a8db19a6c7737af68a1d10b5628e25d4d5bc7e5af13205821cd6582a0"
+    sha256 cellar: :any_skip_relocation, sonoma:         "dd39fb27c0c022edf6af80c77e4ce28e22a64a806d14b536de64ad527e003110"
+    sha256 cellar: :any_skip_relocation, ventura:        "8e5faee1c751a7c550be45b4be96d5d4fbb54bba988eee97db455192e1c01551"
+    sha256 cellar: :any_skip_relocation, monterey:       "e5b08178bc74d6dd71ada3c082b4aec7730221348bd16c9e5926787c3f3766e7"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "2c4240cc94498e0680454d1731e931e2e582ff7e7e353c9c1f782c9a7168d36e"
   end
 
+  depends_on "pkg-config" => :build
   depends_on "rust" => :build
 
-  uses_from_macos "zlib"
+  uses_from_macos "bzip2"
 
   on_linux do
-    depends_on "pkg-config" => :build
+    depends_on "openssl@3"
   end
 
   def install

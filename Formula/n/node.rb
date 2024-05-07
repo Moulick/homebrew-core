@@ -1,8 +1,8 @@
 class Node < Formula
   desc "Platform built on V8 to build network applications"
   homepage "https://nodejs.org/"
-  url "https://nodejs.org/dist/v21.1.0/node-v21.1.0.tar.xz"
-  sha256 "91ac72e4444c5e5ab4b448030a61ffa95acd35d34a9d31d2d220ee2bed01b925"
+  url "https://nodejs.org/dist/v22.1.0/node-v22.1.0.tar.xz"
+  sha256 "9d7d5f40d9dbd6260c99b5e494b5f9bc755e8f0ffac70e121adce5fb442f23cb"
   license "MIT"
   head "https://github.com/nodejs/node.git", branch: "main"
 
@@ -12,17 +12,16 @@ class Node < Formula
   end
 
   bottle do
-    sha256 arm64_sonoma:   "2c62cf35b3e83dcd91a31d6f93cf6eacdbeb20225d4240fafb59d9eee2439805"
-    sha256 arm64_ventura:  "b04b18885aeecd0c29c81de9e80e7c155a89e22e48cfd0dd7e285c3fcf5732cb"
-    sha256 arm64_monterey: "965f5871990c23356d05f2d7ceeb2b07ea465b6ab02ccae8e83f552618ef8920"
-    sha256 sonoma:         "4804bb076d76ccab4d573115e0b25f65f75305d468427b594928541d2bd4ceff"
-    sha256 ventura:        "70824a6d356938214e73dfb01c781609e409b2ac2e1d377e7d5c5c1399fd2488"
-    sha256 monterey:       "5bd2b193dcfd48d784ab9a6fc309e78cd9dc8c36bb2dc97120721d333d3d9bee"
-    sha256 x86_64_linux:   "3bb614fb3dd8a8ab2c6ac64c8d3f815c6afdee329884dd6c4b079b9b174b2e9a"
+    sha256 arm64_sonoma:   "3944cf234af633b7e974ea1d743884ff5221b29533c622a77f079ee7d5d5bd28"
+    sha256 arm64_ventura:  "928e0563418819802cceb47aecadaa8ac7afb17afb25d5635da899aec0800544"
+    sha256 arm64_monterey: "f2bd3bcebad3b014c85ee75ead5cfe21e1c3e2ff341e91a36c8e4814d2e5cd65"
+    sha256 sonoma:         "ac64cf028d2b5b9008f0d92ee2996a7f3835b839bfa067a8bb8312accc0a7e2e"
+    sha256 ventura:        "e1654a5fd25ad3d8f5b94b1f33c8184e679fca9df944366dad33927671ae839d"
+    sha256 monterey:       "51d018fc2546c8a9d333d708bacd24105ca51ded191829b06aa5f91414373dff"
+    sha256 x86_64_linux:   "515698eb8b210d25aa64a1d19bdb646eb9ee1f3259789fa7c33c0fe8079b2564"
   end
 
   depends_on "pkg-config" => :build
-  depends_on "python-setuptools" => :build
   depends_on "python@3.12" => :build
   depends_on "brotli"
   depends_on "c-ares"
@@ -50,12 +49,9 @@ class Node < Formula
   # We track major/minor from upstream Node releases.
   # We will accept *important* npm patch releases when necessary.
   resource "npm" do
-    url "https://registry.npmjs.org/npm/-/npm-10.2.0.tgz"
-    sha256 "c362077587b1e782e5aef3dcf85826399ae552ad66b760e2585c4ac11102243f"
+    url "https://registry.npmjs.org/npm/-/npm-10.7.0.tgz"
+    sha256 "f443ed4364ea11ac5cf7cae7fb4731278c64dd6839093f8a46eabde0430e0fcd"
   end
-
-  # Support Python 3.12
-  patch :DATA
 
   def install
     ENV.llvm_clang if OS.mac? && (DevelopmentTools.clang_build_version <= 1100)
@@ -97,7 +93,7 @@ class Node < Formula
     # terminate called after throwing an instance of 'std::out_of_range'
     # Pre-Catalina macOS also can't build with LTO
     # LTO is unpleasant if you have to build from source.
-    args << "--enable-lto" if MacOS.version >= :catalina && build.bottle?
+    args << "--enable-lto" if OS.mac? && MacOS.version >= :catalina && build.bottle?
 
     system "./configure", *args
     system "make", "install"
@@ -180,26 +176,3 @@ class Node < Formula
     assert_match "< hello >", shell_output("#{HOMEBREW_PREFIX}/bin/npx --yes cowsay hello")
   end
 end
-
-__END__
-diff --git a/configure b/configure
-index fefb313c..711a3014 100755
---- a/configure
-+++ b/configure
-@@ -4,6 +4,7 @@
- # Note that the mix of single and double quotes is intentional,
- # as is the fact that the ] goes on a new line.
- _=[ 'exec' '/bin/sh' '-c' '''
-+command -v python3.12 >/dev/null && exec python3.12 "$0" "$@"
- command -v python3.11 >/dev/null && exec python3.11 "$0" "$@"
- command -v python3.10 >/dev/null && exec python3.10 "$0" "$@"
- command -v python3.9 >/dev/null && exec python3.9 "$0" "$@"
-@@ -23,7 +24,7 @@ except ImportError:
-   from distutils.spawn import find_executable as which
-
- print('Node.js configure: Found Python {}.{}.{}...'.format(*sys.version_info))
--acceptable_pythons = ((3, 11), (3, 10), (3, 9), (3, 8), (3, 7), (3, 6))
-+acceptable_pythons = ((3, 12), (3, 11), (3, 10), (3, 9), (3, 8), (3, 7), (3, 6))
- if sys.version_info[:2] in acceptable_pythons:
-   import configure
- else:

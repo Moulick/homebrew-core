@@ -3,10 +3,9 @@ class C7n < Formula
 
   desc "Rules engine for cloud security, cost optimization, and governance"
   homepage "https://github.com/cloud-custodian/cloud-custodian"
-  url "https://github.com/cloud-custodian/cloud-custodian/archive/refs/tags/0.9.32.0.tar.gz"
-  sha256 "e2d9c4a9d0ef6ab2e1144ad950312514ab9971f6b5825db2cece98617ea84870"
+  url "https://github.com/cloud-custodian/cloud-custodian/archive/refs/tags/0.9.36.0.tar.gz"
+  sha256 "c9d8ce9645f2fb333fcd4840806607ce66ffc1469931ddcdd71312dea35b030c"
   license "Apache-2.0"
-  revision 1
 
   livecheck do
     url :stable
@@ -14,46 +13,47 @@ class C7n < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_sonoma:   "7653f7b3d9c08bae43bdb500c0abc68c9296299b8d6f9f4545bc2ec8edf6bfb4"
-    sha256 cellar: :any,                 arm64_ventura:  "279f0cf36b6266e723d0a62895c52dbcb8510fe642037bec07d88c081a46f157"
-    sha256 cellar: :any,                 arm64_monterey: "bb7ab2a45a83b77ed3dbd52ffea503cc8e879acb7d442554e7e6b5020d4c6910"
-    sha256 cellar: :any,                 sonoma:         "9bc564d08054d9f6e5248b07c0d009b1db1a97ac0a42492ab60634988bfcb14e"
-    sha256 cellar: :any,                 ventura:        "c6133077b9a8285757f819c5b3c57e2da68837738a282c51b3c00e9c02d21be7"
-    sha256 cellar: :any,                 monterey:       "45cd081ab2b288f3a9b44a4e01d9b341902c13b2768fc377cb4d9ce050bac9a8"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "8c5b7e05997006d6b3075568313390148951a36c353ef7e99129fe9a3d6ad657"
+    sha256 cellar: :any,                 arm64_sonoma:   "b7fdc0e699b67d62bf3c7234c2d3cd07b779be9e00313307f3df959226a2ed29"
+    sha256 cellar: :any,                 arm64_ventura:  "14cb00f43767e37baf2ab18f1d3978e1c74a50a2adbcb8a813acd9c2b07c8346"
+    sha256 cellar: :any,                 arm64_monterey: "32b3f46f98edcaa2efcc1550f1dda24eb8f832d4336de8d3159890ab50532a05"
+    sha256 cellar: :any,                 sonoma:         "8e80c6ca3dd7edfc93f74026456a2fb734b4fc2a639a19f8c41aeddfae468dc2"
+    sha256 cellar: :any,                 ventura:        "764704f01011e16fdfc5256eeb62ac4570f9d09ec68cf260ed6fa54937fc7159"
+    sha256 cellar: :any,                 monterey:       "fd97ba46f5f34f758e412c5c7916c7c1484d4b82f5a4c63aa8ed94b632885365"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "fb74aafd65e5a00918e4aaeac3c9e921d4a2703e5f8e4ac969ae45d733e6f5bd"
   end
 
   depends_on "rust" => :build # for rpds-py
-  depends_on "python-argcomplete"
-  depends_on "python-setuptools"
-  depends_on "python-tabulate"
+  depends_on "libyaml"
   depends_on "python@3.12"
-  depends_on "pyyaml"
-  depends_on "six"
+
+  resource "argcomplete" do
+    url "https://files.pythonhosted.org/packages/79/51/fd6e293a64ab6f8ce1243cf3273ded7c51cbc33ef552dce3582b6a15d587/argcomplete-3.3.0.tar.gz"
+    sha256 "fd03ff4a5b9e6580569d34b273f741e85cd9e072f3feeeee3eba4891c70eda62"
+  end
 
   resource "attrs" do
-    url "https://files.pythonhosted.org/packages/97/90/81f95d5f705be17872843536b1868f351805acf6971251ff07c1b8334dbb/attrs-23.1.0.tar.gz"
-    sha256 "6279836d581513a26f1bf235f9acd333bc9115683f14f7e8fae46c98fc50e015"
+    url "https://files.pythonhosted.org/packages/e3/fc/f800d51204003fa8ae392c4e8278f256206e7a919b708eef054f5f4b650d/attrs-23.2.0.tar.gz"
+    sha256 "935dc3b529c262f6cf76e50877d35a4bd3c1de194fd41f47a2b7ae8f19971f30"
   end
 
   resource "boto3" do
-    url "https://files.pythonhosted.org/packages/1b/2f/4ccd05e765a9aa3222125da37ceced40b4133094069c4d011ca7ae37681f/boto3-1.28.65.tar.gz"
-    sha256 "9d52a1605657aeb5b19b09cfc01d9a92f88a616a5daf5479a59656d6341ea6b3"
+    url "https://files.pythonhosted.org/packages/fa/34/5f96d157ac90e62897a6652cec479a6df4aa0bd112d1d8a54c7874ba1c0c/boto3-1.34.93.tar.gz"
+    sha256 "e39516e4ca21612932599819662759c04485d53ca457996a913163da11f052a4"
   end
 
   resource "botocore" do
-    url "https://files.pythonhosted.org/packages/42/30/e5e2126eca77baedbf51e48241c898d99784d272bcf2fb47f5a10360e555/botocore-1.31.65.tar.gz"
-    sha256 "90716c6f1af97e5c2f516e9a3379767ebdddcc6cbed79b026fa5038ce4e5e43e"
+    url "https://files.pythonhosted.org/packages/75/1e/dc38c0eb915ce522f054f4f34d4ebe453cf83e761b1dd05836e49c41c056/botocore-1.34.93.tar.gz"
+    sha256 "79d39b0b87e962991c6dd55e78ce15155099f6fb741be88b1b8a456a702cc150"
   end
 
   resource "docutils" do
-    url "https://files.pythonhosted.org/packages/57/b1/b880503681ea1b64df05106fc7e3c4e3801736cf63deffc6fa7fc5404cf5/docutils-0.18.1.tar.gz"
-    sha256 "679987caf361a7539d76e584cbeddc311e3aee937877c87346f31debc63e9d06"
+    url "https://files.pythonhosted.org/packages/ae/ed/aefcc8cd0ba62a0560c3c18c33925362d46c6075480bfa4df87b28e169a9/docutils-0.21.2.tar.gz"
+    sha256 "3a6b18732edf182daa3cd12775bbb338cf5691468f91eeeb109deff6ebfa986f"
   end
 
   resource "importlib-metadata" do
-    url "https://files.pythonhosted.org/packages/a6/1d/7a01bc53a248ddb14eb0dca86f089ddf848d7b9485c31d7f840f27acbcfe/importlib_metadata-5.2.0.tar.gz"
-    sha256 "404d48d62bba0b7a77ff9d405efd91501bef2e67ff4ace0bed40a0cf28c3c7cd"
+    url "https://files.pythonhosted.org/packages/a0/fc/c4e6078d21fc4fa56300a241b87eae76766aa380a23fc450fc85bb7bf547/importlib_metadata-7.1.0.tar.gz"
+    sha256 "b78938b926ee8d5f020fc4772d487045805a55ddbad2ecf21c6d60938dc7fcd2"
   end
 
   resource "jmespath" do
@@ -62,43 +62,58 @@ class C7n < Formula
   end
 
   resource "jsonschema" do
-    url "https://files.pythonhosted.org/packages/e4/43/087b24516db11722c8687e0caf0f66c7785c0b1c51b0ab951dfde924e3f5/jsonschema-4.19.1.tar.gz"
-    sha256 "ec84cc37cfa703ef7cd4928db24f9cb31428a5d0fa77747b8b51a847458e0bbf"
+    url "https://files.pythonhosted.org/packages/4d/c5/3f6165d3df419ea7b0990b3abed4ff348946a826caf0e7c990b65ff7b9be/jsonschema-4.21.1.tar.gz"
+    sha256 "85727c00279f5fa6bedbe6238d2aa6403bedd8b4864ab11207d07df3cc1b2ee5"
   end
 
   resource "jsonschema-specifications" do
-    url "https://files.pythonhosted.org/packages/12/ce/eb5396b34c28cbac19a6a8632f0e03d309135d77285536258b82120198d8/jsonschema_specifications-2023.7.1.tar.gz"
-    sha256 "c91a50404e88a1f6ba40636778e2ee08f6e24c5613fe4c53ac24578a5a7f72bb"
+    url "https://files.pythonhosted.org/packages/f8/b9/cc0cc592e7c195fb8a650c1d5990b10175cf13b4c97465c72ec841de9e4b/jsonschema_specifications-2023.12.1.tar.gz"
+    sha256 "48a76787b3e70f5ed53f1160d2b81f586e4ca6d1548c5de7085d1682674764cc"
   end
 
   resource "python-dateutil" do
-    url "https://files.pythonhosted.org/packages/4c/c4/13b4776ea2d76c115c1d1b84579f3764ee6d57204f6be27119f13a61d0a9/python-dateutil-2.8.2.tar.gz"
-    sha256 "0123cacc1627ae19ddf3c27a5de5bd67ee4586fbdd6440d9748f8abb483d3e86"
+    url "https://files.pythonhosted.org/packages/66/c0/0c8b6ad9f17a802ee498c46e004a0eb49bc148f2fd230864601a86dcf6db/python-dateutil-2.9.0.post0.tar.gz"
+    sha256 "37dd54208da7e1cd875388217d5e00ebd4179249f90fb72437e91a35459a0ad3"
+  end
+
+  resource "pyyaml" do
+    url "https://files.pythonhosted.org/packages/cd/e5/af35f7ea75cf72f2cd079c95ee16797de7cd71f29ea7c68ae5ce7be1eda0/PyYAML-6.0.1.tar.gz"
+    sha256 "bfdf460b1736c775f2ba9f6a92bca30bc2095067b8a9d77876d1fad6cc3b4a43"
   end
 
   resource "referencing" do
-    url "https://files.pythonhosted.org/packages/e1/43/d3f6cf3e1ec9003520c5fb31dc363ee488c517f09402abd2a1c90df63bbb/referencing-0.30.2.tar.gz"
-    sha256 "794ad8003c65938edcdbc027f1933215e0d0ccc0291e3ce20a4d87432b59efc0"
+    url "https://files.pythonhosted.org/packages/6a/1f/c74e341a7a2a6fb2ab77d3a7311bd57a31e766e5d006a25053484cccbfeb/referencing-0.35.0.tar.gz"
+    sha256 "191e936b0c696d0af17ad7430a3dc68e88bc11be6514f4757dc890f04ab05889"
   end
 
   resource "rpds-py" do
-    url "https://files.pythonhosted.org/packages/ee/12/d6cfa2699916e5ece53a42e486e03b5a14e672c76ddb16d4649efcf9efb8/rpds_py-0.10.6.tar.gz"
-    sha256 "4ce5a708d65a8dbf3748d2474b580d606b1b9f91b5c6ab2a316e0b0cf7a4ba50"
+    url "https://files.pythonhosted.org/packages/55/ba/ce7b9f0fc5323f20ffdf85f682e51bee8dc03e9b54503939ebb63d1d0d5e/rpds_py-0.18.0.tar.gz"
+    sha256 "42821446ee7a76f5d9f71f9e33a4fb2ffd724bb3e7f93386150b61a43115788d"
   end
 
   resource "s3transfer" do
-    url "https://files.pythonhosted.org/packages/3f/ff/5fd9375f3fe467263cff9cad9746fd4c4e1399440ea9563091c958ff90b5/s3transfer-0.7.0.tar.gz"
-    sha256 "fd3889a66f5fe17299fe75b82eae6cf722554edca744ca5d5fe308b104883d2e"
+    url "https://files.pythonhosted.org/packages/83/bc/fb0c1f76517e3380eb142af8a9d6b969c150cfca1324cea7d965d8c66571/s3transfer-0.10.1.tar.gz"
+    sha256 "5683916b4c724f799e600f41dd9e10a9ff19871bf87623cc8f491cb4f5fa0a19"
+  end
+
+  resource "six" do
+    url "https://files.pythonhosted.org/packages/71/39/171f1c67cd00715f190ba0b100d606d440a28c93c7714febeca8b79af85e/six-1.16.0.tar.gz"
+    sha256 "1e61c37477a1626458e36f7b1d82aa5c9b094fa4802892072e49de9c60c4c926"
+  end
+
+  resource "tabulate" do
+    url "https://files.pythonhosted.org/packages/ec/fe/802052aecb21e3797b8f7902564ab6ea0d60ff8ca23952079064155d1ae1/tabulate-0.9.0.tar.gz"
+    sha256 "0095b12bf5966de529c0feb1fa08671671b3368eec77d7ef7ab114be2c068b3c"
   end
 
   resource "urllib3" do
-    url "https://files.pythonhosted.org/packages/0c/39/64487bf07df2ed854cc06078c27c0d0abc59bd27b32232876e403c333a08/urllib3-1.26.18.tar.gz"
-    sha256 "f8ecc1bba5667413457c529ab955bf8c67b45db799d159066261719e328580a0"
+    url "https://files.pythonhosted.org/packages/7a/50/7fd50a27caa0652cd4caf224aa87741ea41d3265ad13f010886167cfcc79/urllib3-2.2.1.tar.gz"
+    sha256 "d0570876c61ab9e520d776c38acbbb5b05a776d3f9ff98a5c8fd5162a444cf19"
   end
 
   resource "zipp" do
-    url "https://files.pythonhosted.org/packages/58/03/dd5ccf4e06dec9537ecba8fcc67bbd4ea48a2791773e469e73f94c3ba9a6/zipp-3.17.0.tar.gz"
-    sha256 "84e64a1c28cf7e91ed2078bb8cc8c259cb19b76942096c8d7b84947690cabaf0"
+    url "https://files.pythonhosted.org/packages/3e/ef/65da662da6f9991e87f058bc90b91a935ae655a16ae5514660d6460d1298/zipp-3.18.1.tar.gz"
+    sha256 "2884ed22e7d8961de1c9a05142eb69a247f120291bc0206a00a7642f09b5b715"
   end
 
   def install

@@ -4,6 +4,7 @@ class Sqlsmith < Formula
   url "https://github.com/anse1/sqlsmith/releases/download/v1.4/sqlsmith-1.4.tar.gz"
   sha256 "b0821acbe82782f6037315549f475368be3592cefe2c3c540f9cf52aa70d2f55"
   license "GPL-3.0-only"
+  revision 3
 
   livecheck do
     url :stable
@@ -11,13 +12,13 @@ class Sqlsmith < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_sonoma:   "326d51752ce3c4712e27cb9bf6db9abf116204754c5f278fcbb03f4c01293f84"
-    sha256 cellar: :any,                 arm64_ventura:  "3633918b467d037f1b745fbb66a775bcfec51e2f2e30308a3f41844ae119a08e"
-    sha256 cellar: :any,                 arm64_monterey: "5d852c6394b08d56524a6f7c9f80cbea1cd196281c205d57a92d591a041e5938"
-    sha256 cellar: :any,                 sonoma:         "fc55e87d89e7a7011417e7e383224b92d874b0971e3b6fb065d65ecede1bcf77"
-    sha256 cellar: :any,                 ventura:        "478c8420ad11ab418f91cf6102b63944fcfe14bda089547a166e0b588d289439"
-    sha256 cellar: :any,                 monterey:       "bcfe7b977b403628712ad310319f1c67d4f63301b0c575d17e7b7906c2573cd5"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "10489e7e72cdbedb3099d68a4fc60e76392ac764a6c76a6a9b2e1e12b1fc0ee7"
+    sha256 cellar: :any,                 arm64_sonoma:   "b78fc015203026a02f5c1e131507e3b97dcea93e72f35922f1f6f80b6f85489e"
+    sha256 cellar: :any,                 arm64_ventura:  "64a31beb20590bffa1042cd8aee60abc1b9222ac8db256c0a7f6d464c8df13a4"
+    sha256 cellar: :any,                 arm64_monterey: "9075fd2c902eb4bd9ab50a98ee8edbfe99313815d4609dce2d39cfbf62e04a26"
+    sha256 cellar: :any,                 sonoma:         "71604917d8811ed0b57ccc65a17e4dc3b15af78e4eaa942801c9663fa23db13a"
+    sha256 cellar: :any,                 ventura:        "4b727404b5aa16a6d582e86ac71269999635a1cc15d82eddc55c5fbdead99993"
+    sha256 cellar: :any,                 monterey:       "26318bcdd84afd83d1f20e7796d0f03e8d2413d47f78cef9785d63143852db1b"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "c1bae969727cf221a55317071ff5eee0c24858f161c263be6950257ee9e8858c"
   end
 
   head do
@@ -30,11 +31,11 @@ class Sqlsmith < Formula
 
   depends_on "pkg-config" => :build
   depends_on "libpqxx"
+
   uses_from_macos "sqlite"
 
   def install
-    ENV.cxx11
-
+    ENV.append_to_cflags "-DNDEBUG"
     system "autoreconf", "-fvi" if build.head?
     system "./configure", *std_configure_args, "--disable-silent-rules"
     system "make"

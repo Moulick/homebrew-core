@@ -1,21 +1,19 @@
 class Starship < Formula
   desc "Cross-shell prompt for astronauts"
   homepage "https://starship.rs"
-  url "https://github.com/starship/starship/archive/refs/tags/v1.16.0.tar.gz"
-  sha256 "133888e190ce1563927e16ee693da3026d2e668d975ac373f853e030743775c5"
+  url "https://github.com/starship/starship/archive/refs/tags/v1.18.2.tar.gz"
+  sha256 "505100002efe93dbff702edd82f814cadc340335487993e76dd6777dba461a7a"
   license "ISC"
   head "https://github.com/starship/starship.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "76b5c5e6388e5e978e3f361fb4a09424ced5c68e152c1dacf1fe152c54b17d24"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "3a4007d531448fabfc3a001c3e6d766e23be6110de120f6717c984b861ce3ae8"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "776271b363c182dfb5226aa7c60e1714c8b43f5826acf63610730bc178da3147"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "8a58e85e1e647cec4290336f29db4b2ba1e1f8814128ab5eed05ecff4cffa3bf"
-    sha256 cellar: :any_skip_relocation, sonoma:         "153b8a3ddedf3830315b12c8af6a5c694eb632280c6a8e932d105c0abd9f5309"
-    sha256 cellar: :any_skip_relocation, ventura:        "1a2a777bc300111d5f4cdc09caf8cc8ce74ab7172938eabce4d1e464a83b85c4"
-    sha256 cellar: :any_skip_relocation, monterey:       "0ba30b7f99837320458a9332a7ae09b7755f830523f0289d61dc7c89639e248a"
-    sha256 cellar: :any_skip_relocation, big_sur:        "3de83ca0922d0157232366e9bf95e24c7b1b887429e2f724f4a87171f6e83d9d"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "f63e19895e8afc93b2da3fd6d25e00c271ef072ecd73967ca680976405530ce1"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "38e579d1d0b477e004118a7d61125692a76eb00b01f1ae61531a5de52a7d8fc9"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "91e8147b20a0e7a3a9764d661da4b5fc1bc56592ec7e49e2425ebf16f1717452"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "bf608eb41a558493c4dbd89d930954a1a2f8d812a027cf87a353e312a0973a53"
+    sha256 cellar: :any_skip_relocation, sonoma:         "3ba8017db4aa930e60a95959657f79bbf2657aa11ec7997dc7c40c91a99ea47f"
+    sha256 cellar: :any_skip_relocation, ventura:        "bcb35b10e86547b05b46cfd1cb08ffae81a820a26e561a0b1e255a8ef23101f3"
+    sha256 cellar: :any_skip_relocation, monterey:       "82825059b6915e6c03bb5d956bede8bc1df680e4ab038ae554b480307fb7374b"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "176ebab8a44b0f9a563606d1c97d7e8c02f2cd95517eee8df4901270ba362894"
   end
 
   depends_on "cmake" => :build

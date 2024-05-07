@@ -1,20 +1,18 @@
 class Ttyplot < Formula
   desc "Realtime plotting utility for terminal with data input from stdin"
   homepage "https://github.com/tenox7/ttyplot"
-  url "https://github.com/tenox7/ttyplot/archive/refs/tags/1.5.tar.gz"
-  sha256 "c494c31e7808a6e3bf8e3c399024b9aeb7d77967db6008a62d110ad9ed1b8bec"
+  url "https://github.com/tenox7/ttyplot/archive/refs/tags/1.6.2.tar.gz"
+  sha256 "99222721e2d89e1064546f29e678830ccaba9b75f276a4b6845cc091169787a0"
   license "Apache-2.0"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "c24df0685dc076f14dcd00fa961d3c6c6a446a221271a069631c6daddc3d1aa2"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "767a44e685f2079d82454f7a4e7fc6d56d6b402f3a82df88ef00989d9b31098e"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "863baa45ba7f5ab1aad586332f76c91fc6210bf6dc6ceb1af7d40a5cdddd7f6a"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "1a39bab7eb01b6f56fbfbb48f519a1bcc15ec1eedbf72197572aa55913fb11cf"
-    sha256 cellar: :any_skip_relocation, sonoma:         "3103a2439ec90049b6945544b76e094809b3e6cf82ab42c1510775c7f5322c9e"
-    sha256 cellar: :any_skip_relocation, ventura:        "39258c0803f33905e7ab7aa5a76f3192fcba5b15f955a7b7e7a27ce9e5e45bd5"
-    sha256 cellar: :any_skip_relocation, monterey:       "bcde373e4c5603d06be8fae27214d7869705e2bd419961e3d056160b2833b246"
-    sha256 cellar: :any_skip_relocation, big_sur:        "987e9fa6aa9238163f994e245c1c2004faba72ec110a09cc237b5257cc5dbd1a"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "4b2c7594e230dce7c24a66d6745d0be3bb6d137b2ace6da15447f97939460ccd"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "1d52cadbdafa654723354871e864b03a6a09758a2564802d8ed0ff00fb8efe22"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "a4d268c520b73ce0dfeb8fe0b15e48c4cec8cfcfecc480a76ea7ab3e6130b26a"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "c28c176f16b68540dc4757da83ffec41a51ff0663580f1267236227768fbd772"
+    sha256 cellar: :any_skip_relocation, sonoma:         "8b11f61c394f9afb119180717c14f84e63e3d32bbe3cbeace81750cb6b8987e0"
+    sha256 cellar: :any_skip_relocation, ventura:        "da7596531a646453653e8b2cfe1cde83759aee2f97bde6aa0feb73b4d5068659"
+    sha256 cellar: :any_skip_relocation, monterey:       "81e39a835173b64ca69a8023011c809102407e264b4d1bca355ac72bec3e2c74"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "a97f7c0ae188115e77d7b7efb75b2b037a568edaea74d12bd040940f5643dbde"
   end
 
   depends_on "pkg-config" => :build
@@ -27,6 +25,6 @@ class Ttyplot < Formula
 
   test do
     # `ttyplot` writes directly to the TTY, and doesn't stop even when stdin is closed.
-    system "#{bin}/ttyplot", "--help"
+    assert_match "unit displayed beside vertical bar", shell_output("#{bin}/ttyplot -h")
   end
 end

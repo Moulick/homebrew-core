@@ -1,21 +1,22 @@
 class Pygit2 < Formula
   desc "Bindings to the libgit2 shared library"
   homepage "https://github.com/libgit2/pygit2"
-  url "https://files.pythonhosted.org/packages/68/ac/268a23daedfaaaa54da8eceedb5ad1e425d9e6dd3cf5c5ffc170ff403d33/pygit2-1.13.2.tar.gz"
-  sha256 "75c7eb86b47c70f6f1434bcf3b5eb41f4e8006a15cee6bef606651b97d23788c"
+  url "https://files.pythonhosted.org/packages/f0/5e/6e05213a9163bad15489beda5f958500881d45889b0df01d7b8964f031bf/pygit2-1.14.1.tar.gz"
+  sha256 "ec5958571b82a6351785ca645e5394c31ae45eec5384b2fa9c4e05dde3597ad6"
   license "GPL-2.0-only" => { with: "GCC-exception-2.0" }
   head "https://github.com/libgit2/pygit2.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any,                 arm64_sonoma:   "baabe6f9387404b7a1ba7a0f84a60bd4760cecc721d3e22618a5baf9fe6f2a0d"
-    sha256 cellar: :any,                 arm64_ventura:  "992f8b46f5b7ab7e90f385cbaf2a5089a0f17eba00c0dae2f346f2ad19bc9e96"
-    sha256 cellar: :any,                 arm64_monterey: "9e33b7a40fe770dff16c8f0ae2599f5b873874de193787a088bbdc01de0c305b"
-    sha256 cellar: :any,                 sonoma:         "3c4bd187dd1d61deaffd665d04e8c7d67dc90b1966d6fef4964d51146cea21ef"
-    sha256 cellar: :any,                 ventura:        "c674f4bdbbb130a958ca124b909f8c196842511b788c0cae6fa5338a94993894"
-    sha256 cellar: :any,                 monterey:       "fb4225d5b325dace77a79f51275e393679785a459af663d57b09f3bb1e192dd0"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "e97cb6be79a6713fe3cb03f4a88546c163ec152b992b04a7f6170b99497499db"
+    sha256 cellar: :any,                 arm64_sonoma:   "54563311867d16e731a50966bacea00fadf9eb0bafc9b49826d3e4f07b6c6300"
+    sha256 cellar: :any,                 arm64_ventura:  "c507e5bd1a2aa191f3b313191de95057fc2298965fdfa255f368c89e45077cd2"
+    sha256 cellar: :any,                 arm64_monterey: "0875766eac458047e8022d5ed28fb7faf7f0e3b739571d0f191959ba9b6d9009"
+    sha256 cellar: :any,                 sonoma:         "a37b6b540ecf77b1fa6d9a406bcd7e34a6f723a83fb61df1e6cdd9aabb7e5be5"
+    sha256 cellar: :any,                 ventura:        "0d02be9979b8a3c75c641a714af62c26e78b2726f84557e821bbd7ce459c77fd"
+    sha256 cellar: :any,                 monterey:       "cba983c98e9099a1c677de6ac63c861c3b7c8421a57c448954dff0e92b6b39dc"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "fe2b16dccff436557353ca888557f6a652e7eff3f70d0e430a54ee757fa06b1b"
   end
 
+  depends_on "python-setuptools" => :build
   depends_on "python@3.11" => [:build, :test]
   depends_on "python@3.12" => [:build, :test]
   depends_on "cffi"

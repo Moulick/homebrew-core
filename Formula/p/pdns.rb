@@ -1,8 +1,8 @@
 class Pdns < Formula
   desc "Authoritative nameserver"
   homepage "https://www.powerdns.com"
-  url "https://downloads.powerdns.com/releases/pdns-4.8.3.tar.bz2"
-  sha256 "77b91199bdf71874334501c67e26469c2667a373d8423803fe657417295c77ba"
+  url "https://downloads.powerdns.com/releases/pdns-4.9.0.tar.bz2"
+  sha256 "fe1d5433c88446ed70d931605c6ec377da99839c4e151b90b71aa211bd6eea92"
   license "GPL-2.0-or-later"
   revision 1
 
@@ -12,13 +12,13 @@ class Pdns < Formula
   end
 
   bottle do
-    sha256 arm64_sonoma:   "0bec6105e793a8d8d08cda1d8c02586527b3789d0fc639bfb4eec8a571c779d5"
-    sha256 arm64_ventura:  "477ec905932dde8d6eeed8171bf02fd2e3b62d8c50cef2986b3188612f64af54"
-    sha256 arm64_monterey: "47cf2ae650b319c14eb3dc0ecc147b2e28235d1b55e9708b02fd8ca8356e6afb"
-    sha256 sonoma:         "bbf5deb73f6318175120901a0e9c01799ddee5adf99ceca950d65a140374bc7d"
-    sha256 ventura:        "beb940aac07440ad0138a28a099a0f27d3ec2306699904b7b8be0bfcd5a464a3"
-    sha256 monterey:       "e77769a854176ef353a7821027a8f27a83231337c5f34380f7e185a3f4bfef22"
-    sha256 x86_64_linux:   "0b86c97f289efff9e9719d846bd0135edacf62fda9d57fae71c729f7e7688ace"
+    sha256 arm64_sonoma:   "a747fb5e8f00c5121ba417788a7967657ba5931818f5583c5988566dd1210d81"
+    sha256 arm64_ventura:  "118b0087c1d795e315a9c7772216aa7a127ab2ec42df32264faacab2fcbcfaff"
+    sha256 arm64_monterey: "792902ee608dd15d590327b3a376c93f4c723168dfdcc973468319eacd02fe3e"
+    sha256 sonoma:         "292ab43cc6d0347dae1d01658b5741be35b01a427259f2e585abea959fcf3d4f"
+    sha256 ventura:        "c5f44848979cfec46827e0352c28b15c3d537095b5869215451bdc3e1ec9a7ea"
+    sha256 monterey:       "c5fa65482165902e2dfb6d696202883a8898f1ae01c987ae2fa9719c26237bf2"
+    sha256 x86_64_linux:   "5a1583a3059b7512b5c8630c72cda1485fedaff69a8db14ab92dc334234ac3ab"
   end
 
   head do
@@ -61,7 +61,7 @@ class Pdns < Formula
   end
 
   test do
-    output = shell_output("#{sbin}/pdns_server --version 2>&1", 99)
+    output = shell_output("#{sbin}/pdns_server --version 2>&1")
     assert_match "PowerDNS Authoritative Server #{version}", output
   end
 end

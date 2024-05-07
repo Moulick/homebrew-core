@@ -1,8 +1,8 @@
 class PythonGdbmAT311 < Formula
   desc "Python interface to gdbm"
   homepage "https://www.python.org/"
-  url "https://www.python.org/ftp/python/3.11.6/Python-3.11.6.tgz"
-  sha256 "c049bf317e877cbf9fce8c3af902436774ecef5249a29d10984ca3a37f7f4736"
+  url "https://www.python.org/ftp/python/3.11.9/Python-3.11.9.tgz"
+  sha256 "e7de3240a8bc2b1e1ba5c81bf943f06861ff494b69fda990ce2722a504c6153d"
   license "Python-2.0"
 
   livecheck do
@@ -10,13 +10,13 @@ class PythonGdbmAT311 < Formula
   end
 
   bottle do
-    sha256 cellar: :any, arm64_sonoma:   "141a5ad1ef7d2ab9eddecb05f8e636a38eebd21d92c3ce4365cf65b990720fa8"
-    sha256 cellar: :any, arm64_ventura:  "59e51127d2fb4ccd9a8a815fb2b0500952da3e3b1c62f461894e21f457457f28"
-    sha256 cellar: :any, arm64_monterey: "fc17b7519b0fa7cb9a838f21a76df83b42122543b7a079b066417be898ad4a7d"
-    sha256 cellar: :any, sonoma:         "1214849bc7b644d3285585d40612aa5a0c0b270ae19be16251fe463bbefa70e9"
-    sha256 cellar: :any, ventura:        "2038b04f76509fe4260d8eac6e2a2826e00d8426e15e141deaaf5a1e033aec1f"
-    sha256 cellar: :any, monterey:       "441f21b20135496da9003bb1b4c6339b34a9eecb093082b14c408aa0ab38d4cc"
-    sha256               x86_64_linux:   "5fc85ba7dbf17c49c4aafc72c623040bf4f510cb1738d5253656177bda0c95cf"
+    sha256 cellar: :any, arm64_sonoma:   "92590819090deb61bdda7ca23173512ac77f5fa5b5e1240c7c3a93de9300829a"
+    sha256 cellar: :any, arm64_ventura:  "a61682024985978be65818bdd9661682a275e2b5217bc9d06de9a818e5480a6d"
+    sha256 cellar: :any, arm64_monterey: "346d13c449c626cfb77cc32c3aa63fce057e48516b77ca3d05ff515702b34883"
+    sha256 cellar: :any, sonoma:         "d3b5fdcc91026f4c8c31a40d0d6002be66b790cad56e922cf16d3dd70c91caa9"
+    sha256 cellar: :any, ventura:        "39197fb685019fdfb12edf7c4174ca82e0427369178b3df02cb5b9c25b978a2f"
+    sha256 cellar: :any, monterey:       "8594347dd3fa4a50591798ac797aa72e85a7fc624eaf5b336993487d48ad8e95"
+    sha256               x86_64_linux:   "1d396e5eec9f29dc2d84193d2309e86e4bec48c37dbc52a8644c1f108d34bc15"
   end
 
   depends_on "gdbm"
@@ -42,9 +42,8 @@ class PythonGdbmAT311 < Formula
               ]
         )
       EOS
-      system python3, *Language::Python.setup_install_args(libexec, python3),
-                      "--install-lib=#{libexec}"
-      rm_r libexec.glob("*.egg-info")
+      system python3, "-m", "pip", "install", *std_pip_args(prefix: false), "--target=#{libexec}", "."
+      rm_r libexec.glob("*.dist-info")
     end
   end
 

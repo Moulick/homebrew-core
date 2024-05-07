@@ -2,8 +2,8 @@ class Vlang < Formula
   desc "V programming language"
   homepage "https://vlang.io"
   # NOTE: Keep this in sync with V compiler below when updating
-  url "https://github.com/vlang/v/archive/refs/tags/0.4.2.tar.gz"
-  sha256 "fa567363e046a35c039462c077fc9a88fe81cb61b10cfeee060868cd9d620f2c"
+  url "https://github.com/vlang/v/archive/refs/tags/0.4.5.tar.gz"
+  sha256 "3082ed68712c7d698e1cc19274b6428dc8c91963096aba01e5ff0321989a3040"
   license "MIT"
 
   livecheck do
@@ -12,13 +12,13 @@ class Vlang < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "dbcd439a4dd94d7b327fddfc7682122d244aa64dfeb85d99c0d5d776b32efad4"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "a9a42cb912c913b8aa31dfaa4bd44fa682ccb5af63d577b0d09ab5832ea29bcb"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "f61d20645febf18c1bf92e5dbafce169791b88004a106ff209e731c1a194498b"
-    sha256 cellar: :any_skip_relocation, sonoma:         "58584882157752d7d7e59d1f87b2ddb11fa81c9dd1ed2de407559c3731a1d195"
-    sha256 cellar: :any_skip_relocation, ventura:        "03ba529a5df3da1d853669df31058f83c8ab845585529922750b0715619c62a9"
-    sha256 cellar: :any_skip_relocation, monterey:       "2d6cc2206a6259e149e39cced2e27e84ebeffb82bcc46e74b9e923d692501872"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "1fbdebbf17c4f3df8de3d2e8d14a546e71c5fbde60d6f11363eb4ef329363c4c"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "f81a749d6aa1e4cf91b53ce561960653523c068b4c8731b68b20e03dddcfb420"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "b371f4e3eff3e4876e927460f5d8e4344072c39daf8866d8baa552410e920785"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "5ad30259c9dd1945f0203fcab4a41d0ce5b0b7d0854bce23c8a3d2c04ce77bba"
+    sha256 cellar: :any_skip_relocation, sonoma:         "3f3770181a8e22a477f917c5ee106685842ec3ea9f7feec03b14868ca804e1f5"
+    sha256 cellar: :any_skip_relocation, ventura:        "517f4714fcbfd3f0a9da6ab3ecd5808d87b961e879818e2c8c8478258647ef25"
+    sha256 cellar: :any_skip_relocation, monterey:       "1a884b57461196e4c7afe1abfe25e64896131e31cc5e6e961c28d7b0d5da110c"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "947443ed1a2bf4f381d3ed108be25bbb5f5ba4927d08ca15177ceb4165a678b9"
   end
 
   depends_on "bdw-gc"
@@ -28,7 +28,8 @@ class Vlang < Formula
     # "[v:master] {short SHA of the vlang release commit} - {vlang version number}".
     # The sources of this V compiler commit need to be used here
     url "https://github.com/vlang/vc.git",
-        revision: "5b77beb2ecbcd35d5a4dc872aaa719b7cf85d182"
+        revision: "2386fe9a0d8cc92d0d013ecd81456f2831433a71"
+
     on_big_sur :or_older do
       patch do
         url "https://raw.githubusercontent.com/Homebrew/formula-patches/4a51a527e534534c3ddc6801c45d3a3a2c8fbd5a/vlang/vc.patch"

@@ -1,8 +1,8 @@
 class Dwarfutils < Formula
   desc "Dump and produce DWARF debug information in ELF objects"
   homepage "https://www.prevanders.net/dwarf.html"
-  url "https://www.prevanders.net/libdwarf-0.8.0.tar.xz"
-  sha256 "771814a66b5aadacd8381b22d8a03b9e197bd35c202d27e19fb990e9b6d27b17"
+  url "https://www.prevanders.net/libdwarf-0.9.2.tar.xz"
+  sha256 "22b66d06831a76f6a062126cdcad3fcc58540b89a1acb23c99f8861f50999ec3"
   license all_of: ["BSD-2-Clause", "LGPL-2.1-or-later", "GPL-2.0-or-later"]
   version_scheme 1
 
@@ -12,19 +12,17 @@ class Dwarfutils < Formula
   end
 
   bottle do
-    sha256 arm64_sonoma:   "121bcbdda0126ff38186c3ab490416b6066250175421afee0e7d37ab2c352a9b"
-    sha256 arm64_ventura:  "c16d31a5057999735bad0fe90d36c6f42d1c473fd9b66ef49f6d08e804d55887"
-    sha256 arm64_monterey: "77e820749843db37302e66cc01585cf520884ada4563bf2de678b96f6a53cea5"
-    sha256 arm64_big_sur:  "1059900fed3ececa484812fd069fb6a93da59ab3cb4405693b6933bcd81e5d40"
-    sha256 sonoma:         "31202697e568e029402f5446bed73ee059a85fb18a98023f7d3a2bb5ef9645f3"
-    sha256 ventura:        "e0739ebdafb60bb0ade434c660348e9fdc0e61288ec7899fb781b0ded7258230"
-    sha256 monterey:       "a5f8d16f48e507da6a7a1dbc63ab6bed8586056f33bd71463d10714a0caa0008"
-    sha256 big_sur:        "3f95dd583de22ea6f88d68f7f759cd81aad5bf8a942d0e108eaf8f2472f2969c"
-    sha256 x86_64_linux:   "c586d665fc496ee9c7a9376ccc7a8d481879010a31e28f6f5f7af0585de85f57"
+    sha256 arm64_sonoma:   "689a4811e41e3dc2c15d64c8eb5117d9d2766d63e29c15c2e28ce2d812071dba"
+    sha256 arm64_ventura:  "35a285b2581571e4bd18ae9ea61964da69e15f3fa5302bf7096dfb3257d307d5"
+    sha256 arm64_monterey: "5687303c62e902a67e395388353b8b8c952136b19cb1d96d337da3674858b7a7"
+    sha256 sonoma:         "a16533bd25bb25e3e023bf40dc0d736a4a88d67912936cec383646345a197263"
+    sha256 ventura:        "7ae3196b2a94ba1606c183d6480db764f80f9dfd1ea44f5c948c2a8f796bec1c"
+    sha256 monterey:       "fa5baf43f59ecb9481f58c893b2dda0fbd46b3c7f0c02803d0308bb09aefb6d3"
+    sha256 x86_64_linux:   "73a16cbd1bf33f3dd0a4c181b918105e3f359f3ec4ad60d47c7f99cf443bd32e"
   end
 
   head do
-    url "https://github.com/davea42/libdwarf-code.git", branch: "master"
+    url "https://github.com/davea42/libdwarf-code.git", branch: "main"
 
     depends_on "autoconf" => :build
     depends_on "automake" => :build

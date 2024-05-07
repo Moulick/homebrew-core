@@ -1,44 +1,41 @@
 class Networkit < Formula
-  include Language::Python::Virtualenv
-
   desc "Performance toolkit for large-scale network analysis"
   homepage "https://networkit.github.io"
-  url "https://github.com/networkit/networkit/archive/refs/tags/10.1.tar.gz"
-  sha256 "35d11422b731f3e3f06ec05615576366be96ce26dd23aa16c8023b97f2fe9039"
+  url "https://github.com/networkit/networkit/archive/refs/tags/11.0.tar.gz"
+  sha256 "3cba54b384db4adfd88c984805647a3b74ed52168b6178cba6dd58f1cbd73120"
   license "MIT"
 
   bottle do
     rebuild 1
-    sha256 cellar: :any,                 arm64_sonoma:   "373572010294de60707d78c79dac5a1de76ec7f5a31b5b73097e10f4bb271af3"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "728f021d0fbf6fe3237db7ba75b3cc637fe38b0db5d4bcf1f8c88f4fc0461dfd"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "23470b1cb591899116c01c966304451024bcea4ed7ba8f13ae4bbe1986ec00c1"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "fcb9af0f8f137c35009fe9ac19c25c165adc7e123653a221c00b6f780cb4ac7a"
-    sha256 cellar: :any,                 sonoma:         "7c54e33533baae65e91d5adb57ed732f5e675e8d6d1fe25edb7a6f93c74915dc"
-    sha256 cellar: :any_skip_relocation, ventura:        "7d3e07e85b55cda32842c7eae2d7752a59618a3fbcb2fe11231bf9c392cc641b"
-    sha256 cellar: :any_skip_relocation, monterey:       "b6ce1a8d4694d1e3434fc23e0a99d605bd777f151b2e7c8da56b5312ce3e7130"
-    sha256 cellar: :any_skip_relocation, big_sur:        "45397cfad06aeb74e92fd34c773772d5fa14ecf9aa32d23b79643e31e1ae33a2"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "c288ca970f924b07fb6619e453ebb54f013b4665f5f6d90b797af2026e134161"
+    sha256 cellar: :any,                 arm64_sonoma:   "aeca1389873b623451264b1fa1d44d523c63cb9ea2728c64e312b7baa91eb24a"
+    sha256 cellar: :any,                 arm64_ventura:  "c4399d2cadbc56465ab7d3b6381eb2102f7900196d1afcc9c26fde900c31e4d2"
+    sha256 cellar: :any,                 arm64_monterey: "e73e3ffd843c1f2174c0bbefd721ba0309cb41d9783866aeaa8fc9c512822efb"
+    sha256 cellar: :any,                 sonoma:         "3aaf130e9d503254b0aa715c8fa879edb13ce048a7ac5a34b8e7d0ac6bf6303a"
+    sha256 cellar: :any,                 ventura:        "1f45434288fe627d17555645be06405a2d1a62c36404bf466b89c0f2227048de"
+    sha256 cellar: :any,                 monterey:       "02e26531757bb9412e6e3ec9f24468fffef797377de1a955e484393b1a2707ae"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "c53c33bf47a6ce53d4181b787fa233096a406ec0b3de7f13d24d8d987f22f36c"
   end
 
   depends_on "cmake" => :build
-  depends_on "libcython" => :build
+  depends_on "cython" => :build
   depends_on "ninja" => :build
+  depends_on "python-setuptools" => :build
   depends_on "tlx" => :build
 
   depends_on "libnetworkit"
   depends_on "numpy"
-  depends_on "python@3.11"
+  depends_on "python@3.12"
   depends_on "scipy"
 
   def python3
-    which("python3.11")
+    which("python3.12")
   end
 
   def install
     site_packages = Language::Python.site_packages(python3)
 
     ENV.prepend_create_path "PYTHONPATH", prefix/site_packages
-    ENV.append_path "PYTHONPATH", Formula["libcython"].opt_libexec/site_packages
+    ENV.append_path "PYTHONPATH", Formula["cython"].opt_libexec/site_packages
 
     networkit_site_packages = prefix/site_packages/"networkit"
     extra_rpath = rpath(source: networkit_site_packages, target: Formula["libnetworkit"].opt_lib)

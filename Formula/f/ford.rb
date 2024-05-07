@@ -3,40 +3,42 @@ class Ford < Formula
 
   desc "Automatic documentation generator for modern Fortran programs"
   homepage "https://github.com/Fortran-FOSS-Programmers/ford"
-  url "https://files.pythonhosted.org/packages/03/d9/2c5f4991ec100fd45679d8f8c20e56b76e9e471d5e58720a08ac18b2fb3a/FORD-7.0.1.tar.gz"
-  sha256 "6ef138ff91a6da9be62f999499e574799fd62d895154df75c48d5e9cfcc17575"
+  url "https://files.pythonhosted.org/packages/fe/45/fbb50a9ce7fb8740b8365fae80d7a3247202c6698672b67acdea188751f4/FORD-7.0.6.tar.gz"
+  sha256 "662d0cab60234743ed7b863fbb980e0af909f31e0205011d7978ea2dedc3e952"
   license "GPL-3.0-or-later"
   head "https://github.com/Fortran-FOSS-Programmers/ford.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "e2226fa5a98502b52111a39c3cbe88ef7cf80b8d532bdd4fc98d586403fc62d9"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "57742f6b6849450cf5e0b260a9e6589d1d152c3133efa34ecbeedce607c15a28"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "1eb294f10d894390cdd670aaf22bc746c1e8dfc3547fe9de07d0b95d915639f7"
-    sha256 cellar: :any_skip_relocation, sonoma:         "961c712785a96ba4ffd40857e0c61a56851af752707ea8c5b7d7d50c22f5caa7"
-    sha256 cellar: :any_skip_relocation, ventura:        "deaf5b32ffe6c3ed9fd70c17feab3e0b76b6752775218d0f2d0b0913ca2d002c"
-    sha256 cellar: :any_skip_relocation, monterey:       "50e18259baa60aadc27ece6435272564e97615fdf086b8039d9a27361878aa5e"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "5934963f485bc811f63f65a68bc4eaec83216597ce272180db25bc4a0e33661a"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "e6005fc5c4a7297e40659813691f1e7317585af554be43b904b8b1ec622559ff"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "f703d5f06516c60649c65d1d7dc8bb9b4201bae67e3c12e9db8b905ff404fd1d"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "c9512c2ebbed12ba38a16ce8ee1fbf47093a42e4e62b6fcb1e7cc85f51b67311"
+    sha256 cellar: :any_skip_relocation, sonoma:         "65f71674fb5b5ac65a260c5c4cb777f8342d369ba62ad79bc1710cbba6eccf9a"
+    sha256 cellar: :any_skip_relocation, ventura:        "efad8e9f256caa887f2d791875b849d0bbbb770092ae9181272f7a4102fc84a4"
+    sha256 cellar: :any_skip_relocation, monterey:       "69388c9ce67f400179448b710ada3914b9c3023a849bf10bddcdf4dda3894ea7"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "ba1d8a4202bfc3ca8b75853a8dff3d10276216e78ead18b6af536abf9cdac4cb"
   end
 
   depends_on "graphviz"
-  depends_on "pygments"
-  depends_on "python-markdown"
-  depends_on "python-markupsafe"
-  depends_on "python@3.11"
+  depends_on "python@3.12"
 
   resource "beautifulsoup4" do
-    url "https://files.pythonhosted.org/packages/af/0b/44c39cf3b18a9280950ad63a579ce395dda4c32193ee9da7ff0aed547094/beautifulsoup4-4.12.2.tar.gz"
-    sha256 "492bbc69dca35d12daac71c4db1bfff0c876c00ef4a2ffacce226d4638eb72da"
+    url "https://files.pythonhosted.org/packages/b3/ca/824b1195773ce6166d388573fc106ce56d4a805bd7427b624e063596ec58/beautifulsoup4-4.12.3.tar.gz"
+    sha256 "74e3d1928edc070d21748185c46e3fb33490f22f52a3addee9aee0f4f7781051"
   end
 
   resource "graphviz" do
-    url "https://files.pythonhosted.org/packages/a5/90/fb047ce95c1eadde6ae78b3fca6a598b4c307277d4f8175d12b18b8f7321/graphviz-0.20.1.zip"
-    sha256 "8c58f14adaa3b947daf26c19bc1e98c4e0702cdc31cf99153e6f06904d492bf8"
+    url "https://files.pythonhosted.org/packages/fa/83/5a40d19b8347f017e417710907f824915fba411a9befd092e52746b63e9f/graphviz-0.20.3.zip"
+    sha256 "09d6bc81e6a9fa392e7ba52135a9d49f1ed62526f96499325930e87ca1b5925d"
   end
 
   resource "jinja2" do
-    url "https://files.pythonhosted.org/packages/7a/ff/75c28576a1d900e87eb6335b063fab47a8ef3c8b4d88524c4bf78f670cce/Jinja2-3.1.2.tar.gz"
-    sha256 "31351a702a408a9e7595a8fc6150fc3f43bb6bf7e319770cbc0db9df9437e852"
+    url "https://files.pythonhosted.org/packages/b2/5e/3a21abf3cd467d7876045335e681d276ac32492febe6d98ad89562d1a7e1/Jinja2-3.1.3.tar.gz"
+    sha256 "ac8bd6544d4bb2c9792bf3a159e80bba8fda7f07e81bc3aed565432d5925ba90"
+  end
+
+  resource "markdown" do
+    url "https://files.pythonhosted.org/packages/87/2a/62841f4fb1fef5fa015ded48d02401cd95643ca03b6760b29437b62a04a4/Markdown-3.4.4.tar.gz"
+    sha256 "225c6123522495d4119a90b3a3ba31a1e87a70369e03f14799ea9c0d7183a3d6"
   end
 
   resource "markdown-include" do
@@ -49,6 +51,11 @@ class Ford < Formula
     sha256 "e3f60a94fa066dc52ec76661e37c851cb232d92f9886b15cb560aaada2df8feb"
   end
 
+  resource "markupsafe" do
+    url "https://files.pythonhosted.org/packages/87/5b/aae44c6655f3801e81aa3eef09dbbf012431987ba564d7231722f68df02d/MarkupSafe-2.1.5.tar.gz"
+    sha256 "d283d37a890ba4c1ae73ffadf8046435c76e7bc2247bbb63c00bd1a709c6544b"
+  end
+
   resource "mdurl" do
     url "https://files.pythonhosted.org/packages/d6/54/cfe61301667036ec958cb99bd3efefba235e65cdeb9c84d24a8293ba1d90/mdurl-0.1.2.tar.gz"
     sha256 "bb413d29f5eea38f31dd4754dd7377d4465116fb207585f97bf925588687c1ba"
@@ -59,14 +66,19 @@ class Ford < Formula
     sha256 "5af9fbce55f136d7931ae915fae03c34030a3b36c496e72d9636cedc8e2543a1"
   end
 
+  resource "pygments" do
+    url "https://files.pythonhosted.org/packages/55/59/8bccf4157baf25e4aa5a0bb7fa3ba8600907de105ebc22b0c78cfbf6f565/pygments-2.17.2.tar.gz"
+    sha256 "da46cec9fd2de5be3a8a784f434e4c4ab670b4ff54d605c4c2717e9d49c4c367"
+  end
+
   resource "python-markdown-math" do
     url "https://files.pythonhosted.org/packages/ec/17/e7e3f3fce951b8adec10987834f4b2fa721ebd9bd6651ce2a4f39c4c544d/python-markdown-math-0.8.tar.gz"
     sha256 "8564212af679fc18d53f38681f16080fcd3d186073f23825c7ce86fadd3e3635"
   end
 
   resource "rich" do
-    url "https://files.pythonhosted.org/packages/b1/0e/e5aa3ab6857a16dadac7a970b2e1af21ddf23f03c99248db2c01082090a3/rich-13.6.0.tar.gz"
-    sha256 "5c14d22737e6d5084ef4771b62d5d4363165b403455a30a1c8ca39dc7b644bef"
+    url "https://files.pythonhosted.org/packages/b3/01/c954e134dc440ab5f96952fe52b4fdc64225530320a910473c1fe270d9aa/rich-13.7.1.tar.gz"
+    sha256 "9be308cb1fe2f1f57d67ce99e95af38a1e2bc71ad9813b0e247cf7ffbcc3a432"
   end
 
   resource "soupsieve" do

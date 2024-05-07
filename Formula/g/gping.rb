@@ -1,12 +1,9 @@
 class Gping < Formula
   desc "Ping, but with a graph"
   homepage "https://github.com/orf/gping"
-  # TODO: check if we can use unversioned `libgit2` at version bump.
-  # See comments below for details.
-  url "https://github.com/orf/gping/archive/refs/tags/gping-v1.14.0.tar.gz"
-  sha256 "8a9c11668e2de8472d551225da1390e89bfbe4a327d120e62f8f65a2270c44f0"
+  url "https://github.com/orf/gping/archive/refs/tags/gping-v1.16.1.tar.gz"
+  sha256 "557dad6e54b5dd23f88224ea7914776b7636672f237d9cbbea59972235ca89a8"
   license "MIT"
-  revision 1
   head "https://github.com/orf/gping.git", branch: "master"
 
   # The GitHub repository has a "latest" release but it can sometimes point to
@@ -19,36 +16,25 @@ class Gping < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_sonoma:   "2a7e8e5ac645b7fe8926f13fd955a78456cca1b6df550aee1a484733382e81ab"
-    sha256 cellar: :any,                 arm64_ventura:  "12a9bd754d2f1597e89d5cc6690af8af14d2d3836b974f90452abe849c5c6c6f"
-    sha256 cellar: :any,                 arm64_monterey: "9ffad7b6407af60c32cffcd3099d50e57f74a25e601864c3dc2712eb2dec00ae"
-    sha256 cellar: :any,                 arm64_big_sur:  "8df9a4ea92dbc359024d08fa8c6a3dcf9d55ce828b4975a8f5d82bb6ce0a65d2"
-    sha256 cellar: :any,                 sonoma:         "06c573c3c30745fa9f0965eea02526c6622bb9b73e04bae0629fd617dc3ad5c1"
-    sha256 cellar: :any,                 ventura:        "853207d921bf41d05992e8fd5c874992865040e9fba970ca7566b26fa0509e61"
-    sha256 cellar: :any,                 monterey:       "6f6b83f8510cb0f67f3bdf123c22a9b5f73e5fc64be5aebff7a0ce2591e21aa7"
-    sha256 cellar: :any,                 big_sur:        "df95fab0f12d5d4ceeab96132e1220f3fc70bdcc435403c15e3db047219ea5c8"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "4b7fc0ff3c261dc5b8d94ecac8ee501f15e9e8d6323bbd82da43c20ff785c050"
+    sha256 cellar: :any,                 arm64_sonoma:   "6c0b8a00018562a56428730081d2149b75e5d70683f112f258c3dd09287e240a"
+    sha256 cellar: :any,                 arm64_ventura:  "2f32084a6efef9a3a037b0c9d82299a2258256f6b9b665bbb73fdc8b211b0fd6"
+    sha256 cellar: :any,                 arm64_monterey: "4668f27d28670807e0e7e39552f7a20e53d1a093e891ad8948b3a0747f1ef81f"
+    sha256 cellar: :any,                 sonoma:         "7d74bf93f8f90500e1e7c9af1cf1f0543dc45f2bd11e3c489a743359874c1859"
+    sha256 cellar: :any,                 ventura:        "7efd96965712edc3ebe8a5208758a072d322a1e07b0347838a2400c955111a26"
+    sha256 cellar: :any,                 monterey:       "352d66ee19e9a3c4fb133687c331c38fb1a3636bf243d0f1ad348a16065274df"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "7a20f09bff83e703cff8bec5adda1a0d8b2e75cb2bda8a182fea048bf55bb1ef"
   end
 
   depends_on "pkg-config" => :build
   depends_on "rust" => :build
-
-  on_macos do
-    # To check for `libgit2` version:
-    # 1. Search for `libgit2-sys` version at https://github.com/orf/gping/blob/gping-#{version}/Cargo.lock
-    # 2. If the version suffix of `libgit2-sys` is newer than +1.6.*, then:
-    #    - Migrate to the corresponding `libgit2` formula.
-    #    - Change the `LIBGIT2_SYS_USE_PKG_CONFIG` env var below to `LIBGIT2_NO_VENDOR`.
-    #      See: https://github.com/rust-lang/git2-rs/commit/59a81cac9ada22b5ea6ca2841f5bd1229f1dd659.
-    depends_on "libgit2@1.6"
-  end
+  depends_on "libgit2"
 
   on_linux do
     depends_on "iputils"
   end
 
   def install
-    ENV["LIBGIT2_SYS_USE_PKG_CONFIG"] = "1"
+    ENV["LIBGIT2_NO_VENDOR"] = "1"
     system "cargo", "install", *std_cargo_args(path: "gping")
   end
 
@@ -80,7 +66,7 @@ class Gping < Formula
     linkage_with_libgit2 = (bin/"gping").dynamically_linked_libraries.any? do |dll|
       next false unless dll.start_with?(HOMEBREW_PREFIX.to_s)
 
-      File.realpath(dll) == (Formula["libgit2@1.6"].opt_lib/shared_library("libgit2")).realpath.to_s
+      File.realpath(dll) == (Formula["libgit2"].opt_lib/shared_library("libgit2")).realpath.to_s
     end
     assert linkage_with_libgit2, "No linkage with libgit2! Cargo is likely using a vendored version."
   end

@@ -1,9 +1,9 @@
 class Sbt < Formula
   desc "Build tool for Scala projects"
   homepage "https://www.scala-sbt.org/"
-  url "https://github.com/sbt/sbt/releases/download/v1.9.7/sbt-1.9.7.tgz"
-  mirror "https://sbt-downloads.cdnedge.bluemix.net/releases/v1.9.7/sbt-1.9.7.tgz"
-  sha256 "23543bc4597b552e8e2c27d695fe672ec235ab8a64f766b37828fb68c6d9d910"
+  url "https://github.com/sbt/sbt/releases/download/v1.10.0/sbt-1.10.0.tgz"
+  mirror "https://sbt-downloads.cdnedge.bluemix.net/releases/v1.10.0/sbt-1.10.0.tgz"
+  sha256 "154b7de6c19207c73d0a304f901c8c4b6ead9a9c3a99a98a9d72ac19419d2640"
   license "Apache-2.0"
 
   livecheck do
@@ -12,7 +12,7 @@ class Sbt < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, all: "90c3eb6212a0505e0b5100d63ac169bf12ef92d61adb0a30cc9106a2ca8ca7cb"
+    sha256 cellar: :any_skip_relocation, all: "78ca2b6b678394936b0c4ff055a95de43b61e156c74e36b3e8cc36dcfd053c3a"
   end
 
   depends_on "openjdk"
@@ -29,7 +29,8 @@ class Sbt < Formula
     # Removes:
     # 1. `sbt.bat` (Windows-only)
     # 2. `sbtn` (pre-compiled native binary)
-    (libexec/"bin").glob("sbt{.bat,n-x86_64*,n-aarch64*}").map(&:unlink)
+    # 3. `sbtn-universal-apple-darwin` (universal binary)
+    (libexec/"bin").glob("sbt{.bat,n-x86_64*,n-aarch64*,n-universal-apple-darwin}").map(&:unlink)
     (bin/"sbt").write_env_script libexec/"bin/sbt", Language::Java.overridable_java_home_env
   end
 

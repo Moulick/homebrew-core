@@ -2,18 +2,18 @@ class Xq < Formula
   desc "Command-line XML and HTML beautifier and content extractor"
   homepage "https://github.com/sibprogrammer/xq"
   url "https://github.com/sibprogrammer/xq.git",
-      tag:      "v1.2.2",
-      revision: "2d8ab1bc4a3f266e6a36cd3954cf687ad738a031"
+      tag:      "v1.2.4",
+      revision: "08f46d7f6e6ce087919439a74790734b415ff336"
   license "MIT"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "470737b2c5ac5f3be4d495aec6d561ee4aa806a7b408736e2cb43a47416ecfb5"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "470737b2c5ac5f3be4d495aec6d561ee4aa806a7b408736e2cb43a47416ecfb5"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "470737b2c5ac5f3be4d495aec6d561ee4aa806a7b408736e2cb43a47416ecfb5"
-    sha256 cellar: :any_skip_relocation, sonoma:         "c49ff24cd76d1dfdc796ee8394b71f02854392ed69f3868edd486da3cadbf31d"
-    sha256 cellar: :any_skip_relocation, ventura:        "c49ff24cd76d1dfdc796ee8394b71f02854392ed69f3868edd486da3cadbf31d"
-    sha256 cellar: :any_skip_relocation, monterey:       "c49ff24cd76d1dfdc796ee8394b71f02854392ed69f3868edd486da3cadbf31d"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "1df6c4d48616ff54bca099a215611532e72ed0c603f65644ba75bac21b118b85"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "5ffc01a92f4816483599550d53f73b71770dd8ed46f04419a819fa409a58f9a8"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "5ffc01a92f4816483599550d53f73b71770dd8ed46f04419a819fa409a58f9a8"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "5ffc01a92f4816483599550d53f73b71770dd8ed46f04419a819fa409a58f9a8"
+    sha256 cellar: :any_skip_relocation, sonoma:         "8d45ce98343c355a287e9cd4781e07b888360586ddb8eab270ebc750b73bf4e9"
+    sha256 cellar: :any_skip_relocation, ventura:        "8d45ce98343c355a287e9cd4781e07b888360586ddb8eab270ebc750b73bf4e9"
+    sha256 cellar: :any_skip_relocation, monterey:       "8d45ce98343c355a287e9cd4781e07b888360586ddb8eab270ebc750b73bf4e9"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "f31e98b6eb7629fc55497e06a58862156de25ba3597788ff766528f4cf140d28"
   end
 
   depends_on "go" => :build
@@ -27,7 +27,7 @@ class Xq < Formula
       -X main.date=#{time.iso8601}
     ]
 
-    system "go", "build", *std_go_args(ldflags: ldflags)
+    system "go", "build", *std_go_args(ldflags:)
     man1.install "docs/xq.man" => "xq.1"
   end
 

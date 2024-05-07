@@ -1,26 +1,33 @@
 class Pc6001vx < Formula
   desc "PC-6001 emulator"
-  homepage "http://eighttails.seesaa.net/"
-  url "https://eighttails.up.seesaa.net/bin/PC6001VX_4.1.3_src.tar.gz"
-  sha256 "264f135ad89f443b8b103169ca28e95ba488f2ce627c6dc3791e0230587be0d9"
+  # http://eighttails.seesaa.net/ gives 405 error
+  homepage "https://github.com/eighttails/PC6001VX"
   license "LGPL-2.1-or-later"
-  revision 1
+  revision 2
   head "https://github.com/eighttails/PC6001VX.git", branch: "master"
 
+  stable do
+    url "https://eighttails.up.seesaa.net/bin/PC6001VX_4.2.5_src.tar.gz"
+    sha256 "4f44df8940db6d412bf4d316c950c540f03c5ab543b028b793998bfeeaac64ac"
+
+    # backport a fix for incorrectly handling SIGTERM
+    patch do
+      url "https://github.com/eighttails/PC6001VX/commit/93f2a366d1944237d4712a6de4290ac1bda15771.patch?full_index=1"
+      sha256 "f4e9d7f23ec7d0f87d869cfcef84de80f1371cc703600313a00970f84d77c632"
+    end
+  end
+
   bottle do
-    sha256 cellar: :any,                 arm64_sonoma:   "901a5a51a383ceea0c028af283c3bfdceaeb123e8f8f99bd7546902fa1243f24"
-    sha256 cellar: :any,                 arm64_ventura:  "0ee9f1581e3f9aa34d71b0a6b6e876eb4cc8a5d4da0112b7dc1720066522847e"
-    sha256 cellar: :any,                 arm64_monterey: "67d0d28536684298cd3039c211422983f1a8b9ac5050660fa3c828f7d6cfc51e"
-    sha256 cellar: :any,                 arm64_big_sur:  "9498d150ffac273597ad7efdd01220bc31a90c8a8b62031a5623507b7d82cece"
-    sha256 cellar: :any,                 sonoma:         "7cc8174a4f957e462995c64aafef1b468f544b01ecac6b2234baacdd2aafc080"
-    sha256 cellar: :any,                 ventura:        "434cf93c1ee8698062a7123acc56a422d3d5899638808c9bfeb00872d253c32f"
-    sha256 cellar: :any,                 monterey:       "f27093a85a256425a2acac1fa4293da1101cef25f7a74edc693c75cd6bec39c8"
-    sha256 cellar: :any,                 big_sur:        "b8e5990242a9331cda7e78c1b1d3d4117909284f33bb973ab5f1460b7ddbe108"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "b212c77721d4e4f67fe1f00b00e64718cf6b859c6a753c54e04139b491c68bf5"
+    sha256 cellar: :any, arm64_sonoma:   "d9f0c85994080637e87e46e657c1fa0a585d69d74548a2305654dd9a1f545e08"
+    sha256 cellar: :any, arm64_ventura:  "1e8a92b9a880400821197103bb6571997b468e1bc2777c80d6b7a4c0d8233370"
+    sha256 cellar: :any, arm64_monterey: "6931561bcb1b2bf2b3f56cc24867458dc96bb79e7dd1305fa3f4becf77088b9d"
+    sha256 cellar: :any, sonoma:         "c86a325c279e134b003bfac3483aac49d8d7202ec90e774bcacc4cede9fc8d93"
+    sha256 cellar: :any, ventura:        "5f87fb22702196d38f976a764a970ae4bfee3b394a3b5090e0aaacf2500985ba"
+    sha256 cellar: :any, monterey:       "dc8fdc3a168a600b1f98a40c03d8b2032a3f3cee6eb18974cd9c738ce55838ce"
   end
 
   depends_on "pkg-config" => :build
-  depends_on "ffmpeg"
+  depends_on "ffmpeg@6"
   depends_on "qt"
 
   fails_with gcc: "5" # ffmpeg is compiled with GCC
@@ -33,26 +40,28 @@ class Pc6001vx < Formula
                                  ".."
       system "make"
 
-      if OS.mac?
-        prefix.install "PC6001VX.app"
-        bin.write_exec_script "#{prefix}/PC6001VX.app/Contents/MacOS/PC6001VX"
-      else
-        bin.install "PC6001VX"
-      end
+      prefix.install "PC6001VX.app"
+      bin.write_exec_script "#{prefix}/PC6001VX.app/Contents/MacOS/PC6001VX"
     end
   end
 
   test do
-    ENV["QT_QPA_PLATFORM"] = "minimal" unless OS.mac?
+    # locales aren't set correctly within the testing environment
+    ENV["LC_ALL"] = "en_US.UTF-8"
     user_config_dir = testpath/".pc6001vx4"
     user_config_dir.mkpath
     pid = fork do
       exec bin/"PC6001VX"
     end
-    sleep 15
-    assert_predicate user_config_dir/"pc6001vx.ini",
+    sleep 30
+    assert_predicate user_config_dir/"rom",
                      :exist?, "User config directory should exist"
   ensure
+    # the first SIGTERM signal closes a window which spawns another immediately
+    # after 5 seconds, send a second SIGTERM signal to ensure the process is fully stopped
     Process.kill("TERM", pid)
+    sleep 5
+    Process.kill("TERM", pid)
+    Process.wait(pid)
   end
 end

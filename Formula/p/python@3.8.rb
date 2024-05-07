@@ -1,8 +1,8 @@
 class PythonAT38 < Formula
   desc "Interpreted, interactive, object-oriented programming language"
   homepage "https://www.python.org/"
-  url "https://www.python.org/ftp/python/3.8.18/Python-3.8.18.tar.xz"
-  sha256 "3ffb71cd349a326ba7b2fadc7e7df86ba577dd9c4917e52a8401adbda7405e3f"
+  url "https://www.python.org/ftp/python/3.8.19/Python-3.8.19.tar.xz"
+  sha256 "d2807ac69f69b84fd46a0b93bbd02a4fa48d3e70f4b2835ff0f72a2885040076"
   license "Python-2.0"
 
   livecheck do
@@ -11,20 +11,21 @@ class PythonAT38 < Formula
   end
 
   bottle do
-    sha256 arm64_sonoma:   "1600c7c13c514c57428c1d6057df0d935ef7b836919f4c2febde7acb72c32eda"
-    sha256 arm64_ventura:  "e46543e4b7c3eba41b67530b1f4f95b7a7f7bcc3955c88667bcaf7f774910eb8"
-    sha256 arm64_monterey: "f0b098a991698f07a990b6c33bbb0a3ecd0afd0f4592eb6e9fd6214e42afa877"
-    sha256 arm64_big_sur:  "d62d849037220459e4795fb6b3504fe026f03ed7c3342077a5c7cc014118b637"
-    sha256 sonoma:         "c654f3f66ab693ff1389e0b4d8f58ea087c19439977e0bfc7d5d4cb159c1fb5f"
-    sha256 ventura:        "0dc45f8ce4621dda697f67e37d3c566a5b66d745b1a7574483ac645cf5a92053"
-    sha256 monterey:       "9134d12fdb3896a24d1dd876b551459024491d3926d22dadfefbe87e7cbbc588"
-    sha256 big_sur:        "34012296f4cb3f8a877e905af35a33e658ad250f64f6ad29203aa662eabd8ce6"
-    sha256 x86_64_linux:   "8076a79df232035817b166b73b23e50d41eef747668eec8c7936b353c5d42fd2"
+    sha256 arm64_sonoma:   "d09f8b721bce845fb4442c2fe463f693ba301c1b6de900557aa3f0f91e33dff2"
+    sha256 arm64_ventura:  "c69c13474e19eaaa99bb259bb350b992c6e882bfa47c662105109bd17bb0f329"
+    sha256 arm64_monterey: "7b9cde42d8d02cf45416c444a874f63df7d2de315eebe158ac8a30bde2652b97"
+    sha256 sonoma:         "92aed4e22e09a4aea102d31b174f9bea7d4022d4a401a2c5821bc146f801a2b8"
+    sha256 ventura:        "b2d965f8246e14049fc2f074d4085fa0bd66d9fda7a03afb7d838236158816d7"
+    sha256 monterey:       "a4e974c34845544e02eb0f952a3ad5e8a0d238a57f3c31c8ee07687d432a2cdb"
+    sha256 x86_64_linux:   "ec186f971b5de1a11c2255124ad7f8056f2723074f0217b84e8861faa5b1bb10"
   end
 
   # setuptools remembers the build flags python is built with and uses them to
   # build packages later. Xcode-only systems need different flags.
   pour_bottle? only_if: :clt_installed
+
+  # https://devguide.python.org/versions/#versions
+  disable! date: "2024-10-14", because: :deprecated_upstream
 
   depends_on "pkg-config" => :build
   depends_on "gdbm"
@@ -52,19 +53,19 @@ class PythonAT38 < Formula
              "bin/easy_install-3.7", "bin/easy_install-3.8"
 
   # Always update to latest release
-  resource "setuptools" do
-    url "https://files.pythonhosted.org/packages/19/20/d8dd9d8becaf3e2d6fdc17cc41870d5ada5ceda518996cf5968c2ca71bd8/setuptools-68.1.2.tar.gz"
-    sha256 "3d4dfa6d95f1b101d695a6160a7626e15583af71a5f52176efa5d39a054d475d"
+  resource "pip" do
+    url "https://files.pythonhosted.org/packages/94/59/6638090c25e9bc4ce0c42817b5a234e183872a1129735a9330c472cc2056/pip-24.0.tar.gz"
+    sha256 "ea9bd1a847e8c5774a5777bb398c19e80bcd4e2aa16a4b301b718fe6f593aba2"
   end
 
-  resource "pip" do
-    url "https://files.pythonhosted.org/packages/ba/19/e63fb4e0d20e48bd2167bb7e857abc0e21679e24805ba921a224df8977c0/pip-23.2.1.tar.gz"
-    sha256 "fb0bd5435b3200c602b5bf61d2d43c2f13c02e29c1707567ae7fbc514eb9faf2"
+  resource "setuptools" do
+    url "https://files.pythonhosted.org/packages/4d/5b/dc575711b6b8f2f866131a40d053e30e962e633b332acf7cd2c24843d83d/setuptools-69.2.0.tar.gz"
+    sha256 "0ff4183f8f42cd8fa3acea16c45205521a4ef28f73c6391d8a25e92893134f2e"
   end
 
   resource "wheel" do
-    url "https://files.pythonhosted.org/packages/a4/99/78c4f3bd50619d772168bec6a0f34379b02c19c9cced0ed833ecd021fd0d/wheel-0.41.2.tar.gz"
-    sha256 "0c5ac5ff2afb79ac23ab82bab027a0be7b5dbcf2e54dc50efe4bf507de1f7985"
+    url "https://files.pythonhosted.org/packages/b8/d6/ac9cd92ea2ad502ff7c1ab683806a9deb34711a1e2bd8a59814e8fc27e69/wheel-0.43.0.tar.gz"
+    sha256 "465ef92c69fa5c5da2d1cf8ac40559a8c940886afcef87dcf14b9470862f1d85"
   end
 
   # Link against libmpdec.so.3, update for mpdecimal.h symbol cleanup.
@@ -117,13 +118,6 @@ class PythonAT38 < Formula
       --with-system-libmpdec
     ]
 
-    if OS.mac?
-      args << "--enable-framework=#{frameworks}"
-      args << "--with-dtrace"
-    else
-      args << "--enable-shared"
-    end
-
     # Python re-uses flags when building native modules.
     # Since we don't want native modules prioritizing the brew
     # include path, we move them to [C|LD]FLAGS_NODIST.
@@ -135,14 +129,22 @@ class PythonAT38 < Formula
     ldflags_nodist = ["-L#{HOMEBREW_PREFIX}/lib", "-Wl,-rpath,#{HOMEBREW_PREFIX}/lib"]
     cppflags       = ["-I#{HOMEBREW_PREFIX}/include"]
 
-    if MacOS.sdk_path_if_needed
-      # Help Python's build system (setuptools/pip) to build things on SDK-based systems
-      # The setup.py looks at "-isysroot" to get the sysroot (and not at --sysroot)
-      cflags  << "-isysroot #{MacOS.sdk_path}"
-      ldflags << "-isysroot #{MacOS.sdk_path}"
+    if OS.mac?
+      args << "--enable-framework=#{frameworks}"
+      args << "--with-dtrace"
+
+      if MacOS.sdk_path_if_needed
+        # Help Python's build system (setuptools/pip) to build things on SDK-based systems
+        # The setup.py looks at "-isysroot" to get the sysroot (and not at --sysroot)
+        cflags  << "-isysroot #{MacOS.sdk_path}"
+        ldflags << "-isysroot #{MacOS.sdk_path}"
+      end
+
+      # Avoid linking to libgcc https://mail.python.org/pipermail/python-dev/2012-February/116205.html
+      args << "MACOSX_DEPLOYMENT_TARGET=#{MacOS.version}"
+    else
+      args << "--enable-shared"
     end
-    # Avoid linking to libgcc https://mail.python.org/pipermail/python-dev/2012-February/116205.html
-    args << "MACOSX_DEPLOYMENT_TARGET=#{MacOS.version}"
 
     args << "--with-tcltk-includes=-I#{Formula["tcl-tk"].opt_include/"tcl-tk"}"
     args << "--with-tcltk-libs=-L#{Formula["tcl-tk"].opt_lib} -ltcl8.6 -ltk8.6"

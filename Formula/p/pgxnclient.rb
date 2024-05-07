@@ -3,30 +3,37 @@ class Pgxnclient < Formula
 
   desc "Command-line client for the PostgreSQL Extension Network"
   homepage "https://pgxn.github.io/pgxnclient/"
-  url "https://github.com/pgxn/pgxnclient/archive/refs/tags/v1.3.2.tar.gz"
-  sha256 "0d02a91364346811ce4dbbfc2f543356dac559e4222a3131018c6570d32e592a"
+  url "https://files.pythonhosted.org/packages/54/3d/5eae61996702ce218548a98f6ccc930a80b1e4b09b7a8384b1a95129a9c2/pgxnclient-1.3.2.tar.gz"
+  sha256 "b0343e044b8d0044ff4be585ecce0147b1007db7ae8b12743bf222758a4ec7d9"
   license "BSD-3-Clause"
-  revision 1
+  revision 2
 
   bottle do
-    rebuild 2
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "0e01abaa6613e48a15ec27dbad5b04780761eb73c9e1edd5c5892efe5feff949"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "75b13d5baad53bb3063a52ecb712c115f0f23ca321062d3b92088f17737a7912"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "321c393a89553c347f011274fe841840fb4e1847c0e93fed9134cd2e8ea9fa55"
-    sha256 cellar: :any_skip_relocation, sonoma:         "73c2069d8d778a8646b98dbe4541af4c2bdf1a9cb756270a827e723daa292201"
-    sha256 cellar: :any_skip_relocation, ventura:        "63a788e86374c7c0089a0cd9ebaa33adc282f47fa588eb0d51fe6d6471bdf04b"
-    sha256 cellar: :any_skip_relocation, monterey:       "46caf982a9d58098f9489f3f35b955a0b87b789c0ea757b5b4b0a3bf1d016608"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "5f1b2b974561e440ebb0ec1c1f10e24a023e47397a9ecf43dda1c10463a3a96e"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "44ff65d97f5481826e4963c3efaf758cdf6b20f6ec1ea7a15e198c6f91c9740e"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "36c3aef93ead993b2db8de5fcc9dc66f0e433938c17acd8c55d37dac2b6e0908"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "03c6ce799197f4f86f827ba75864555b5a512443b95e06cc160a28dbf3dcad41"
+    sha256 cellar: :any_skip_relocation, sonoma:         "e00942c2867b45d3d0bd9e6cfc78c2b556dce24c73be0090ae3611e36b28881f"
+    sha256 cellar: :any_skip_relocation, ventura:        "a9183ce3151aa765c62333b3423c2d6c75fa32af81d748dedd68a6486c93bbb9"
+    sha256 cellar: :any_skip_relocation, monterey:       "7f846a0accf04fed36d5ba5173ceff9a48d38c4365d585ed3f186434b4dcd00f"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "27e1ad1cc23034ff7976ab14da529ffc621a47c5256ce17275eeb961d44b4008"
   end
 
   depends_on "python@3.12"
-  depends_on "six"
+
+  resource "six" do
+    url "https://files.pythonhosted.org/packages/71/39/171f1c67cd00715f190ba0b100d606d440a28c93c7714febeca8b79af85e/six-1.16.0.tar.gz"
+    sha256 "1e61c37477a1626458e36f7b1d82aa5c9b094fa4802892072e49de9c60c4c926"
+  end
 
   def install
-    virtualenv_install_with_resources
+    venv = virtualenv_install_with_resources
+    inreplace venv.site_packages/name/"__init__.py",
+              "/usr/local/libexec/pgxnclient", HOMEBREW_PREFIX/"libexec/#{name}"
   end
 
   test do
     assert_match "pgxn", shell_output("#{bin}/pgxnclient mirror")
+    assert_match version.to_s, shell_output("#{bin}/pgxnclient --version")
+    assert_match "#{HOMEBREW_PREFIX}/libexec/#{name}", shell_output("#{bin}/pgxn help --libexec")
   end
 end

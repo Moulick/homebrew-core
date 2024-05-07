@@ -1,8 +1,8 @@
 class Tetra < Formula
   desc "Tetragon CLI to observe, manage and troubleshoot Tetragon instances"
   homepage "https://github.com/cilium/tetragon"
-  url "https://github.com/cilium/tetragon/archive/refs/tags/v1.0.0.tar.gz"
-  sha256 "992d9570ee0136586b94cb0096353a1d9852931f3d441a1c52c5c8ac6c8c55ae"
+  url "https://github.com/cilium/tetragon/archive/refs/tags/v1.1.0.tar.gz"
+  sha256 "07f0e1c0a7492c64324abde277e283f096e601408ac8edb242097dd5c14d70c1"
   license "Apache-2.0"
 
   livecheck do
@@ -11,20 +11,20 @@ class Tetra < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "bc68fa231b993be680ab882780bb58df3c8d0cc22ace749ca4047354ef84ada2"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "a430434c8de32e1038da060e5a4716357da1ea10ef7e88276b1d34e39013c66c"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "bc9141072d854ffd87b907c0d0e39147dabde4d17cf56e1de45a719cac97eee3"
-    sha256 cellar: :any_skip_relocation, sonoma:         "0570fd884743511ba36cdf172a927133280a4ff1d26e0e69f08ac6f5a247550d"
-    sha256 cellar: :any_skip_relocation, ventura:        "ffef824bed11353b51630320534e81d9059c6494b4cb851e0f5aa5ae73b2468b"
-    sha256 cellar: :any_skip_relocation, monterey:       "911f0f79bd46afd2e42b01c3e98b9e0dd2db12010eb25d129962c66a22d831aa"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "cd0b23e891eb7dd14678383faf51f30ce0ce6391794f7e9ac7d4e62bb33116c9"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "2e17ac76269371424ff09c600ca10cb2d5d586e7ca09b45d48215fad4b35fc6c"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "665589f2f711df7b796c5cf1b8bc03ca2759b708f532946c2dacbe8e0dd2dcc8"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "79bdcb77284a8c0716b138c86b69c917a07a2e3c5f5a647aea87165669a36dc9"
+    sha256 cellar: :any_skip_relocation, sonoma:         "233278a6a05a3e4039e94ae6020f012fbaa00d58d53ef9911e4e66f2896e9f28"
+    sha256 cellar: :any_skip_relocation, ventura:        "2f4c300764de924bb541fd3e053c2e3b4dfebf8c73a2f7822a38843b7ed6be06"
+    sha256 cellar: :any_skip_relocation, monterey:       "ff087413013642b72c2b2776ce182075ee4107face6e3e16c35fa0eb69998e57"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "42e2b31a9ec0bf2cdfb4840df0de0ebac5e905127dd8c5567d4cc781635c8d4a"
   end
 
   depends_on "go" => :build
 
   def install
     ldflags = "-s -w -X github.com/cilium/tetragon/pkg/version.Version=#{version}"
-    system "go", "build", *std_go_args(ldflags: ldflags, output: bin/"tetra"), "./cmd/tetra"
+    system "go", "build", *std_go_args(ldflags:, output: bin/"tetra"), "./cmd/tetra"
 
     generate_completions_from_executable(bin/"tetra", "completion")
   end

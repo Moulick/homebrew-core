@@ -1,26 +1,27 @@
 class Autorestic < Formula
   desc "High level CLI utility for restic"
   homepage "https://autorestic.vercel.app/"
-  url "https://github.com/cupcakearmy/autorestic/archive/refs/tags/v1.7.9.tar.gz"
-  sha256 "e57bbc045edee4aabd850da2e61da9c18a6d12bd323866be1eb3edca4709b363"
+  url "https://github.com/cupcakearmy/autorestic/archive/refs/tags/v1.8.2.tar.gz"
+  sha256 "847a661bcf8bfdf282eca0dfd677293ad932726d357899c15a85b9238c4ea3da"
   license "Apache-2.0"
   head "https://github.com/cupcakearmy/autorestic.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "2b2ea517f5dcd33825bb1c27c3d427a772d7856f4e86e684f22ab9de77f65222"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "ff1f15e047c99f33bbbf417069d31f480f665897eb8a059493b535490d9bcdb2"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "d1d217768c960da4daadbe1878631a0c374535906ea59083053c23d10a356c6d"
-    sha256 cellar: :any_skip_relocation, sonoma:         "303c81e6535980fbfb9dc298d046edd4244175bb2bd57c6a7dbe4bc8917151d9"
-    sha256 cellar: :any_skip_relocation, ventura:        "147db7df17660bddf0efba49ea04d1289f6db19d157c6f4beb4a4ac9c39f7eae"
-    sha256 cellar: :any_skip_relocation, monterey:       "71312f574ce4a6ef0af94938b72b79f093913bc30bab080d05d08f5e1954da21"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "d0692eb41431ecb8f4479d95261481256f92552c2e68cc93364d3b41572a76f1"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "32716f3a9631fead881d9023ec8ae72d02cc7d1ae86161f0c272c582bdd039bc"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "b0eb52434a00aa0b8dd179167d7221d623ee170f4000027aacced28185049970"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "e80b7026aea2819adf18517a8931fa0d9536f05b9be25894832ca2e7eda368ae"
+    sha256 cellar: :any_skip_relocation, sonoma:         "36552e1e7c62f7a00de94e0eb06944fa6609a352d375285cf126433270af0155"
+    sha256 cellar: :any_skip_relocation, ventura:        "1baee5ddb9f60f8c88d89e07302a6df36120f3fc789ed3bd54213348bfd526b7"
+    sha256 cellar: :any_skip_relocation, monterey:       "e6a76092098c3f39157f6b7881ea4f4aee5eeb114d39076c3bd4ccdc0002292b"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "0e5336efc10cb4933520ba4667969fde194d8fac1c089f5dce80d458128c812c"
   end
 
   depends_on "go" => :build
   depends_on "restic"
 
   def install
-    system "go", "build", *std_go_args, "./main.go"
+    ldflags = "-s -w"
+    system "go", "build", *std_go_args(ldflags:), "./main.go"
     generate_completions_from_executable(bin/"autorestic", "completion")
   end
 
@@ -31,11 +32,13 @@ class Autorestic < Formula
       "backends"  => { "bar" => { "type" => "local", "key" => "secret", "path" => "data" } },
     }
     config["version"] = 2
-    File.write(testpath/".autorestic.yml", config.to_yaml)
+
+    (testpath/".autorestic.yml").write config.to_yaml
     (testpath/"repo"/"test.txt").write("This is a testfile")
-    system "#{bin}/autorestic", "check"
-    system "#{bin}/autorestic", "backup", "-a"
-    system "#{bin}/autorestic", "restore", "-l", "foo", "--to", "restore"
+
+    system bin/"autorestic", "check"
+    system bin/"autorestic", "backup", "-a"
+    system bin/"autorestic", "restore", "-l", "foo", "--to", "restore"
     assert compare_file testpath/"repo"/"test.txt", testpath/"restore"/testpath/"repo"/"test.txt"
   end
 end

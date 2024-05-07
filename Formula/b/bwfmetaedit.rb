@@ -1,8 +1,8 @@
 class Bwfmetaedit < Formula
   desc "Tool for embedding, validating, and exporting BWF file metadata"
   homepage "https://mediaarea.net/BWFMetaEdit"
-  url "https://mediaarea.net/download/binary/bwfmetaedit/23.04/BWFMetaEdit_CLI_23.04_GNU_FromSource.tar.bz2"
-  sha256 "25e2050c853bb5558a339610a527360c51cec9c8343c84d7723f022f3e6cb364"
+  url "https://mediaarea.net/download/binary/bwfmetaedit/24.01/BWFMetaEdit_CLI_24.01_GNU_FromSource.tar.bz2"
+  sha256 "3f5e4b6749eb2b047b431294adc052eb0dd4ffa1d62c94a2062ef9633912ce66"
   license "0BSD"
 
   livecheck do
@@ -11,20 +11,19 @@ class Bwfmetaedit < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "97df9363f89d98e02dd081f999f8579371d4c4cea0178113a9cb12fb4e30327b"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "c8d78adf4343b50ff735edf6ab4032a01635b9bc1869a9dd51f7051ccabdfd0f"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "bb6f807dcb8b73f26f941c87954a25e0c379b59d67bf32590d48991a888d640b"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "25abca1df21f70d6c40a631db16f94fd0a51ab6a555f7aaea2bb4eebb0d866f7"
-    sha256 cellar: :any_skip_relocation, sonoma:         "a1657843f41b5502afa2506d96ebdd4ef4132134eb31ae19e37a519ea3d89c51"
-    sha256 cellar: :any_skip_relocation, ventura:        "6ff691c4626a4b82f1c0d02a744b762671627f399cc47dd82047d02b502f2e2b"
-    sha256 cellar: :any_skip_relocation, monterey:       "33541498b7b7f1923be50ad5c47ffc7946ab0f6cec752e59967fc755de94fb54"
-    sha256 cellar: :any_skip_relocation, big_sur:        "d56b37a65900c0bfa17bb20276bb561ab92f8f4c0488a4cfde3f5be9aff2bc26"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "1064614960a6c707fb087db9f3e8f5210ebb7f3e34d6a2badf582d2d3cb318ad"
+    rebuild 1
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "361c7979b629a9da067f7ac531607d483dfb8e4f00cf34ce44159916f1cfc1ed"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "d77ec842af5a3137dc1de17841a1a295fae336d6341f2a0914e88fb140837ef9"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "1959f904aa560dc810714db55f3c705ef24b7aac8e70a7024c580bd3c3a0a0d7"
+    sha256 cellar: :any_skip_relocation, sonoma:         "9f8146cfe9434b4abd6c9f53069d59fbea9acefc2c8defec00697618113fd44d"
+    sha256 cellar: :any_skip_relocation, ventura:        "57f98bb40a42836096395274fe9155650cede1e94b14955ae7a790bb1b1a4256"
+    sha256 cellar: :any_skip_relocation, monterey:       "779f1cb81a073bed7267d5cd5a91e529560c8005ac549dbdd5e8f35d64793803"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "7bc01f81dba11a5658a1ecc0679199921bf8ae3f5d3bda8b21e5784db6b985cc"
   end
 
   def install
     cd "Project/GNU/CLI" do
-      system "./configure",  "--disable-debug", "--prefix=#{prefix}"
+      system "./configure", "--disable-debug", "--prefix=#{prefix}"
       system "make", "install"
     end
   end

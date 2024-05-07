@@ -1,18 +1,18 @@
 class Xeol < Formula
   desc "Xcanner for end-of-life software in container images, filesystems, and SBOMs"
   homepage "https://github.com/xeol-io/xeol"
-  url "https://github.com/xeol-io/xeol/archive/refs/tags/v0.9.6.tar.gz"
-  sha256 "10ded34ec862269527ffa5a786f8ee53f8b936df0a2350dd199811272fe58b4f"
+  url "https://github.com/xeol-io/xeol/archive/refs/tags/v0.9.15.tar.gz"
+  sha256 "89f12382df947f064bb9bf7d00b065bfc8564520ed4342151f9ce0513f2d3ccb"
   license "Apache-2.0"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "5eced04904c49d85135b2bf16e1faf37cfdf6f6c2e408d9139d97281584bf5ef"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "26c1ba71916a092175a7c60b230afc5329be083a4b40051241c6e78b496e0734"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "44d0ee767c6a15bf35f29e558049ac2e8f1ffe34636d9ecd7f31435b8d8f5cb3"
-    sha256 cellar: :any_skip_relocation, sonoma:         "e64bb9bb344ba670e7a9fbcb2a0a79f799dfd2eb029189604731fc9a1a13ef42"
-    sha256 cellar: :any_skip_relocation, ventura:        "2ebc167961f6c9525cda5a0b3dc71a4f8448f3283014b4fbe839a788734f5b24"
-    sha256 cellar: :any_skip_relocation, monterey:       "dd68fa8a8ba7627e7fae7b9cdd6fcafedef12814bbd766111d9e1277a645ef16"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "14217e815f3bad21da6517e6a36888063a2bf1e2a53952fa5c747eb072b1c368"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "e595edd16cae1a41f42504b700f933f5b1ec4232ccdb1af4cd89c5926330018f"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "854ab8d143c11f67e0df77c6621e27d22a53f8335d1d1d793dc3830121d68c09"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "3d3eb5113532e7783c3d0ecc774332c1b9688a8b990691d71050eebbb1916031"
+    sha256 cellar: :any_skip_relocation, sonoma:         "c62b4069d5589f0be59be1bbe47f03c24fca7f3939507e78ebf8cc905fe36f10"
+    sha256 cellar: :any_skip_relocation, ventura:        "9d79913129f9302396c23b700ce8f1d0e77aca9eb1c54d5ba4bc748806eb8a2b"
+    sha256 cellar: :any_skip_relocation, monterey:       "fe4de62f2515fedffdb3c1445a053da615ac5b387f1a0e800dafd63d5f43dbb8"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "6cdea4afedc642dc0072eabf2d968ab8eff2e01f5afefd0e1af0cb55376ef309"
   end
 
   depends_on "go" => :build
@@ -25,7 +25,7 @@ class Xeol < Formula
       -X main.buildDate=#{time.iso8601}
       -X main.gitDescription=#{tap.user}
     ]
-    system "go", "build", *std_go_args(ldflags: ldflags), "./cmd/xeol"
+    system "go", "build", *std_go_args(ldflags:), "./cmd/xeol"
 
     generate_completions_from_executable(bin/"xeol", "completion")
   end

@@ -1,20 +1,18 @@
 class Skopeo < Formula
   desc "Work with remote images registries"
   homepage "https://github.com/containers/skopeo"
-  url "https://github.com/containers/skopeo/archive/refs/tags/v1.13.3.tar.gz"
-  sha256 "0b788fc5725ac79327f7c29797821a2bafc1c3c87bbfcb2998c2a1be949e314d"
+  url "https://github.com/containers/skopeo/archive/refs/tags/v1.15.0.tar.gz"
+  sha256 "f219d31e5f3742b08a6e7327d84fd84cdcf8e5a297914bb6e19a96fef1b19b76"
   license "Apache-2.0"
 
   bottle do
-    sha256 arm64_sonoma:   "e3716b6713a5b71b8e43ff9a49dcd302e58713c5fb0c75c7bc727793a7c1f629"
-    sha256 arm64_ventura:  "1d994ad95fee2d772fc6d898ccc73a95dc36d89d2d006e74b59ef1975b20915a"
-    sha256 arm64_monterey: "f959986de44422fe153764522a42280f2379dfe4a86304feb47cfc0fbe6421cc"
-    sha256 arm64_big_sur:  "357eb35c2fced7a532d99989d4199b541db81004a13575801a57d52d7aa3ef54"
-    sha256 sonoma:         "8800f73910c034062271891f6d6e0ccb339bfcad8084d7f9721a8fb6d31e2ac7"
-    sha256 ventura:        "303dc9bd484c043e2f99a53c99f8d6d16c0dca970ad58022e8790c75d9a1ac9b"
-    sha256 monterey:       "7e9822bfc2cb9ba894b742818ea5a88e6ea2dae65541122a053226ab8678cd39"
-    sha256 big_sur:        "aace59677bbb4b09e547735ec09feeeaafcfd6961d4fa8ce369b07c855c087e1"
-    sha256 x86_64_linux:   "343ba543ce69fe7e5eb40dd00f8e91466da4a3fe63dec8bdf50d9be739ec55ca"
+    sha256 arm64_sonoma:   "047ea5c5c94d0733c4ea702cc4fa4734f7bf8bf73e4c6ea9d10b8bc2ad9d3b07"
+    sha256 arm64_ventura:  "80965fcf9c9f5fed4a659cb816fc327eeb2b8d20e091dc42f504f77bfc4573ba"
+    sha256 arm64_monterey: "480e6333cb550b911bcfac32a9b3ba070231a515bb8891d49a752c380e2eabd0"
+    sha256 sonoma:         "f59ddfa94a87cc5639002848327cdfd11eecf2b7db8b1af47c20e5182867f1e7"
+    sha256 ventura:        "3f66a43e919d0218e35b6703871171a2b6187c0e5bbe4884d1d09c5f2b4c6ff8"
+    sha256 monterey:       "76701d4e9acb3309c22a53dfac0dad8d00fc265b96114c4434fb9c074c0acb95"
+    sha256 x86_64_linux:   "22aed2b29f4c849952eafa95ab423fe0f06cd93cf908c71816952d5c8210c1c8"
   end
 
   depends_on "go" => :build
@@ -47,7 +45,7 @@ class Skopeo < Formula
       -X #{ldflag_prefix}/pkg/sysregistriesv2.systemRegistriesConfPath=#{etc}/containers/registries.conf
     ]
 
-    system "go", "build", "-tags", buildtags, *std_go_args(ldflags: ldflags), "./cmd/skopeo"
+    system "go", "build", "-tags", buildtags, *std_go_args(ldflags:), "./cmd/skopeo"
     system "make", "PREFIX=#{prefix}", "GOMD2MAN=go-md2man", "install-docs"
 
     (etc/"containers").install "default-policy.json" => "policy.json"

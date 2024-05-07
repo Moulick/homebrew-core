@@ -1,20 +1,18 @@
 class Rain < Formula
   desc "Command-line tool for working with AWS CloudFormation"
   homepage "https://github.com/aws-cloudformation/rain"
-  url "https://github.com/aws-cloudformation/rain/archive/refs/tags/v1.6.0.tar.gz"
-  sha256 "c29365570082ee15f598c1a0af46541e42e77651f13e0ed5adabb67f8cb80ff7"
+  url "https://github.com/aws-cloudformation/rain/archive/refs/tags/v1.8.6.tar.gz"
+  sha256 "67bc01d96245bdab4a4045554674e549896de45e2a4744cac9ccb02850fedb35"
   license "Apache-2.0"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "4e480e195d19c81743290e83f5d6df4235d0e0d7678f377ce44cf41df3c60666"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "33e4e1272031492ee6866d2ea1138009365966cb516b646078ef9fa650cc771e"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "9275a2b60fff4f495893c44cbacc4728f035f77c853831f2d79366d41818f911"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "ca27e27bc7585610e95ab504bc8a9b12b6ea54d6002e9e52ed7ccee5d294cc9a"
-    sha256 cellar: :any_skip_relocation, sonoma:         "49603ef944724568708046a70c119c07b78782ca2cf3d82cdd8816bc2b96d742"
-    sha256 cellar: :any_skip_relocation, ventura:        "c072330d4198cc22d1871d895b0d0509ab400e3fd24ab88cb241853fc590cfd8"
-    sha256 cellar: :any_skip_relocation, monterey:       "112f70c5c7a7959f990ca5533223fd407532c74e25d8a88b771dca6511fb6539"
-    sha256 cellar: :any_skip_relocation, big_sur:        "d2bc2629f5933ecfa217c58f412b9a46199baca7de1547d83a27662792e19557"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "e0d0eca8a59df5ca29464b2b336b4d23b0cd93d568eb2b35f2a5262c60f15d54"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "c3876e6f717442bb70dc5cf52575c1b700188dd351db4a28cfd170d870f364a5"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "9baae90e3cd9608265ff9e0a26245b4591c61c502a66cad436c91f05c24a7787"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "ab88b6195d91a55cc26fc0023642c5df164d136b20fe285f77fba515ef4f451a"
+    sha256 cellar: :any_skip_relocation, sonoma:         "a596e2a22118857abb54b18a047d42a16f6a4c87689dd5741c740b7608b93c3d"
+    sha256 cellar: :any_skip_relocation, ventura:        "b23b73076349f064fc7e42d422dbe124cc668ca7257b412ea29d3b82a3a07afe"
+    sha256 cellar: :any_skip_relocation, monterey:       "3a82392159997e49657efde3578ce7c150f7ccd917fb93be453d516b5d96a8cb"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "bcf377e7c51314276be817a2d6140a429f67eb752ff7c14c683fd741aea482b4"
   end
 
   depends_on "go" => :build

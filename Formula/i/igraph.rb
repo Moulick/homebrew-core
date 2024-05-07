@@ -1,20 +1,18 @@
 class Igraph < Formula
   desc "Network analysis package"
   homepage "https://igraph.org/"
-  url "https://github.com/igraph/igraph/releases/download/0.10.7/igraph-0.10.7.tar.gz"
-  sha256 "b9e2a46b70896a379d784ea227f076b59750cc7411463b1d4accbf9e38b361ad"
+  url "https://github.com/igraph/igraph/releases/download/0.10.12/igraph-0.10.12.tar.gz"
+  sha256 "b011f7f9f38a3e59924cc9ff652e6d33105fa03fcaf3792f47d752626a0a4625"
   license "GPL-2.0-or-later"
 
   bottle do
-    sha256 cellar: :any,                 arm64_sonoma:   "39e5a3d70fd4520d6afe3fae3950624dcc96fd6117b3755783a550ac9677badb"
-    sha256 cellar: :any,                 arm64_ventura:  "49020dadfecfbd851179096fe42425f85c97a683579c95db38aa5292901c5c08"
-    sha256 cellar: :any,                 arm64_monterey: "26b016bbdf93559f0f5d00332238bc1f11da04039728183c8eaa7138cbbd4aee"
-    sha256 cellar: :any,                 arm64_big_sur:  "2ea5120c3ee598d518ac861d015057aa8076b260ced5799253d2354c561baad3"
-    sha256 cellar: :any,                 sonoma:         "b1f824e38e516d586d4357b9bec5f98009b1e69fa2d6c62074ca871c10dd9597"
-    sha256 cellar: :any,                 ventura:        "08f3e8bdac296dac446a462551fc8e69c4546d619b0df87957e7ac093a87fc78"
-    sha256 cellar: :any,                 monterey:       "dc040a9e757957789671c17fa78351b19fe439f633cfeec555ad0518fb8e90fa"
-    sha256 cellar: :any,                 big_sur:        "fc26790b7c8ab086a321d789fe1df52e67a61eecc954072d9c9660eb365cc6cd"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "0d1babcd095b75507ebc19635ee6f42ecb2e8c250cd54fe57034de4df96121b5"
+    sha256 cellar: :any,                 arm64_sonoma:   "fa8b041b992e92e717c0bb631d93085625f8907c72a02ad939575b4cfdbf01db"
+    sha256 cellar: :any,                 arm64_ventura:  "582819ba81700839022b59b40323300a23fcf46272b5e0317d1342f22912e4b7"
+    sha256 cellar: :any,                 arm64_monterey: "75492919033cd99d118cf62cd31549323954410da025d0282275656a22800ade"
+    sha256 cellar: :any,                 sonoma:         "5e5ff27f272e0b5ade1918db44996330c83d8738f794974e7d436f20d9344142"
+    sha256 cellar: :any,                 ventura:        "872794d0968c5042027dfaea4d5d8744a4b4611d14301fe75594cd309d9025d9"
+    sha256 cellar: :any,                 monterey:       "584b29177fa0091000a3b9239a73a39bb79e409e92abd5b215b1aea18ab9c23d"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "12a7093ff375236d27ccdf9694a0162e809b093ed8a586decf8fd807badc9e86"
   end
 
   depends_on "cmake" => :build

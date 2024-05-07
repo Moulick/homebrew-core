@@ -1,8 +1,8 @@
 class ClawsMail < Formula
   desc "User-friendly, lightweight, and fast email client"
   homepage "https://www.claws-mail.org/"
-  url "https://www.claws-mail.org/releases/claws-mail-3.19.1.tar.gz"
-  sha256 "4fcc2b0b39a6d40e4dc3e49fac2f1cf063575d6570e93408fa4a76ab67531ae1"
+  url "https://www.claws-mail.org/releases/claws-mail-4.2.0.tar.gz"
+  sha256 "446c89f27c2205277f08e776b53d9d151be013211d91e7d9da006bc95c051c60"
   license "GPL-3.0-or-later"
 
   livecheck do
@@ -11,25 +11,32 @@ class ClawsMail < Formula
   end
 
   bottle do
-    sha256 arm64_sonoma:   "27556d5cbc7fe4ee270b90a3f6c0b04975d3be71374d87ae2648722be39c9dcd"
-    sha256 arm64_ventura:  "5a319893dbb61fecce7527d7aa50c8498281c0db65b637401a850a30f4dc3566"
-    sha256 arm64_monterey: "d859faed86f3da9fc93f51644fd5f330b021c3b387392935e303c356fe9152ec"
-    sha256 sonoma:         "a0eb24fe0b25855cdebb845f9dd75a6da1a211057fabecd28f117c2a2a1a457b"
-    sha256 ventura:        "ead29a0507893b238927b2fec984b4d0885ba6d062bd09d39ee224a63cb39780"
-    sha256 monterey:       "6241c21eac60f1fe0078b60e53ef55e94600dbc75bbccae3b3a6a9ce3f58e97c"
+    sha256 arm64_sonoma:   "dc82ecd9048716b1887d8d9f26d232f1f552a19051aac50934e4f21174897b1f"
+    sha256 arm64_ventura:  "70b19b515fbe5601dace57bab913a27ff1a0fdd5b2822447a943a0be04eb6eb1"
+    sha256 arm64_monterey: "b0679bfc922e144669028b3a1b4ef30c73252d4fdcfeea3a09b5906491826cb9"
+    sha256 sonoma:         "fab6a7990fe0bbddd628c25bd0876fbeb359c87faf3142c44d6ff14f60eff598"
+    sha256 ventura:        "8dc1cf763265e2a64f9a4a2eac8128a00c0b101a14717e40b2f751afa30bbd3c"
+    sha256 monterey:       "c0fd26b3606755c94be9e5e859b3100e362d78b786c92cec17393fd4c2091ee3"
   end
 
   depends_on "pkg-config" => :build
   depends_on "cairo"
   depends_on "glib"
   depends_on "gnutls"
-  depends_on "gtk+"
+  depends_on "gtk+3"
   depends_on "libetpan"
   depends_on "nettle"
 
+  # Backport fix for building on non-X11 systems.
+  patch do
+    url "https://git.claws-mail.org/?p=claws.git;a=patch;h=dd4c4e5152235f9f4f319cc9fdad9227ebf688c9"
+    sha256 "883c30d0aa0a6450051c9452475ecc0e106297d0765facc07cacf96cde4a4556"
+  end
+
   def install
-    system "./configure", "--prefix=#{prefix}",
-                          "LDFLAGS=-Wl,-framework -Wl,Security",
+    ENV.append "LDFLAGS", "-Wl,-framework -Wl,Security" if OS.mac?
+    system "./configure", *std_configure_args,
+                          "--disable-silent-rules",
                           "--disable-archive-plugin",
                           "--disable-dillo-plugin",
                           "--disable-notification-plugin"

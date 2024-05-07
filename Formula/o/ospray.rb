@@ -1,9 +1,10 @@
 class Ospray < Formula
   desc "Ray-tracing-based rendering engine for high-fidelity visualization"
   homepage "https://www.ospray.org/"
-  url "https://github.com/ospray/ospray/archive/refs/tags/v2.12.0.tar.gz"
-  sha256 "268b16952b2dd44da2a1e40d2065c960bc2442dd09b63ace8b65d3408f596301"
+  url "https://github.com/ospray/ospray/archive/refs/tags/v3.1.0.tar.gz"
+  sha256 "0b9d7df900fe0474b12e5a2641bb9c3f5a1561217b2789834ebf994a15288a82"
   license "Apache-2.0"
+  revision 1
   head "https://github.com/ospray/ospray.git", branch: "master"
 
   livecheck do
@@ -12,40 +13,38 @@ class Ospray < Formula
   end
 
   bottle do
-    sha256 cellar: :any, arm64_sonoma:   "ee87ad5cc6df01c6903f3ed97a3b6373a3c0bd0df33fee1217b173bf652da2ad"
-    sha256 cellar: :any, arm64_ventura:  "6f5fecb1c05c875d50e53dafd400703614e36839614b86261bdb98ac3e38d823"
-    sha256 cellar: :any, arm64_monterey: "3e0664c0b539c4f47c2b42706fee64d32c14cac1241de144e8d114f3f72a35cf"
-    sha256 cellar: :any, arm64_big_sur:  "7a24a8a3c4c554d02b59d03b9d7751d6448173a762d3ae8ed4b06c11126204bb"
-    sha256 cellar: :any, sonoma:         "e33af11a39c1466b6a89b839a3ebe4d9b6854065d88045270c9c12be35436a82"
-    sha256 cellar: :any, ventura:        "90e4b25add8ab1ce3ca89279244b1c6253014fc70e038adbb4f73a8a59a8ff35"
-    sha256 cellar: :any, monterey:       "7f2130305e1c5f3a86a8cba185e8d5f203f306fb678476eb3022db59bb48c949"
-    sha256 cellar: :any, big_sur:        "30ea6004307fb11e32af4bc28e20332e7d6d1c53dcf001f500552fc5c685fb2b"
+    sha256 cellar: :any,                 arm64_sonoma:   "5579d8382f75e7326ad0a8937f6562ff167c1ae1d4650a092610fedab1b4f486"
+    sha256 cellar: :any,                 arm64_ventura:  "daed769741e22bd69913fe1d0a726413fcb674616abf57f59700bdf6f8bfeedd"
+    sha256 cellar: :any,                 arm64_monterey: "9251be35bf7ca53c4611112bfe41fd2fa714084f7d9dc649d4967c3621a5f057"
+    sha256 cellar: :any,                 sonoma:         "d7a76240bab1306d4379cdb7cd38b6d2fd37a96795d182868b2e90d8d91f5417"
+    sha256 cellar: :any,                 ventura:        "e1eef957f20f5c977fa7ee8a6f348eb715019f8423cdf9618ecfb5161af151b1"
+    sha256 cellar: :any,                 monterey:       "77198703201d64fb1681d9475f7107c7908ed9a87ae7eebe7546483aae6b32e4"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "77698d5997a11ec80305915acbca696811ca3c9305320c5b7986d9de1ce6c02e"
   end
 
   depends_on "cmake" => :build
   depends_on "embree"
   depends_on "ispc"
-  depends_on macos: :mojave # Needs embree bottle built with SSE4.2.
   depends_on "tbb"
 
   resource "rkcommon" do
-    url "https://github.com/ospray/rkcommon/archive/refs/tags/v1.11.0.tar.gz"
-    sha256 "9cfeedaccdefbdcf23c465cb1e6c02057100c4a1a573672dc6cfea5348cedfdd"
+    url "https://github.com/ospray/rkcommon/archive/refs/tags/v1.13.0.tar.gz"
+    sha256 "8ae9f911420085ceeca36e1f16d1316a77befbf6bf6de2a186d65440ac66ff1f"
   end
 
   resource "openvkl" do
-    url "https://github.com/openvkl/openvkl/archive/refs/tags/v1.3.2.tar.gz"
-    sha256 "7704736566bf17497a3e51c067bd575316895fda96eccc682dae4aac7fb07b28"
-
-    # Fix CMake install location.
-    # Remove when https://github.com/openvkl/openvkl/pull/18 is merged.
-    patch do
-      url "https://github.com/openvkl/openvkl/commit/67fcc3f8c34cf1fc7983b1acc4752eb9e2cfe769.patch?full_index=1"
-      sha256 "f68aa633772153ec13c597de2328e1a3f2d64e0bcfd15dc374378d0e1b1383ee"
-    end
+    url "https://github.com/openvkl/openvkl/archive/refs/tags/v2.0.1.tar.gz"
+    sha256 "0c7faa9582a93e93767afdb15a6c9c9ba154af7ee83a6b553705797be5f8af62"
   end
 
   def install
+    # Work around an Xcode 15 linker issue which causes linkage against LLVM's
+    # libunwind due to it being present in a library search path.
+    if DevelopmentTools.clang_build_version >= 1500
+      ENV.remove "HOMEBREW_LIBRARY_PATHS",
+                 Formula["ispc"].deps.map(&:to_formula).find { |f| f.name.match? "^llvm" }.opt_lib
+    end
+
     resources.each do |r|
       r.stage do
         args = %W[

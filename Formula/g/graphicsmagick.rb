@@ -1,8 +1,8 @@
 class Graphicsmagick < Formula
   desc "Image processing tools collection"
   homepage "http://www.graphicsmagick.org/"
-  url "https://downloads.sourceforge.net/project/graphicsmagick/graphicsmagick/1.3.42/GraphicsMagick-1.3.42.tar.xz"
-  sha256 "484fccfd2b2faf6c2ba9151469ece5072bcb91ba4ed73e75ed3d8e46c759d557"
+  url "https://downloads.sourceforge.net/project/graphicsmagick/graphicsmagick/1.3.43/GraphicsMagick-1.3.43.tar.xz"
+  sha256 "2b88580732cd7e409d9e22c6116238bef4ae06fcda11451bf33d259f9cbf399f"
   license "MIT"
   head "http://hg.code.sf.net/p/graphicsmagick/code", using: :hg
 
@@ -11,15 +11,14 @@ class Graphicsmagick < Formula
   end
 
   bottle do
-    sha256 arm64_sonoma:   "20cfcce4373d2e2bfc32537b8bd347f323321df60dbf647c86903de5ffcf52f6"
-    sha256 arm64_ventura:  "1ec94cdffcbfd37a3a3eeb6866923057cc84bcec3bd58f941c113bdabb233e5b"
-    sha256 arm64_monterey: "b6b182bb4d7325d802322eeca0f42352b194c9edb23e295827957d67119460d1"
-    sha256 arm64_big_sur:  "6e7c652dad9bc24967f041d6437990a56b4e7b9741c9f11702fb4d67c22d6103"
-    sha256 sonoma:         "63e670f5859d21cef1e61e5118f94d31e8fdcb3e7beb9ff83f9e3eaf32c6b4c4"
-    sha256 ventura:        "d54d90d88dc4a69dd55c5e5ead34ec679cf5802fcb9346519c46142d36908169"
-    sha256 monterey:       "e4c6162c23798a781099a760f8feea4ca1cc94335caaaffce5bdf6171a317910"
-    sha256 big_sur:        "0d9a8cab31c155b1b5525508f610a3ccd5881ebd75a740ac7ba80ae84dfec7b6"
-    sha256 x86_64_linux:   "6a0e18561264f883a58f8ed373d979900a6d2c348436b1c8d112f2aa4eda405c"
+    rebuild 1
+    sha256 arm64_sonoma:   "4327a8a8fd2f1c697fb3d0ca2c701a9a66e295becf43c0a10c5add67907f44a3"
+    sha256 arm64_ventura:  "c6c12c57731a5d6bd7a70da86e0a9cb468db8f7d8350a2ab07f22b630635a4e7"
+    sha256 arm64_monterey: "c8d23bbcbe9421ad513d5455391e58f2ec8fc07967fc86660a683555436f38f8"
+    sha256 sonoma:         "1a79f2ad8c106b7120cfb33f0f8208a0f392c39898b5549937aa52d680c2dab1"
+    sha256 ventura:        "6f966005ea5b5482d131dacb7b3760340d99d1c922dd7ae57628276992fb5dcb"
+    sha256 monterey:       "369d05d9066c18073da869dea68b0b7c6f20768bdcb9efb03ed7eea38dd755ae"
+    sha256 x86_64_linux:   "340cf9139695b165618523c21eff0e0448950e6e05e965328c4142e85169f182"
   end
 
   depends_on "pkg-config" => :build
@@ -27,6 +26,7 @@ class Graphicsmagick < Formula
   depends_on "jasper"
   depends_on "jpeg-turbo"
   depends_on "jpeg-xl"
+  depends_on "libheif"
   depends_on "libpng"
   depends_on "libtiff"
   depends_on "libtool"

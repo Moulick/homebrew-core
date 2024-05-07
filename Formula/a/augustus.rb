@@ -4,17 +4,17 @@ class Augustus < Formula
   url "https://github.com/Gaius-Augustus/Augustus/archive/refs/tags/v3.5.0.tar.gz"
   sha256 "5ed6ce6106303b800c5e91d37a250baff43b20824657b853ae04d11ad8bdd686"
   license "Artistic-1.0"
-  revision 4
+  revision 6
   head "https://github.com/Gaius-Augustus/Augustus.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any,                 arm64_sonoma:   "96eb031e7b4234ca518c57baf5111f7baef58fb213b046475f9406ce8cf404df"
-    sha256 cellar: :any,                 arm64_ventura:  "5a8eb711d5e9e5f486a8c0e6738e8ec7f37b856946caebb34ccce19f103b8751"
-    sha256 cellar: :any,                 arm64_monterey: "4af9181736c6cce96f2546e13b48bd6043242837f491ba25830a9f8b7081ee09"
-    sha256 cellar: :any,                 sonoma:         "27cc557ee849b2f88303bb2c9419de6bc603452c308846eda1e57fc34d9d1636"
-    sha256 cellar: :any,                 ventura:        "9f851d87aa6b52dc8c39e6816dd2592ac7d6fca21c347a19427b4eefae184469"
-    sha256 cellar: :any,                 monterey:       "bb2c84661c7be38aa1fa4367c3daf51c020855f26c2e60c6b809c698c83c32c5"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "c9d744d2f9c0c9ae1ebbf72ffce804e7f1bf8c6c66ae205ff0f92ff30957d2be"
+    sha256 cellar: :any,                 arm64_sonoma:   "104b82744799d91f09ffb1c4f7dd4707ad975d7f328d6fc104108318934c350e"
+    sha256 cellar: :any,                 arm64_ventura:  "2803a477b8b4d967da01885c2cbe7840b8482615fa647855b30fd05a96cd19d6"
+    sha256 cellar: :any,                 arm64_monterey: "1cceaa47b0ae3f576dcf4892274a33415b4d78e0a207cbb05cf5ffb9e898c0c5"
+    sha256 cellar: :any,                 sonoma:         "82bc7b160db1168677d304316e8c69898390fd85171ec5967335e5d659db0be9"
+    sha256 cellar: :any,                 ventura:        "3fe3d9b190e2052ec93c0942557756efac9be90dd8611968a380336bd993b53e"
+    sha256 cellar: :any,                 monterey:       "9030eabaa609c524bf116f385223a95bc23bbdf7171d669ca2099225e1e8ac9d"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "ea88d85976c0c296c6a8fdba99fe9d02166d0a3e04bc81c0df6c3d31d00454b5"
   end
 
   depends_on "bamtools"
@@ -27,6 +27,8 @@ class Augustus < Formula
   def install
     # Compile executables for macOS. Tarball ships with executables for Linux.
     system "make", "clean"
+
+    ENV.append "CXXFLAGS", "-std=c++14"
 
     system "make", "COMPGENEPRED=false",
                    "INCLUDE_PATH_BAMTOOLS=-I#{Formula["bamtools"].opt_include}/bamtools",

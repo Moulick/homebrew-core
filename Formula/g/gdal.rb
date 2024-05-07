@@ -1,10 +1,10 @@
 class Gdal < Formula
   desc "Geospatial Data Abstraction Library"
   homepage "https://www.gdal.org/"
-  url "https://github.com/OSGeo/gdal/releases/download/v3.7.2/gdal-3.7.2.tar.gz"
-  sha256 "fd8aabc63e02bcce2aecc0234af58171b91f478b6111f75b4b236919dac369a5"
+  url "https://github.com/OSGeo/gdal/releases/download/v3.8.5/gdal-3.8.5.tar.gz"
+  sha256 "0c865c7931c7e9bb4832f50fb53aec8676cbbaccd6e55945011b737fb89a49c2"
   license "MIT"
-  revision 1
+  revision 2
 
   livecheck do
     url "https://download.osgeo.org/gdal/CURRENT/"
@@ -12,13 +12,13 @@ class Gdal < Formula
   end
 
   bottle do
-    sha256 arm64_sonoma:   "37d7221c1555f7c638c68d86cf201a7abef682f73e275ed3a6509c61eb245e2b"
-    sha256 arm64_ventura:  "b4b983f20e0b209e7165a20d15006f77531c0e1465818a0261966c8767d29d26"
-    sha256 arm64_monterey: "b7d0efbb7d020faa4bb28c660f6c3324431f43978e23c21ebee5a23ca0b6d629"
-    sha256 sonoma:         "24b32311c6585a89ed1736dbf55b9028ee578b0fdf760161ee791dce5875c512"
-    sha256 ventura:        "9d26a75e8bf5fdc7adf6c517d726982d0682d6622840aeeee82cac08b5aa3850"
-    sha256 monterey:       "c387d01bc780738e7cb76c1b6078c61794b441b04b654eb8ba8decd94a74f512"
-    sha256 x86_64_linux:   "81fe52f053888390e25b5866dfe549280d6d6eef6b2385055bb78de57981c707"
+    sha256 arm64_sonoma:   "85584b8aef5067c1ee2201e3f07e104799c024a8e0641050a3c64d8c12fd0405"
+    sha256 arm64_ventura:  "a758bd4a1d38a10d09a9d856bce2dd675e2985654d6a56660a21d6563d5226dd"
+    sha256 arm64_monterey: "b9798e3107ec437d2bc31ed8007fb00f9cd7b6a3c0eea37ec96e4ff6b6377d74"
+    sha256 sonoma:         "5180ef68191134b281e36a95e2b8a3e5fdea38475ff64d260788fa238612f124"
+    sha256 ventura:        "ed90857cf92bd6d8ae4690cb29223f6b532074330de79eb50601dd0d2d742686"
+    sha256 monterey:       "aa64506ece001f2197189edd96ec3067d0db3dd370a74b1237331e2b26d418b4"
+    sha256 x86_64_linux:   "c147afa9936e0727c9e816d50777f359eec26ea78ed4f46647965dafeb0b443f"
   end
 
   head do
@@ -26,9 +26,10 @@ class Gdal < Formula
     depends_on "doxygen" => :build
   end
 
-  depends_on "boost" => :build  # for `libkml`
+  depends_on "boost" => :build # for `libkml`
   depends_on "cmake" => :build
   depends_on "pkg-config" => :build
+  depends_on "python-setuptools" => :build
   depends_on "swig" => :build
   depends_on "apache-arrow"
   depends_on "cfitsio"
@@ -59,7 +60,7 @@ class Gdal < Formula
   depends_on "pcre2"
   depends_on "poppler"
   depends_on "proj"
-  depends_on "python@3.11"
+  depends_on "python@3.12"
   depends_on "qhull"
   depends_on "sqlite"
   depends_on "unixodbc"
@@ -80,10 +81,19 @@ class Gdal < Formula
   fails_with gcc: "5"
 
   def python3
-    "python3.11"
+    "python3.12"
   end
 
   def install
+    # Work around an Xcode 15 linker issue which causes linkage against LLVM's
+    # libunwind due to it being present in a library search path.
+    if DevelopmentTools.clang_build_version >= 1500
+      recursive_dependencies
+        .select { |d| d.name.match?(/^llvm(@\d+)?$/) }
+        .map { |llvm_dep| llvm_dep.to_formula.opt_lib }
+        .each { |llvm_lib| ENV.remove "HOMEBREW_LIBRARY_PATHS", llvm_lib }
+    end
+
     site_packages = prefix/Language::Python.site_packages(python3)
     # Work around Homebrew's "prefix scheme" patch which causes non-pip installs
     # to incorrectly try to write into HOMEBREW_PREFIX/lib since Python 3.10.
@@ -105,7 +115,7 @@ class Gdal < Formula
     ]
 
     # JavaVM.framework in SDK causing Java bindings to be built
-    args << "-DBUILD_JAVA_BINDINGS=OFF" if MacOS.version <= :catalina
+    args << "-DBUILD_JAVA_BINDINGS=OFF" if OS.mac? && MacOS.version <= :catalina
 
     system "cmake", "-S", ".", "-B", "build", *args, *std_cmake_args
     system "cmake", "--build", "build"

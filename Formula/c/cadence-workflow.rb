@@ -2,8 +2,8 @@ class CadenceWorkflow < Formula
   desc "Distributed, scalable, durable, and highly available orchestration engine"
   homepage "https://cadenceworkflow.io/"
   url "https://github.com/uber/cadence.git",
-      tag:      "v1.2.4",
-      revision: "c93d6af7c4b92b221707d5699e0c0dad82f93022"
+      tag:      "v1.2.9",
+      revision: "ba396780a64146a9d4092e4363bc9df5d851f711"
   license "MIT"
   head "https://github.com/uber/cadence.git", branch: "master"
 
@@ -16,13 +16,13 @@ class CadenceWorkflow < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "107120a7160836d4154e55660de0b669c2015070c41312b6004ab8c1444fd5f8"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "1ddc647b6e16bc7a7149c636535a1d534d8fc79e8f19e90bc78bd51b2b9ddda4"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "b8aa319dfc0b1efab783efdb15539774c8824dad3e8c5099dfeb2e9c04d59204"
-    sha256 cellar: :any_skip_relocation, sonoma:         "46d314d5091f8b3cddf62ca967f5dcae1f9fb28897ce6180393994165044625d"
-    sha256 cellar: :any_skip_relocation, ventura:        "ea80c0f67abdabd0ed917d12a22f5efab0a472af0006e34794047887fac92d46"
-    sha256 cellar: :any_skip_relocation, monterey:       "0ea06b6c86c23fe23de8576d3a394acee529e6c619192dc625bd5b3290c181b0"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "d3ae590a812773a4404ad0ccb5c1209b8b691469fdbc0792d7a0c920d4b7bc9f"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "6b9b57c487b864fc9a1ad0850655b3886954831677f6512268638729d04fa930"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "e74e1f042676ad748a000968ddf306be6a155117a9a9c7c66de5e941c6c77ce6"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "870ef8815545f870175e4a5038ae7eec46a8f5f5b4683fb3473d56c790444d09"
+    sha256 cellar: :any_skip_relocation, sonoma:         "1be8b0d9c7f35bb6a96dddfbeba36798cc91cce26b7c3428268104d1f7c91424"
+    sha256 cellar: :any_skip_relocation, ventura:        "3d64daaa072ba8f5334f76450793fbf93766a2952493519ce224fb7f8f73d094"
+    sha256 cellar: :any_skip_relocation, monterey:       "df44ab307c879dbee5282346c005071218ceae8c81df2603d045c2c65895fb5e"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "486bdacfcb011feca8f30f5a9f7b222125fba7d14c33968bd914f043c5b49963"
   end
 
   depends_on "go" => :build

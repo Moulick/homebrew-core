@@ -1,32 +1,38 @@
 class Popeye < Formula
   desc "Kubernetes cluster resource sanitizer"
   homepage "https://popeyecli.io"
-  url "https://github.com/derailed/popeye/archive/refs/tags/v0.11.1.tar.gz"
-  sha256 "2b881d2709dae40532da12522f46ae698f206b3504542651a07c155db3bc21a3"
+  url "https://github.com/derailed/popeye/archive/refs/tags/v0.21.3.tar.gz"
+  sha256 "9f8f5b46a942ec7fcaf777ec7f16e6d64317cfdc7080e3d637018d778656ee94"
   license "Apache-2.0"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "65ea8e20c7e314b4a1451b6f84737c167a58084360be35ea89166caaad8906d2"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "f8e13dcf9637af82ad3aa05b6df16fe04ffb41a69055567be056cf16f170ebdf"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "4b549d415782c77a8f10081cdc1956d5f746d10315ea6eab14a5bae1e252f998"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "b5913f4f0c1a4d65f3a72853dfbb512c05d5193283de86ad7992f8e90dc08192"
-    sha256 cellar: :any_skip_relocation, sonoma:         "26380a7f89b485fc9c177198b5043e126f447d52a6935df41101129abcc27f0a"
-    sha256 cellar: :any_skip_relocation, ventura:        "28c4e90976266974a9e48d771503c1ff51a3a445d7b66403b93b6f594f43916a"
-    sha256 cellar: :any_skip_relocation, monterey:       "2b0cdbdd1bac0dd770e5dd2021f06f617443b70563bcc55f390659e3d605cfd2"
-    sha256 cellar: :any_skip_relocation, big_sur:        "46e36d29a32cd7b8cd72bc550086af4cc47d7c44f8a287bdf048c6d42a5abd64"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "417dd478feb45e49cf511f8327ffb520ae6c7211b2bd60df1696150c94f024ba"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "dc9b26b43fc91067ebf4a5c39e0326fa77637ec4f0b3d6cd44e543bb7f2e94fe"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "2240a4317ad953f08642deed1e4155aceb921bf2b2b8a6d3adb58b2602b7240c"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "73efd455efcb25766afadee9ea50286fe0598cd53adec7b31eacf7e5b4d35d30"
+    sha256 cellar: :any_skip_relocation, sonoma:         "1915c4db3a9e5a51ab8cfad694f5bb93a1b21c5ad4816734edbde9fa5f0d618c"
+    sha256 cellar: :any_skip_relocation, ventura:        "612214672ece1851568821efbabd314cb96cc293c686c9723578dcf333e915fa"
+    sha256 cellar: :any_skip_relocation, monterey:       "45d5ea2df07c4706c6d3cbe1826a58014e6be8384e6c3d155f997276f2ddc05d"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "766e4649aabbed1589d86a72a8f9f53bcdf5139195f71aac9ea871f4a573ce78"
   end
 
   depends_on "go" => :build
 
   def install
-    system "go", "build", *std_go_args(ldflags: "-s -w")
+    ldflags = %W[
+      -s -w
+      -X github.com/derailed/popeye/cmd.version=#{version}
+      -X github.com/derailed/popeye/cmd.commit=#{tap.user}
+      -X github.com/derailed/popeye/cmd.date=#{time.iso8601}
+    ]
+    system "go", "build", *std_go_args(ldflags:)
 
     generate_completions_from_executable(bin/"popeye", "completion")
   end
 
   test do
-    assert_match "connect: connection refused",
-      shell_output("#{bin}/popeye --save --out html --output-file report.html", 1)
+    output = shell_output("#{bin}/popeye --save --out html --output-file report.html 2>&1", 1)
+    assert_match "connect: connection refused", output
+
+    assert_match version.to_s, shell_output("#{bin}/popeye version")
   end
 end

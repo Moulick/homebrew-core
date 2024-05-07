@@ -1,20 +1,18 @@
 class Cobalt < Formula
   desc "Static site generator written in Rust"
   homepage "https://cobalt-org.github.io/"
-  url "https://github.com/cobalt-org/cobalt.rs/archive/refs/tags/v0.19.0.tar.gz"
-  sha256 "b6f18d72b22ebbad7cbaaff54a53a65c2e37de1356eb20588541fe5a2381fcc3"
-  license "MIT"
+  url "https://github.com/cobalt-org/cobalt.rs/archive/refs/tags/v0.19.3.tar.gz"
+  sha256 "845688b6ed7621aab08e55e17eee36875eb77343a720377787c7f2a5f3ca2de6"
+  license any_of: ["Apache-2.0", "MIT"]
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "996503d27f5d1973f72780ad1432ddca552bbaf8f7808946e1ec4a661adf8c0f"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "4d3dfee072b977bf0cf4d8fbc23328ab327c568dbe9fa07765355a2b18f918b8"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "99ab0dc602e261c0e4d76c494f89a0cca384e14fa3443ee19bf240c6964aeca9"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "cea7e332edc8d0b8d1ee002523020960fb328c2b05bfaa8d97c05ebf9fbb779d"
-    sha256 cellar: :any_skip_relocation, sonoma:         "562ab8cbecbe4bb4f6ef9d56dde4a9a4a5e887d01b9e7a965dd66848b2680b68"
-    sha256 cellar: :any_skip_relocation, ventura:        "f43753164106a755a61fe2626a47d2a70709302463029260f4fea51f53009990"
-    sha256 cellar: :any_skip_relocation, monterey:       "742761af2433458c12837cabc1dffee119bd846c2b18623379cb3eb3f1e035a1"
-    sha256 cellar: :any_skip_relocation, big_sur:        "e3f3612d0a5fde600a98f87753567f82304387fe648cd5534185b8650cc829d7"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "698f125fc1a674410ab9ed0723326ff2e13ca82220c33a44f94489996423c89b"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "42979c9e79275e6e32b5fd54b0893b9da74c5ef1a6caa0adbf79517d8c60da72"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "0464abad858ebb1ecbec8b8a9a97d1fde2ec1bed209b90b1c7f8f980d19c59a9"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "225f9305709fa9e6641ea63fab925c10038a49d98a4a905fa115a6faa1179dd9"
+    sha256 cellar: :any_skip_relocation, sonoma:         "ff79cde9f49924cee57b1e436a6c46121e373f358c7c0883fedbd78d3e405a19"
+    sha256 cellar: :any_skip_relocation, ventura:        "774cb1f345f1b1a8efa2564390e45dca9bd867d8edab8de413bc5128ab1bd303"
+    sha256 cellar: :any_skip_relocation, monterey:       "2f6e0dac601783253002befd72f108be2f16ec3344d6211c31326b7f140c46bf"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "2d10fe45f2bcde72a3c17c2f5e9917e5bdc60e1a5b90483ab619d5980d412989"
   end
 
   depends_on "rust" => :build

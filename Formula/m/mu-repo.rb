@@ -3,19 +3,19 @@ class MuRepo < Formula
 
   desc "Tool to work with multiple git repositories"
   homepage "https://github.com/fabioz/mu-repo"
-  url "https://files.pythonhosted.org/packages/fc/3f/46e5e7a3445a46197335e769bc3bf7933b94f2fe7207cc636c15fb98ba70/mu_repo-1.8.2.tar.gz"
-  sha256 "1394e8fa05eb23efb5b1cf54660470aba6f443a35719082595d8a8b9d39b3592"
+  url "https://files.pythonhosted.org/packages/0d/3d/ddf28cf3beafadb5b3ea45ab882530c1d993b4fc10c0c61d82c8da624f3d/mu_repo-1.9.0.tar.gz"
+  sha256 "f557e46e35a6dd8e1a8735c2a74ea1e60e9280040abc22a472e88eff0d23c5ca"
   license "GPL-3.0-only"
 
   bottle do
-    rebuild 2
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "32f19f981a0b5f89591c01a8b27f6b96dce2363003e03c431d948920f0b6f648"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "22ac2c05ef44e73cb0adc960c1b30c38bb399991b208fc14f894889b114ca928"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "30b17c86fdaf0137925c71fa893004c40e6598017bd9d0a8b09eb8a8f28d63d4"
-    sha256 cellar: :any_skip_relocation, sonoma:         "c25efe6df304f7ac9c3444ec7aa37f4e36ae15e00ac3f26c2ce3315f24534abc"
-    sha256 cellar: :any_skip_relocation, ventura:        "a510913eebdff79d1b3d9a170d55e4c181f186be04c3df7c4d3231d981cad49a"
-    sha256 cellar: :any_skip_relocation, monterey:       "2647a75ac88d39730d9266f536bd64e484d2426436119a1a65923eb1e766c8b7"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "02c678e1101a3df4f587013a5d2da95c8a6a34f6892a5267d9e3f5019cf9da97"
+    rebuild 1
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "7ecc6ced2f1ff8a4fc6d0412356142dc30b12250a456405be87ab3b13c0654fe"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "1f24b5dba19024ff297556f074cf0432c797148c1b6860bc316e7fdab3153679"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "2746ab00ceb108999146b92cd79847dc6d4e1a0ca3a6124b775b0aa01b53b3b6"
+    sha256 cellar: :any_skip_relocation, sonoma:         "82560f8529b37534ab1fcef16e54c94973f09486761dbe6d860d3ea1ba0b9656"
+    sha256 cellar: :any_skip_relocation, ventura:        "18a1d1ac055a963054206afebbeb815aa5e49b4ebbb83e6588af6da68bb2f4b3"
+    sha256 cellar: :any_skip_relocation, monterey:       "9fe0abc3be0d941d5e28115fe22962a49e6549dfd38e96f005632bc80bfe2014"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "588b88eb3c02c606173e18626c90ebe3d1f671f3e613afbeaf5f70753f4bd67b"
   end
 
   depends_on "python@3.12"

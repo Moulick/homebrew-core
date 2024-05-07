@@ -3,19 +3,19 @@ require "language/node"
 class Serverless < Formula
   desc "Build applications with serverless architectures"
   homepage "https://www.serverless.com/"
-  url "https://github.com/serverless/serverless/archive/refs/tags/v3.36.0.tar.gz"
-  sha256 "43b0c61fb3533c539813e712ba6925886613ef647e1950c4d725874d1e6d8dc1"
+  url "https://github.com/serverless/serverless/archive/refs/tags/v3.38.0.tar.gz"
+  sha256 "8d4cc3ab2005c7fabf101543f0926d0daac5ba60ee3429864f523144f7affb12"
   license "MIT"
   head "https://github.com/serverless/serverless.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "4aa13af3dd6e2961ff50a48de52c9b8c340eb9aa064cb04e335e63becf69250f"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "4aa13af3dd6e2961ff50a48de52c9b8c340eb9aa064cb04e335e63becf69250f"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "4aa13af3dd6e2961ff50a48de52c9b8c340eb9aa064cb04e335e63becf69250f"
-    sha256 cellar: :any_skip_relocation, sonoma:         "62d9fec648cff9b177b0e976e9fdcc3729d7a2c911a562df778b8010d7a4a760"
-    sha256 cellar: :any_skip_relocation, ventura:        "62d9fec648cff9b177b0e976e9fdcc3729d7a2c911a562df778b8010d7a4a760"
-    sha256 cellar: :any_skip_relocation, monterey:       "62d9fec648cff9b177b0e976e9fdcc3729d7a2c911a562df778b8010d7a4a760"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "0c1cb5025d0ab98643449a67a0517e8f8eeda9cd8b9cfe7851c973fe7085cfa2"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "a36747821d2c1650b5196c2ed25a0c1cb3622246556b55c32c09b525a8f6e2fc"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "a36747821d2c1650b5196c2ed25a0c1cb3622246556b55c32c09b525a8f6e2fc"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "a36747821d2c1650b5196c2ed25a0c1cb3622246556b55c32c09b525a8f6e2fc"
+    sha256 cellar: :any_skip_relocation, sonoma:         "29ebd0578d088b62943e728501b6bf4a91d962416aac03782ce1d6517a1ed221"
+    sha256 cellar: :any_skip_relocation, ventura:        "29ebd0578d088b62943e728501b6bf4a91d962416aac03782ce1d6517a1ed221"
+    sha256 cellar: :any_skip_relocation, monterey:       "29ebd0578d088b62943e728501b6bf4a91d962416aac03782ce1d6517a1ed221"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "4e8d8d6518fee287db03291589566adec65083981167ce3d80a7a4ace069e693"
   end
 
   depends_on "node"

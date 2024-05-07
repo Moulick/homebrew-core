@@ -1,38 +1,32 @@
-# Upstream project has requested we use a mirror as the main URL
-# https://github.com/Homebrew/legacy-homebrew/pull/21419
 class Xz < Formula
   desc "General-purpose data compression with high compression ratio"
   homepage "https://tukaani.org/xz/"
   # The archive.org mirror below needs to be manually created at `archive.org`.
-  url "https://downloads.sourceforge.net/project/lzmautils/xz-5.4.4.tar.gz"
-  mirror "https://tukaani.org/xz/xz-5.4.4.tar.gz"
-  mirror "https://archive.org/download/xz-5.4.4/xz-5.4.4.tar.gz"
-  mirror "http://archive.org/download/xz-5.4.4/xz-5.4.4.tar.gz"
-  sha256 "aae39544e254cfd27e942d35a048d592959bd7a79f9a624afb0498bb5613bdf8"
+  url "https://github.com/tukaani-project/xz/releases/download/v5.4.6/xz-5.4.6.tar.gz"
+  mirror "https://downloads.sourceforge.net/project/lzmautils/xz-5.4.6.tar.gz"
+  mirror "https://archive.org/download/xz-5.4.6/xz-5.4.6.tar.gz"
+  mirror "http://archive.org/download/xz-5.4.6/xz-5.4.6.tar.gz"
+  sha256 "aeba3e03bf8140ddedf62a0a367158340520f6b384f75ca6045ccc6c0d43fd5c"
   license all_of: [
     :public_domain,
-    "LGPL-2.1-or-later",
     "GPL-2.0-or-later",
-    "GPL-3.0-or-later",
   ]
+  version_scheme 1
 
   bottle do
-    sha256 cellar: :any, arm64_sonoma:   "2e78578e241975899342fa4ad4ca4315a4e74117696af09440cf2ce485febebb"
-    sha256 cellar: :any, arm64_ventura:  "ba318d89eea54f33cc3613b1cb69ca4217a8f961e59026418e569e8421afbb8c"
-    sha256 cellar: :any, arm64_monterey: "c8a9e7812c258a3b5043c0207b8044ba099a0a4a97d3ab5314a0dbd171fff3f4"
-    sha256 cellar: :any, arm64_big_sur:  "1857edbbd38cff88854e529670e708e6d87e9d01641e291efee79cafa82fe5b2"
-    sha256 cellar: :any, sonoma:         "bc3b9885851178a5363c88917f7a439af880ec4ecdac24b0061608c5963b6bf6"
-    sha256 cellar: :any, ventura:        "4c25f68798c0b4c9b869e78fdfbd9cd7f8f723c51ea56d643b5644456288d69e"
-    sha256 cellar: :any, monterey:       "39a76706744e6f78f883c38e800d277bc6df71186313cc5fa362072d6c79f991"
-    sha256 cellar: :any, big_sur:        "7bc66bbf17c331e226b65947a7b2c326a883bc70ccdd13127802612713ae1cc2"
-    sha256               x86_64_linux:   "f68637417bc856ba59f1ec25f7fcb0ccba14a9d53557837dcf2ab0ddb652fb8b"
+    sha256 cellar: :any,                 arm64_sonoma:   "01ced87d92d0c1131c069108efb14f6940f9e528e2d044ac41d9a0d8f5169f2e"
+    sha256 cellar: :any,                 arm64_ventura:  "baba463d36447d4c858e51dfac347792eb65216e21eedab7b98fe79793335f28"
+    sha256 cellar: :any,                 arm64_monterey: "d7a51a59ce7e63b9e3f81be7f3b239d951ac83ab429a7c4423ba14c064ec7921"
+    sha256 cellar: :any,                 sonoma:         "139fcf6d46fb85d3693f5d7452a37ec5f50f17b5ef044ac96a2c7deccb7983b4"
+    sha256 cellar: :any,                 ventura:        "8a3f7325f367f90a22f3c17c0bcc65af615de713a8598e973691e84f118b325c"
+    sha256 cellar: :any,                 monterey:       "9195af5a2fcbecf42267f4738254a3a58257d2a303fa6c63ec09eb4def7f7c1e"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "0736983b952c5273bb5a345008bac7311c2f4b60758d69cc05495d5b050f88f1"
   end
 
+  deny_network_access! [:build, :postinstall]
+
   def install
-    system "./configure", "--disable-debug",
-                          "--disable-dependency-tracking",
-                          "--disable-silent-rules",
-                          "--prefix=#{prefix}"
+    system "./configure", *std_configure_args, "--disable-silent-rules", "--disable-nls"
     system "make", "check"
     system "make", "install"
   end

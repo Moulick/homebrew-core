@@ -1,8 +1,8 @@
 class Dolt < Formula
   desc "Git for Data"
   homepage "https://github.com/dolthub/dolt"
-  url "https://github.com/dolthub/dolt/archive/refs/tags/v1.22.0.tar.gz"
-  sha256 "fa26a91ee40fbce425264d483d59abeb0346697b46759e1206f134a9bccbf50b"
+  url "https://github.com/dolthub/dolt/archive/refs/tags/v1.35.13.tar.gz"
+  sha256 "e4daa021b1789466f1e4043ef3ead95f0ee220e8ac25788609ed3efd7d9023a5"
   license "Apache-2.0"
 
   livecheck do
@@ -11,20 +11,20 @@ class Dolt < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "1daab314d96bc333a30de75985fa285448e9d1dd1aaf4fc5170ce0c228253f09"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "b799fd6c746dab01ba4d151e8aebd2621daf9d01d9066314b4acd1ccde0355a7"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "f4444dc120cc6b9a32d70646e7d8372f07ab0d6bf9ed94a1631af93609679086"
-    sha256 cellar: :any_skip_relocation, sonoma:         "db690b8b19dc8860f12e7c294b22be4e11e2d7b18fad956c9c4eb09511fe5557"
-    sha256 cellar: :any_skip_relocation, ventura:        "86f8c5b49f5f9ffd60e5f212fe5a5e01fa253015805d301d2e36b7b6f2c4f577"
-    sha256 cellar: :any_skip_relocation, monterey:       "fd06ed17c8b700f79151d8b5f9183f21e1c9757d5d87bd1ace4970f9aaf811d2"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "8ec36b2e6904d9067f95d15bd245e5d6abe0dec327481372f2488279042e616c"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "6c8b0644f526647e7a24a7f233e680cc6b06a786bb8bb2b985ab59c220aeb1f9"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "6aa8ba0821b1b4488e4b66047afa8db9049c5ab0bda8732c7d4a717fd273708f"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "5522cf04ccdf59eab7244397f7e53b59d53f9ba158761ad0d0fcb6ccce0b688e"
+    sha256 cellar: :any_skip_relocation, sonoma:         "577cb8720763ec08f0f953de9c1eb2c86a9614bdb281e37788a420077b031f48"
+    sha256 cellar: :any_skip_relocation, ventura:        "32fbb64c0ad883a68a468560d077c4b40753d5888b33de9180de29f4b223c8ae"
+    sha256 cellar: :any_skip_relocation, monterey:       "6782f70b715ffa700ca66798d52e33021ae96129d0fa5ed148ee7ec36221c52a"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "3e263d4323ceacadd091ca45ad8b8f21530579347a2006ea6f8617306616cc1e"
   end
 
   depends_on "go" => :build
 
   def install
     chdir "go" do
-      system "go", "build", *std_go_args, "./cmd/dolt"
+      system "go", "build", *std_go_args(ldflags: "-s -w"), "./cmd/dolt"
     end
   end
 

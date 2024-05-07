@@ -1,40 +1,46 @@
 class Pushpin < Formula
   desc "Reverse proxy for realtime web services"
   homepage "https://pushpin.org/"
-  url "https://github.com/fastly/pushpin/releases/download/v1.37.0/pushpin-1.37.0.tar.bz2"
-  sha256 "5fe5042f34a7955113cea3946c5127e3e182df446d8704d6a26d13cde74e960f"
+  url "https://github.com/fastly/pushpin/releases/download/v1.39.1/pushpin-1.39.1.tar.bz2"
+  sha256 "a78d8088ed49a0b07b665148e6bced1581c32f490452c8043f54bbe4a55c1e14"
   license "Apache-2.0"
   head "https://github.com/fastly/pushpin.git", branch: "main"
 
   bottle do
-    sha256 ventura:      "a14bd996772ffd8d662690864e7412135fd3fa50df4d953694969d02280971ea"
-    sha256 monterey:     "9b7ffe6547bb8bf7790b64d0ca0fb81a85d069dbc5bf8782606fd670afa730e6"
-    sha256 big_sur:      "c382905cb6068f69fb4af65a0f5fcefd441519d1fb186d4ffbe048126e701b82"
-    sha256 x86_64_linux: "2e3da86aaf8b0bd905cac0ec5291e6ea2e111c287cc44b68a9b05333287a8bce"
+    sha256 cellar: :any,                 sonoma:       "fdad7253f708ceb44826dfc9b906f56d46de3ac57fc1e04ef7b3c80392e64366"
+    sha256 cellar: :any,                 ventura:      "e46403df994c44c67870959789bc73166e287290cb7cc377078ec7f8fec3c6fc"
+    sha256 cellar: :any,                 monterey:     "bc5bd12f2a558f41a7335fc9dec4747d06e198840786cab9621526f279e319ee"
+    sha256 cellar: :any_skip_relocation, x86_64_linux: "6ba7ebf19e770baa018030f672e84e068417f907d7f977d109c3f39bdb1430fe"
   end
 
+  depends_on "boost" => :build
   depends_on "pkg-config" => :build
   depends_on "rust" => :build
-  depends_on "condure"
   depends_on "mongrel2"
-  depends_on "python@3.11"
-  depends_on "qt@5"
+  depends_on "python@3.12"
+  depends_on "qt"
   depends_on "zeromq"
   depends_on "zurl"
 
   fails_with gcc: "5"
 
   def install
-    args = %W[
-      --configdir=#{etc}
-      --rundir=#{var}/run
-      --logdir=#{var}/log
-    ]
-    args << "--extraconf=QMAKE_MACOSX_DEPLOYMENT_TARGET=#{MacOS.version}" if OS.mac?
+    # Work around `cc` crate picking non-shim compiler when compiling `ring`.
+    # This causes include/GFp/check.h:27:11: fatal error: 'assert.h' file not found
+    ENV["HOST_CC"] = ENV.cc
 
-    system "./configure", *std_configure_args, *args
-    system "make"
-    system "make", "install"
+    args = %W[
+      RELEASE=1
+      PREFIX=#{prefix}
+      LIBDIR=#{lib}
+      CONFIGDIR=#{etc}
+      RUNDIR=#{var}/run
+      LOGDIR=#{var}/log
+      BOOST_INCLUDE_DIR=#{Formula["boost"].include}
+    ]
+
+    system "make", *args
+    system "make", *args, "install"
   end
 
   test do
@@ -85,13 +91,16 @@ class Pushpin < Formula
         assert(body == b'test response\\n')
     EOS
 
+    ENV["LC_ALL"] = "en_US.UTF-8"
+    ENV["LANG"] = "en_US.UTF-8"
+
     pid = fork do
       exec "#{bin}/pushpin", "--config=#{conffile}"
     end
 
     begin
       sleep 3 # make sure pushpin processes have started
-      system Formula["python@3.11"].opt_bin/"python3.11", runfile
+      system Formula["python@3.12"].opt_bin/"python3.12", runfile
     ensure
       Process.kill("TERM", pid)
       Process.wait(pid)

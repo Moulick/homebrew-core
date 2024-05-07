@@ -1,49 +1,41 @@
 class SbomTool < Formula
   desc "Scalable and enterprise ready tool to create SBOMs for any variety of artifacts"
   homepage "https://github.com/microsoft/sbom-tool"
-  url "https://github.com/microsoft/sbom-tool/archive/refs/tags/v1.7.1.tar.gz"
-  sha256 "aa7548ff0720a375984b25cddac4a8e252f85b9523a7a357ab20c3d282a5bb92"
+  url "https://github.com/microsoft/sbom-tool/archive/refs/tags/v2.2.5.tar.gz"
+  sha256 "8b4c8d9040f085e86c8344261680f0bdc3df7856bc88391c5a67ca1ff7e416f7"
   license "MIT"
   head "https://github.com/microsoft/sbom-tool.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "e8a51b520982ed9854d57b2d8fc7107b271c9844c74c111ce18d9aa037bbb8e1"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "e8a51b520982ed9854d57b2d8fc7107b271c9844c74c111ce18d9aa037bbb8e1"
-    sha256 cellar: :any_skip_relocation, ventura:        "bbb07e840d9d97ba07aceddcf346bf02222b098bfaf56a9c3c9df15cd361e5f3"
-    sha256 cellar: :any_skip_relocation, monterey:       "bbb07e840d9d97ba07aceddcf346bf02222b098bfaf56a9c3c9df15cd361e5f3"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "d6be797b74091c3a50ed591ab57b7a723381d9b299245b1368d35cc54f29371f"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "3dad2be6739dea0b0ed69fd3001d7b691f261adeeec3ccedfcef388b509c3d82"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "0137523d8ad99b9280e936722f101abd1098e478038bc347eef1d4e1890bfbab"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "216c4eebb81fd868c8f16d67a3a1a90438979907379c582f5445f852ba90f291"
+    sha256 cellar: :any_skip_relocation, sonoma:         "ca85a9a41d652147f6fb2f7cac541083270dc881e094712b9e90eed5a2663a35"
+    sha256 cellar: :any_skip_relocation, ventura:        "4b66b164410e7c584344e395fff4bd7a6c700c183527e5670b6836154e2521f2"
+    sha256 cellar: :any_skip_relocation, monterey:       "ffae5c3d41d2a67fac4d8fb4b4171c8a3cb8ef0ef9c71871f06e705a664e6ace"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "617fd82d89b8ecb4a04973c38d4281a34679fba1cbbabd6bffca0b6c10f93554"
   end
 
-  deprecate! date: "2023-10-24", because: "uses deprecated `dotnet`"
-
-  depends_on "dotnet" => :build
+  depends_on "dotnet"
 
   uses_from_macos "icu4c" => :test
   uses_from_macos "zlib"
 
-  # patch to use mono.unix to support arm builds
-  # upstream PR ref, https://github.com/microsoft/sbom-tool/pull/409
-  patch do
-    url "https://github.com/microsoft/sbom-tool/commit/dd411c551220fbb579e58c4464b284d2a6781080.patch?full_index=1"
-    sha256 "d99878256a1ce470d0f424c86215ab07c5381cc29ee83c90129166899057a6fb"
-  end
-
   def install
     bin.mkdir
 
-    dotnet_version = Formula["dotnet"].version.to_s
-    inreplace "./global.json", "7.0.400", dotnet_version
-
     ENV["DOTNET_CLI_TELEMETRY_OPTOUT"] = "true"
 
+    dotnet = Formula["dotnet"]
     os = OS.mac? ? "osx" : OS.kernel_name.downcase
     arch = Hardware::CPU.intel? ? "x64" : Hardware::CPU.arch.to_s
 
     args = %W[
       --configuration Release
-      --output #{buildpath}
+      --framework net#{dotnet.version.major_minor}
+      --output #{libexec}
       --runtime #{os}-#{arch}
-      --self-contained=true
+      --no-self-contained
       -p:OFFICIAL_BUILD=true
       -p:MinVerVersionOverride=#{version}
       -p:PublishSingleFile=true
@@ -54,7 +46,8 @@ class SbomTool < Formula
     ]
 
     system "dotnet", "publish", "src/Microsoft.Sbom.Tool/Microsoft.Sbom.Tool.csproj", *args
-    bin.install "Microsoft.Sbom.Tool" => "sbom-tool"
+    (bin/"sbom-tool").write_env_script libexec/"Microsoft.Sbom.Tool",
+                                       DOTNET_ROOT: "${DOTNET_ROOT:-#{dotnet.opt_libexec}}"
   end
 
   test do

@@ -1,32 +1,30 @@
 class OsmPbf < Formula
   desc "Tools related to PBF (an alternative to XML format)"
   homepage "https://wiki.openstreetmap.org/wiki/PBF_Format"
-  # TODO: Check if we can use unversioned `protobuf` at version bump
-  url "https://github.com/openstreetmap/OSM-binary/archive/refs/tags/v1.5.0.tar.gz"
-  sha256 "2abf3126729793732c3380763999cc365e51bffda369a008213879a3cd90476c"
+  url "https://github.com/openstreetmap/OSM-binary/archive/refs/tags/v1.5.1.tar.gz"
+  sha256 "183ad76c5905c7abd35d938824320ffb82d9ca8987796018f2da8380b51cdac2"
   license "LGPL-3.0-or-later"
-  revision 5
+  revision 1
 
   bottle do
-    sha256 cellar: :any,                 arm64_sonoma:   "a016039787dcf8a02818ee5acb42d34afacf68c2f7e21fa5a20a74d7b417e352"
-    sha256 cellar: :any,                 arm64_ventura:  "76cb439da420f4f46f3c05790353b1bd5c6fb41f1660be72c20debaefb8f21c4"
-    sha256 cellar: :any,                 arm64_monterey: "2686e5c465cae1bf9dcfe5b566300ce59333a308a2001f46081d216304f8d30b"
-    sha256 cellar: :any,                 arm64_big_sur:  "c1a4fd86fc7b23fe2534bd50d1c17d8c929081f4861970bef9c91771a1fd85fe"
-    sha256 cellar: :any,                 sonoma:         "40127f7c824dd71b63ad09ad5bed6803e402f118dddd40dbc3664977f4a6f67f"
-    sha256 cellar: :any,                 ventura:        "6999adc180bc02399df196b0d130f9e084d3ef8a8f604210e71157eef0cce1f1"
-    sha256 cellar: :any,                 monterey:       "e838c398a9a89da23a363c48432999a1a7e9a696af1cae28f43df55eeb92eeb7"
-    sha256 cellar: :any,                 big_sur:        "be7f0cf8535457feecb3dec2cfc76bf74f88de4efa73a77c1c5114c25ac4309b"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "167796ef8b8d49e257eb7909e314b4156b2b9865f44a2b23bd1c7b0cbea5fc3f"
+    sha256 cellar: :any,                 arm64_sonoma:   "6a7bc9685fbd4accdf521f0bbaf7e29a50fb429081c1bf7c0f073411d645e207"
+    sha256 cellar: :any,                 arm64_ventura:  "846994be8e4c0588d6b45048279bc8fdf799a96f501cdb5754583d986f6e10a0"
+    sha256 cellar: :any,                 arm64_monterey: "f11b0d8d6a3a5425a29dcd89103ade24d1fc60654de926ffe200ebc019d35801"
+    sha256 cellar: :any,                 sonoma:         "db6bf07c673a0cb80491d28dfee9c256e9ab37ca08dcfefffbeacb43e355fdae"
+    sha256 cellar: :any,                 ventura:        "07c8750b26853d5181397051861d69c65d5c44ed32cff18d0e69400cff53c5dd"
+    sha256 cellar: :any,                 monterey:       "bdfcb356ac1ddb180c48ed3c0361fcd266d7e735fb098b36bf1d69cfc0cc6c55"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "057faae51e178a236e2f2b514c8348117187932a1ad49967cfdb28ac6ecab1fd"
   end
 
   depends_on "cmake" => :build
-  depends_on "protobuf@21"
+  depends_on "protobuf"
 
   uses_from_macos "zlib"
 
   def install
-    system "cmake", ".", *std_cmake_args
-    system "make", "install"
+    system "cmake", "-S", ".", "-B", "build", *std_cmake_args
+    system "cmake", "--build", "build"
+    system "cmake", "--install", "build"
     pkgshare.install "resources/sample.pbf"
   end
 

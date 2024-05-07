@@ -1,9 +1,10 @@
 class Libpq < Formula
   desc "Postgres C API library"
   homepage "https://www.postgresql.org/docs/current/libpq.html"
-  url "https://ftp.postgresql.org/pub/source/v16.0/postgresql-16.0.tar.bz2"
-  sha256 "df9e823eb22330444e1d48e52cc65135a652a6fdb3ce325e3f08549339f51b99"
+  url "https://ftp.postgresql.org/pub/source/v16.2/postgresql-16.2.tar.bz2"
+  sha256 "446e88294dbc2c9085ab4b7061a646fa604b4bec03521d5ea671c2e5ad9b2952"
   license "PostgreSQL"
+  revision 1
 
   livecheck do
     url "https://ftp.postgresql.org/pub/source/"
@@ -11,15 +12,13 @@ class Libpq < Formula
   end
 
   bottle do
-    sha256 arm64_sonoma:   "a1b3317ad90188aeecfba22df993ef3b03952a2ac848886f9c9d7c10273ce957"
-    sha256 arm64_ventura:  "83bd2fc0f930e55833eb20c01ee8ac76691040a88d3fb2c75bc47884208714a0"
-    sha256 arm64_monterey: "b4f695eb4aa4c15c2ff6384f65ff08a11b28ce95c378b2c3f18f21e3daf2b6a7"
-    sha256 arm64_big_sur:  "591d0797f094ba77df24119f444654c3b7aae8d71704c4d0955deb6f372a7966"
-    sha256 sonoma:         "77b16644b1dd3137441b9bb89c54bf5430d39fd3cb0de1a36c680e32f113620d"
-    sha256 ventura:        "4e7cd93cdc7f17a9ac7ef0fa23fd0489fae91bc69f8c6a9fe469cc2b413d3f70"
-    sha256 monterey:       "5cdf6c833744fc3734dcf9522cd35f7621ed495c464e2149dc152f02f55695bb"
-    sha256 big_sur:        "6dcd42ae451b43e9b535b53c3a106d5ea9ae9f100ecef8e32172eb1b5bb827be"
-    sha256 x86_64_linux:   "b36679d5711b99eb55da99653292206d8c0b8c2353b1aeec80503c827cd9a154"
+    sha256 arm64_sonoma:   "34ec05de1540053d140f435b9927edf7e4a4e84ed25253085e55a817b451c0cb"
+    sha256 arm64_ventura:  "81980d2cc07094693afdec5016eb3acf298bfc3c2e19b5e4aa035b5d815a8a86"
+    sha256 arm64_monterey: "5b18a17730c5f0707c2e837acb86927e092e3ea997cf8354e5fdcf1de5ab1ac9"
+    sha256 sonoma:         "b25bcb80440de0301426ec4e9159a49dd5f690aec12e3c0fee4897b8a2a909e7"
+    sha256 ventura:        "02fde1ff8fb54fe5c2e518d48447707ee2ee5bc90935a7782b877dff58e03b70"
+    sha256 monterey:       "2c38685f2e169b2f3cee5c77128ae77a15144d45ea2b836bd41ebe2c95292eb3"
+    sha256 x86_64_linux:   "ec1122e7f681a2788b16d614169aadb0ed9b7056af79b8fd380fea4e31e3c6ae"
   end
 
   keg_only "conflicts with postgres formula"

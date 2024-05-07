@@ -1,20 +1,18 @@
 class QalculateGtk < Formula
   desc "Multi-purpose desktop calculator"
   homepage "https://qalculate.github.io/"
-  url "https://github.com/Qalculate/qalculate-gtk/releases/download/v4.8.1/qalculate-gtk-4.8.1.tar.gz"
-  sha256 "b97e84a5f52b277eefb8e5b9b60cfc7aeed3b243f92a9725ff9cc3aeeacf41c2"
+  url "https://github.com/Qalculate/qalculate-gtk/releases/download/v5.1.0/qalculate-gtk-5.1.0.tar.gz"
+  sha256 "173339cce04a6f0ba4c56c233987a30188ef10170da7cc545a8876c3d5c42185"
   license "GPL-2.0-or-later"
 
   bottle do
-    sha256 arm64_sonoma:   "7d598b6ab8a1631a64c3606b8299aa874ca5aad2b0dc74b0a71f1e8aba358c44"
-    sha256 arm64_ventura:  "25d2c13c609ce148da7b0d16ef1db5661f45919a02fc60cde907284a10a2c95f"
-    sha256 arm64_monterey: "327782673f6d44feb5fd94780fb6f035660d8509eb89bf7646d3566c90e73f12"
-    sha256 arm64_big_sur:  "cf33a03eb79acaf470ffa04ba1af4255dc37de223f1220f23a97498762456025"
-    sha256 sonoma:         "239ec5c9c49cf04eeb69858adcd870176563fde38a42702d977a8a68dad8f5b1"
-    sha256 ventura:        "4fb639709e34ddecedc522ff2d011a4ab7446a3621fd7e3343b69ca70f8e186f"
-    sha256 monterey:       "54c81069d96282328cb53a96831c483ea47be9cf0aaab82866f27eaf6a5b9cb4"
-    sha256 big_sur:        "a23b0d80a5097b4d4644e6d16481898cd5e7f3128fcef228c99bdaaa38cccbce"
-    sha256 x86_64_linux:   "f7ae75461c3f3428886efa4b8e16fccfff19fd6ddbb89578f7b73c804cb0d9fa"
+    sha256 arm64_sonoma:   "3f7a20ce962c0672e36f2ab21953d1e725b2f4888792e01c2301771ddd640578"
+    sha256 arm64_ventura:  "3170c5af9a2e1916c00e86888965fbd8ed8ad1a49eccb1158395a102c2f40916"
+    sha256 arm64_monterey: "3b705a61dbe8c90b292e93fc3269878008f2d61f1110b50f1670411e7390646e"
+    sha256 sonoma:         "e9cf64425ba38b737407a3d92807a0abdc4f3c871f06ed5e919cca18257ff678"
+    sha256 ventura:        "e75a99422c10c4aa6abb1567fec48cd294cad645f14227d4a6150a8638307ead"
+    sha256 monterey:       "164a0586cb61894f7f0c1b3fbd5d7130e25fb89cc30f8f88d90aed1703d67325"
+    sha256 x86_64_linux:   "5615344ad63031becc28a365cfec4d728031c60fcad3fce80f353b830bcfeef9"
   end
 
   depends_on "intltool" => :build
@@ -25,8 +23,12 @@ class QalculateGtk < Formula
 
   uses_from_macos "perl" => :build
 
+  on_linux do
+    depends_on "perl-xml-parser" => :build
+  end
+
   def install
-    ENV.prepend_path "PERL5LIB", Formula["intltool"].libexec/"lib/perl5" unless OS.mac?
+    ENV.prepend_path "PERL5LIB", Formula["perl-xml-parser"].libexec/"lib/perl5" unless OS.mac?
 
     system "./configure", "--prefix=#{prefix}"
     system "make", "install"

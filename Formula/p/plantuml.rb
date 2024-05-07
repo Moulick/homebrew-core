@@ -1,8 +1,8 @@
 class Plantuml < Formula
   desc "Draw UML diagrams"
   homepage "https://plantuml.com/"
-  url "https://github.com/plantuml/plantuml/releases/download/v1.2023.12/plantuml-1.2023.12.jar"
-  sha256 "c49cb7f61a6e723cf02af7666fd451532d320ad04321dbcd098341d8321d77be"
+  url "https://github.com/plantuml/plantuml/releases/download/v1.2024.4/plantuml-1.2024.4.jar"
+  sha256 "8575b3e224d9488c6a0bb6ba78ba64e76457dc9777c496e3fa9d8c67108369b7"
   license "GPL-3.0-or-later"
   version_scheme 1
 
@@ -12,13 +12,7 @@ class Plantuml < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "229043c5d61ce31dede74fed3439d0642a642c1898505e865d748ecb93dca728"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "229043c5d61ce31dede74fed3439d0642a642c1898505e865d748ecb93dca728"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "229043c5d61ce31dede74fed3439d0642a642c1898505e865d748ecb93dca728"
-    sha256 cellar: :any_skip_relocation, sonoma:         "229043c5d61ce31dede74fed3439d0642a642c1898505e865d748ecb93dca728"
-    sha256 cellar: :any_skip_relocation, ventura:        "229043c5d61ce31dede74fed3439d0642a642c1898505e865d748ecb93dca728"
-    sha256 cellar: :any_skip_relocation, monterey:       "229043c5d61ce31dede74fed3439d0642a642c1898505e865d748ecb93dca728"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "10269b8f65203cf78ecf15629522c26b4f7d429e40604810c4c8065cba5c06b4"
+    sha256 cellar: :any_skip_relocation, all: "6cfd5f9ac96a217e3c884e2fee4a769c4d47f6a79cbf5fe999c45b03e9176f80"
   end
 
   depends_on "graphviz"

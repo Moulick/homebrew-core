@@ -2,18 +2,18 @@ class Ruby < Formula
   desc "Powerful, clean, object-oriented scripting language"
   homepage "https://www.ruby-lang.org/"
   license "Ruby"
-  revision 1
+  head "https://github.com/ruby/ruby.git", branch: "master"
 
   stable do
-    url "https://cache.ruby-lang.org/pub/ruby/3.2/ruby-3.2.2.tar.gz"
-    sha256 "96c57558871a6748de5bc9f274e93f4b5aad06cd8f37befa0e8d94e7b8a423bc"
+    url "https://cache.ruby-lang.org/pub/ruby/3.3/ruby-3.3.1.tar.gz"
+    sha256 "8dc2af2802cc700cd182d5430726388ccf885b3f0a14fcd6a0f21ff249c9aa99"
 
     # Should be updated only when Ruby is updated (if an update is available).
     # The exception is Rubygem security fixes, which mandate updating this
     # formula & the versioned equivalents and bumping the revisions.
     resource "rubygems" do
-      url "https://rubygems.org/rubygems/rubygems-3.4.10.tgz"
-      sha256 "55f1c67fa2ae96c9751b81afad5c0f2b3792c5b19cbba6d54d8df9fd821460d3"
+      url "https://rubygems.org/rubygems/rubygems-3.5.9.tgz"
+      sha256 "2b203642191e6bb9ece19075f62275a88526319b124684c46667415dca4363f1"
     end
   end
 
@@ -23,40 +23,43 @@ class Ruby < Formula
   end
 
   bottle do
-    sha256 arm64_sonoma:   "6a1a2f3c6404c532cce812679b55469831214ed526344cdef8913c0457c2a32f"
-    sha256 arm64_ventura:  "dd4528e4e2faddab7c90f7a1849b465d190c5d06f2c95a96ec779aca69da9d16"
-    sha256 arm64_monterey: "6730d64d415526ef41f3a2911be1ca901295cbd37ddc7efb243b3568e5620b01"
-    sha256 arm64_big_sur:  "7a297337dfa9a2afc204e8b3302dc5a25823653fed95c49120b9c87241600e91"
-    sha256 sonoma:         "2bf8261ae35d7d8115ae57bc5a4233fc60729199c887285358bc66e3039069f9"
-    sha256 ventura:        "cc9b5b6ccc54d8182f0ab699b23cb810fd7cc323a1c8a1aa7c257aa93313cc4c"
-    sha256 monterey:       "8cf820914f34d82f6ae5b80a2eae7b75c133a5263e6ca34338a161542878c413"
-    sha256 big_sur:        "937d024ebfab8a3f43ec18a24a626ae2a29a4127c6712b138cea786aaf2c413c"
-    sha256 x86_64_linux:   "c93cfb32aa6168aefa19725dfbe005491fad4ad304c5a2181ce110d291850d42"
-  end
-
-  head do
-    url "https://github.com/ruby/ruby.git", branch: "master"
-    depends_on "autoconf" => :build
-    depends_on "bison" => :build
+    sha256 arm64_sonoma:   "737689c80a9c9d33aba684cc53aad74c8f88b79e7b2e3de3b3dab7f6c22ae9c0"
+    sha256 arm64_ventura:  "9df065a1f0bcc4787147a47db4ce05d8beb64bd6f7b917ae5d3dae3034b02148"
+    sha256 arm64_monterey: "cca07167ee932089b8148325fd6e1e0b348bb069c647dea21cc8cf62908c1740"
+    sha256 sonoma:         "ab4d9620c9b5fed4076c7750cc04bab6273f92c1a8fecc3264404e160073d413"
+    sha256 ventura:        "7dcef5a52381bd847fbd38b3647fc5d4452750b68c4ad214edbb87a90a3c6038"
+    sha256 monterey:       "a2a1f81edf926b0aa365b4662b1786e5e29c806ef6b34f73245aad74f4695380"
+    sha256 x86_64_linux:   "23de09198d53a7e41598b37d2d38d14722e3b91d6500e190e5a667dfc239a4bc"
   end
 
   keg_only :provided_by_macos
 
   depends_on "autoconf" => :build
-  depends_on "bison" => :build
   depends_on "pkg-config" => :build
   depends_on "rust" => :build
   depends_on "libyaml"
   depends_on "openssl@3"
-  depends_on "readline"
 
   uses_from_macos "gperf"
   uses_from_macos "libffi"
   uses_from_macos "libxcrypt"
   uses_from_macos "zlib"
 
-  def api_version
+  def determine_api_version
     Utils.safe_popen_read("#{bin}/ruby", "-e", "print Gem.ruby_api_version")
+  end
+
+  def api_version
+    if head?
+      if latest_head_prefix
+        determine_api_version
+      else
+        # Best effort guess
+        "#{stable.version.major.to_i}.#{stable.version.minor.to_i + 1}.0+0"
+      end
+    else
+      "#{version.major.to_i}.#{version.minor.to_i}.0"
+    end
   end
 
   def rubygems_bindir
@@ -74,7 +77,7 @@ class Ruby < Formula
 
     system "./autogen.sh" if build.head?
 
-    paths = %w[libyaml openssl@3 readline].map { |f| Formula[f].opt_prefix }
+    paths = %w[libyaml openssl@3].map { |f| Formula[f].opt_prefix }
     args = %W[
       --prefix=#{prefix}
       --enable-shared
@@ -84,6 +87,7 @@ class Ruby < Formula
       --with-opt-dir=#{paths.join(":")}
       --without-gmp
     ]
+    args << "--with-baseruby=#{RbConfig.ruby}" if build.head?
     args << "--disable-dtrace" if OS.mac? && !MacOS::CLT.installed?
 
     # Correct MJIT_CC to not use superenv shim
@@ -237,8 +241,6 @@ class Ruby < Formula
   end
 
   def caveats
-    return unless latest_version_installed?
-
     <<~EOS
       By default, binaries installed by gem will be placed into:
         #{rubygems_bindir}
@@ -250,6 +252,9 @@ class Ruby < Formula
   test do
     hello_text = shell_output("#{bin}/ruby -e 'puts :hello'")
     assert_equal "hello\n", hello_text
+
+    assert_equal api_version, determine_api_version
+
     ENV["GEM_HOME"] = testpath
     system "#{bin}/gem", "install", "json"
 

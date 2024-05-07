@@ -1,9 +1,10 @@
 class Pdal < Formula
   desc "Point data abstraction library"
   homepage "https://www.pdal.io/"
-  url "https://github.com/PDAL/PDAL/releases/download/2.5.6/PDAL-2.5.6-src.tar.bz2"
-  sha256 "7c7c4570ef518942299479cc4077e0c657ec5b5174daf465415de947a1d3eb99"
+  url "https://github.com/PDAL/PDAL/releases/download/2.7.1/PDAL-2.7.1-src.tar.bz2"
+  sha256 "7769aaacfc26daeb559b511c73c241a5e9a2f31e26ef3a736204b83e791c5453"
   license "BSD-3-Clause"
+  revision 1
   head "https://github.com/PDAL/PDAL.git", branch: "master"
 
   # The upstream GitHub repository sometimes creates tags that only include a
@@ -17,15 +18,13 @@ class Pdal < Formula
   end
 
   bottle do
-    sha256                               arm64_sonoma:   "7a89d979e455bba37345a4875096d129f5886361e6895b20e23ef8be09b4f6b8"
-    sha256                               arm64_ventura:  "907016c2faf1e258115d68d664ecd49a6c17df7dac074e669932643e669c4c81"
-    sha256                               arm64_monterey: "d7e219f143d23f14b6fe5a808ef37fcd6a90c37d6ead0a942acac6cce2422647"
-    sha256                               arm64_big_sur:  "41ef2b8263849cdf7ebaf6127e73997f41e2087abfc3ea5d56062e4138d9c24f"
-    sha256                               sonoma:         "82886d4bf2ddaa26216d3dd5e3023dafe9e10db8c71290e6cd20a3a58e33c67f"
-    sha256                               ventura:        "cb89ab55cc2837bf223f855d8e13aa2bae41a1ce65312d2391a6f6fd3ee3dbea"
-    sha256                               monterey:       "8dd43f33d18cc4f8d9bb0cd46e2f445ad4e43cbccbb3f98625cc3e2c4155fda5"
-    sha256                               big_sur:        "e449cf49e82392a9d257aac914298d4aaffb7c136e853d3f8f697cf6d97e1ccf"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "1e7a2b4eb9accfaa73a653ad9d91d9b3d31e30f209d49fa86d92d658fc721279"
+    sha256 cellar: :any,                 arm64_sonoma:   "fc02eeb18ed45aa01bba3d7e3790e5366fad46411ec5567a403776f073278b61"
+    sha256 cellar: :any,                 arm64_ventura:  "17a0eabf12aa1273f7dd6c57241625c1d0bd71ec7999aa2dbb3194d928efbd63"
+    sha256 cellar: :any,                 arm64_monterey: "2f1d3589fc26a09f11462ae563794c4389c086b02390dc4902a1f8cfbc6ee4d5"
+    sha256 cellar: :any,                 sonoma:         "24e0d4e078d82544ad90dec4c614e095867a545200ae186dff6cb89295715185"
+    sha256 cellar: :any,                 ventura:        "5437a20f313b43183dbfe8f4303f596b286ace6bc4dfb8749d0355147b508e23"
+    sha256 cellar: :any,                 monterey:       "c5b967deec6e8850d8799538ccd95aca17bb959fb0b6b40f008c4c59493f07b6"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "98e852b34a7ea83c966887b9b461c7ec4af931650f02e2ec25e3962f3f4e1eac"
   end
 
   depends_on "cmake" => :build
@@ -37,23 +36,48 @@ class Pdal < Formula
   depends_on "numpy"
   depends_on "openssl@3"
 
+  on_linux do
+    depends_on "libunwind"
+  end
+
   fails_with gcc: "5" # gdal is compiled with GCC
 
   def install
-    system "cmake", ".", *std_cmake_args,
-                         "-DWITH_LASZIP=TRUE",
-                         "-DBUILD_PLUGIN_GREYHOUND=ON",
-                         "-DBUILD_PLUGIN_ICEBRIDGE=ON",
-                         "-DBUILD_PLUGIN_PGPOINTCLOUD=ON",
-                         "-DBUILD_PLUGIN_PYTHON=ON",
-                         "-DBUILD_PLUGIN_SQLITE=ON"
+    # Work around an Xcode 15 linker issue which causes linkage against LLVM's
+    # libunwind due to it being present in a library search path.
+    if DevelopmentTools.clang_build_version >= 1500
+      recursive_dependencies
+        .select { |d| d.name.match?(/^llvm(@\d+)?$/) }
+        .map { |llvm_dep| llvm_dep.to_formula.opt_lib }
+        .each { |llvm_lib| ENV.remove "HOMEBREW_LIBRARY_PATHS", llvm_lib }
+    end
 
-    system "make", "install"
+    args = %w[
+      -DWITH_LASZIP=TRUE
+      -DBUILD_PLUGIN_GREYHOUND=ON
+      -DBUILD_PLUGIN_ICEBRIDGE=ON
+      -DBUILD_PLUGIN_PGPOINTCLOUD=ON
+      -DBUILD_PLUGIN_PYTHON=ON
+      -DBUILD_PLUGIN_SQLITE=ON
+    ]
+    if OS.linux?
+      libunwind = Formula["libunwind"]
+      ENV.append_to_cflags "-I#{libunwind.opt_include}"
+      args += %W[
+        -DLIBUNWIND_INCLUDE_DIR=#{libunwind.opt_include}
+        -DLIBUNWIND_LIBRARY=#{libunwind.opt_lib/shared_library("libunwind")}
+      ]
+    end
+    system "cmake", "-S", ".", "-B", "build", *std_cmake_args, *args
+    system "cmake", "--build", "build"
+    system "cmake", "--install", "build"
+
     rm_rf "test/unit"
     doc.install "examples", "test"
   end
 
   test do
     system bin/"pdal", "info", doc/"test/data/las/interesting.las"
+    assert_match "pdal #{version}", shell_output("#{bin}/pdal --version")
   end
 end

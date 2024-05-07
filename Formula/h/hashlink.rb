@@ -1,17 +1,16 @@
 class Hashlink < Formula
   desc "Virtual machine for Haxe"
   homepage "https://hashlink.haxe.org/"
-  url "https://github.com/HaxeFoundation/hashlink/archive/refs/tags/1.13.tar.gz"
-  sha256 "696aef6871771e5e12c617df79187d1761e79bcfe3927531e99f665a8002956f"
+  url "https://github.com/HaxeFoundation/hashlink/archive/refs/tags/1.14.tar.gz"
+  sha256 "7def473c8fa620011c7359dc36524246c83d0b6a25d495d421750ecb7182cc99"
   license "MIT"
   head "https://github.com/HaxeFoundation/hashlink.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any,                 sonoma:       "734ef85ae86fa57b3ba6dd8fe174527ab78e50cc9a408028163304d3ea003b86"
-    sha256 cellar: :any,                 ventura:      "873297b1650b732c537367ca8f6ff1ef92bacf295147f9d35c2c06fffb5fe8c3"
-    sha256 cellar: :any,                 monterey:     "050593487fc03f29ffde9e2439e9b31bbc89f472875f5aff47706af69023cc1a"
-    sha256 cellar: :any,                 big_sur:      "95508443ab609188bd8e6dc592186877da5269340602c2236ee77e5f68bcbb77"
-    sha256 cellar: :any_skip_relocation, x86_64_linux: "31fb972ebeab20da4999297696f339b6055b3e3021951f0f342c6baaae1d4a06"
+    sha256 cellar: :any,                 sonoma:       "9bc18cb2e8a82cb99b34a7eaf19eeb8ff4405c3d79483fa23d9ec88b72bff2e3"
+    sha256 cellar: :any,                 ventura:      "be5138e19ca169d89599973b99cab4cd328c3a6705e31eb9c297d8a3198ef275"
+    sha256 cellar: :any,                 monterey:     "60a333d41591f12ff610ccb1940280c76a4878455ee0a826dedd0e480f956cb3"
+    sha256 cellar: :any_skip_relocation, x86_64_linux: "71c452f956c884f225622ebd0374eca54105c21284e704e024b6b86afb673dfa"
   end
 
   depends_on "haxe" => :test
@@ -23,6 +22,8 @@ class Hashlink < Formula
   depends_on "mbedtls@2"
   depends_on "openal-soft"
   depends_on "sdl2"
+
+  uses_from_macos "sqlite"
 
   on_linux do
     depends_on "mesa"

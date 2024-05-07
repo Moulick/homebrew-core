@@ -1,8 +1,8 @@
 class Gtkx3 < Formula
   desc "Toolkit for creating graphical user interfaces"
   homepage "https://gtk.org/"
-  url "https://download.gnome.org/sources/gtk+/3.24/gtk+-3.24.38.tar.xz"
-  sha256 "ce11decf018b25bdd8505544a4f87242854ec88be054d9ade5f3a20444dd8ee7"
+  url "https://download.gnome.org/sources/gtk+/3.24/gtk+-3.24.41.tar.xz"
+  sha256 "47da61487af3087a94bc49296fd025ca0bc02f96ef06c556e7c8988bd651b6fa"
   license "LGPL-2.0-or-later"
 
   livecheck do
@@ -11,15 +11,13 @@ class Gtkx3 < Formula
   end
 
   bottle do
-    sha256 arm64_sonoma:   "b079594552eccc9b13b01d55022811bf9acc981e62d0c107ad9d393a05dc4ef6"
-    sha256 arm64_ventura:  "12d42f5ba7caa43a83aba5babfee4cc745d8a12a58e108af642f366f2ca37d8f"
-    sha256 arm64_monterey: "9c57deb4a8e1360dfd057a58a24e6c7b4ce621ebd5916386cb8c4cd359691763"
-    sha256 arm64_big_sur:  "ce48bef582169d1f45bfa828b80214c9dd5204573699d2d97e631d29bdfcda27"
-    sha256 sonoma:         "9f283bf5b2b118d771aa7ef628b8798e527a7d499f225587295866c8a2dc39cb"
-    sha256 ventura:        "87f200d7945307fcb47cb2ea31da643d571c898b752e2e2ddecd62c1c4c64b51"
-    sha256 monterey:       "e0a18e7ae38a7ea9d5705e787fa01f3d4215c836e170f060662b85c1c0dd50cf"
-    sha256 big_sur:        "ad9c04a5ce0db0751cf1a485d60ec963aae7039c9332e0bcc972e06daacc8cc5"
-    sha256 x86_64_linux:   "84b8d60884ca0e11d3d86785415dd9d1d426c4900e9f3b62c71e0dc0ad0b2745"
+    sha256 arm64_sonoma:   "0ecf522f1a849a3fe6aa5dee9eac59299dbff915867072bb97e15b549d845119"
+    sha256 arm64_ventura:  "e159fc2e0b152ddddc93b993135ae244f248b460a40be262a7850411619bc43b"
+    sha256 arm64_monterey: "cd280376f5aaffd7dbbff981945545505ea5d43c2f89a93f4e281ed0d637817e"
+    sha256 sonoma:         "48366e652852b57e0c30e3af7697a65113aec9a7247232e1ddacd308ba548b4b"
+    sha256 ventura:        "493eb5a730ff13f34da70af0aee792ea2712b00d06fb82793dd0632ab18c3e7f"
+    sha256 monterey:       "0c32e4dfe268d0917f5f85d3f08ec940f886507184a2a24746d4988aa1b0a6d9"
+    sha256 x86_64_linux:   "d7e9fb8c42e711fdc21337785008dda4e06fa77c7ca8f28dc4674f9156cf0cb2"
   end
 
   depends_on "docbook" => :build
@@ -29,7 +27,7 @@ class Gtkx3 < Formula
   depends_on "meson" => :build
   depends_on "ninja" => :build
   depends_on "pkg-config" => [:build, :test]
-  depends_on "atk"
+  depends_on "at-spi2-core"
   depends_on "gdk-pixbuf"
   depends_on "glib"
   depends_on "gsettings-desktop-schemas"
@@ -41,7 +39,6 @@ class Gtkx3 < Formula
 
   on_linux do
     depends_on "cmake" => :build
-    depends_on "at-spi2-atk"
     depends_on "cairo"
     depends_on "iso-codes"
     depends_on "libxkbcommon"

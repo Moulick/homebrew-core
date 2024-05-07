@@ -1,8 +1,8 @@
 class BoostPython3 < Formula
   desc "C++ library for C++/Python3 interoperability"
   homepage "https://www.boost.org/"
-  url "https://github.com/boostorg/boost/releases/download/boost-1.83.0/boost-1.83.0.tar.xz"
-  sha256 "c5a0688e1f0c05f354bbd0b32244d36085d9ffc9f932e8a18983a9908096f614"
+  url "https://github.com/boostorg/boost/releases/download/boost-1.85.0/boost-1.85.0-b2-nodocs.tar.xz"
+  sha256 "09f0628bded81d20b0145b30925d7d7492fd99583671586525d5d66d4c28266a"
   license "BSL-1.0"
   head "https://github.com/boostorg/boost.git", branch: "master"
 
@@ -11,21 +11,21 @@ class BoostPython3 < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_sonoma:   "3d877dd3a7fef04019b9abd09905c816c264837d4e0a1615b24780d1d858c053"
-    sha256 cellar: :any,                 arm64_ventura:  "2b468394d24b854131ada0c428628cecaf20a9e05460f03c12178cbaaf0ea876"
-    sha256 cellar: :any,                 arm64_monterey: "0160991f40341b7a7b0368b5032096c1316651827e591759f7339bed8cf649c1"
-    sha256 cellar: :any,                 sonoma:         "70dd857783020599380618ce95cce3c8760592644577367d6a2623280c5d344c"
-    sha256 cellar: :any,                 ventura:        "5a288da9ad53a8bf11014385c4c1cb67c0076eb7074485afc4a468354043cd59"
-    sha256 cellar: :any,                 monterey:       "73f8e0b878568df1f22228acff8ea350fedf61e44ddd3930f9377ce250a9820d"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "0c7f6ec979cb96b725e4c8d2badd78d50fc61276c4fe045f85ece077e8bf4593"
+    sha256 cellar: :any,                 arm64_sonoma:   "75619380caacdbc14f461b65f31718918982cd78bed36bc94b6e66a645551f60"
+    sha256 cellar: :any,                 arm64_ventura:  "3e9f0925f97bc07b6114bc361c209b68d27c8c07bce233dd2cd6bfcadadc772e"
+    sha256 cellar: :any,                 arm64_monterey: "3515f99d2f5198836f7ede29d65b4a3d7452d29de7e0a176e43813a8f0f9ad25"
+    sha256 cellar: :any,                 sonoma:         "37ef3943e0a45f8c0663170f513159bc2b60b67318fc49b1f6a9959c0aff45de"
+    sha256 cellar: :any,                 ventura:        "f26d01c318e58e84c4140b28e2bfeddaae7c9d7eead184bfbeb2be1685ae5913"
+    sha256 cellar: :any,                 monterey:       "f49d9bbe2505905d59a1397febd3c27fcc24a55e8478445fb920543e3aac7624"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "89d9ce9c288bcb5f362890cdee900170efd3e7d7a9f02447ce5a372de08a2218"
   end
 
   depends_on "numpy" => :build
   depends_on "boost"
-  depends_on "python@3.11"
+  depends_on "python@3.12"
 
   def python3
-    "python3.11"
+    "python3.12"
   end
 
   def install
@@ -101,7 +101,7 @@ class BoostPython3 < Formula
     pylib = shell_output("#{python3}-config --ldflags --embed").chomp.split
     pyver = Language::Python.major_minor_version(python3).to_s.delete(".")
 
-    system ENV.cxx, "-shared", "-fPIC", "hello.cpp", "-L#{lib}", "-lboost_python#{pyver}",
+    system ENV.cxx, "-shared", "-fPIC", "-std=c++14", "hello.cpp", "-L#{lib}", "-lboost_python#{pyver}",
                     "-o", "hello.so", *pyincludes, *pylib
 
     output = <<~EOS

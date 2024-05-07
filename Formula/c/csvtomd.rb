@@ -9,14 +9,14 @@ class Csvtomd < Formula
   revision 3
 
   bottle do
-    rebuild 2
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "48579239f7f8987fe06dbf7b7c47a4b964d1533d148059c1600807a13b837712"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "af0d95d751793f6de924d7bd9dd454846725c8402bbdcf43e6039f99ff8a42ef"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "2523b00bedd64f44624d1294e1e0d68d21cf8f22811fb5403ea69c0c5ba72039"
-    sha256 cellar: :any_skip_relocation, sonoma:         "bd2866f71ebb4f2f53351e55813fb68acd6daa645a27f9d7f1878debca3f877d"
-    sha256 cellar: :any_skip_relocation, ventura:        "2528c9d814edac0b28ae00f049e88d14d74608cd7d7ba71f5cb4e5d27251a5ea"
-    sha256 cellar: :any_skip_relocation, monterey:       "42eaac28f122adcc820e3cb1c0997e41243db298593757a6d0cf65a615e2a60b"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "d48c2757350d82e6e636381410d9c9273c28340c5e5f83b78f3bc1106114fb5a"
+    rebuild 5
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "cfab4319e3f6f785023a0a926a5064b77b2615f69029593b87822f6e1de91def"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "e7af8a248dac87d1ca3833f58124f2f4996d22b82672045a878ddbd457d12c59"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "3604137f92ff09c4cbc0e842d7ab9a58b6c0dcf3a9a04d3515a0eb8e38a1ca86"
+    sha256 cellar: :any_skip_relocation, sonoma:         "293373ab4c4380b9f2f80a1520437a2475a31739b9adb5106e70f86d2d261e84"
+    sha256 cellar: :any_skip_relocation, ventura:        "d4dfd7ae585a3c68088e8ddaa236e204a0a9d160296761b4baffa3ea3289caf3"
+    sha256 cellar: :any_skip_relocation, monterey:       "7f5f98e998b63fc42aed8346cc01b838b387fa4ab3378cf39799874ee8036549"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "dd6be70b468bfabdc49bc77695a7153538adffc71a0fef7fd7ede02c2f252ab1"
   end
 
   depends_on "python@3.12"

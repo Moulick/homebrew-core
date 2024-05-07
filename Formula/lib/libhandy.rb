@@ -1,20 +1,18 @@
 class Libhandy < Formula
   desc "Building blocks for modern adaptive GNOME apps"
   homepage "https://gitlab.gnome.org/GNOME/libhandy"
-  url "https://gitlab.gnome.org/GNOME/libhandy/-/archive/1.8.2/libhandy-1.8.2.tar.gz"
-  sha256 "2c551aae128dff918b84943a93a58bc9be84f42a709b9e43c8d074538e68c10e"
+  url "https://gitlab.gnome.org/GNOME/libhandy/-/archive/1.8.3/libhandy-1.8.3.tar.gz"
+  sha256 "7e7670f5d0a6d0adc24b888da44dab938a6f52472b8944d6dd4e31b6d3569a5f"
   license "LGPL-2.1-or-later"
 
   bottle do
-    sha256 arm64_sonoma:   "3ebc1d3d66cfa5118353eb3d86d70b050c854059b3c6f0356cac7611672dbd47"
-    sha256 arm64_ventura:  "668691bf94bdb5c6bd900e5f0195863751846b55473e8e779727be361f59fe21"
-    sha256 arm64_monterey: "001495bb45f5be87376fe1643e8c1dd037904ea67d4bccc5b9f8e526bf24fc22"
-    sha256 arm64_big_sur:  "d13bb6d2bfc26b1f3f89e217efbba531be3929ebe7ce62f3fcd44a10c671b78e"
-    sha256 sonoma:         "4336ed97e5784f70dbe5d3bcca48c0d2d47bc160f5803d100d5fb06f87d644d7"
-    sha256 ventura:        "edc2b0389088589a19bf911340372ad9e1722850dc10e478e093c842cda4f220"
-    sha256 monterey:       "06fd70bcbb2a64fc528fc33baf9480c3944bb809615765529edec8103a63b06a"
-    sha256 big_sur:        "ae5ccaa60833a2a857309d0631b84d302df9e4724e5e70d6b3e3ea2d05456dee"
-    sha256 x86_64_linux:   "9d41a2ee187e6705d729bcb63e91dbd12821bbfdc8879ef7de3cfe5e1baf3943"
+    sha256 arm64_sonoma:   "f1b399070cea7b5c44e3afad605155f867659920d5d3de17c466cf5cc3ba6a33"
+    sha256 arm64_ventura:  "46282e234e80d7e1333fd66978709232ccd69517759099868c386c6eec51ca84"
+    sha256 arm64_monterey: "2efac67c62c3b8da9bdb64fb4b37a0c66b184239009feb39d5407431b6f9b4e8"
+    sha256 sonoma:         "b7451a9bbf91864a025ac3df2473f9dc91398b22d3994f4cc9907344e9be6f1f"
+    sha256 ventura:        "ac6d97fd95891df7ecfa6caf13d15c28c153db6fea7da1dd9aee2e56c4780a59"
+    sha256 monterey:       "9b94bd79179daca2b005bdd61ba0f1fcefdcd2b19ab85a9e5732f8c2f0428315"
+    sha256 x86_64_linux:   "6b470387d368374a5834bb3a73c2d0fcc4cc16121e785a064913735356581e85"
   end
 
   depends_on "gettext" => :build
@@ -26,11 +24,9 @@ class Libhandy < Formula
   depends_on "gtk+3"
 
   def install
-    mkdir "build" do
-      system "meson", *std_meson_args, "-Dglade_catalog=disabled", ".."
-      system "ninja", "-v"
-      system "ninja", "install", "-v"
-    end
+    system "meson", "setup", "build", "-Dglade_catalog=disabled", *std_meson_args
+    system "meson", "compile", "-C", "build", "--verbose"
+    system "meson", "install", "-C", "build"
   end
 
   test do

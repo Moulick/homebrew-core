@@ -1,10 +1,9 @@
 class JpegXl < Formula
   desc "New file format for still image compression"
   homepage "https://jpeg.org/jpegxl/index.html"
-  url "https://github.com/libjxl/libjxl/archive/refs/tags/v0.8.2.tar.gz"
-  sha256 "c70916fb3ed43784eb840f82f05d390053a558e2da106e40863919238fa7b420"
+  url "https://github.com/libjxl/libjxl/archive/refs/tags/v0.10.2.tar.gz"
+  sha256 "95e807f63143856dc4d161c071cca01115d2c6405b3d3209854ac6989dc6bb91"
   license "BSD-3-Clause"
-  revision 1
 
   livecheck do
     url :stable
@@ -13,15 +12,13 @@ class JpegXl < Formula
 
   bottle do
     rebuild 1
-    sha256 cellar: :any,                 arm64_sonoma:   "3fe93ccc4ec136f0ec9a426b83cca576c1004f36787336bd14602e77a4ded4af"
-    sha256 cellar: :any,                 arm64_ventura:  "f4b1a2518dfff2af63cb8a05f7d0ba1bebdddd9a34aaca2b651b54aa913118ce"
-    sha256 cellar: :any,                 arm64_monterey: "5a3afec55510d752d97618852d4e0cfa591fe43ed55e0c3ff328739baeca2b65"
-    sha256 cellar: :any,                 arm64_big_sur:  "dfb413003b3ecd2f703b7298362b3cfcb3228e8ee5c71861d6e7c40a85c21fda"
-    sha256 cellar: :any,                 sonoma:         "1093ba2170cf9fe8da1d29beed93bd1fbd196de886a5d5b8827a9c4e256f5312"
-    sha256 cellar: :any,                 ventura:        "8691c33bbe7aada85c86e7ceabc4397ba1f6aab683ebf8af3bb46082a4ae80d4"
-    sha256 cellar: :any,                 monterey:       "fcc3f2f348f9945953ca444067f333a146542ec0ff3e8898a9e5daa48aef5b82"
-    sha256 cellar: :any,                 big_sur:        "b96951a962f8b82fa3db3680e8f8a03e922ae72e932ecba87d5bbf12a6a48ee1"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "9b30d5b5c7be91d1155dd4b1cd74e2e2836c461ae0f578d4391553e36d63b1c3"
+    sha256 cellar: :any,                 arm64_sonoma:   "436eb06c81b1c2d812b571570a91e546f002e213c8b00badbf717e366cd68e4e"
+    sha256 cellar: :any,                 arm64_ventura:  "834b2ded08dd0df929eb26802da73d7a1566872450122db6da53098b5899d3b8"
+    sha256 cellar: :any,                 arm64_monterey: "f57984afc191c960b52714bac03ce5ddb4c7f6f34d9a390083560208c1511ced"
+    sha256 cellar: :any,                 sonoma:         "ac73a83204e84ffa4fea0bc1f4822c28e5790f0212ff14f23200b016a951c507"
+    sha256 cellar: :any,                 ventura:        "6b22ba67bfcafe41e5d82e41d62d41b7b18598d97b9593e4ffb0b9465a1676b9"
+    sha256 cellar: :any,                 monterey:       "d0e69905eb08fc5a9db6b233eb4261b99b4329f5ec486500b3f2321fecfc95eb"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "770513514db0021af965aefe191926cd144134df3af32c2774e6bcbbd61706ce"
   end
 
   depends_on "asciidoc" => :build
@@ -43,23 +40,16 @@ class JpegXl < Formula
 
   uses_from_macos "libxml2" => :build
   uses_from_macos "libxslt" => :build # for xsltproc
+  uses_from_macos "python"
 
   fails_with gcc: "5"
   fails_with gcc: "6"
-  fails_with :clang do
-    build 1000
-    cause <<-EOS
-      lib/jxl/enc_fast_lossless.cc:369:7: error: invalid cpu feature string for builtin
-        if (__builtin_cpu_supports("avx512vbmi2")) {
-            ^                      ~~~~~~~~~~~~~
-    EOS
-  end
 
   # These resources are versioned according to the script supplied with jpeg-xl to download the dependencies:
   # https://github.com/libjxl/libjxl/tree/v#{version}/third_party
   resource "sjpeg" do
     url "https://github.com/webmproject/sjpeg.git",
-        revision: "868ab558fad70fcbe8863ba4e85179eeb81cc840"
+        revision: "e5ab13008bb214deb66d5f3e17ca2f8dbff150bf"
   end
 
   def install
@@ -69,7 +59,9 @@ class JpegXl < Formula
                     "-DJPEGXL_FORCE_SYSTEM_BROTLI=ON",
                     "-DJPEGXL_FORCE_SYSTEM_LCMS2=ON",
                     "-DJPEGXL_FORCE_SYSTEM_HWY=ON",
+                    "-DJPEGXL_ENABLE_DEVTOOLS=ON",
                     "-DJPEGXL_ENABLE_JNI=OFF",
+                    "-DJPEGXL_ENABLE_JPEGLI=OFF",
                     "-DJPEGXL_ENABLE_SKCMS=OFF",
                     "-DJPEGXL_VERSION=#{version}",
                     "-DJPEGXL_ENABLE_MANPAGES=ON",

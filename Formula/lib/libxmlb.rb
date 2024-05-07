@@ -3,21 +3,19 @@ class Libxmlb < Formula
 
   desc "Library for querying compressed XML metadata"
   homepage "https://github.com/hughsie/libxmlb"
-  url "https://github.com/hughsie/libxmlb/releases/download/0.3.14/libxmlb-0.3.14.tar.xz"
-  sha256 "a2f0056eed14ff791aee2b08b1514a0f1b6cf215f0579138a8cae8c45a0d3b0f"
+  url "https://github.com/hughsie/libxmlb/releases/download/0.3.19/libxmlb-0.3.19.tar.xz"
+  sha256 "0a3ec258b12dbf10e5fe840b2421c84137eb7cc1b09c3de6210f3f7d51733733"
   license "LGPL-2.1-or-later"
   head "https://github.com/hughsie/libxmlb.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any, arm64_sonoma:   "8e948e072c03d6f2a22ffebadea460a60cde0e39d0acf34b084f2dcde6cfc232"
-    sha256 cellar: :any, arm64_ventura:  "d559affb136b4760ff305c43a5e44e5718825d288c51e6cdecd0010f714bec6d"
-    sha256 cellar: :any, arm64_monterey: "9d9c5f63e7b4954af974a934a25f336b21414c03f5c211760f60129b9fdb6535"
-    sha256 cellar: :any, arm64_big_sur:  "f3e90937bc23a93fdabed8a57a3730bc493c8d4b7f11c596b3866f0fe8af3fb4"
-    sha256 cellar: :any, sonoma:         "422aedd54f77080177ad8bca05a79091c6b7f78566771a44c88448c629ed08bf"
-    sha256 cellar: :any, ventura:        "32f59c353bd95d2adfe0f211bb72ab4151ab6036a2903505526fc0235bb8f1da"
-    sha256 cellar: :any, monterey:       "a8bd5a4736840b4101c025e9a1f388fcecc59b5b38bd8dc7d190fc85b518b98e"
-    sha256 cellar: :any, big_sur:        "90c78e6761f8205aee5e6cc17f84df1242dd39e9e40ab1b7ff31c6377f59fcab"
-    sha256               x86_64_linux:   "2edcfafa3520e595284fe6c23536e7761a49465e55b7b00de444da193ea7ab25"
+    sha256 cellar: :any, arm64_sonoma:   "b777a7b297501a29a04d2c6329935a82d64ae89dcf090de28c0036a700e94390"
+    sha256 cellar: :any, arm64_ventura:  "e3bfe1743a29e3966da4eab2327c871912bda318318b9c6430c7fefbe1f47cdb"
+    sha256 cellar: :any, arm64_monterey: "a798d76e1bc87c30496af800eee986d24f03e75e5fbde0e9555756f33ad642f8"
+    sha256 cellar: :any, sonoma:         "714df40e63e33e3a92ce69851e8ab7d32968db10545ee63da73b8e4d64a16a75"
+    sha256 cellar: :any, ventura:        "dae509b7bd28a60c8e54170f99cfdb6a3e4790b269ca49b9038fd1bd49aee11f"
+    sha256 cellar: :any, monterey:       "127f052e1b0e8fb561d0107209e66ac257579797af402d5af7f3965cdf2aaea8"
+    sha256               x86_64_linux:   "41146b757dcff6c8f462d6acc6f734a4e3352f70518534fbaa2f97fe28cfe204"
   end
 
   depends_on "gi-docgen" => :build
@@ -25,7 +23,7 @@ class Libxmlb < Formula
   depends_on "meson" => :build
   depends_on "ninja" => :build
   depends_on "pkg-config" => :build
-  depends_on "python@3.11" => :build
+  depends_on "python@3.12" => :build
   depends_on "vala" => :build
   depends_on "glib"
   depends_on "xz"

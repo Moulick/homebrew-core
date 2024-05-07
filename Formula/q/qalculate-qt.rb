@@ -1,21 +1,19 @@
 class QalculateQt < Formula
   desc "Multi-purpose desktop calculator"
   homepage "https://qalculate.github.io/"
-  url "https://github.com/Qalculate/qalculate-qt/releases/download/v4.8.1/qalculate-qt-4.8.1.tar.gz"
-  sha256 "34977c8d02d47831c21a9a25ef967d8c5eefe630ec10f86347a7c598891300d5"
+  url "https://github.com/Qalculate/qalculate-qt/releases/download/v5.1.0/qalculate-qt-5.1.0.tar.gz"
+  sha256 "b6571fc85bde7f2b1422f215a5c4176bc1013726e2971d4c27770078be659a7b"
   license "GPL-2.0-or-later"
   head "https://github.com/Qalculate/qalculate-qt.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any,                 arm64_sonoma:   "1b02b129b6d22082775052dfc6893f937748e0f70c21275a035e42e7f7e5817c"
-    sha256 cellar: :any,                 arm64_ventura:  "7e0ab81a6d899a73123d89c84ed9ff3caf8a2975ee4fd5724e9ae3245afca824"
-    sha256 cellar: :any,                 arm64_monterey: "19268f4d6b7b1ade02cb1c76be39a81e0a9963b2388dd9d1215ae715c8aa093e"
-    sha256 cellar: :any,                 arm64_big_sur:  "5c11dd083c9fef85eb3e1f976260f3483c3b43ea509b203009f01d56a320da85"
-    sha256 cellar: :any,                 sonoma:         "564d8e0b7d7376524c091af852bbd8257ade7e1736796ff73ff793ae23ad9efd"
-    sha256 cellar: :any,                 ventura:        "8603ac4f1fd33b4fd812072592cca84d5f655603e3c4f4b778c808ef149d25e2"
-    sha256 cellar: :any,                 monterey:       "23e0e3b8c9414885342d6c21d7d297cab1e7ca311cddd9eceb28cadccbd63c52"
-    sha256 cellar: :any,                 big_sur:        "d1b1411ef55a8bb1ad7dee7a8629214ceb56ee0283ad4936a77cb9b3801939f3"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "8c7d8ddd88aea32ff54f071731601012a8abf26ae883eea47a36058073eaa943"
+    sha256 cellar: :any,                 arm64_sonoma:   "b4e6fdf6a19b94fcfcdb5323153d9d91f98e492bccfb911eae95829a090a1e90"
+    sha256 cellar: :any,                 arm64_ventura:  "8454ca3e6ba1f7431251aff4b366fd117f7d0e25a9d34bbb9a17235b1154e83e"
+    sha256 cellar: :any,                 arm64_monterey: "4c516b46259cd1db7df29d42801a806797a1d26ca7989d59d8ceef9afaa6b009"
+    sha256 cellar: :any,                 sonoma:         "d32ada1fdd78334acfed407902d25496fc3392b18383a216529cc7a68b49c48e"
+    sha256 cellar: :any,                 ventura:        "edcee51dd3a5f2e4c3e4f4653c7b2c4e833d578e7359b0d6e65eeda8abc8a4c7"
+    sha256 cellar: :any,                 monterey:       "a475a46ca546e84e3bd7dee4e03824b806952e372d9fbb1b0bff7022ff4d300f"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "8ca45004d08ab0aded020bd169e6866cb2edf9cefb345144e0fd1b488756e19f"
   end
 
   depends_on "pkg-config" => :build

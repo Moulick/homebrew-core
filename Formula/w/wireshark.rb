@@ -1,11 +1,10 @@
 class Wireshark < Formula
   desc "Graphical network analyzer and capture tool"
   homepage "https://www.wireshark.org"
-  url "https://www.wireshark.org/download/src/all-versions/wireshark-4.1.0.tar.xz"
-  mirror "https://1.eu.dl.wireshark.org/src/all-versions/wireshark-4.1.0.tar.xz"
-  sha256 "9a32ae59f0a843aefd8856c0d208fc464b93ce9415fb8da8723c550c840ab1d5"
+  url "https://www.wireshark.org/download/src/all-versions/wireshark-4.2.4.tar.xz"
+  mirror "https://1.eu.dl.wireshark.org/src/all-versions/wireshark-4.2.4.tar.xz"
+  sha256 "46bd0f4474337144b30816fb2d8f14e72a26d0391f24fe0b7b619acdcdad8c0c"
   license "GPL-2.0-or-later"
-  revision 1
   head "https://gitlab.com/wireshark/wireshark.git", branch: "master"
 
   # Upstream indicates stable releases with an even-numbered minor (see:
@@ -16,15 +15,13 @@ class Wireshark < Formula
   end
 
   bottle do
-    sha256                               arm64_sonoma:   "cb8e10b484c692bc280a5beb61530e7289ae7729ed5225d734d876b35e0911d8"
-    sha256                               arm64_ventura:  "6db5381e512659b8320d83fc752d25080fbbde6d7db529113d9bc0e653ceeee8"
-    sha256                               arm64_monterey: "328a6e3e2669f0fc6773db0ae03d24d24d30cde3d4fc153c282885e752130cd1"
-    sha256                               arm64_big_sur:  "f152097880272bd8295ffe86037f582026cc8717183f389e682a4e66ddaf7468"
-    sha256                               sonoma:         "0148a22305e2a1924433aa4cf355e420f216b16d1456a411589cdd1989a0dd3b"
-    sha256                               ventura:        "48c07ebec0010af5f97efd18a38900e2ed88c999ab7364ec7666ee2903bda31c"
-    sha256                               monterey:       "3db805ae9444acfd8fe58b42a1d30e245b3fd62a8f7e155ff1df9fdf2c5e38c6"
-    sha256                               big_sur:        "95dce7c79103a61049e7750be7665f6de877181753a827abf83f92c94f767b9f"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "757e56afe26f46ad893658d93a57d92eca3bd759c19f5fe42d45f4dfde21f20a"
+    sha256                               arm64_sonoma:   "13ced3cd27d8c68b1250123d24d0c202c296795fbdbb55078402c4852e2d3920"
+    sha256                               arm64_ventura:  "f6b02b8850471e30ca461753ba3487ee79d0d51f9d041ae8fd64d6fa6ea711bf"
+    sha256                               arm64_monterey: "96da6c1578c6eff01085d498e4b94989e1a631b1d2893678070439658cfc4e0c"
+    sha256                               sonoma:         "9b0e56b4ebb9354c01e5e6edad53968699afd2a302a72fdbe2bde7289c3322ea"
+    sha256                               ventura:        "f5173322281a3aeaecc94821555687979fda9e909cfddf7b102958b3064219ec"
+    sha256                               monterey:       "6010a4e5583737ddbab89eecc89d86bb1834c658759562a044d9a623b34f5e5c"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "8ef9dc9cc4dc3955c999c3cffd84d7b7363b8b89113c30ed31f75584edeb9b16"
   end
 
   depends_on "cmake" => :build

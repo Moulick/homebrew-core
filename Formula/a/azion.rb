@@ -1,18 +1,18 @@
 class Azion < Formula
   desc "CLI for the Azion service"
   homepage "https://github.com/aziontech/azion"
-  url "https://github.com/aziontech/azion/archive/refs/tags/1.5.1.tar.gz"
-  sha256 "26c362b63075afac06a1c0a70f8299c0a53ae9ad38f3eff7f6b1af04e7b83e18"
+  url "https://github.com/aziontech/azion/archive/refs/tags/1.22.0.tar.gz"
+  sha256 "75b4a525e69fed2cdabcb8f77b6eb8bda5f00e8e01928d9bb126311584077004"
   license "MIT"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "0f32f992da53e8456a111e3a17a33843847a1b94abefa9266c9cd149245a8107"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "b76e3ce0856bff9805fc42c2f35d5e388a74d8390dac6f4daccb275603746c82"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "af8aaa7851146fdde985da23c6e614aca190f2be2df3e0e66655e6b3f8031479"
-    sha256 cellar: :any_skip_relocation, sonoma:         "0dba4db76aa09ca708271f812b212e55afd4433e1b498ae8a5b6b3915adbbb0a"
-    sha256 cellar: :any_skip_relocation, ventura:        "6fa4a0d92ccd654304be7256a80cf29ae61939e4453eab65f4e2890718a9263a"
-    sha256 cellar: :any_skip_relocation, monterey:       "e0415d53e27293c30ad0d04262fd7e852e557c2b9e6a23d5558a523fd17ae158"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "acc24b523ecc0f084f7a2a65da98091b1cf6b52f4c9b1cbdbecb40a258a04596"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "5e09d252dc35d8fbccc994ca71fbde3a1f968a1ca8f26071f0477facbf1cd550"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "da2dcc7abe7931f532cb8458173caf7a0b9107d346547c798aeca1e9e262d437"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "9ca2cbb6ac7901c4892816f9ad31f29212e087b41d41c80f53201974217e32c6"
+    sha256 cellar: :any_skip_relocation, sonoma:         "f8cb20a1d9af9dc9ac2101098a03f6b1f57df21450f50d646baaed6266b4deec"
+    sha256 cellar: :any_skip_relocation, ventura:        "e6811fad5e480d40da0e86e9225063989d29bf9be48f0e4479e4f5eff73d14bb"
+    sha256 cellar: :any_skip_relocation, monterey:       "81442d9d2829ff7e76f7aabc1f9b059de53cbf908aac67fe7b3b2102073ce3ff"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "b0e597ef6c347a14b8313cda96841e552c20790e92201a43f32641dfdcdcd97e"
   end
 
   depends_on "go" => :build
@@ -21,17 +21,17 @@ class Azion < Formula
     ldflags = %W[
       -s -w
       -X github.com/aziontech/azion-cli/pkg/cmd/version.BinVersion=#{version}
-      -X github.com/aziontech/azion-cli/pkg/constants.StorageApiURL=https://storage-api.azion.com
-      -X github.com/aziontech/azion-cli/pkg/constants.AuthURL=https://sso.azion.com/api/user/me
+      -X github.com/aziontech/azion-cli/pkg/constants.StorageApiURL=https://api.azion.com
+      -X github.com/aziontech/azion-cli/pkg/constants.AuthURL=https://sso.azion.com/api
       -X github.com/aziontech/azion-cli/pkg/constants.ApiURL=https://api.azionapi.net
     ]
-    system "go", "build", *std_go_args(ldflags: ldflags), "./cmd/azion"
+    system "go", "build", *std_go_args(ldflags:), "./cmd/azion"
 
     generate_completions_from_executable(bin/"azion", "completion")
   end
 
   test do
     assert_match version.to_s, shell_output("#{bin}/azion --version")
-    assert_match "Failed to build your resource", shell_output("#{bin}/azion dev 2>&1", 1)
+    assert_match "Failed to build your resource", shell_output("#{bin}/azion dev --yes 2>&1", 1)
   end
 end

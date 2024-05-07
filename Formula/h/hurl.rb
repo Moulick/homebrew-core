@@ -1,21 +1,27 @@
 class Hurl < Formula
   desc "Run and Test HTTP Requests with plain text and curl"
   homepage "https://hurl.dev"
-  url "https://github.com/Orange-OpenSource/hurl/archive/refs/tags/4.1.0.tar.gz"
-  sha256 "3356f64158e6dc5f2e29c37eee80a43332b1734baa7380356affeb5160ffca09"
+  url "https://github.com/Orange-OpenSource/hurl/archive/refs/tags/4.3.0.tar.gz"
+  sha256 "499f2430ee6b73b0414ab8aa3c9298be8276e7b404b13c76e4c02a86eb1db9cd"
   license "Apache-2.0"
   head "https://github.com/Orange-OpenSource/hurl.git", branch: "master"
 
+  # Upstream uses GitHub releases to indicate that a version is released
+  # (there's also sometimes a notable gap between when a version is tagged and
+  # and the release is created), so the `GithubLatest` strategy is necessary.
+  livecheck do
+    url :stable
+    strategy :github_latest
+  end
+
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "26ffa5e43f3010b45c01ddc39bb3a93dbb252a1725373c8a4f11abba4c0b7ea8"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "d082dae01d806d74726a8da68aef0a616c382eb2759e5b3512d62c7c9a4ef29b"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "be207c134e75c207390a606632e9e8ca43c5effe6c51b33f207720979b485d45"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "2f4d689d7d49782d8d2500fdd914db6a6b42d46ef4eac745393115c3f63a9202"
-    sha256 cellar: :any_skip_relocation, sonoma:         "dd24dec5e5b6b6c4422f144bc769c049f33d6b0d29f8e5e1465ed1daa04b027a"
-    sha256 cellar: :any_skip_relocation, ventura:        "087460804017a0c82bcc77c9d5d86199a497bbaf39111a79c8060a6e244091a5"
-    sha256 cellar: :any_skip_relocation, monterey:       "c2f473d0077aa7a3b05ffc8fdacac23aefffde6108cc0d43e0898ed92a1c4af4"
-    sha256 cellar: :any_skip_relocation, big_sur:        "270debc26fba57ea84f71063168cab45dbce99d8ea76fddb5aa4ed94ba603ee8"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "e2075cf2a9f72b123b750e4753d18da73b871fd8ec0ebcce553cf0535ce20e1f"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "5ee7cf447f030597d82e8a83ee37107b818598dac1ea3af04f6f80ee4120012f"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "dff40910852829139374fb29e7ecc79d9020552c72518ce3b25b5bec372a5858"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "990b4814e7ff7969f96a08b7718868c5ec687f5ac348aa376da58e7cec5fe01f"
+    sha256 cellar: :any_skip_relocation, sonoma:         "539dc8fa94b7bc1e919b5a26851ba01ccb6c2330678b1e0870ddd90097893b01"
+    sha256 cellar: :any_skip_relocation, ventura:        "917abbae8169238b16283dca3607fa475dfdda7acc1083e9c2fd1db708262667"
+    sha256 cellar: :any_skip_relocation, monterey:       "73e46d317b0d87acec0bb6e97e56bd7ed4b457cc71e57c06506db73ffe064b2b"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "1d02a94cbdaa80a5f743df78ae6c9b343711467af394d1251afb4dd13c814d17"
   end
 
   depends_on "pkg-config" => :build
@@ -33,6 +39,13 @@ class Hurl < Formula
 
     man1.install "docs/manual/hurl.1"
     man1.install "docs/manual/hurlfmt.1"
+
+    bash_completion.install "completions/hurl.bash" => "hurl"
+    zsh_completion.install "completions/_hurl"
+    fish_completion.install "completions/hurl.fish"
+    bash_completion.install "completions/hurlfmt.bash" => "hurlfmt"
+    zsh_completion.install "completions/_hurlfmt"
+    fish_completion.install "completions/hurlfmt.fish"
   end
 
   test do

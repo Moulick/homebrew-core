@@ -1,12 +1,12 @@
 class Pciutils < Formula
   desc "PCI utilities"
   homepage "https://github.com/pciutils/pciutils"
-  url "https://github.com/pciutils/pciutils/archive/refs/tags/v3.10.0.tar.gz"
-  sha256 "e579d87f1afe2196db7db648857023f80adb500e8194c4488c8b47f9a238c1c6"
+  url "https://github.com/pciutils/pciutils/archive/refs/tags/v3.12.0.tar.gz"
+  sha256 "3a76ca02581fed03d0470ba822e72ee06e492442a990062f9638dec90018505f"
   license "GPL-2.0-or-later"
 
   bottle do
-    sha256 x86_64_linux: "7c9e9637f605a3a053848a968060f098e7f2e1ed88f2aaa53c4dabf178b9b344"
+    sha256 x86_64_linux: "12437820dd86c73d06e49b249d8803a6511507ae0477d64ea792b5fa83d38222"
   end
 
   depends_on :linux

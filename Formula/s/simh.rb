@@ -5,14 +5,6 @@ class Simh < Formula
   version "3.12.2"
   sha256 "bd8b01c24e62d9ba930f41a7ae7c87bf0c1e5794e27ff689c1b058ed75ebc3e8"
   license "MIT"
-  head "https://github.com/simh/simh.git", branch: "master"
-
-  # At the time this check was added, the "latest" release on GitHub was several
-  # versions behind the actual latest version, so we check the Git tags instead.
-  livecheck do
-    url :stable
-    regex(/^v?(\d+(?:\.\d+)+(?:-\d+)?)$/i)
-  end
 
   bottle do
     sha256 cellar: :any,                 arm64_sonoma:   "6a2f006ba70c8319a1eb4d8ece33be4a0a24e0f064d655bdf6f3d39209b586b8"
@@ -27,16 +19,22 @@ class Simh < Formula
     sha256 cellar: :any_skip_relocation, x86_64_linux:   "9ff6b20047316c5efd516276d7029475379b026f43b446e1707e488cff52be10"
   end
 
-  depends_on "libpng"
-  depends_on "sdl2"
+  # https://github.com/simh/simh/issues/1163
+  deprecate! date: "2023-12-07", because: "changed to a non-free license in master branch"
 
+  depends_on "libpng"
   uses_from_macos "zlib"
 
   def install
     ENV.deparallelize unless build.head?
-    inreplace "makefile", "GCC = gcc", "GCC = #{ENV.cc}"
-    inreplace "makefile", "CFLAGS_O = -O2", "CFLAGS_O = #{ENV.cflags}"
+    ENV.append_to_cflags "-Os -fcommon"
+    inreplace "makefile" do |s|
+      s.gsub! "+= /usr/lib/", "+= /usr/lib/ #{HOMEBREW_PREFIX}/lib/" if OS.linux?
+      s.gsub! "GCC = gcc", "GCC = #{ENV.cc}"
+      s.gsub! "= -O2", "= #{ENV.cflags}"
+    end
     system "make", "all"
+
     bin.install Dir["BIN/*"]
     Dir["**/*.txt"].each do |f|
       (doc/File.dirname(f)).install f

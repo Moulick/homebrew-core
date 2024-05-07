@@ -1,21 +1,19 @@
 class Pango < Formula
   desc "Framework for layout and rendering of i18n text"
   homepage "https://pango.gnome.org"
-  url "https://download.gnome.org/sources/pango/1.50/pango-1.50.14.tar.xz"
-  sha256 "1d67f205bfc318c27a29cfdfb6828568df566795df0cb51d2189cde7f2d581e8"
+  url "https://download.gnome.org/sources/pango/1.52/pango-1.52.2.tar.xz"
+  sha256 "d0076afe01082814b853deec99f9349ece5f2ce83908b8e58ff736b41f78a96b"
   license "LGPL-2.0-or-later"
   head "https://gitlab.gnome.org/GNOME/pango.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any, arm64_sonoma:   "9b6f5297f98f443484ad7b2693d5c4151a062745b5cc5adb01abbf4e963ecaa4"
-    sha256 cellar: :any, arm64_ventura:  "36b5b69c52886ea5c6599bc35bf22eb942cc44b2bcbe2ea0bd2340d72fe1d832"
-    sha256 cellar: :any, arm64_monterey: "0aaa4549f79b4fcd445fcfa409a516e5d1058b41853a056b191c43ad3388d959"
-    sha256 cellar: :any, arm64_big_sur:  "34d3bddaee4e322f64cb8a65763702d0037dd65f100772665b71a0ac108708d0"
-    sha256 cellar: :any, sonoma:         "cc63add51202ca917e90f0c0164688bea9f8df2cb9c8c3f8af18d8de40fdf347"
-    sha256 cellar: :any, ventura:        "eae13498d195f5407514f88c3681981e4cf8b1b3099af13ce771be9934929ead"
-    sha256 cellar: :any, monterey:       "34449966361af6e0ec7808fc48ea6b6368fb56c9873b332c77740a9ed4d0fdc1"
-    sha256 cellar: :any, big_sur:        "8058dda295f5bd9a7fa01124a22b850285363fc9ab65e644bb037ad621475eb3"
-    sha256               x86_64_linux:   "c0e091a6c225b78ca16eef4dd0d955a13996c44896a6ee5d182aef5944f59cc8"
+    sha256 cellar: :any, arm64_sonoma:   "d7310d07a8e4de1846e72e1965012b706df6b6b68b7d7044d0b626927dd0dbda"
+    sha256 cellar: :any, arm64_ventura:  "70afddfad7b00656b7220b029d06d74097a0db1d5d7989157240e8b3c20ec383"
+    sha256 cellar: :any, arm64_monterey: "beb7df52397c4bf1d05384f41878938fb1bf582a73cc02ee91ffda6595b7d4fd"
+    sha256 cellar: :any, sonoma:         "c444b645580247700e28bd354648b317eb63f7f6bf2baae0f098911056b0f7a1"
+    sha256 cellar: :any, ventura:        "a4f074c18620090f87aa15b1879126cf9cb2f5ddaaa2c0b54e2fd17cd591485d"
+    sha256 cellar: :any, monterey:       "fb4cfb5fb199236e438b2da4ad85d510b0c64434c65060fbef6a74140ba651b2"
+    sha256               x86_64_linux:   "1cd2f38a7df814a3153d1d9904fa9de169621d35a70a38507879fa101010e44f"
   end
 
   depends_on "gobject-introspection" => :build

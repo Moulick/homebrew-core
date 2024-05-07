@@ -1,20 +1,19 @@
 class Colmap < Formula
   desc "Structure-from-Motion and Multi-View Stereo"
   homepage "https://colmap.github.io/"
-  url "https://github.com/colmap/colmap/archive/refs/tags/3.8.tar.gz"
-  sha256 "02288f8f61692fe38049d65608ed832b31246e7792692376afb712fa4cef8775"
+  url "https://github.com/colmap/colmap/archive/refs/tags/3.9.1.tar.gz"
+  sha256 "f947ad80802baa8f00f30f26d316d8c608ab2626465eac1c81cf325d57879862"
   license "BSD-3-Clause"
+  revision 2
 
   bottle do
-    sha256 cellar: :any,                 arm64_sonoma:   "3a0d7e341c1a9600b8caba970bee951d8b6d671fe9a263865eb589cb7d186aff"
-    sha256 cellar: :any,                 arm64_ventura:  "68ef3a962421476e89e4e5c3a875b3701e5b88794222ba3e007334c3ccdfaf0b"
-    sha256 cellar: :any,                 arm64_monterey: "7b53abdfe0eb5d6aa838fccf06ebe1df3879bec37bd9447675bc2ccde80dfdfc"
-    sha256 cellar: :any,                 arm64_big_sur:  "50943e75c8594f7a28e39f5cc849e38a8a88df0fa214198a30f59a1ca9cd8c14"
-    sha256 cellar: :any,                 sonoma:         "cf61dbc802d106d7f035eb6c5234940c7d28d3325615d0714583cf678c5546ae"
-    sha256 cellar: :any,                 ventura:        "ab90a4cdc6c2de4bb1f90d962cd1a6740179bd0ee1d6d8df7d8afd53aa5b22ee"
-    sha256 cellar: :any,                 monterey:       "799c8ca6554197413d7c16ce3d459017f6488ff33240e6f08c2a5fb178d804ec"
-    sha256 cellar: :any,                 big_sur:        "1c168baf35d8e55e8b77d2230ebf220dfc4222a649e3ba023adfb44db172cfbe"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "7199d1b452d304463ae3b3ceb28fc8936f6f191402e5e21f4dd2ecf8b115eb5b"
+    sha256 cellar: :any,                 arm64_sonoma:   "9d00fc57d1f732a4fefb741ab48e221f480e2cb16deeb9ca8f513b6a21ae6e73"
+    sha256 cellar: :any,                 arm64_ventura:  "04d186231e777dcbccb8516dd4ffbee31c686698520df771100a330862b48949"
+    sha256 cellar: :any,                 arm64_monterey: "e775d2ea1698071def8cfff84feb8514c41bf2415821bce4aec28cf620226cef"
+    sha256 cellar: :any,                 sonoma:         "a1d0c5faccff52fd59c3e6e36be5f333f6b77f01026afaf222533260cb600cb5"
+    sha256 cellar: :any,                 ventura:        "07548fd18349a37b3b0805fa5ea2f26d3b377729ad89633741838a8b2ef7ea24"
+    sha256 cellar: :any,                 monterey:       "bb805ef9f6ae9d67f50a159a914bda94a60f2c5db4b3d28b2063648840c9405f"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "98c7879a56073964c8f8c04247391bc6fc50dc0db4e7f5685c9fa54096092423"
   end
 
   depends_on "cmake" => :build
@@ -34,6 +33,10 @@ class Colmap < Formula
 
   uses_from_macos "sqlite"
 
+  # Remove this patch after https://github.com/colmap/colmap/pull/2338 is included in
+  # a future release
+  patch :DATA
+
   def install
     ENV.append_path "CMAKE_PREFIX_PATH", Formula["qt@5"].prefix
 
@@ -47,3 +50,30 @@ class Colmap < Formula
     assert_path_exists (testpath / "db")
   end
 end
+__END__
+diff --git a/src/colmap/image/line.cc b/src/colmap/image/line.cc
+index 3637c3dc..33fff7da 100644
+--- a/src/colmap/image/line.cc
++++ b/src/colmap/image/line.cc
+@@ -27,6 +27,8 @@
+ // ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+ // POSSIBILITY OF SUCH DAMAGE.
+ 
++#include <memory>
++
+ #include "colmap/image/line.h"
+ 
+ #include "colmap/util/logging.h"
+diff --git a/src/colmap/mvs/workspace.h b/src/colmap/mvs/workspace.h
+index 73d21b78..6d2c862c 100644
+--- a/src/colmap/mvs/workspace.h
++++ b/src/colmap/mvs/workspace.h
+@@ -29,6 +29,8 @@
+ 
+ #pragma once
+ 
++#include <memory>
++
+ #include "colmap/mvs/consistency_graph.h"
+ #include "colmap/mvs/depth_map.h"
+ #include "colmap/mvs/model.h"

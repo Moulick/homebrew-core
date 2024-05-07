@@ -1,10 +1,9 @@
 class Nsd < Formula
   desc "Name server daemon"
   homepage "https://www.nlnetlabs.nl/projects/nsd/"
-  url "https://www.nlnetlabs.nl/downloads/nsd/nsd-4.7.0.tar.gz"
-  sha256 "8faca44e299ad2915fa000887ab1632631ea68709c62ce35f110bfe721ecf214"
+  url "https://www.nlnetlabs.nl/downloads/nsd/nsd-4.9.1.tar.gz"
+  sha256 "a6c23a53ee8111fa71e77b7565d1b8f486ea695770816585fbddf14e4367e6df"
   license "BSD-3-Clause"
-  revision 1
 
   # We check the GitHub repo tags instead of
   # https://www.nlnetlabs.nl/downloads/nsd/ since the first-party site has a
@@ -12,18 +11,20 @@ class Nsd < Formula
   livecheck do
     url "https://github.com/NLnetLabs/nsd.git"
     regex(/^NSD[._-]v?(\d+(?:[._]\d+)+)[._-]REL$/i)
+
+    strategy :git do |tags, regex|
+      tags.map { |tag| tag[regex, 1]&.tr("_", ".") }
+    end
   end
 
   bottle do
-    sha256 arm64_sonoma:   "ff51f5201d782f2efcd4e039afc434cf6594905834f43a36320093a2fd5482c7"
-    sha256 arm64_ventura:  "09aa50e0ff6b9dcbc6457acce3242fa0f259534e45f45df1962f3a55a2f84b54"
-    sha256 arm64_monterey: "aa66c94672a6831ba5845d0d9fe73021fe9ea21e1403d1f194222fbabd60c91e"
-    sha256 arm64_big_sur:  "7d1a23581b87a516f4adab974626ceeed458342a2177c6870686160c8edc7efa"
-    sha256 sonoma:         "aea4cc65e0c7088ec82417cc81e55fa3e925a7785fef8b11209441669e677453"
-    sha256 ventura:        "0f2566019b7601c94d0f21ab7854025eb5c1f5c843bcf429c72fb7501d4f62fa"
-    sha256 monterey:       "39d73cf7533e96c0c1434baa1f59211e4be2b4ceeb176fa04b44e05b66206dca"
-    sha256 big_sur:        "1f146848df2780720ea966f52f6f48e3c428c5400ce0cec2216b76b9166f50c7"
-    sha256 x86_64_linux:   "cdb25f1576f8f2e074781348b7754d039943e472cf72c464f7497d8b4ef41281"
+    sha256 arm64_sonoma:   "9958d6f7c15565c989ce8741993e4184b8b2825078de9938126d69d8472f4373"
+    sha256 arm64_ventura:  "cf40fce0970035dde8ead67267160852581ab08813bd0684d8c75c2d9e873304"
+    sha256 arm64_monterey: "d294f6e27ebaa7f10bb9f2fe69206323926902c97ffa56d8bd8dfbc1889ab67e"
+    sha256 sonoma:         "0aef0cdb96f73d5b621a9bf3cecacc1d0aa588817ac746679b4c13559ac82f7c"
+    sha256 ventura:        "a9220df020d868517f711f0ff79a5a70b7db2dc13cdeb72e8677f62142578e33"
+    sha256 monterey:       "9ab5c972729706233da0d5789d3db92293490046287c3d8ea1f17583728fef98"
+    sha256 x86_64_linux:   "001bbc937757a13e8dccf9732a129722f7d17952c1889c2da1c112679ff3bab0"
   end
 
   depends_on "libevent"
@@ -39,6 +40,6 @@ class Nsd < Formula
   end
 
   test do
-    system "#{sbin}/nsd", "-v"
+    system sbin/"nsd", "-v"
   end
 end

@@ -1,23 +1,13 @@
 class Ffmpeg < Formula
   desc "Play, record, convert, and stream audio and video"
   homepage "https://ffmpeg.org/"
+  url "https://ffmpeg.org/releases/ffmpeg-7.0.tar.xz"
+  sha256 "4426a94dd2c814945456600c8adfc402bee65ec14a70e8c531ec9a2cd651da7b"
   # None of these parts are used by default, you have to explicitly pass `--enable-gpl`
   # to configure to activate them. In this case, FFmpeg's license changes to GPL v2+.
   license "GPL-2.0-or-later"
   revision 1
   head "https://github.com/FFmpeg/FFmpeg.git", branch: "master"
-
-  stable do
-    url "https://ffmpeg.org/releases/ffmpeg-6.0.tar.xz"
-    sha256 "57be87c22d9b49c112b6d24bc67d42508660e6b718b3db89c44e47e289137082"
-
-    # Fix for binutils, remove with `stable` block on next release
-    # https://www.linuxquestions.org/questions/slackware-14/regression-on-current-with-ffmpeg-4175727691/
-    patch do
-      url "https://github.com/FFmpeg/FFmpeg/commit/effadce6c756247ea8bae32dc13bb3e6f464f0eb.patch?full_index=1"
-      sha256 "9800c708313da78d537b61cfb750762bb8ad006ca9335b1724dbbca5669f5b24"
-    end
-  end
 
   livecheck do
     url "https://ffmpeg.org/download.html"
@@ -25,14 +15,13 @@ class Ffmpeg < Formula
   end
 
   bottle do
-    rebuild 2
-    sha256 arm64_sonoma:   "42d52253402650e0213379f160c55d84b65dd00f6399f164df05f114c74ebcc4"
-    sha256 arm64_ventura:  "b24e520a37513ec46162a1c291af1344ff25a4ff9107065a487714758f4e0ea4"
-    sha256 arm64_monterey: "42405b8904eb0a1dda935b538a076b6e30b9a736a54f43471b99bb86f3e4e364"
-    sha256 sonoma:         "f03703c198cdc39583129e38d57abd3e19aa541e551fefcacfdfe7a566ed6776"
-    sha256 ventura:        "58ebcf43e522105745c3d406e01ce8a65007996544198a6691c0011cb90152e1"
-    sha256 monterey:       "541c4febd795e1bbb8d76087f58b9a83f8ef8cc65020050530d582b45956ceb9"
-    sha256 x86_64_linux:   "e970046eb88d3e8ad157063599ed3284fa2ed8b8289f58fa1d96e0bd1798f9d4"
+    sha256 arm64_sonoma:   "0694adc47cbfafe050c9f3ef7c4b45f0674e6577725df4cb742a65f3c4f5e976"
+    sha256 arm64_ventura:  "85eb201d767cef3518fa339ed9f9ebf949c0226a53d50152424f10bc9b851119"
+    sha256 arm64_monterey: "31b0c97d979598140f3a7276a014b17eed4b58c0e3efb98dd38b5f8555e5ec05"
+    sha256 sonoma:         "62e25a4328ca87762ea1ddab730980b0180ac02f9a2442f432324ace089fdadd"
+    sha256 ventura:        "57beda7ec9b07a501c1542e9c23e912b6b5062159348d6b72fbc0a52d88a0abc"
+    sha256 monterey:       "e1109693709a407954927253de96c7188eb20fff708b846cebfc9a69f0eec219"
+    sha256 x86_64_linux:   "af3bb517329d277361056c89496493cc6303f0e71fcd388218d09e81a99a5489"
   end
 
   depends_on "pkg-config" => :build
@@ -43,18 +32,21 @@ class Ffmpeg < Formula
   depends_on "freetype"
   depends_on "frei0r"
   depends_on "gnutls"
+  depends_on "harfbuzz"
   depends_on "jpeg-xl"
   depends_on "lame"
   depends_on "libass"
   depends_on "libbluray"
   depends_on "librist"
   depends_on "libsoxr"
+  depends_on "libssh"
   depends_on "libvidstab"
   depends_on "libvmaf"
   depends_on "libvorbis"
   depends_on "libvpx"
   depends_on "opencore-amr"
   depends_on "openjpeg"
+  depends_on "openvino"
   depends_on "opus"
   depends_on "rav1e"
   depends_on "rubberband"
@@ -114,6 +106,7 @@ class Ffmpeg < Formula
       --enable-libaribb24
       --enable-libbluray
       --enable-libdav1d
+      --enable-libharfbuzz
       --enable-libjxl
       --enable-libmp3lame
       --enable-libopus
@@ -122,6 +115,7 @@ class Ffmpeg < Formula
       --enable-librubberband
       --enable-libsnappy
       --enable-libsrt
+      --enable-libssh
       --enable-libsvtav1
       --enable-libtesseract
       --enable-libtheora
@@ -142,6 +136,7 @@ class Ffmpeg < Formula
       --enable-libopencore-amrnb
       --enable-libopencore-amrwb
       --enable-libopenjpeg
+      --enable-libopenvino
       --enable-libspeex
       --enable-libsoxr
       --enable-libzmq
@@ -159,10 +154,8 @@ class Ffmpeg < Formula
 
     # Build and install additional FFmpeg tools
     system "make", "alltools"
-    bin.install Dir["tools/*"].select { |f| File.executable? f }
-
-    # Fix for Non-executables that were installed to bin/
-    mv bin/"python", pkgshare/"python", force: true
+    bin.install (buildpath/"tools").children.select { |f| f.file? && f.executable? }
+    pkgshare.install buildpath/"tools/python"
   end
 
   test do

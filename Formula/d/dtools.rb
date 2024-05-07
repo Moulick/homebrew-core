@@ -1,19 +1,19 @@
 class Dtools < Formula
   desc "D programming language tools"
   homepage "https://dlang.org/"
-  url "https://github.com/dlang/tools/archive/refs/tags/v2.105.2.tar.gz"
-  sha256 "dc34d753742cf3c1d3612bef27862cb6930b650b99e3db847a840d2059fd0423"
+  url "https://github.com/dlang/tools/archive/refs/tags/v2.108.1.tar.gz"
+  sha256 "f7c216b3a3ba8456b9935ebd4eeaf3c94eb36418a10829946c6af90889a32112"
   license "BSL-1.0"
   head "https://github.com/dlang/tools.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "81d518e2d0fc8549456b212a575342033aac5190693f17cd891a26812fa21270"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "3082003c01763ca16ff51358e5d01250ff3cf73657d021bd5f714662708d0677"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "b0a10191cad28288d566bc4f65723d1398f18a5703821eb9880d1c04d69619d1"
-    sha256 cellar: :any_skip_relocation, ventura:        "fa6237ca8240e330aac3ee3ae595227f2eed3b3a3d846d4f74676b40479ec640"
-    sha256 cellar: :any_skip_relocation, monterey:       "b88490f92a9ecb8661ec8254ea7578c62f2a9206774efa2cd00380d53b890857"
-    sha256 cellar: :any_skip_relocation, big_sur:        "5f6ff75e0dadafe852bcc9144d03e6f36af6d134d7f7d27328d45fa2e0e54ff7"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "1eb37c05c9c77589a3707efa178de28e6756ba528b9c9a5cce80f343e611d30d"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "b413eca690a63aefa71ec883cab8a33ef6919e5a5ab8c69bb5e1f65bfdc6f860"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "72321b83a3094f56467de2ad3a6a11ea6cbcdfd4cbcc0531a9b6cc0128c38ff7"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "f3671676becbf89f23ca038aa66b722e88837753515bf931366b9f7fbfa4e4ac"
+    sha256 cellar: :any_skip_relocation, sonoma:         "d54bba6bb38dfee31b770bf25342915747d2dac1a1df4efaf470c112eaf099b8"
+    sha256 cellar: :any_skip_relocation, ventura:        "e92956d5a6a0044b1c4171fefbb0975cd5fe0ea82e0b32d5d0a202e3369ff938"
+    sha256 cellar: :any_skip_relocation, monterey:       "44268935af3971da67e900e3946313821d199f9eab7c608c747f3ead5a8ece7f"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "a1b3500feffe2f519f44b6b98327a7ce99294197e5f73ce0476fbb7d1badaaea"
   end
 
   depends_on "dub" => :build

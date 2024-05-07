@@ -3,36 +3,34 @@ class Checkdmarc < Formula
 
   desc "Command-line parser for SPF and DMARC DNS records"
   homepage "https://domainaware.github.io/checkdmarc/"
-  url "https://files.pythonhosted.org/packages/63/e3/76fd28a05a57cd3148a5c5783c23fcfae0d580fe05e5f0f68a600c839bfe/checkdmarc-4.8.5.tar.gz"
-  sha256 "cddb94f9ab944e4ed461dfb5721a81a7a80f60cacbadaf968fea3c89eff1c1e2"
+  url "https://files.pythonhosted.org/packages/df/06/e61a492a70a2126ac62fea72694aa0ce6f645cbe44ea513d9a68e2df822b/checkdmarc-5.3.1.tar.gz"
+  sha256 "1d71e7fa611fa8faa36fad09416b5e2c3265d026d3b5209c051f4e292565e332"
   license "Apache-2.0"
   revision 1
   head "https://github.com/domainaware/checkdmarc.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "4177abee8faa042cbbfcedfb7187e67e8249a5ca2b0d169e0f221b609db7526c"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "d4ad89adc3ae40d9408e0411a271657dce3e9f25ea136db7756eb4afdce1cd7e"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "b03b7b433fba8e65da5efee052c6ea23a90fd080fafa00643f132a05f7888584"
-    sha256 cellar: :any_skip_relocation, sonoma:         "36791ced85da41620bf0d40b5478b0771fcd1f662ca3a8df3af3e68f74aa92cc"
-    sha256 cellar: :any_skip_relocation, ventura:        "d50d861effefa26e74ebd7cc52e8d7095e058ef4904c86a0822f5f4189e49070"
-    sha256 cellar: :any_skip_relocation, monterey:       "81caae1e9bf907c4580a368615e92370124747b2f5416df45e1929a81b8dde71"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "847cae87cad172629ddbf00db0514e68a9562cdbc5943669572937fc24b80edc"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "3680a47f178cd3a8c2fb9a0f8a230829258609507d63fdbf2e36cbb47088607f"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "3680a47f178cd3a8c2fb9a0f8a230829258609507d63fdbf2e36cbb47088607f"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "3680a47f178cd3a8c2fb9a0f8a230829258609507d63fdbf2e36cbb47088607f"
+    sha256 cellar: :any_skip_relocation, sonoma:         "3680a47f178cd3a8c2fb9a0f8a230829258609507d63fdbf2e36cbb47088607f"
+    sha256 cellar: :any_skip_relocation, ventura:        "3680a47f178cd3a8c2fb9a0f8a230829258609507d63fdbf2e36cbb47088607f"
+    sha256 cellar: :any_skip_relocation, monterey:       "3680a47f178cd3a8c2fb9a0f8a230829258609507d63fdbf2e36cbb47088607f"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "9caebdcdefba3c289f8d429bb654e301d5a40e83f087dc372d41be00391fe506"
   end
 
-  depends_on "cffi"
-  depends_on "pycparser"
-  depends_on "python-certifi"
-  depends_on "python-cryptography"
+  depends_on "certifi"
+  depends_on "cryptography"
   depends_on "python@3.12"
 
   resource "charset-normalizer" do
-    url "https://files.pythonhosted.org/packages/cf/ac/e89b2f2f75f51e9859979b56d2ec162f7f893221975d244d8d5277aa9489/charset-normalizer-3.3.0.tar.gz"
-    sha256 "63563193aec44bce707e0c5ca64ff69fa72ed7cf34ce6e11d5127555756fd2f6"
+    url "https://files.pythonhosted.org/packages/63/09/c1bc53dab74b1816a00d8d030de5bf98f724c52c1635e07681d312f20be8/charset-normalizer-3.3.2.tar.gz"
+    sha256 "f30c3cb33b24454a82faecaf01b19c18562b1e89558fb6c56de4d9118a032fd5"
   end
 
   resource "dnspython" do
-    url "https://files.pythonhosted.org/packages/65/2d/372a20e52a87b2ba0160997575809806111a72e18aa92738daccceb8d2b9/dnspython-2.4.2.tar.gz"
-    sha256 "8dcfae8c7460a2f84b4072e26f1c9f4101ca20c071649cb7c34e8b6a93d58984"
+    url "https://files.pythonhosted.org/packages/37/7d/c871f55054e403fdfd6b8f65fd6d1c4e147ed100d3e9f9ba1fe695403939/dnspython-2.6.1.tar.gz"
+    sha256 "e8f0f9c23a7b7cb99ded64e6c3a6f3e701d78f50c55e002b839dea7225cff7cc"
   end
 
   resource "expiringdict" do
@@ -41,18 +39,18 @@ class Checkdmarc < Formula
   end
 
   resource "idna" do
-    url "https://files.pythonhosted.org/packages/8b/e1/43beb3d38dba6cb420cefa297822eac205a277ab43e5ba5d5c46faf96438/idna-3.4.tar.gz"
-    sha256 "814f528e8dead7d329833b91c5faa87d60bf71824cd12a7530b5526063d02cb4"
+    url "https://files.pythonhosted.org/packages/21/ed/f86a79a07470cb07819390452f178b3bef1d375f2ec021ecfc709fc7cf07/idna-3.7.tar.gz"
+    sha256 "028ff3aadf0609c1fd278d8ea3089299412a7a8b9bd005dd08b9f8285bcb5cfc"
   end
 
   resource "publicsuffixlist" do
-    url "https://files.pythonhosted.org/packages/c2/cb/08df2fc61a589996e3dac7d74c25639162a2a8546acf18a738a0f3d11c74/publicsuffixlist-0.10.0.20231002.tar.gz"
-    sha256 "a8ef3f5745196fd956bcf6f425b5000450896c616ee6e95130e147e2fae10ccc"
+    url "https://files.pythonhosted.org/packages/3a/0f/b8cf593fda6c7525ccc444d15f42f2aada2f3d9a34297f8c622696460102/publicsuffixlist-0.10.0.20240412.tar.gz"
+    sha256 "1b685d974dbd3258ab1c7f473449cf2a55275a74a995b60a8410f0f07d7f5b78"
   end
 
   resource "pyleri" do
-    url "https://files.pythonhosted.org/packages/0e/94/fa146d2de46b78237562373a2bb9277d69e4149738a11b69c1f42ca64c33/pyleri-1.4.2.tar.gz"
-    sha256 "18b92f631567c3c0dc6a9288aa9abc5706a8c1e0bd48d33fea0401eec02f2e63"
+    url "https://files.pythonhosted.org/packages/93/6a/4a2a8a05a4945b253d40654149056ae03b9d5747f3c1c423bb93f1e6d13f/pyleri-1.4.3.tar.gz"
+    sha256 "17ac2a2e934bf1d9432689d558e9787960738d64aa789bc3a6760c2823cb67d2"
   end
 
   resource "requests" do
@@ -66,8 +64,8 @@ class Checkdmarc < Formula
   end
 
   resource "urllib3" do
-    url "https://files.pythonhosted.org/packages/af/47/b215df9f71b4fdba1025fc05a77db2ad243fa0926755a52c5e71659f4e3c/urllib3-2.0.7.tar.gz"
-    sha256 "c97dfde1f7bd43a71c8d2a58e369e9b2bf692d1334ea9f9cae55add7d0dd0f84"
+    url "https://files.pythonhosted.org/packages/7a/50/7fd50a27caa0652cd4caf224aa87741ea41d3265ad13f010886167cfcc79/urllib3-2.2.1.tar.gz"
+    sha256 "d0570876c61ab9e520d776c38acbbb5b05a776d3f9ff98a5c8fd5162a444cf19"
   end
 
   def install
@@ -77,6 +75,6 @@ class Checkdmarc < Formula
   test do
     assert_match version.to_s, shell_output("#{bin}/checkdmarc -v")
 
-    assert_match "\"base_domain\": \"brew.sh\"", shell_output("#{bin}/checkdmarc brew.sh")
+    assert_match "\"base_domain\": \"example.com\"", shell_output("#{bin}/checkdmarc example.com")
   end
 end

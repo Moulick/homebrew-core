@@ -19,6 +19,9 @@ class Arb < Formula
     sha256 cellar: :any_skip_relocation, x86_64_linux:   "a222fdd6fb56ff3fd9499ea8b6b0626e5935af09a922bff4692988c630d7aeb7"
   end
 
+  # See upstream discussion, https://github.com/fredrik-johansson/arb/issues/453
+  disable! date: "2024-03-19", because: "arb has been merged into flint 3.0.0"
+
   depends_on "cmake" => :build
   depends_on "flint"
   depends_on "gmp"

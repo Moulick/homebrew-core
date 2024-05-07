@@ -1,9 +1,9 @@
 class Varnish < Formula
   desc "High-performance HTTP accelerator"
   homepage "https://www.varnish-cache.org/"
-  url "https://varnish-cache.org/_downloads/varnish-7.4.1.tgz"
-  mirror "https://fossies.org/linux/www/varnish-7.4.1.tgz"
-  sha256 "874d837aaf49b8f2718cb60b8c8c7900e9ea10c264f218c88cd672d596f4b89f"
+  url "https://varnish-cache.org/_downloads/varnish-7.5.0.tgz"
+  mirror "https://fossies.org/linux/www/varnish-7.5.0.tgz"
+  sha256 "fca61b983139e1aac61c4546d12a1a3ab9807dbb1d8314571e3148c93ff72b5d"
   license "BSD-2-Clause"
 
   livecheck do
@@ -12,15 +12,13 @@ class Varnish < Formula
   end
 
   bottle do
-    sha256 arm64_sonoma:   "baa3d9b974e396658f8d4afbbc2fb616855440ae9e45584be3c0bef4880cf0a7"
-    sha256 arm64_ventura:  "a5e1cf1c5e87ce6437207125acaa7a0687ea0f267c4562399090efcb563edcb0"
-    sha256 arm64_monterey: "410ab72c7543e5ef5345b75bff89c0f6afc451303693fd1cc56e5c60c515c2b7"
-    sha256 arm64_big_sur:  "de9393b3f2895e5d8b3c6f647e136073a7f2b57858f272987d116f0055e4ef07"
-    sha256 sonoma:         "40502e21422208af128171163215cf3b5fd8e7cc61a8d1fe324392d319479beb"
-    sha256 ventura:        "40a9a68b2572b1c4c033ea7e2023578211d53ff85aa022ea90643f91d7c52186"
-    sha256 monterey:       "84213e33e6ab7068af70c6bff3592822d569eb61a1322c0b33a7fd048f07a76d"
-    sha256 big_sur:        "e457a51ea02ff7b3c00b36c536507742d3995a7cfa2aa1f81105d20d0e5c60f6"
-    sha256 x86_64_linux:   "f8827726b9f6936bf4c3d7ca70027be86433c90a22fa20cbd55073fe99ee4cd6"
+    sha256 arm64_sonoma:   "19ea14064a64f0f97aafd32d9cbd8d491175361a542d1da53cded4f1ce619e2b"
+    sha256 arm64_ventura:  "86ca31bfa2855001c34ad80d64fb06bb6ca3ba2f61ad7426e5aa3dac447fc6e3"
+    sha256 arm64_monterey: "cba487b284034122c28f984717523ee7fd49331578891be98d2c4be44ea1c9ff"
+    sha256 sonoma:         "93db247c7ed7a724317e9c603042513de0c46d9b30f20427e8792fb15e3b0a02"
+    sha256 ventura:        "16716f5f300c79f909135864e574ef83c6c7950b5730555d20d02a00292621ab"
+    sha256 monterey:       "94ea6bff5a64531d33f9f8a968999ecaf8d88b5b5a8f3f2b27a8ac087d4397f2"
+    sha256 x86_64_linux:   "f01edf98aaf303d8b9c62d2fbcd89093cb810d1580995c37db6135f288037422"
   end
 
   depends_on "docutils" => :build

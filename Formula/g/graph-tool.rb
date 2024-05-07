@@ -3,10 +3,10 @@ class GraphTool < Formula
 
   desc "Efficient network analysis for Python 3"
   homepage "https://graph-tool.skewed.de/"
-  url "https://downloads.skewed.de/graph-tool/graph-tool-2.58.tar.bz2"
-  sha256 "72a36c3cf17d0f624f093d6d083dd5ecaf040c7022bf332148c772008c987a17"
+  # TODO: Update build for matplotlib>=3.9.0 to use `--config-settings=setup-args=...` for system dependencies
+  url "https://downloads.skewed.de/graph-tool/graph-tool-2.63.tar.bz2"
+  sha256 "cf7847a52cd8ff65639f14d88a90f745f36ce201bd207983f237d19bb5199412"
   license "LGPL-3.0-or-later"
-  revision 1
 
   livecheck do
     url "https://downloads.skewed.de/graph-tool/"
@@ -14,130 +14,141 @@ class GraphTool < Formula
   end
 
   bottle do
-    sha256 arm64_sonoma:   "f168b50c0acf8cdf021173964c1d6f75dd64427b8216c1bae424bb35398c7758"
-    sha256 arm64_ventura:  "162e207af50b6b02b90a10ee3c9528b7ce896b0df8ce4fd03f33d9e6f46b5dd9"
-    sha256 arm64_monterey: "726f8ebb436942932d651e9f74010772783582f781112ce92917bcc6d1d1ddff"
-    sha256 sonoma:         "1bb63458b8cb6ef639972f0783885974fa13c44014f1cc23aa4de2c9bdfb2f4d"
-    sha256 ventura:        "b3058a0d1789dbc50c99dc69a571362a03a0f52780a1bc9ea01b523d29cb1351"
-    sha256 monterey:       "3cf5cc4aac4f66838fc864ac515e5b4e361d1188cb74c603c34c1d1a54ec5f60"
+    sha256                               arm64_sonoma:   "0c8071a6d32501e2105532f1d470836423cc51a1961772371e85b403fc016273"
+    sha256                               arm64_ventura:  "056e13acefc576cfae569727c693f643663258c2bff7a327adbdec69ba24ea8b"
+    sha256                               arm64_monterey: "389210b4a1c5a37dbd7ab4aaaa932bdd4fc29998e8e027e0549a634eb8285f33"
+    sha256                               sonoma:         "61cce793e5f7a8d3cdf10cd0bf1acaab62d82bce32af219dc9154562e1b9d714"
+    sha256                               ventura:        "e2ddfb0bae32c8603d3335b565f9f3cf153027d2ba957486f5c00e8ef7623190"
+    sha256                               monterey:       "3b9e41d52bd1fd211d3332790619c824774cbef0a8932927a4b1052b2250d1dd"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "6e0a02e12bbe4d67e1de8be6cd3ef930b0d0b9843152fefd6fdf46d8182fdf2f"
   end
 
-  depends_on "autoconf" => :build
-  depends_on "automake" => :build
-  depends_on "cmake" => :build
-  depends_on "libtool" => :build
+  depends_on "ninja" => :build
   depends_on "pkg-config" => :build
   depends_on "boost"
   depends_on "boost-python3"
   depends_on "cairomm@1.14"
   depends_on "cgal"
-  depends_on "fonttools"
+  depends_on "freetype"
   depends_on "google-sparsehash"
   depends_on "gtk+3"
-  depends_on "librsvg"
   depends_on macos: :mojave # for C++17
   depends_on "numpy"
   depends_on "pillow"
   depends_on "py3cairo"
   depends_on "pygobject3"
-  depends_on "python@3.11"
+  depends_on "python@3.12"
+  depends_on "qhull"
   depends_on "scipy"
-  depends_on "six"
+  depends_on "zstd"
 
   uses_from_macos "expat" => :build
 
-  fails_with :gcc do
-    version "6"
-    cause "Requires C++17 compiler"
+  on_linux do
+    depends_on "patchelf" => :build
   end
 
   resource "contourpy" do
-    url "https://files.pythonhosted.org/packages/b4/9b/6edb9d3e334a70a212f66a844188fcb57ddbd528cbc3b1fe7abfc317ddd7/contourpy-1.0.7.tar.gz"
-    sha256 "d8165a088d31798b59e91117d1f5fc3df8168d8b48c4acc10fc0df0d0bdbcc5e"
+    url "https://files.pythonhosted.org/packages/8d/9e/e4786569b319847ffd98a8326802d5cf8a5500860dbfc2df1f0f4883ed99/contourpy-1.2.1.tar.gz"
+    sha256 "4d8908b3bee1c889e547867ca4cdc54e5ab6be6d3e078556814a22457f49423c"
   end
 
   resource "cycler" do
-    url "https://files.pythonhosted.org/packages/34/45/a7caaacbfc2fa60bee42effc4bcc7d7c6dbe9c349500e04f65a861c15eb9/cycler-0.11.0.tar.gz"
-    sha256 "9c87405839a19696e837b3b818fed3f5f69f16f1eec1a1ad77e043dcea9c772f"
+    url "https://files.pythonhosted.org/packages/a9/95/a3dbbb5028f35eafb79008e7522a75244477d2838f38cbb722248dabc2a8/cycler-0.12.1.tar.gz"
+    sha256 "88bb128f02ba341da8ef447245a9e138fae777f6a23943da4540077d3601eb1c"
+  end
+
+  resource "fonttools" do
+    url "https://files.pythonhosted.org/packages/73/e4/5f31f97c859e2223d59ce3da03c67908eb8f8f90d96f2537b73b68aa2a5a/fonttools-4.51.0.tar.gz"
+    sha256 "dc0673361331566d7a663d7ce0f6fdcbfbdc1f59c6e3ed1165ad7202ca183c68"
   end
 
   resource "kiwisolver" do
-    url "https://files.pythonhosted.org/packages/5f/5c/272a7dd49a1914f35cd8d6d9f386defa8b047f6fbd06badd6b77b3ba24e7/kiwisolver-1.4.4.tar.gz"
-    sha256 "d41997519fcba4a1e46eb4a2fe31bc12f0ff957b2b81bac28db24744f333e955"
+    url "https://files.pythonhosted.org/packages/b9/2d/226779e405724344fc678fcc025b812587617ea1a48b9442628b688e85ea/kiwisolver-1.4.5.tar.gz"
+    sha256 "e57e563a57fb22a142da34f38acc2fc1a5c864bc29ca1517a88abc963e60d6ec"
   end
 
   resource "matplotlib" do
-    url "https://files.pythonhosted.org/packages/b7/65/d6e00376dbdb6c227d79a2d6ec32f66cfb163f0cd924090e3133a4f85a11/matplotlib-3.7.1.tar.gz"
-    sha256 "7b73305f25eab4541bd7ee0b96d87e53ae9c9f1823be5659b806cd85786fe882"
-
-    # fix numpy build issue, https://github.com/matplotlib/matplotlib/issues/26246
-    patch :DATA
+    url "https://files.pythonhosted.org/packages/38/4f/8487737a74d8be4ab5fbe6019b0fae305c1604cf7209500969b879b5f462/matplotlib-3.8.4.tar.gz"
+    sha256 "8aac397d5e9ec158960e31c381c5ffc52ddd52bd9a47717e2a694038167dffea"
   end
 
   resource "packaging" do
-    url "https://files.pythonhosted.org/packages/b9/6c/7c6658d258d7971c5eb0d9b69fa9265879ec9a9158031206d47800ae2213/packaging-23.1.tar.gz"
-    sha256 "a392980d2b6cffa644431898be54b0045151319d1e7ec34f0cfed48767dd334f"
+    url "https://files.pythonhosted.org/packages/ee/b5/b43a27ac7472e1818c4bafd44430e69605baefe1f34440593e0332ec8b4d/packaging-24.0.tar.gz"
+    sha256 "eb82c5e3e56209074766e6885bb04b8c38a0c015d0a30036ebe7ece34c9989e9"
   end
 
   resource "pyparsing" do
-    url "https://files.pythonhosted.org/packages/4f/13/28e88033cab976721512e7741000fb0635fa078045e530a91abb25aea0c0/pyparsing-3.1.0.tar.gz"
-    sha256 "edb662d6fe322d6e990b1594b5feaeadf806803359e3d4d42f11e295e588f0ea"
+    url "https://files.pythonhosted.org/packages/46/3a/31fd28064d016a2182584d579e033ec95b809d8e220e74c4af6f0f2e8842/pyparsing-3.1.2.tar.gz"
+    sha256 "a1bac0ce561155ecc3ed78ca94d3c9378656ad4c94c1270de543f621420f94ad"
   end
 
   resource "python-dateutil" do
-    url "https://files.pythonhosted.org/packages/4c/c4/13b4776ea2d76c115c1d1b84579f3764ee6d57204f6be27119f13a61d0a9/python-dateutil-2.8.2.tar.gz"
-    sha256 "0123cacc1627ae19ddf3c27a5de5bd67ee4586fbdd6440d9748f8abb483d3e86"
+    url "https://files.pythonhosted.org/packages/66/c0/0c8b6ad9f17a802ee498c46e004a0eb49bc148f2fd230864601a86dcf6db/python-dateutil-2.9.0.post0.tar.gz"
+    sha256 "37dd54208da7e1cd875388217d5e00ebd4179249f90fb72437e91a35459a0ad3"
+  end
+
+  resource "setuptools" do
+    url "https://files.pythonhosted.org/packages/d6/4f/b10f707e14ef7de524fe1f8988a294fb262a29c9b5b12275c7e188864aed/setuptools-69.5.1.tar.gz"
+    sha256 "6c1fccdac05a97e598fb0ae3bbed5904ccb317337a51139dcd51453611bbb987"
+  end
+
+  resource "six" do
+    url "https://files.pythonhosted.org/packages/71/39/171f1c67cd00715f190ba0b100d606d440a28c93c7714febeca8b79af85e/six-1.16.0.tar.gz"
+    sha256 "1e61c37477a1626458e36f7b1d82aa5c9b094fa4802892072e49de9c60c4c926"
   end
 
   resource "zstandard" do
-    url "https://files.pythonhosted.org/packages/4d/70/1f883646641d7ad3944181549949d146fa19e286e892bc013f7ce1579e8f/zstandard-0.21.0.tar.gz"
-    sha256 "f08e3a10d01a247877e4cb61a82a319ea746c356a3786558bed2481e6c405546"
+    url "https://files.pythonhosted.org/packages/5d/91/2162ab4239b3bd6743e8e407bc2442fca0d326e2d77b3f4a88d90ad5a1fa/zstandard-0.22.0.tar.gz"
+    sha256 "8226a33c542bcb54cd6bd0a366067b610b41713b64c9abec1bc4533d69f51e70"
   end
-
-  # fix boost 1.83 compatibility, remove in next release
-  patch do
-    url "https://git.skewed.de/count0/graph-tool/-/commit/0a837b40538df619f43706d50efe0c7afde755a9.patch"
-    sha256 "db2a1014c98812bb7121ff69527ce8407bf5a0351241116a160bc1c826d6d514"
-  end
-
-  # https://git.skewed.de/count0/graph-tool/-/wikis/Installation-instructions#manual-compilation
-
-  # Resources are for Python `matplotlib` and `zstandard` packages
 
   def python3
-    "python3.11"
+    "python3.12"
   end
 
   def install
-    # Linux build is not thread-safe.
-    ENV.deparallelize unless OS.mac?
+    # https://github.com/matplotlib/matplotlib/blob/v3.8.3/doc/users/installing/dependencies.rst
+    ENV["MPLSETUPCFG"] = buildpath/"mplsetup.cfg"
+    (buildpath/"mplsetup.cfg").write <<~EOS
+      [libs]
+      system_freetype = true
+      system_qhull = true
+    EOS
 
-    system "autoreconf", "--force", "--install", "--verbose"
     site_packages = Language::Python.site_packages(python3)
     xy = Language::Python.major_minor_version(python3)
     venv = virtualenv_create(libexec, python3)
-    venv.pip_install resources
-
-    %w[fonttools].each do |package_name|
-      package = Formula[package_name].opt_libexec
-      (libexec/site_packages/"homebrew-#{package_name}.pth").write package/site_packages
+    venv.pip_install resources.reject { |r| r.name == "zstandard" }
+    resource("zstandard").stage do
+      system_zstd_arg = "--config-settings=--build-option=--system-zstd"
+      system venv.root/"bin/python3", "-m", "pip", "install", system_zstd_arg, *std_pip_args, "."
     end
 
+    # Linux build is not thread-safe.
+    ENV.deparallelize unless OS.mac?
+
     args = %W[
-      PYTHON=#{python3}
+      PYTHON=#{venv.root}/bin/python
       --with-python-module-path=#{prefix/site_packages}
       --with-boost-python=boost_python#{xy.to_s.delete(".")}-mt
       --with-boost-libdir=#{Formula["boost"].opt_lib}
       --with-boost-coroutine=boost_coroutine-mt
+      --disable-silent-rules
     ]
-    args << "--with-expat=#{MacOS.sdk_path}/usr" if MacOS.sdk_path_if_needed
     args << "PYTHON_LIBS=-undefined dynamic_lookup" if OS.mac?
 
-    system "./configure", *std_configure_args, *args
+    system "./configure", *args, *std_configure_args
     system "make", "install"
+  end
 
-    pth_contents = "import site; site.addsitedir('#{libexec/site_packages}')\n"
-    (prefix/site_packages/"homebrew-graph-tool.pth").write pth_contents
+  def caveats
+    <<~EOS
+      Only the main library is linked to avoid contaminating the shared site-packages.
+      Graph drawing and other features that require extra Python packages may be used
+      by adding the following formula-specific site-packages to your PYTHONPATH:
+        #{opt_libexec/Language::Python.site_packages(python3)}
+    EOS
   end
 
   test do
@@ -150,21 +161,8 @@ class GraphTool < Formula
       assert g.num_edges() == 1
       assert g.num_vertices() == 2
     EOS
-    system python3, "test.py"
+    assert_match "Graph drawing will not work", shell_output("#{python3} test.py 2>&1")
+    ENV["PYTHONPATH"] = libexec/Language::Python.site_packages(python3)
+    refute_match "Graph drawing will not work", shell_output("#{python3} test.py 2>&1")
   end
 end
-
-__END__
-diff --git a/pyproject.toml b/pyproject.toml
-index 907b05a..81e3d80 100644
---- a/pyproject.toml
-+++ b/pyproject.toml
-@@ -2,7 +2,7 @@
- build-backend = "setuptools.build_meta"
- requires = [
-     "certifi>=2020.06.20",
--    "oldest-supported-numpy",
-+    "numpy",
-     "pybind11>=2.6",
-     "setuptools_scm>=7",
- ]

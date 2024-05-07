@@ -1,21 +1,19 @@
 class Neovide < Formula
   desc "No Nonsense Neovim Client in Rust"
   homepage "https://github.com/neovide/neovide"
-  url "https://github.com/neovide/neovide/archive/refs/tags/0.11.2.tar.gz"
-  sha256 "5b8da55e4910e2f4d6723e893d8b15de4c9d5b90023ab6717b52d6bc59c2563b"
+  url "https://github.com/neovide/neovide/archive/refs/tags/0.12.2.tar.gz"
+  sha256 "5425c60454388651fd79757bde7c4d7499cdc49b375f7697b48d8366d45d08e4"
   license "MIT"
   head "https://github.com/neovide/neovide.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "93c9407f6389c99c51d09b3d9c8ed562fc5c728a57f07973fae17f976068a848"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "8ff9d9d484d69488d142f9fd2cca27c36e682fed70296198c01c59c22b5723f0"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "3320e8ff1bfe32f6e6991e2f085579556cc8dafba8e29d3051961fed4083f081"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "f03861852523ce88a982024633c498b5cb0203a3d59c6717d4e97ccc310c6dc6"
-    sha256 cellar: :any_skip_relocation, sonoma:         "0b0c65cb5e42da2aa6ba975034a2602b899aa30a4dbbf7a88a28fbae044fc028"
-    sha256 cellar: :any_skip_relocation, ventura:        "55d3db2859c13550818835684d71058ce696f63c53620cb6808d463b123029e4"
-    sha256 cellar: :any_skip_relocation, monterey:       "8fb81e056f2f6ff8c2fb89802144db4dfc00b56997140312af882dd0f35c7469"
-    sha256 cellar: :any_skip_relocation, big_sur:        "94d03d2fea3210515f39bf4e8df046d58fbcfe0f60752f057b49fc6b6d0a4dc5"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "0109a12dc2265b0b956f420271b484328770a6438d0d614e4a7522c9c3f18fb9"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "d490783c10a471b4cfa2cafa121be6d721b10aa2f16c1c943a8827aa496ef138"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "d9684319e29ea26414935c1d520bd36b302eaadf07ec6757dae200d8e1576765"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "311516b633572577408770531ff0dc14f0082ca0c038f516cb1bb282a91096e2"
+    sha256 cellar: :any_skip_relocation, sonoma:         "d7eed5e2e284b72450c963feb7192363b48da5a37b9884c7a2046d7ab3845de0"
+    sha256 cellar: :any_skip_relocation, ventura:        "6cab1267913f46243b4e62aed5e6b71dba788fdb111a8a3b7f8d05075f8bd83e"
+    sha256 cellar: :any_skip_relocation, monterey:       "f0108e38943d7fe7e85514fddea99c321efbbcc1b609bc328c162381ddfab483"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "c200cfe463ba8b2625e583b311e658562f2ba93bbe025c1967e4f521dac0ff13"
   end
 
   depends_on "rust" => :build
@@ -45,8 +43,6 @@ class Neovide < Formula
   end
 
   test do
-    assert_match version.to_s, shell_output("#{bin}/neovide --version")
-
     test_server = "localhost:#{free_port}"
     nvim_cmd = ["nvim", "--headless", "--listen", test_server]
     ohai nvim_cmd.join(" ")
@@ -54,7 +50,7 @@ class Neovide < Formula
 
     sleep 10
 
-    neovide_cmd = [bin/"neovide", "--nofork", "--remote-tcp=#{test_server}"]
+    neovide_cmd = [bin/"neovide", "--no-fork", "--remote-tcp=#{test_server}"]
     ohai neovide_cmd.join(" ")
     neovide_pid = spawn(*neovide_cmd)
 

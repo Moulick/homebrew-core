@@ -1,9 +1,8 @@
 class Ooniprobe < Formula
   desc "Network interference detection tool"
   homepage "https://ooni.org/"
-  # TODO: check if we can build with go1.21
-  url "https://github.com/ooni/probe-cli/archive/refs/tags/v3.19.0.tar.gz"
-  sha256 "9ec38edb7bb4254e16a58f184ddceafc4a0ede060e08f6741ab02d1e7d6820a2"
+  url "https://github.com/ooni/probe-cli/archive/refs/tags/v3.21.1.tar.gz"
+  sha256 "30aeb00da6b2d1217cea3409c7f47b60765a6b1df96aa59474649a54c6d3edf6"
   license "GPL-3.0-or-later"
 
   livecheck do
@@ -12,15 +11,16 @@ class Ooniprobe < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "a4995f93bb678d34dd7f348ea1ff5633db41e5964d62830dc4512be145e8057c"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "62b9b9595774096e75061b8ce9bf058c0e56d8a3a5b33b1ed74a01fe9c16f582"
-    sha256 cellar: :any_skip_relocation, ventura:        "f717726bff1eb2824ca9b97e53114c371eab96dac46d1ced7d9cf87d2c852b87"
-    sha256 cellar: :any_skip_relocation, monterey:       "1c11c5e783a47c1698f5f45ec164d93d9d1eea0eff983cc7941767531e027c7c"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "2a6e054572e1399860103cad22cc42089b0e1d1bd9de682bee25fe7eda031109"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "422530e5ec4e21a31537702e93aa60ffbf822fbb4ec8ab8cb5eb15f602891ab8"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "4d5b652dba0ad79d8190b1d84b1f60ebb65980267f5bef3b386f435a905bc870"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "961a58e6bd5830c505240be4fba4e843902442985759f0a73d24e0f5f91c48e4"
+    sha256 cellar: :any_skip_relocation, sonoma:         "cb1c39f8f79246714a9c7ccea31581f621302364c4f6f07d09a52f519ad12643"
+    sha256 cellar: :any_skip_relocation, ventura:        "a7c352390a7b065d12646d51ec3737d84776eae655f5ce88f27c024c321275bd"
+    sha256 cellar: :any_skip_relocation, monterey:       "5377a44c8266d1f90f11db5ece9307b858828c9653adde753b8740b45500f356"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "1c19d5c35adad5fbe569a967df40dc9ef4185ce65cd35e5bdb7e2338f0ca9cdb"
   end
 
-  # go1.21 build issue report, https://github.com/ooni/probe/issues/2585
-  depends_on "go@1.20" => :build
+  depends_on "go" => :build
   depends_on "tor"
 
   def install
@@ -37,7 +37,9 @@ class Ooniprobe < Formula
     (testpath/"config.json").write <<~EOS
       {
         "_version": 3,
-        "_informed_consent": true,
+        "_informed_consent": false,
+        "_is_beta": false,
+        "auto_update": false,
         "sharing": {
           "include_ip": false,
           "include_asn": true,
@@ -48,8 +50,8 @@ class Ooniprobe < Formula
           "websites_enabled_category_codes": []
         },
         "advanced": {
-          "send_crash_reports": true,
-          "collect_usage_stats": true
+          "send_crash_reports": false,
+          "collect_usage_stats": false
         }
       }
     EOS

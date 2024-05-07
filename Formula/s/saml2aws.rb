@@ -2,25 +2,25 @@ class Saml2aws < Formula
   desc "Login and retrieve AWS temporary credentials using a SAML IDP"
   homepage "https://github.com/Versent/saml2aws"
   url "https://github.com/Versent/saml2aws.git",
-      tag:      "v2.36.12",
-      revision: "d088a19d30434f8fa0a403d0b179103309d14e82"
+      tag:      "v2.36.15",
+      revision: "8988caca5e3f597028ddaaccdb8ff71a92fe9bc4"
   license "MIT"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "c560f03160573bdeb50ef15c4c30001526d2a476ce91c1880c4b4f7bd08f6ef2"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "1a335ff14a2d470f01e54a5b855292af0d33a0ade1650691a86187a27922bbdf"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "36b42fb2ea93d17ecd7ba148897019f26946f3e36ac18cc575760340572c8f1a"
-    sha256 cellar: :any_skip_relocation, sonoma:         "f147444bfee2eb649d3ee756a8323628d1fdd84dfdbc71c26e3ba13391050f4e"
-    sha256 cellar: :any_skip_relocation, ventura:        "ddc83d3b60328fe6dbf1b8e3e25f7e7771762a4766c10649a056865c173a98f4"
-    sha256 cellar: :any_skip_relocation, monterey:       "ef9c6fefe13ef528aea06672134b480262c2a9a6181c7ad815284345ca8fc0f5"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "baa43bd6b55a457d70fe76611d148e96b4af268dceddbec18a32c89059a4ce96"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "24ede64b83fa4823a974123478a8df54c064bd8e43ba4a31107d754aefe632dd"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "e0e3a1b04a820a68584674c05049aef756f4ad42ea7fffd1d20938f62bc3fe8c"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "a5e161d3bdf2b4d405ede6947d14c8fd7578815ec131509f524345b1afd62eee"
+    sha256 cellar: :any_skip_relocation, sonoma:         "8dc1a3e9b5bf3363df3e03ba8b116c81c1c46cf4210e35b3724bdae92b641a62"
+    sha256 cellar: :any_skip_relocation, ventura:        "0372ae26e5d7571a3866a689eaa211b3a1ce68c3333dcb8c199b44dc74391b6f"
+    sha256 cellar: :any_skip_relocation, monterey:       "9bbc901956babe5f2c0838ad1f38eb3769dc804693a5ecc1d877321492b87e49"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "36eee967c5028cf5776558abcd17cdd9f33df1e1436cdabf5f96a3430939538b"
   end
 
   depends_on "go" => :build
 
   def install
     ldflags = "-s -w -X main.Version=#{version}"
-    system "go", "build", *std_go_args(ldflags: ldflags), "./cmd/saml2aws"
+    system "go", "build", *std_go_args(ldflags:), "./cmd/saml2aws"
     (zsh_completion/"_saml2aws").write <<~EOS
       #compdef saml2aws
 

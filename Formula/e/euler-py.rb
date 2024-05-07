@@ -10,21 +10,26 @@ class EulerPy < Formula
   head "https://github.com/iKevinY/EulerPy.git", branch: "master"
 
   bottle do
-    rebuild 2
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "03e91b3a2d807680b8b6ea95a4c0bfb0e4a2a2216c11d6bb8634e63dfaeb3122"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "72ce6df1e039ba85021f4dda879163bfcfa58c2f1e56f7b53aae229536eb308a"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "6b20ae7a1e2689ba118d631709173d902d2c9d54bdb9e378ff3680e18f7e48ac"
-    sha256 cellar: :any_skip_relocation, sonoma:         "5829b4ea6f41c0105fa3f72d1cb9723b39e6d4bd4d8fc08aad28fb78960a4ca2"
-    sha256 cellar: :any_skip_relocation, ventura:        "d0c60d886dbaa9d5c38ba0b29118120c2b4e08e596178d727c2b2bfe4b83deb6"
-    sha256 cellar: :any_skip_relocation, monterey:       "47a6c6476ba8ac0777cb35fca74f51521a2f6668a6ab7ff057b15c99b344a790"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "9ef6eb10c8e5225fda9b692d78202f1be8e5d0a1afc678a4bbc69e566360e34c"
+    rebuild 4
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "adf91adfb085418d610cfa665aa90519f4c86f5dcf747688fd7bf914288e4c9d"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "5388db31e25c21e3f546cdac838fcd36dbe658108d1e4e935dc4fb357db5cc00"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "b8f9ed0803d146828690d8a1ec64e89284f53502a7039609ef4aff7ef58ea460"
+    sha256 cellar: :any_skip_relocation, sonoma:         "78f7050a20167ca41518e78ef644935640d9f0843005a57ae967a340dd0acb61"
+    sha256 cellar: :any_skip_relocation, ventura:        "fe998cb35bc72589040156208cb34a87c3da92a4a511a4715e80c2d18f0a6466"
+    sha256 cellar: :any_skip_relocation, monterey:       "866be747b52ec9dd4639fbf8f876691d2e9ebd47fe837146869dc127d8b7cdbf"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "a279b7c32fe9e5ebf6a59066d85b36379d5c28434411c62a66f5532ae65beae8"
   end
 
   depends_on "python@3.12"
 
   resource "click" do
-    url "https://files.pythonhosted.org/packages/7b/61/80731d6bbf0dd05fe2fe9bac02cd7c5e3306f5ee19a9e6b9102b5784cf8c/click-4.0.tar.gz"
-    sha256 "f49e03611f5f2557788ceeb80710b1c67110f97c5e6740b97edf70245eea2409"
+    url "https://files.pythonhosted.org/packages/96/d3/f04c7bfcf5c1862a2a5b845c6b2b360488cf47af55dfa79c98f6a6bf98b5/click-8.1.7.tar.gz"
+    sha256 "ca9853ad459e787e2192211578cc907e7594e294c7ccc834310722b41b9ca6de"
+  end
+
+  resource "setuptools" do
+    url "https://files.pythonhosted.org/packages/c9/3d/74c56f1c9efd7353807f8f5fa22adccdba99dc72f34311c30a69627a0fad/setuptools-69.1.0.tar.gz"
+    sha256 "850894c4195f09c4ed30dba56213bf7c3f21d86ed6bdaafb5df5972593bfc401"
   end
 
   def install

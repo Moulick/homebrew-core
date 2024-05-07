@@ -1,9 +1,9 @@
 class X8664ElfGdb < Formula
   desc "GNU debugger for x86_64-elf cross development"
   homepage "https://www.gnu.org/software/gdb/"
-  url "https://ftp.gnu.org/gnu/gdb/gdb-13.2.tar.xz"
-  mirror "https://ftpmirror.gnu.org/gdb/gdb-13.2.tar.xz"
-  sha256 "fd5bebb7be1833abdb6e023c2f498a354498281df9d05523d8915babeb893f0a"
+  url "https://ftp.gnu.org/gnu/gdb/gdb-14.2.tar.xz"
+  mirror "https://ftpmirror.gnu.org/gdb/gdb-14.2.tar.xz"
+  sha256 "2d4dd8061d8ded12b6c63f55e45344881e8226105f4d2a9b234040efa5ce7772"
   license "GPL-3.0-or-later"
   head "https://sourceware.org/git/binutils-gdb.git", branch: "master"
 
@@ -12,20 +12,19 @@ class X8664ElfGdb < Formula
   end
 
   bottle do
-    sha256 arm64_sonoma:   "4227411b58b1e8666b6d40f3a4038e6510bec8952a87622fa305c09f047cc947"
-    sha256 arm64_ventura:  "74783daea09fab45ae35fc8ed84bd420f5ab4df32e5c62735cfee6aba6ab1a03"
-    sha256 arm64_monterey: "a42b96e60233f1888d4119495302b61902980be6eed65c34ecc37a0758fb3237"
-    sha256 arm64_big_sur:  "84a030000431eca152bbc60293d1fbb798414320c4413aa5f02b13ed15eda066"
-    sha256 sonoma:         "62431339f6b4c3aeb43194ae0d8155378746535f1364bc960c9e27ff6c5a1646"
-    sha256 ventura:        "8195f23e309b24fca0cd37e1a29898f61e091974d0b4d227fe801b95dc6e80e3"
-    sha256 monterey:       "6ce8a320bf2f0dab75b416ed7e20122011ad325a9e5bfe8b6c3148f4b8b6c544"
-    sha256 big_sur:        "899e00bc69021647678f209791472971ae51fcadf09ffa093838a552a6eadc36"
-    sha256 x86_64_linux:   "dcd787b5cb4da93114c81413acb6d6c50d92d10a844de1d314c856e85abe0980"
+    sha256 arm64_sonoma:   "65a80736adebfd37c8a295f8002d4f9e70da5d765d13cffd328632702683346a"
+    sha256 arm64_ventura:  "2cbae118e4a1249aaa316657e42d484eed29da52dd631aac6fde1c979b53b0d8"
+    sha256 arm64_monterey: "bc4ae34e3548fa909c1fbad2bf641d6fe3cf9071e4fe45cb91539919d29c99cc"
+    sha256 sonoma:         "b0a03d97c2c8b50699ccac7e0643f5cc754e3dc0ea872efe76c3380ba211b0cd"
+    sha256 ventura:        "868a9152559d068f26b97f577903729ad3e79c73ec56231b3104f5c8fecf9a0e"
+    sha256 monterey:       "b151f15a335539b1f58e6bf4612dcfafb2bb247bc5982e6774d9cb33d3af708c"
+    sha256 x86_64_linux:   "7337e8053ddf2ab47551f2146209fcbceda3890a6f0a7f4bfb78f74a9bfd269b"
   end
 
   depends_on "x86_64-elf-gcc" => :test
   depends_on "gmp"
-  depends_on "python@3.11"
+  depends_on "mpfr"
+  depends_on "python@3.12"
   depends_on "xz" # required for lzma support
 
   uses_from_macos "zlib"
@@ -38,21 +37,18 @@ class X8664ElfGdb < Formula
     target = "x86_64-elf"
     args = %W[
       --target=#{target}
-      --prefix=#{prefix}
       --datarootdir=#{share}/#{target}
       --includedir=#{include}/#{target}
       --infodir=#{info}/#{target}
       --mandir=#{man}
-      --disable-debug
-      --disable-dependency-tracking
       --with-lzma
-      --with-python=#{Formula["python@3.11"].opt_bin}/python3.11
+      --with-python=#{which("python3.12")}
       --with-system-zlib
       --disable-binutils
     ]
 
     mkdir "build" do
-      system "../configure", *args
+      system "../configure", *args, *std_configure_args
       ENV.deparallelize # Error: common/version.c-stamp.tmp: No such file or directory
       system "make"
 

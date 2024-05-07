@@ -6,7 +6,7 @@ class Wownero < Formula
       tag:      "v0.11.1.0",
       revision: "1b8475003c065b0387f21323dad8a03b131ae7d1"
   license "BSD-3-Clause"
-  revision 1
+  revision 4
 
   # The `strategy` code below can be removed if/when this software exceeds
   # version 10.0.0. Until then, it's used to omit a malformed tag that would
@@ -25,13 +25,13 @@ class Wownero < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_sonoma:   "50fc0954f040e8211f7e6d49d20adc99d5f49b58ef68c92d4c9ffd2ec6d6da93"
-    sha256 cellar: :any,                 arm64_ventura:  "d869702d01199df642d636f23582f42cb911f884a351304af455e2af0ee68765"
-    sha256 cellar: :any,                 arm64_monterey: "a5db5e05bb7075b437aa2eac47468fc5737b9764f4937d3f4b080cbe14da7557"
-    sha256 cellar: :any,                 sonoma:         "1163887e1cc4ed1bb20a77c3fae327333d53aa5f40bcccd320cb18c9f3fac41d"
-    sha256 cellar: :any,                 ventura:        "08a35b3578d565c876f8cd681b822d46c02c95ee53c78d6727357a1c6eca09ad"
-    sha256 cellar: :any,                 monterey:       "f3fac7f2aa73fa0762610b3cfbd6d956f58fa2df74dec20b391178ad1aa72736"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "43c7eb13bf159db6061aa2230b36bf74415b6e65ece15dd5a01651c96c0fcf81"
+    sha256 cellar: :any,                 arm64_sonoma:   "66aee0c27f86ecb1b0e3caaf93ae25ee27da25b6df902abad0184cc0aec2a183"
+    sha256 cellar: :any,                 arm64_ventura:  "e7463d258b3e5fb8e8f727a826e3c5e0d3b31333a4c47af297a9156ad5cd0420"
+    sha256 cellar: :any,                 arm64_monterey: "adeaa5de1a95f628dac6a7e0c297156fdb682a1c88506d497836cf6bebf0210d"
+    sha256 cellar: :any,                 sonoma:         "88ab320c55493c28d1f555a53bdd812b271de7a1c7b49718bfeddd8958f29970"
+    sha256 cellar: :any,                 ventura:        "8df745706752ed9c52d12d55901cfeb99392c1e35ec814bfa3300966474f4a16"
+    sha256 cellar: :any,                 monterey:       "ebff9bdbe435cabcfd404dde72bd1d6f2b462c81fd358601034125a665e474d1"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "309674cbecc3d3b542d345f5501716da422b7cfb40ac4d6cb93c5129942f8193"
   end
 
   depends_on "cmake" => :build
@@ -50,6 +50,19 @@ class Wownero < Formula
   conflicts_with "monero", because: "both install a wallet2_api.h header"
 
   def install
+    # Work around build error with Boost 1.85.0.
+    # Reported to `monero` where issue needs to be fixed as `wownero` is a fork.
+    # Issue ref: https://github.com/monero-project/monero/issues/9304
+    ENV.append "CXXFLAGS", "-include boost/numeric/conversion/bounds.hpp"
+    copy_option_files = %w[
+      src/common/boost_serialization_helper.h
+      src/p2p/net_peerlist.cpp
+      src/wallet/wallet2.cpp
+    ]
+    inreplace copy_option_files, "boost::filesystem::copy_option::overwrite_if_exists",
+                                 "boost::filesystem::copy_options::overwrite_existing"
+    inreplace "src/simplewallet/simplewallet.cpp", "boost::filesystem::complete(", "boost::filesystem::absolute("
+
     # Need to help CMake find `readline` when not using /usr/local prefix
     args = %W[-DReadline_ROOT_DIR=#{Formula["readline"].opt_prefix}]
 

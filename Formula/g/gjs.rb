@@ -1,22 +1,17 @@
 class Gjs < Formula
   desc "JavaScript Bindings for GNOME"
   homepage "https://gitlab.gnome.org/GNOME/gjs/wikis/Home"
-  url "https://download.gnome.org/sources/gjs/1.72/gjs-1.72.2.tar.xz"
-  sha256 "ddee379bdc5a7d303a5d894be2b281beb8ac54508604e7d3f20781a869da3977"
+  url "https://download.gnome.org/sources/gjs/1.80/gjs-1.80.2.tar.xz"
+  sha256 "135e39c5ac591096233e557cfe577d64093f5054411d47cb2e214bad7d4199bd"
   license all_of: ["LGPL-2.0-or-later", "MIT"]
-  revision 1
   head "https://gitlab.gnome.org/GNOME/gjs.git", branch: "master"
 
   bottle do
-    rebuild 1
-    sha256 arm64_ventura:  "5f60562a5307f0696c5e73e38794d7ad80099777d5d958c56a71ab411a224661"
-    sha256 arm64_monterey: "100f273efb5cd89144a4305a1275ac99c7b1026a25e1f65dfcaccdc02cc8a916"
-    sha256 arm64_big_sur:  "d23cd7df4f1bf1b60daf47cba34b9bcc588b6d3a282a686b081bad88c8520759"
-    sha256 ventura:        "c506eaf1f420f4d72397d478c37f1bc786f798e7a511fc748d841ae9f8a2b6ff"
-    sha256 monterey:       "83614a258ebcf824b37dc920f0b99e4cc13064e95fdad0d6e1df84b89bfd5c7a"
-    sha256 big_sur:        "cb47ddff58ba48e4acc754b14a5a0be1d29e0c3c08f9fd619a661171f6739d67"
-    sha256 catalina:       "27c87327610b1b83005d1df7688acabc2dab19a3089c89686602cfab384f0d02"
-    sha256 x86_64_linux:   "877208d1996b9531e7cb347e3dab91769bf76b20b9d8b4ecaf6adf833a95718a"
+    sha256 arm64_sonoma:  "b6c056e8b3636d052764830169090b6d22ec1ad956d214fb614149c9b6dfe27f"
+    sha256 arm64_ventura: "1a6f27e55fb9e52a95965657f56448d50d4d16b818ae2251f443f19773f318ae"
+    sha256 sonoma:        "051a70886e726d034610ea33aa4e2947661824c49e165a3fa794fd6f980c1b63"
+    sha256 ventura:       "92d8f1a82b6ed5933fb68ccec2bbf7ec325ed6858a598c6ac497f34421d105e4"
+    sha256 x86_64_linux:  "db86e13bd209eeb4cfe0002ad93854fa157f2901360ba31778a77f99f32c52f3"
   end
 
   depends_on "meson" => :build
@@ -31,7 +26,7 @@ class Gjs < Formula
     # ensure that we don't run the meson post install script
     ENV["DESTDIR"] = "/"
 
-    args = std_meson_args + %w[
+    args = %w[
       -Dprofiler=disabled
       -Dreadline=enabled
       -Dinstalled_tests=false
@@ -40,11 +35,9 @@ class Gjs < Formula
       -Dskip_gtk_tests=true
     ]
 
-    mkdir "build" do
-      system "meson", *args, ".."
-      system "ninja", "-v"
-      system "ninja", "install", "-v"
-    end
+    system "meson", "setup", "build", *args, *std_meson_args
+    system "meson", "compile", "-C", "build", "--verbose"
+    system "meson", "install", "-C", "build"
   end
 
   def post_install
@@ -58,6 +51,6 @@ class Gjs < Formula
       if (31 != GLib.Date.get_days_in_month(GLib.DateMonth.JANUARY, 2000))
         imports.system.exit(1)
     EOS
-    system "#{bin}/gjs", "test.js"
+    system bin/"gjs", "test.js"
   end
 end

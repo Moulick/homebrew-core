@@ -1,27 +1,23 @@
 class Nng < Formula
   desc "Nanomsg-next-generation -- light-weight brokerless messaging"
   homepage "https://nanomsg.github.io/nng/"
-  url "https://github.com/nanomsg/nng/archive/refs/tags/v1.5.2.tar.gz"
-  sha256 "f8b25ab86738864b1f2e3128e8badab581510fa8085ff5ca9bb980d317334c46"
+  url "https://github.com/nanomsg/nng/archive/refs/tags/v1.8.0.tar.gz"
+  sha256 "cfacfdfa35c1618a28bb940e71f774a513dcb91292999696b4346ad8bfb5baff"
   license "MIT"
 
   livecheck do
-    url "https://github.com/nanomsg/nng.git"
+    url :stable
     regex(/^v?(\d+(?:\.\d+)+)$/i)
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_sonoma:   "5f5623d16680f40d0fa7fddebf0aa4de4843278dd8f659f68cb151feb3432068"
-    sha256 cellar: :any,                 arm64_ventura:  "667a5f6b653b1883e9d1dff858db9c6bbc446d0057567e8f52e05d7b8e6584d8"
-    sha256 cellar: :any,                 arm64_monterey: "8a33b0d9fed3ae4df70c6c6c1bc0e6c86d5580aab8fd9d0c55b87a860c70f1a8"
-    sha256 cellar: :any,                 arm64_big_sur:  "65e87ec5195f73dd28ac038232cfd97f726e39d6420ee3eb8b09043fb6bbaf74"
-    sha256 cellar: :any,                 sonoma:         "174b0ba52bba081e1e42f561529896c21a15546006b72e864a9dcce483b917dd"
-    sha256 cellar: :any,                 ventura:        "bfcae8b1a13d2f4ecd40586835cfd027e8e113cc9fca50386bc3bdaa19a6904a"
-    sha256 cellar: :any,                 monterey:       "c2411011f0a91195cc46ac4e1c4dd064893bec79d0ac1aeb52bf979b5dabb90c"
-    sha256 cellar: :any,                 big_sur:        "4f8669a031bc81bcbee803c873ef1d97f2725d4a6fea722e5774b211edb7d6a5"
-    sha256 cellar: :any,                 catalina:       "268c52493195599b0ab12c36ed1c3473ec170b10cad96b8a0117d3fdb3b17b50"
-    sha256 cellar: :any,                 mojave:         "d2ef1609e6562912c88a0e8c5b9cb57058db7ef4f07d11b0ca881a114830d9a6"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "d94d20ba5021ba6f36508194a103c89398fdef130a57c79b1f1935d08db19c75"
+    sha256 cellar: :any,                 arm64_sonoma:   "1a0d36ec0f356b2f8dcad8279929bf3a9693ea731f23c9f2998c734bd53714f7"
+    sha256 cellar: :any,                 arm64_ventura:  "ea72c4d46fc91ac9a3282df0b3988a05236ef18d51034c085204995445738716"
+    sha256 cellar: :any,                 arm64_monterey: "0da1c62a33f0b3381b5dbfdf0c7fe3ba2768fa83a752efbf893de403f59e79e5"
+    sha256 cellar: :any,                 sonoma:         "c5e5dfc94870a1d80aed2d31cd8c62c9aef3d64e0cb8473aa3c62e1cb910a8a3"
+    sha256 cellar: :any,                 ventura:        "9f1b9ec26ca2d760a7289f38e90650c69ee3d743d76a2143cbf39dcb27782e62"
+    sha256 cellar: :any,                 monterey:       "18b5031f0cc0face0b37131740e4298d06e8a74ff03f39ff9eaa61ff88d63e8b"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "afed5c52f369d6671f85ff3347bdba72e671215031527ef87612257440027a1c"
   end
 
   depends_on "asciidoctor" => :build

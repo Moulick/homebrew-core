@@ -1,20 +1,19 @@
 class Hugo < Formula
   desc "Configurable static site generator"
   homepage "https://gohugo.io/"
-  url "https://github.com/gohugoio/hugo.git",
-      tag:      "v0.120.2",
-      revision: "9c2b2414d231ec1bdaf3e3a030bf148a45c7aa17"
+  url "https://github.com/gohugoio/hugo/archive/refs/tags/v0.125.6.tar.gz"
+  sha256 "c50df060b9c760fc12c503a9ca53ca1daa428766715ae9dda74d6ee1f53bd0e4"
   license "Apache-2.0"
   head "https://github.com/gohugoio/hugo.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "a7ecebdf1f095dc99886bee3527f1e2dfa776f96a9dd98be950665e5902fd7e2"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "7f96b910d17079b12e209ebed6140426d87a86cf19f5fac08c95aac8abc42963"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "7ce0a898d8963a835b9a5535d50a5eaefe8e1a6f3d7fec5b1d5a44f3ef8ef1c8"
-    sha256 cellar: :any_skip_relocation, sonoma:         "195c39ba0824af1e6c69da1a8458c18a3b18e9ecd57b297cb05900304b501969"
-    sha256 cellar: :any_skip_relocation, ventura:        "2ac2426fac0ea1ca86013d2094f674f756ed236cad12dae940b8202097442d64"
-    sha256 cellar: :any_skip_relocation, monterey:       "1768ebc2653cd64f44d5427b0799519782126c618ea4d841bec3e6652dc64b97"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "4de8b706aa8c7f18ef4f5adb4854398c488565553892fcfe39146d407f8eee86"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "19ea37382476cf2d5a3e67121c1d27a4f68ca6f71313d5d4d800d6c6573e38a8"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "ef43cf5bfdc2b50a1fe548512f6d2556f9363b119cc631ea9ffc8d31fc4bab2d"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "36122c51bd20bd7adc540c75642770f18a06fa13b8bb1ab956324d2e8ab2b314"
+    sha256 cellar: :any_skip_relocation, sonoma:         "2b0fc1abd0221ba3f5acb1622a4ef9ac5890c8649ca64858e5b2879be0c84a40"
+    sha256 cellar: :any_skip_relocation, ventura:        "31224d8a3c0a7810a88d13630887213394f13431090c7a0d2ad089bc76b2b572"
+    sha256 cellar: :any_skip_relocation, monterey:       "e0596e3a3edefd8c776b3fb5865f024cc3ff12ea53724ff51cbb3dd952ee8005"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "8dcb2ce8bf9fd9696986fc2138225463cdc5b9b425421fae6b910373856d9ee7"
   end
 
   depends_on "go" => :build
@@ -22,11 +21,11 @@ class Hugo < Formula
   def install
     ldflags = %W[
       -s -w
-      -X github.com/gohugoio/hugo/common/hugo.commitHash=#{Utils.git_head}
+      -X github.com/gohugoio/hugo/common/hugo.commitHash=#{tap.user}
       -X github.com/gohugoio/hugo/common/hugo.buildDate=#{time.iso8601}
       -X github.com/gohugoio/hugo/common/hugo.vendorInfo=brew
     ]
-    system "go", "build", *std_go_args(ldflags: ldflags), "-tags", "extended"
+    system "go", "build", *std_go_args(ldflags:), "-tags", "extended"
 
     generate_completions_from_executable(bin/"hugo", "completion")
     system bin/"hugo", "gen", "man", "--dir", man1

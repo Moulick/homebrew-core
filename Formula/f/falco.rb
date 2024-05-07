@@ -1,26 +1,26 @@
 class Falco < Formula
   desc "VCL parser and linter optimized for Fastly"
   homepage "https://github.com/ysugimoto/falco"
-  url "https://github.com/ysugimoto/falco/archive/refs/tags/v1.1.0.tar.gz"
-  sha256 "7fd4507f1be53e6af84492d205eb976bc1ff6ef66a1fa27ff856a7fd4449edaf"
+  url "https://github.com/ysugimoto/falco/archive/refs/tags/v1.6.0.tar.gz"
+  sha256 "d4d66edb409bb54b9e4caf491ac7b95595e2a224552b56ddd193d866637f11e0"
   license "MIT"
   head "https://github.com/ysugimoto/falco.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "2ad284f9f1700f84f67979d0775d0a48f8e3a8fb4dbcc7ccaa4489c3aa1016c9"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "68c06462735b29dc46d536b8a48fe486004a0673b1650a83d31105ca13a5acf5"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "b4889c483ed90f92337f4b3681cb65d5f36122852ef65f250c4e1e860d138804"
-    sha256 cellar: :any_skip_relocation, sonoma:         "48ba5fe8a484bfc7ae727fe91ba06a3ef9bb6d13fddb6cad51201b6bda07f7f9"
-    sha256 cellar: :any_skip_relocation, ventura:        "4b0616300c0b963cfb27ad4ad05d64b5e78888296bb9a9c63d74b96a869b4d73"
-    sha256 cellar: :any_skip_relocation, monterey:       "d61528258f5709e461a7624fb0631d6aac799963349cfe081d311dafce7511e7"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "0cea0044d390dd2c3520ae2ee9f8f6e43edeee651ed50b2d9472ac654997cc7f"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "2aa53a836f9c8e2f42853e6b82c3edad6c4c10635867ecdb9d64ba1686674f50"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "5ebc830e5b00dc728fe7600fc260308474595c6dad72f195c5156e782eac9b38"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "71804eb9603daf93dec4bfe0b1aa2bbc56402e3604fc1bb5d8b92305409b6adf"
+    sha256 cellar: :any_skip_relocation, sonoma:         "aa0d720e36396f8d8203d8804b3eff2b9ba83c62fae03104b3a42d1692a28bb6"
+    sha256 cellar: :any_skip_relocation, ventura:        "daaf71d83f2fff8ba959fad70f2b1f0c421051f9756fef9b132b7b9bad990140"
+    sha256 cellar: :any_skip_relocation, monterey:       "7ad9e13ef7bfe62a9485f850eb3b42cdf06b49945cfb402a75c9c7e53dde9c70"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "162c021fb645d9a16d69129c6650742f9a8ef8735a4e8d4fab4efb574dcc20d3"
   end
 
   depends_on "go" => :build
 
   def install
     ldflags = "-s -w -X main.version=#{version}"
-    system "go", "build", *std_go_args(ldflags: ldflags), "./cmd/falco"
+    system "go", "build", *std_go_args(ldflags:), "./cmd/falco"
   end
 
   test do

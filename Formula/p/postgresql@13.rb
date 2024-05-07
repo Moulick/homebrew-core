@@ -1,8 +1,8 @@
 class PostgresqlAT13 < Formula
   desc "Object-relational database system"
   homepage "https://www.postgresql.org/"
-  url "https://ftp.postgresql.org/pub/source/v13.12/postgresql-13.12.tar.bz2"
-  sha256 "0da1edcee3514b7bc7ba6dbaf0c00499e8ac1590668e8789c50253a6249f218b"
+  url "https://ftp.postgresql.org/pub/source/v13.14/postgresql-13.14.tar.bz2"
+  sha256 "b8df078551898960bd500dc5d38a177e9905376df81fe7f2b660a1407fa6a5ed"
   license "PostgreSQL"
   revision 1
 
@@ -12,13 +12,13 @@ class PostgresqlAT13 < Formula
   end
 
   bottle do
-    sha256 arm64_sonoma:   "1976cba70cd85cc31022dd0492aa7cba9d742c1ee8a954651ecb07a90961f0c5"
-    sha256 arm64_ventura:  "7060bef9334756a29db3cfcb1d73a8160dfef2a74920da706a6a48e3f393a6d6"
-    sha256 arm64_monterey: "3ec53aa9bd6e59a4f49aa80f90f3fc952d6c254be3ea9390325f8265c12ecc8a"
-    sha256 sonoma:         "2b59b0b9cb7b8b9093ebbd2e195a4aaf9b981efd82a1a81ce2b8ea774a804a7e"
-    sha256 ventura:        "83664e6f2ce1221feada0f9e4dc75ab69f6dc0e93140fde299e652ec4a843872"
-    sha256 monterey:       "5b9aaf13a0c598867f2abbb7e560ef9143770340ada75d505f2dc4a241e4c513"
-    sha256 x86_64_linux:   "f202c35d642d60bd6c5bcf1f735fc99525cf781847a304e34a4ae2125950461b"
+    sha256 arm64_sonoma:   "2ea0f1343cd5caad731f8450796e3d350f0715ff44cef3f1ecbde9acb5855f35"
+    sha256 arm64_ventura:  "f151fdf1c18c4d51579b25acc1cb0aa4dc519cb3ff9d4ca36556f2b5ff4411d0"
+    sha256 arm64_monterey: "2a3cd3093609ba243f10f61625507147b29e520d95ed7010b83f7b362d1a6dcc"
+    sha256 sonoma:         "e82688d137e862483db8be56c865d6196db8f35246256e941414b6d8b9fa4113"
+    sha256 ventura:        "f6e94da98e34b991cab6326130987f97bd975ca1ee8477322d1aec4c3c6feff2"
+    sha256 monterey:       "388f367ef88d0a8f8aef30cff912c8ceb8cbf7974dc4e7eb1286f95184983ac4"
+    sha256 x86_64_linux:   "00b6a10c994e4297301d99d2713d1290c6dab7ba13f4e349d0e911f7a944d991"
   end
 
   keg_only :versioned_formula
@@ -47,7 +47,7 @@ class PostgresqlAT13 < Formula
   end
 
   def install
-    ENV.delete "PKG_CONFIG_LIBDIR" if MacOS.version == :catalina
+    ENV.delete "PKG_CONFIG_LIBDIR" if OS.mac? && version == :catalina
     ENV.prepend "LDFLAGS", "-L#{Formula["openssl@3"].opt_lib} -L#{Formula["readline"].opt_lib}"
     ENV.prepend "CPPFLAGS", "-I#{Formula["openssl@3"].opt_include} -I#{Formula["readline"].opt_include}"
 
@@ -79,7 +79,7 @@ class PostgresqlAT13 < Formula
 
     # PostgreSQL by default uses xcodebuild internally to determine this,
     # which does not work on CLT-only installs.
-    args << "PG_SYSROOT=#{MacOS.sdk_path}" if MacOS.sdk_root_needed?
+    args << "PG_SYSROOT=#{MacOS.sdk_path}" if OS.mac? && MacOS.sdk_root_needed?
 
     system "./configure", *args
 

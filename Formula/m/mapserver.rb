@@ -4,7 +4,7 @@ class Mapserver < Formula
   url "https://download.osgeo.org/mapserver/mapserver-8.0.1.tar.gz"
   sha256 "79d23595ef95d61d3d728ae5e60850a3dbfbf58a46953b4fdc8e6e0ffe5748ba"
   license "MIT"
-  revision 2
+  revision 4
 
   livecheck do
     url "https://mapserver.org/download.html"
@@ -12,15 +12,13 @@ class Mapserver < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_sonoma:   "9797dfee0f047ed0c18b3b2d5bac1d64b61c65ea319d5512dedcb0177b11fa59"
-    sha256 cellar: :any,                 arm64_ventura:  "1ea0b64821453aa8431b3b8488663f08bedf2d216b66ee17cc784721b4110c5a"
-    sha256 cellar: :any,                 arm64_monterey: "a70983d3e45e9b7717624167cf7e6cc235447d26f6487e63ed2b8855470b542f"
-    sha256 cellar: :any,                 arm64_big_sur:  "b55b97d423a11764784be35ad6cfe9b3707f0f4f695713ca925a645c610a42cf"
-    sha256 cellar: :any,                 sonoma:         "880aa4ad4377d508113c863803550d0d0ae680c80f3cefa95d9ff4ca5c533409"
-    sha256 cellar: :any,                 ventura:        "7eb6a1821e4b21e717bf7d56e8097ac1922122aa43d28523975f92662c16a94b"
-    sha256 cellar: :any,                 monterey:       "d206a228175d305685bc2c99d2312018ef89768f3836d84620ac048046b002c3"
-    sha256 cellar: :any,                 big_sur:        "a15e31ce5029b7366adc1cf0d8745a272a990098e0da70e178f6a97930321b02"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "159647fd054a0ce79750c9ba873ebc4f61c79d16310dd945d3aa0c696a53b66b"
+    sha256 cellar: :any,                 arm64_sonoma:   "252b429d4ee0456cdfe56cf9b4601262f10798f3572f2e6e9132de28d2b1b7e6"
+    sha256 cellar: :any,                 arm64_ventura:  "1e0ba7954886813fe47c42d78910fa8fa94909cdda5ed0048dd1824e2bdf35f9"
+    sha256 cellar: :any,                 arm64_monterey: "9c550c439d4532ea7ac74f1fd37816a7366244d660ee76cae7d5538669987910"
+    sha256 cellar: :any,                 sonoma:         "0fded9d4327ead0a44b58936f89cf500e26f19f5704b5f278044ed16ecb72195"
+    sha256 cellar: :any,                 ventura:        "66d4d92504b87465133acfda0014cdd8fdbb2278c6302d8f24862c7cce465a2b"
+    sha256 cellar: :any,                 monterey:       "beb66d71d4014779bc75fdd3587f84e08cbab1048101378d9156790f09739173"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "0238f8c273ab240b67e00228d9c4b333ab936f1b55deea7414aa9c78da18f87d"
   end
 
   depends_on "cmake" => :build
@@ -37,19 +35,44 @@ class Mapserver < Formula
   depends_on "libpq"
   depends_on "proj"
   depends_on "protobuf-c"
-  depends_on "python@3.11"
+  depends_on "python@3.12"
 
   uses_from_macos "curl"
 
   fails_with gcc: "5"
 
+  # Backport fix for libxml2 2.12.
+  # Ref: https://github.com/MapServer/MapServer/commit/2cea5a12a35b396800296cb1c3ea08eb00b29760
+  patch :DATA
+
   def python3
-    "python3.11"
+    "python3.12"
   end
 
   def install
-    # Install within our sandbox
-    inreplace "mapscript/python/CMakeLists.txt", "${Python_LIBRARIES}", "-Wl,-undefined,dynamic_lookup" if OS.mac?
+    # Work around an Xcode 15 linker issue which causes linkage against LLVM's
+    # libunwind due to it being present in a library search path.
+    if DevelopmentTools.clang_build_version >= 1500
+      recursive_dependencies
+        .select { |d| d.name.match?(/^llvm(@\d+)?$/) }
+        .map { |llvm_dep| llvm_dep.to_formula.opt_lib }
+        .each { |llvm_lib| ENV.remove "HOMEBREW_LIBRARY_PATHS", llvm_lib }
+    end
+
+    # Workaround for: Built-in generator --c_out specifies a maximum edition
+    # PROTO3 which is not the protoc maximum 2023.
+    # Remove when fixed in `protobuf-c`:
+    # https://github.com/protobuf-c/protobuf-c/pull/711
+    inreplace "CMakeLists.txt",
+              "COMMAND ${PROTOBUFC_COMPILER}",
+              "COMMAND #{Formula["protobuf"].opt_bin/"protoc"}"
+
+    if OS.mac?
+      mapscript_rpath = rpath(source: prefix/Language::Python.site_packages(python3)/"mapscript")
+      # Install within our sandbox and add missing RPATH due to _mapscript.so not using CMake install()
+      inreplace "mapscript/python/CMakeLists.txt", "${Python_LIBRARIES}",
+                                                   "-Wl,-undefined,dynamic_lookup,-rpath,#{mapscript_rpath}"
+    end
 
     system "cmake", "-S", ".", "-B", "build", *std_cmake_args,
                     "-DCMAKE_INSTALL_RPATH=#{rpath}",
@@ -72,7 +95,7 @@ class Mapserver < Formula
     system "cmake", "--build", "build"
     system "cmake", "--install", "build"
 
-    system python3, "-m", "pip", "install", *std_pip_args, "./build/mapscript/python"
+    system python3, "-m", "pip", "install", *std_pip_args(build_isolation: true), "./build/mapscript/python"
   end
 
   test do
@@ -80,3 +103,44 @@ class Mapserver < Formula
     system python3, "-c", "import mapscript"
   end
 end
+
+__END__
+diff --git a/mapows.c b/mapows.c
+index f141a7b..5a94ecb 100644
+--- a/mapows.c
++++ b/mapows.c
+@@ -168,7 +168,7 @@ static int msOWSPreParseRequest(cgiRequestObj *request,
+ #endif
+     if (ows_request->document == NULL
+         || (root = xmlDocGetRootElement(ows_request->document)) == NULL) {
+-      xmlErrorPtr error = xmlGetLastError();
++      const xmlError *error = xmlGetLastError();
+       msSetError(MS_OWSERR, "XML parsing error: %s",
+                  "msOWSPreParseRequest()", error->message);
+       return MS_FAILURE;
+diff --git a/mapwcs.cpp b/mapwcs.cpp
+index 70e63b8..19afa79 100644
+--- a/mapwcs.cpp
++++ b/mapwcs.cpp
+@@ -362,7 +362,7 @@ static int msWCSParseRequest(cgiRequestObj *request, wcsParamsObj *params, mapOb
+     /* parse to DOM-Structure and get root element */
+     if((doc = xmlParseMemory(request->postrequest, strlen(request->postrequest)))
+         == NULL) {
+-      xmlErrorPtr error = xmlGetLastError();
++      const xmlError *error = xmlGetLastError();
+       msSetError(MS_WCSERR, "XML parsing error: %s",
+                  "msWCSParseRequest()", error->message);
+       return MS_FAILURE;
+diff --git a/mapwcs20.cpp b/mapwcs20.cpp
+index b35e803..2431bdc 100644
+--- a/mapwcs20.cpp
++++ b/mapwcs20.cpp
+@@ -1446,7 +1446,7 @@ int msWCSParseRequest20(mapObj *map,
+
+     /* parse to DOM-Structure and get root element */
+     if(doc == NULL) {
+-      xmlErrorPtr error = xmlGetLastError();
++      const xmlError *error = xmlGetLastError();
+       msSetError(MS_WCSERR, "XML parsing error: %s",
+                  "msWCSParseRequest20()", error->message);
+       return MS_FAILURE;

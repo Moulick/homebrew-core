@@ -1,8 +1,8 @@
 class Apko < Formula
   desc "Build OCI images from APK packages directly without Dockerfile"
   homepage "https://github.com/chainguard-dev/apko"
-  url "https://github.com/chainguard-dev/apko/archive/refs/tags/v0.11.1.tar.gz"
-  sha256 "1ebc6897c92fe3bf3d0e6f6c258f9bc859171feebcb936008f53fe6d0bef0a2e"
+  url "https://github.com/chainguard-dev/apko/archive/refs/tags/v0.13.2.tar.gz"
+  sha256 "63191da77140d4bc30d8c231139febecf6a165a84ab7822b8216e2598064158f"
   license "Apache-2.0"
   head "https://github.com/chainguard-dev/apko.git", branch: "main"
 
@@ -15,13 +15,13 @@ class Apko < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "65b793a6d7adf48fc1f24de17873472b1b5f8c3bf012747c597196dfac779d68"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "f36d97d3cdafeaf771da0567c91bd5e2f64926bfad6ec46983ddc4e8ccc96457"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "56d51fa38b30e5fab9534cd5bdf4237755fb02f745122baa9332d12bd0050837"
-    sha256 cellar: :any_skip_relocation, sonoma:         "70f69cc2626b1603276810edefe39168f498ca75866995a884562b74d6afa9b6"
-    sha256 cellar: :any_skip_relocation, ventura:        "cdea733c4cec16b8094119c3f3317ac766460c02ff5ca4f15769de7402c38c04"
-    sha256 cellar: :any_skip_relocation, monterey:       "eaea9a434dfc047d68c519c3f9ada6bf63d53af741bcd7eee2eb19c3000a5c4b"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "73d01b0b5b7c130e832d0c6aaa90311ce52291ce1fe6f42a852530b93bb826e1"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "775b56123f36d3d4fc7b6a548cdbc9de0a5813f0e9fc4fc5deac4a204eec2d7a"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "8a513dbcbb38ec74beed3707c7f58ae8bcd72e7a4e7e3dbe89de5a5f22607243"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "76c78421aca08bc565b69882ba1c31e97c27352b825e059a89d309949e1cae2e"
+    sha256 cellar: :any_skip_relocation, sonoma:         "db665f46a566451866448e46dec17509a375ed03d6039ef0b0b434ca7863f60f"
+    sha256 cellar: :any_skip_relocation, ventura:        "056eec1e8256fed48bc7a031ccaabdd6573135fa9cd37f0d633e9a958170661f"
+    sha256 cellar: :any_skip_relocation, monterey:       "610a72bb92806abd1cadf34ee56077646fb054a9bd86f2cc6894b958da83592d"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "0fba445a5e374adf84d427bfb95e5979ae7855c406ebb0ff2c5eba7a8e830e63"
   end
 
   depends_on "go" => :build
@@ -34,7 +34,7 @@ class Apko < Formula
       -X sigs.k8s.io/release-utils/version.gitTreeState=clean
       -X sigs.k8s.io/release-utils/version.buildDate=#{time.iso8601}
     ]
-    system "go", "build", *std_go_args(ldflags: ldflags)
+    system "go", "build", *std_go_args(ldflags:)
 
     generate_completions_from_executable(bin/"apko", "completion")
   end

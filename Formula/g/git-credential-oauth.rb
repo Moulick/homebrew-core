@@ -1,20 +1,19 @@
 class GitCredentialOauth < Formula
   desc "Git credential helper that authenticates in browser using OAuth"
   homepage "https://github.com/hickford/git-credential-oauth"
-  url "https://github.com/hickford/git-credential-oauth/archive/refs/tags/v0.11.0.tar.gz"
-  sha256 "324dd0c7d2692c6bc61c8f054fe3870a45584720502f765e8faa88811b7167cc"
+  url "https://github.com/hickford/git-credential-oauth/archive/refs/tags/v0.11.3.tar.gz"
+  sha256 "fe54bc6053c7696d2ce990698cf469e2463266a71dab6615ab6b557c9eecc5e7"
   license "Apache-2.0"
   head "https://github.com/hickford/git-credential-oauth.git", branch: "main"
 
   bottle do
-    rebuild 1
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "f7a5aeb8aafae8e93044a882827b62e3f331abc3402916acb83732430e258eb7"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "ed1ac4f7647852451aeefcf7da02362f5f05e3612526ef47047c2fbc0620aff5"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "3814b38d39fd0b242c059668ed7c16310b7ee0b78832b7be1453e44f03b45015"
-    sha256 cellar: :any_skip_relocation, sonoma:         "53e9e8b0ea4b6525ca5e1d6c9a5c452be73759131af33fafe092dfc71f003031"
-    sha256 cellar: :any_skip_relocation, ventura:        "d92df5253409dfd81386ad48bb4c5d48cf02dcc0bb0f1334a855b46d1c558d0b"
-    sha256 cellar: :any_skip_relocation, monterey:       "2599bd4f7d6ccd14c409321648e1f82216c0542a00da7cc6926c4a54332f99eb"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "8c1e36c953f49d40205e2caee0579d8f59d0c3f2c7ab14515eb40e096767f512"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "588c6f5e7c80822c228a3a61fc9d7d325b82b76c81c52300416ea645c06520c2"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "b64f792a5e52bcca31c076d7d9b2164d13f3b5e1d8427a18fdb3c7239a2571fc"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "9d3d80bd74733d845f250560a142ded6474b9011d86f4b7ca1ac9bbea0dc5616"
+    sha256 cellar: :any_skip_relocation, sonoma:         "dd84288ef10fd4295ae4c670955e0f4940415276d62421bc2c6c450f35131da8"
+    sha256 cellar: :any_skip_relocation, ventura:        "9fc624b0201e39b9df85122973496e3005352e8c9a3308d9c842f788d35141a7"
+    sha256 cellar: :any_skip_relocation, monterey:       "9ba3a931ee56b9d119edb1f53368b932b7afcbe4641b7f8fd4f2fe760c0c4033"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "8a97fdcca6f85bb4391db0a2faff22e65b7e32dc793e4ec7cde6231a023b92bd"
   end
 
   depends_on "go" => :build

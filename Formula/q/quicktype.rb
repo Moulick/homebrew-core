@@ -3,23 +3,22 @@ require "language/node"
 class Quicktype < Formula
   desc "Generate types and converters from JSON, Schema, and GraphQL"
   homepage "https://github.com/quicktype/quicktype"
-  url "https://registry.npmjs.org/quicktype/-/quicktype-23.0.76.tgz"
-  sha256 "00cbdb63d80196669ae7fddfa17a1ad39a69db32566a92d558ea92ff6d16b821"
+  url "https://registry.npmjs.org/quicktype/-/quicktype-23.0.158.tgz"
+  sha256 "dec5cf47df3272c419a73f7f273844596b89d59172a27ae2c6d8b6ba69fe9530"
   license "Apache-2.0"
-  revision 1
   head "https://github.com/quicktype/quicktype.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "e00c9f9da34e799fc9a850a3871a9b746f7ef546bade2131d1a7b2c1d601560b"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "e00c9f9da34e799fc9a850a3871a9b746f7ef546bade2131d1a7b2c1d601560b"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "e00c9f9da34e799fc9a850a3871a9b746f7ef546bade2131d1a7b2c1d601560b"
-    sha256 cellar: :any_skip_relocation, sonoma:         "ff77eabb6fdb07d6caf308e851fbb48ddddd88615efa4d48ce02c818bc8c88c8"
-    sha256 cellar: :any_skip_relocation, ventura:        "ff77eabb6fdb07d6caf308e851fbb48ddddd88615efa4d48ce02c818bc8c88c8"
-    sha256 cellar: :any_skip_relocation, monterey:       "ff77eabb6fdb07d6caf308e851fbb48ddddd88615efa4d48ce02c818bc8c88c8"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "e00c9f9da34e799fc9a850a3871a9b746f7ef546bade2131d1a7b2c1d601560b"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "c6015d7b43bf6fb1a824942958a1effb2a5ad00e589d11536c49ef1e8ee9ce5a"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "c6015d7b43bf6fb1a824942958a1effb2a5ad00e589d11536c49ef1e8ee9ce5a"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "c6015d7b43bf6fb1a824942958a1effb2a5ad00e589d11536c49ef1e8ee9ce5a"
+    sha256 cellar: :any_skip_relocation, sonoma:         "8c655e09951daa1359ac15dda553ef360d2b4b0ee9e40f143dbffbf8e60f7f6f"
+    sha256 cellar: :any_skip_relocation, ventura:        "8c655e09951daa1359ac15dda553ef360d2b4b0ee9e40f143dbffbf8e60f7f6f"
+    sha256 cellar: :any_skip_relocation, monterey:       "8c655e09951daa1359ac15dda553ef360d2b4b0ee9e40f143dbffbf8e60f7f6f"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "c6015d7b43bf6fb1a824942958a1effb2a5ad00e589d11536c49ef1e8ee9ce5a"
   end
 
-  depends_on "node@20"
+  depends_on "node"
 
   def install
     system "npm", "install", *Language::Node.std_npm_install_args(libexec)
@@ -27,8 +26,6 @@ class Quicktype < Formula
   end
 
   test do
-    ENV.prepend_path "PATH", Formula["node@20"].bin
-
     (testpath/"sample.json").write <<~EOS
       {
         "i": [0, 1],

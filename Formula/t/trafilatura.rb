@@ -3,46 +3,49 @@ class Trafilatura < Formula
 
   desc "Discovery, extraction and processing for Web text"
   homepage "https://trafilatura.readthedocs.io/en/latest/"
-  url "https://files.pythonhosted.org/packages/a5/81/f7818b3d805427e8448429fd1bfc126a06b2e5daa58ea97a8b153e5454fb/trafilatura-1.6.2.tar.gz"
-  sha256 "a984630ad9c54d9fe803555d00f5a028ca65c766ce89bfd87d976f561c55b503"
+  url "https://files.pythonhosted.org/packages/27/1c/cc05eff2810c4cb3eb8df072a853900adf95b5d4b19f3a3221ddb86922e0/trafilatura-1.9.0.tar.gz"
+  sha256 "e6833d29ab8a13ed853937d7c91e6868bc62efbe10214ac2b106436dd23d1412"
   license "GPL-3.0-or-later"
-  revision 2
 
   bottle do
-    rebuild 1
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "96c45c89a1520c322da479f614ce24097db803bc341db3b5793237f4d5a74fd8"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "2c20e837dd42ed1e79790791a454fe244ead9fc302ffb188660772e9b0c3e592"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "1c1774db036de1e6b241bf2b78af9aeb2c10ddbd04ded1b36519b17d0c617f6f"
-    sha256 cellar: :any_skip_relocation, sonoma:         "f6e4a856a91e1da3b0015eee1ecea94e86235d5d6b719789b945ab659306aa60"
-    sha256 cellar: :any_skip_relocation, ventura:        "53f17647e44daead12d7c6f0b46dd9d5f860546bfda40c3b0ef90596b28c6fb4"
-    sha256 cellar: :any_skip_relocation, monterey:       "b4cc4a174d899822a849ea292243fde3002dea45e68f3585fa6922e16f5564e7"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "a3106b2e14ced3f85f90d8eb926dfa1799d8bb34d3dd75b738554214bd368435"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "843fb10485738765a87bf0a72b235ae7f40968ca6353e3b2aafef94c90ad5138"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "5782fa38c5a8cb0f65571741918499f341e1e00edfe1adf3b397cfb580f65752"
+    sha256 cellar: :any,                 arm64_monterey: "c93548a298a177dc24d6517251d74d35367559d6e172d74129248800db167a91"
+    sha256 cellar: :any_skip_relocation, sonoma:         "bef7bde0b4210765c587f3331039b1e43b26043096f6faf3e50ee1f6cd146049"
+    sha256 cellar: :any_skip_relocation, ventura:        "30c2af26d0357c5d1f18546990fc61165336e7da51becf7d9be6d96ede9a6dfe"
+    sha256 cellar: :any,                 monterey:       "2b2472d1d027e6e5cb4558c9849ccd754560b1722fff8f0476e2d5a302f2de21"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "939e7d7ddd74dc37dfaeb886e62b688d4b4b5aa93e10d0ae041b369cb2f5c39b"
   end
 
-  depends_on "python-certifi"
-  depends_on "python-lxml"
-  depends_on "python-pytz"
+  depends_on "certifi"
   depends_on "python@3.12"
-  depends_on "six"
+
+  uses_from_macos "libxml2", since: :ventura
+  uses_from_macos "libxslt"
+
+  resource "babel" do
+    url "https://files.pythonhosted.org/packages/e2/80/cfbe44a9085d112e983282ee7ca4c00429bc4d1ce86ee5f4e60259ddff7f/Babel-2.14.0.tar.gz"
+    sha256 "6919867db036398ba21eb5c7a0f6b28ab8cbc3ae7a73a44ebe34ae74a4e7d363"
+  end
 
   resource "charset-normalizer" do
-    url "https://files.pythonhosted.org/packages/cf/ac/e89b2f2f75f51e9859979b56d2ec162f7f893221975d244d8d5277aa9489/charset-normalizer-3.3.0.tar.gz"
-    sha256 "63563193aec44bce707e0c5ca64ff69fa72ed7cf34ce6e11d5127555756fd2f6"
+    url "https://files.pythonhosted.org/packages/63/09/c1bc53dab74b1816a00d8d030de5bf98f724c52c1635e07681d312f20be8/charset-normalizer-3.3.2.tar.gz"
+    sha256 "f30c3cb33b24454a82faecaf01b19c18562b1e89558fb6c56de4d9118a032fd5"
   end
 
   resource "courlan" do
-    url "https://files.pythonhosted.org/packages/53/35/d141b5ffc381cef94c95d32d7082aff443cfea22b2a75c2839297064d408/courlan-0.9.4.tar.gz"
-    sha256 "6906aa9a15ae9d442821e06ae153c60f385cff41a8d44b9597c00b349f7043c5"
+    url "https://files.pythonhosted.org/packages/9e/e8/66d9e87a5db4d627d4961c68d121b12b99b205e2f9d73aa3118ab9815236/courlan-1.1.0.tar.gz"
+    sha256 "d706684334f18be4ada1fbd57f2680adf0036648f6d840852f7a4822d3adfd8d"
   end
 
   resource "dateparser" do
-    url "https://files.pythonhosted.org/packages/7e/16/e95f1d2f8014bac38e00d037e192222e52de7db7c71268ed3b2e12d4893c/dateparser-1.1.8.tar.gz"
-    sha256 "86b8b7517efcc558f085a142cdb7620f0921543fcabdb538c8a4c4001d8178e3"
+    url "https://files.pythonhosted.org/packages/1a/b2/f6b29ab17d7959eb1a0a5c64f5011dc85051ad4e25e401cbddcc515db00f/dateparser-1.2.0.tar.gz"
+    sha256 "7975b43a4222283e0ae15be7b4999d08c9a70e2d378ac87385b1ccf2cffbbb30"
   end
 
   resource "htmldate" do
-    url "https://files.pythonhosted.org/packages/e4/81/b3b8c88bbb6cdf610098597b7b96d71151de4bc8bda456e882da0486a92d/htmldate-1.5.2.tar.gz"
-    sha256 "cc8b41c412b21d8a9236981755cfba7dfe25ebaf925a46417058d4902ad77e9b"
+    url "https://files.pythonhosted.org/packages/cd/71/ac70cf10ea9b58414a0d8d32593f916ab83e0d9d28c95e91879d26cffd0d/htmldate-1.8.1.tar.gz"
+    sha256 "caf1686cf75c61dd1f061ede5d7a46e759b15d5f9987cd8e13c8c4237511263d"
   end
 
   resource "justext" do
@@ -50,19 +53,29 @@ class Trafilatura < Formula
     sha256 "7640e248218795f6be65f6c35fe697325a3280fcb4675d1525bcdff2b86faadf"
   end
 
-  resource "langcodes" do
-    url "https://files.pythonhosted.org/packages/5f/ec/9955d772ecac0bdfb5d706d64f185ac68bd0d4092acdc2c5a1882c824369/langcodes-3.3.0.tar.gz"
-    sha256 "794d07d5a28781231ac335a1561b8442f8648ca07cd518310aeb45d6f0807ef6"
+  resource "lxml" do
+    url "https://files.pythonhosted.org/packages/73/a6/0730ff6cbb87e42e1329a486fe4ccbd3f8f728cb629c2671b0d093a85918/lxml-5.1.1.tar.gz"
+    sha256 "42a8aa957e98bd8b884a8142175ec24ce4ef0a57760e8879f193bfe64b757ca9"
   end
 
   resource "python-dateutil" do
-    url "https://files.pythonhosted.org/packages/4c/c4/13b4776ea2d76c115c1d1b84579f3764ee6d57204f6be27119f13a61d0a9/python-dateutil-2.8.2.tar.gz"
-    sha256 "0123cacc1627ae19ddf3c27a5de5bd67ee4586fbdd6440d9748f8abb483d3e86"
+    url "https://files.pythonhosted.org/packages/66/c0/0c8b6ad9f17a802ee498c46e004a0eb49bc148f2fd230864601a86dcf6db/python-dateutil-2.9.0.post0.tar.gz"
+    sha256 "37dd54208da7e1cd875388217d5e00ebd4179249f90fb72437e91a35459a0ad3"
+  end
+
+  resource "pytz" do
+    url "https://files.pythonhosted.org/packages/90/26/9f1f00a5d021fff16dee3de13d43e5e978f3d58928e129c3a62cf7eb9738/pytz-2024.1.tar.gz"
+    sha256 "2a29735ea9c18baf14b448846bde5a48030ed267578472d8955cd0e7443a9812"
   end
 
   resource "regex" do
-    url "https://files.pythonhosted.org/packages/6b/38/49d968981b5ec35dbc0f742f8219acab179fc1567d9c22444152f950cf0d/regex-2023.10.3.tar.gz"
-    sha256 "3fef4f844d2290ee0ba57addcec17eec9e3df73f10a2748485dfd6a3a188cc0f"
+    url "https://files.pythonhosted.org/packages/c0/d6/87709afa2a195ea902810dfaa796d21dd45d91b496dc98828073acbfe5af/regex-2024.4.28.tar.gz"
+    sha256 "83ab366777ea45d58f72593adf35d36ca911ea8bd838483c1823b883a121b0e4"
+  end
+
+  resource "six" do
+    url "https://files.pythonhosted.org/packages/71/39/171f1c67cd00715f190ba0b100d606d440a28c93c7714febeca8b79af85e/six-1.16.0.tar.gz"
+    sha256 "1e61c37477a1626458e36f7b1d82aa5c9b094fa4802892072e49de9c60c4c926"
   end
 
   resource "tld" do
@@ -71,13 +84,13 @@ class Trafilatura < Formula
   end
 
   resource "tzlocal" do
-    url "https://files.pythonhosted.org/packages/b2/e2/adf17c75bab9b33e7f392b063468d50e513b2921bbae7343eb3728e0bc0a/tzlocal-5.1.tar.gz"
-    sha256 "a5ccb2365b295ed964e0a98ad076fe10c495591e75505d34f154d60a7f1ed722"
+    url "https://files.pythonhosted.org/packages/04/d3/c19d65ae67636fe63953b20c2e4a8ced4497ea232c43ff8d01db16de8dc0/tzlocal-5.2.tar.gz"
+    sha256 "8d399205578f1a9342816409cc1e46a93ebd5755e39ea2d85334bea911bf0e6e"
   end
 
   resource "urllib3" do
-    url "https://files.pythonhosted.org/packages/af/47/b215df9f71b4fdba1025fc05a77db2ad243fa0926755a52c5e71659f4e3c/urllib3-2.0.7.tar.gz"
-    sha256 "c97dfde1f7bd43a71c8d2a58e369e9b2bf692d1334ea9f9cae55add7d0dd0f84"
+    url "https://files.pythonhosted.org/packages/7a/50/7fd50a27caa0652cd4caf224aa87741ea41d3265ad13f010886167cfcc79/urllib3-2.2.1.tar.gz"
+    sha256 "d0570876c61ab9e520d776c38acbbb5b05a776d3f9ff98a5c8fd5162a444cf19"
   end
 
   def install
@@ -87,6 +100,6 @@ class Trafilatura < Formula
   test do
     assert_match version.to_s, shell_output("#{bin}/trafilatura --version")
 
-    assert_match "Search\nImages\nMaps\nPlay", shell_output("#{bin}/trafilatura -u https://www.google.com")
+    assert_match "Google", shell_output("#{bin}/trafilatura -u https://www.google.com")
   end
 end

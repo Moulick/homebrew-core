@@ -1,26 +1,26 @@
 class Tfel < Formula
   desc "Code generation tool dedicated to material knowledge for numerical mechanics"
   homepage "https://thelfer.github.io/tfel/web/index.html"
-  url "https://github.com/thelfer/tfel/archive/refs/tags/TFEL-4.1.0.tar.gz"
-  sha256 "7505c41da9df5fb3c281651ff29b58a18fd4d91b92f839322f0267269c5f1375"
+  url "https://github.com/thelfer/tfel/archive/refs/tags/TFEL-4.2.0.tar.gz"
+  sha256 "cf8a309c4d19a8e36232f8540ff28aa0d6285645f8dfb1ac57dd481ba3453e02"
   license "GPL-1.0-or-later"
-  revision 3
+  revision 2
   head "https://github.com/thelfer/tfel.git", using: :git, branch: "master"
 
   bottle do
-    sha256 arm64_sonoma:   "d0d0249365f4257ac0305d28b1feb4ddec767a531fa9e35039bbc2566c4cc6f9"
-    sha256 arm64_ventura:  "df01dc4668e066acfbe5f8126e51732e64078456f31c9a9b5a3c44df119558fb"
-    sha256 arm64_monterey: "a863dc8f6c489c495e445e77c44e70d00f5e592091d106067f647a288a53bb4c"
-    sha256 sonoma:         "1b549b313281caff2777ff81fd954776486df50d1f939c5a9b28797110a40099"
-    sha256 ventura:        "d7a7b725ffd3d5159b0039076b910dfda41d8ac18e5508257a67113b9ead0ebe"
-    sha256 monterey:       "338749c2eeb93a7e042213a7f6c7136f22f6a706fcb9713e3db585169814a0ae"
-    sha256 x86_64_linux:   "2ec823e88281a20344276930bbbfa1c6529ab81be54a2f458fee2054b7a7afae"
+    sha256 arm64_sonoma:   "07fa908c948d7e6b6b27927a358672a996051c41521d1a7381fa25ea399c92fb"
+    sha256 arm64_ventura:  "e0c694d2556c639aa9847d339941a1a0c1bcd7328613dace99bfcb4a9fa12299"
+    sha256 arm64_monterey: "2b89eda277467ab1397de5d13a22a5cd517856d3fde218799d911a721adbaae3"
+    sha256 sonoma:         "0d0c0eb2b704620c228df17fc1a7c0f504c5b7185a9bb94a87373a572ba6190a"
+    sha256 ventura:        "bffcaee3219aa1331c491011b524d54efe63fdc94cd00604c146c15fc3819c1d"
+    sha256 monterey:       "fba62321bc77dc57db5f25dcdf98be55330233534c91024b5f74ed3647b209f1"
+    sha256 x86_64_linux:   "78e3bad40dd06b04b3683c26810c30949733d6015dd688220badd17c846a4788"
   end
 
   depends_on "cmake" => :build
   depends_on "gcc" => :build
   depends_on "boost-python3"
-  depends_on "python@3.11"
+  depends_on "python@3.12"
   fails_with gcc: "5"
 
   def install
@@ -30,7 +30,7 @@ class Tfel < Formula
       "-Denable-website=OFF",
       "-Dlocal-castem-header=ON",
       "-Denable-python=ON",
-      "-Denable-python-bindings=ON",  # requires boost-python
+      "-Denable-python-bindings=ON", # requires boost-python
       "-Denable-numpy-support=OFF",
       "-Denable-fortran=ON",
       "-Denable-cyrano=ON",

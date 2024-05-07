@@ -7,12 +7,12 @@ class Libplacebo < Formula
   head "https://code.videolan.org/videolan/libplacebo.git", branch: "master"
 
   stable do
-    url "https://code.videolan.org/videolan/libplacebo/-/archive/v6.338.1/libplacebo-v6.338.1.tar.bz2"
-    sha256 "66f173e511884ad96c23073e6c3a846215db804f098e11698132abe5a63d6f72"
+    url "https://code.videolan.org/videolan/libplacebo/-/archive/v6.338.2/libplacebo-v6.338.2.tar.bz2"
+    sha256 "1c02d21720f972cae02111a1286337e9d0e70d623b311a1e4245bac5ce987f28"
 
     resource "fast_float" do
-      url "https://github.com/fastfloat/fast_float/archive/refs/tags/v5.2.0.tar.gz"
-      sha256 "72bbfd1914e414c920e39abdc81378adf910a622b62c45b4c61d344039425d18"
+      url "https://github.com/fastfloat/fast_float/archive/refs/tags/v6.0.0.tar.gz"
+      sha256 "7e98671ef4cc7ed7f44b3b13f80156c8d2d9244fac55deace28bd05b0a2c7c8e"
     end
 
     resource "glad2" do
@@ -21,31 +21,36 @@ class Libplacebo < Formula
     end
 
     resource "jinja2" do
-      url "https://files.pythonhosted.org/packages/7a/ff/75c28576a1d900e87eb6335b063fab47a8ef3c8b4d88524c4bf78f670cce/Jinja2-3.1.2.tar.gz"
-      sha256 "31351a702a408a9e7595a8fc6150fc3f43bb6bf7e319770cbc0db9df9437e852"
+      url "https://files.pythonhosted.org/packages/b2/5e/3a21abf3cd467d7876045335e681d276ac32492febe6d98ad89562d1a7e1/Jinja2-3.1.3.tar.gz"
+      sha256 "ac8bd6544d4bb2c9792bf3a159e80bba8fda7f07e81bc3aed565432d5925ba90"
+    end
+
+    resource "markupsafe" do
+      url "https://files.pythonhosted.org/packages/6d/7c/59a3248f411813f8ccba92a55feaac4bf360d29e2ff05ee7d8e1ef2d7dbf/MarkupSafe-2.1.3.tar.gz"
+      sha256 "af598ed32d6ae86f1b747b82783958b1a4ab8f617b06fe68795c7f026abbdcad"
     end
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_sonoma:   "e1c42d1327983e90d82f4e077e8bf14c7afae01c95aae6113b7a3f371b9ac4bf"
-    sha256 cellar: :any,                 arm64_ventura:  "e6a5759fbca2ef6e6004b6a2b7e356d84061e8723559d0f56ecd0f46dd86f67f"
-    sha256 cellar: :any,                 arm64_monterey: "886b67b276e0c879a497b20826f8d5377cfefff60d88ecb5cb71816a53d40957"
-    sha256 cellar: :any,                 sonoma:         "d35b66c02f1933b3723b2531075aa6a28df8c18ba16fc4bf0067039970a7e2f1"
-    sha256 cellar: :any,                 ventura:        "88deccd1f3d40a6449b6f71467168d1e56c0a85c30e282042b610783aeaca4e1"
-    sha256 cellar: :any,                 monterey:       "820949127d8d376762ce0c3184e2a63ad85eb55da68b8bafb98ebd9a5a44bada"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "f1fbe78408554a619163e3a09961d95cab0ce22b445ae47583b65edec9e44463"
+    rebuild 1
+    sha256 cellar: :any, arm64_sonoma:   "736ebf400cf64ccb3b911b8bce2aae416138ee0ad5aebe5ac8d9612c7667d514"
+    sha256 cellar: :any, arm64_ventura:  "cf5ed87e4b1a4d627b70f08bb736649c6bf8315888dc0691880b0ff07a48b231"
+    sha256 cellar: :any, arm64_monterey: "698a6371c4d7cb241086f1c11752f7aa89971b65be2c4cd7cc92d8706c3acaf8"
+    sha256 cellar: :any, sonoma:         "0e482f5fee32e6457a98a7087b31633416d019dea39cc4e6c8faffe19d1f5d89"
+    sha256 cellar: :any, ventura:        "b6bc76ba1a84e0490d60fd68516cd9f23b31e2b4400846532c2b93dd70bed75b"
+    sha256 cellar: :any, monterey:       "3e35416fda4cc537ecc2e6e79e61e3a27d522108a23d95e12ada28c9ca065ade"
+    sha256               x86_64_linux:   "b8764ef84438c4c71e88e80da835593a5112b94a0a57091401b0843609a641da"
   end
 
   depends_on "meson" => :build
   depends_on "ninja" => :build
+  depends_on "pkg-config" => :build
   depends_on "python-setuptools" => :build
   depends_on "python@3.12" => :build
   depends_on "vulkan-headers" => :build
 
-  depends_on "glslang"
   depends_on "little-cms2"
-  depends_on "python-markupsafe"
-  depends_on "sdl2"
+  depends_on "shaderc"
   depends_on "vulkan-loader"
 
   def install
@@ -63,6 +68,7 @@ class Libplacebo < Formula
 
     system "meson", "setup", "build",
                     "-Dvulkan-registry=#{Formula["vulkan-headers"].share}/vulkan/registry/vk.xml",
+                    "-Dshaderc=enabled", "-Dvulkan=enabled", "-Dlcms=enabled",
                     *std_meson_args
     system "meson", "compile", "-C", "build", "--verbose"
     system "meson", "install", "-C", "build"

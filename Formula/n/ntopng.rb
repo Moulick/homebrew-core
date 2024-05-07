@@ -2,7 +2,7 @@ class Ntopng < Formula
   desc "Next generation version of the original ntop"
   homepage "https://www.ntop.org/products/traffic-analysis/ntop/"
   license "GPL-3.0-only"
-  revision 3
+  revision 5
 
   stable do
     url "https://github.com/ntop/ntopng/archive/refs/tags/5.2.1.tar.gz"
@@ -12,15 +12,13 @@ class Ntopng < Formula
   end
 
   bottle do
-    sha256 arm64_sonoma:   "6928114d7ebb726d42fc7358d1a7255733766f87b6b72e29489ea7fa9921f1bf"
-    sha256 arm64_ventura:  "b6a10e66516e91c27fca7bf00a7df47147f34ae02f76288ad13aaaa7fdaab32a"
-    sha256 arm64_monterey: "835bbeb2e9150a115b1b37e7a4df63fa626da91246dd6e79d957530a2db2918c"
-    sha256 arm64_big_sur:  "e9f915790e77adf175ed49078c4cab42abcaa7b1cea2be342f4a735663916b6d"
-    sha256 sonoma:         "5d6711bb5b6394f3909603eeb6d57c261a2dbd0ee1c3d53b98ab97c8b856284c"
-    sha256 ventura:        "2f4dc4eefa8dbe992fa4f7579eb13a1885ff0bdc5a49dac0ce4e50314a8a8b90"
-    sha256 monterey:       "182f8189385e995117baa72ca9cb4f00d029416e63efa592e164247cfe76b277"
-    sha256 big_sur:        "f3611d2b63cf4af0609fa071fabe2b171ec14c3b118b36354469394fd5ee9b85"
-    sha256 x86_64_linux:   "3018577ef411aad553857447e9fe94687582a34dd29b21449fe17c91478760b1"
+    sha256 arm64_sonoma:   "8df6d0eb2c7d4d068a9cdec38da78c89cde9ba5b4f12f973079122dc75df05d1"
+    sha256 arm64_ventura:  "40d94f8ae91f6976185afd9f7df38445eb4bb564131c774de4bd5fff9ec48113"
+    sha256 arm64_monterey: "fff9eaa732a40c116c822f60f6f65e7454ed50c15db1e38869eda88e2d29125c"
+    sha256 sonoma:         "28057973193ccb7bc27b3da961851c461e65c8749ec9e68803b477b9c43f056d"
+    sha256 ventura:        "7b492dded11e9c5280a36ac7d62b114882aff16e252d8163b978d395033f70b9"
+    sha256 monterey:       "4cc9805b6124b4f331020e81d1df1960f47c5981be9b9126dc1f551785d540f0"
+    sha256 x86_64_linux:   "89145e39fcf271fb9e2504c083f7653c09f814ce5539e5d2d45dfb0b25f62433"
   end
 
   head do
@@ -38,18 +36,18 @@ class Ntopng < Formula
   depends_on "libtool" => :build
   depends_on "lua" => :build
   depends_on "pkg-config" => :build
-  depends_on "geoip"
   depends_on "json-c"
   depends_on "libmaxminddb"
+  depends_on "libsodium"
   depends_on "mysql-client"
   depends_on "openssl@3"
   depends_on "redis"
   depends_on "rrdtool"
-  depends_on "sqlite" # try to change to uses_from_macos after python is not a dependency
   depends_on "zeromq"
 
   uses_from_macos "curl"
   uses_from_macos "libpcap"
+  uses_from_macos "sqlite"
 
   fails_with gcc: "5"
 

@@ -1,8 +1,8 @@
 class F3d < Formula
   desc "Fast and minimalist 3D viewer"
   homepage "https://f3d-app.github.io/f3d/"
-  url "https://github.com/f3d-app/f3d/archive/refs/tags/v2.2.1.tar.gz"
-  sha256 "4d3a73b0107c8db7f0556107c74087d3748232a73981f65f7c5186ac1003ec8d"
+  url "https://github.com/f3d-app/f3d/archive/refs/tags/v2.4.0.tar.gz"
+  sha256 "3286ad1b324b995fd95818679b4ced80ebc3cc3b4bd4c8e6964695c05c934c8f"
   license "BSD-3-Clause"
 
   # Upstream creates releases that use a stable tag (e.g., `v1.2.3`) but are
@@ -14,13 +14,13 @@ class F3d < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_sonoma:   "4de29c35c78dd8c5f96daf9a9f8206940941fb88f59a70f54487c6c4cb024069"
-    sha256 cellar: :any,                 arm64_ventura:  "9fb7443035a5ea68c26dd074b0be847f8e1c50549eb934d876ef2d7a7dfc23bc"
-    sha256 cellar: :any,                 arm64_monterey: "d79866a65f5b726524d85a142301504c10c59508d6f7c1829bac182456252bdf"
-    sha256 cellar: :any,                 sonoma:         "60a3757a5e5f2201b73725ee3d1e1e8edde7ee397a8f9ecf62d5c9bc2910bced"
-    sha256 cellar: :any,                 ventura:        "b2e299bee42acf697722fb5b78725a6b05b985056ee3c160002bda826842875b"
-    sha256 cellar: :any,                 monterey:       "58c2c2c044752c5d950d783ee78fb3b3ed5f855fc58076052af47c5a27965adc"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "a41d9f975040dafafb30e6237ba8227ebe334f32ed01eb30449f4ad038f46249"
+    sha256 cellar: :any,                 arm64_sonoma:   "7228814f2f8b8d2c40eb6493a49f2367cd8e6de9d5359a06c16326771979e40c"
+    sha256 cellar: :any,                 arm64_ventura:  "8129e5791dc9c0d96330247f140c656c094be4a3d253b22c5c38b40ee3f4699f"
+    sha256 cellar: :any,                 arm64_monterey: "4d98f1f9d485eaa9eba6f2072fe0684d8ea5b6e4cb72cd4ae8f61cbca3e5693c"
+    sha256 cellar: :any,                 sonoma:         "c6ce5e83cb1bb7d6676281155793d280d4943a43e82eeec0a0d532e55b058425"
+    sha256 cellar: :any,                 ventura:        "0b0d806ac97ae7e33f82e9f55c1251702da8d22b7e03e8762d18831a1f3b976c"
+    sha256 cellar: :any,                 monterey:       "dea031face1027358e1b5c3a348399585562a1a3826cc4c91a520a8d6f118aea"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "bd05866bbacc29d67c6d2221f38196d8d3f0ed47eae32632c388742100f1fa6a"
   end
 
   depends_on "cmake" => :build

@@ -3,9 +3,9 @@ class Exiftool < Formula
   homepage "https://exiftool.org"
   # Ensure release is tagged production before submitting.
   # https://exiftool.org/history.html
-  url "https://cpan.metacpan.org/authors/id/E/EX/EXIFTOOL/Image-ExifTool-12.60.tar.gz"
-  mirror "https://exiftool.org/Image-ExifTool-12.60.tar.gz"
-  sha256 "73dbe06d004c31082a56e78d7f246f2bb0002fbb1835447bc32a2b076f3d32ad"
+  url "https://cpan.metacpan.org/authors/id/E/EX/EXIFTOOL/Image-ExifTool-12.76.tar.gz"
+  mirror "https://exiftool.org/Image-ExifTool-12.76.tar.gz"
+  sha256 "5d3430ec57aa031f7ca43170f7ed6338a66bda99ab95b9e071f1ee27555f515f"
   license any_of: ["Artistic-1.0-Perl", "GPL-1.0-or-later"]
 
   livecheck do
@@ -14,15 +14,13 @@ class Exiftool < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "4cc5135fce9776fdf80db222c046fbc3ac47927a4379263ab28ccd60ccc84718"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "a969e56b973c0d579c9e5bf0e0a8b18e67dd4f4430ea55874a53f8a073b1c2aa"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "a969e56b973c0d579c9e5bf0e0a8b18e67dd4f4430ea55874a53f8a073b1c2aa"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "e6971f757e7d376474c821f30747fc9ec8d5b80437c0838e31967167e2f94a6c"
-    sha256 cellar: :any_skip_relocation, sonoma:         "1c62c1265ac44c8fa034f726d1a328416ea958302c8013fa253c0bb7b7815afa"
-    sha256 cellar: :any_skip_relocation, ventura:        "7530b6e640f91294c223c2e97722145d91feea0917a6716daeee2cc5b888c1ae"
-    sha256 cellar: :any_skip_relocation, monterey:       "7530b6e640f91294c223c2e97722145d91feea0917a6716daeee2cc5b888c1ae"
-    sha256 cellar: :any_skip_relocation, big_sur:        "2ac32b1e64ec5de6a8d5f9b87d62424056c8024571f7219e59f8699abf72255d"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "f7960fb7ee4a8d1e6729425aee6fd27d742913e18985925c90d32667761ea602"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "eaefac7e07b3e99c42d2aa0a99c8e78355c6d6a874245445de60d45c846febd7"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "c98ed3b14a4d1c66cdb7c19b21fab826ce4c53df12e7a02a51f093f342e7c3b3"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "c98ed3b14a4d1c66cdb7c19b21fab826ce4c53df12e7a02a51f093f342e7c3b3"
+    sha256 cellar: :any_skip_relocation, sonoma:         "d7518674545b5024eb61598e5597c0a42a3eec16bebe249c5ac00de773a45169"
+    sha256 cellar: :any_skip_relocation, ventura:        "3a9703e2864c0e897286d4bb8d77d63612ca50fcec2c61e809c19838acb60474"
+    sha256 cellar: :any_skip_relocation, monterey:       "3a9703e2864c0e897286d4bb8d77d63612ca50fcec2c61e809c19838acb60474"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "01ef54fe0dfd9c6b794a61a269cd1599b58a79851f74c4369fbb33f1737f813c"
   end
 
   uses_from_macos "perl"
@@ -30,7 +28,7 @@ class Exiftool < Formula
   def install
     # Enable large file support
     # https://exiftool.org/forum/index.php?topic=3916.msg18182#msg18182
-    inreplace "lib/Image/ExifTool.pm", "LargeFileSupport => undef", "LargeFileSupport => 1"
+    inreplace "lib/Image/ExifTool.pm", "'LargeFileSupport', undef", "'LargeFileSupport', 1"
 
     # replace the hard-coded path to the lib directory
     inreplace "exiftool", "unshift @INC, $incDir;", "unshift @INC, \"#{libexec}/lib\";"

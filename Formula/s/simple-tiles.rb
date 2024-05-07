@@ -4,31 +4,38 @@ class SimpleTiles < Formula
   url "https://github.com/propublica/simple-tiles/archive/refs/tags/v0.6.2.tar.gz"
   sha256 "343ae52a0b20ee091b14bc145b7c78fed13b7272acd827626283b70f178dfa34"
   license "MIT"
-  revision 2
+  revision 3
   head "https://github.com/propublica/simple-tiles.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any,                 arm64_sonoma:   "a47cd53e74ec486fc2159b4ee55fddb202351c8dec99ef59819728156fc248ef"
-    sha256 cellar: :any,                 arm64_ventura:  "cc9b25089707786c77c954f339412e843776ebc992ed36372b838882336be711"
-    sha256 cellar: :any,                 arm64_monterey: "e2b588d5065161fd7db30ddcbb167fd02bbe15a42e36a624d2d2ab57fa5a719c"
-    sha256 cellar: :any,                 arm64_big_sur:  "a269fabb33d530d300f405e4363d195af41a83ff2801a08d38cf3b1cb6e365bc"
-    sha256 cellar: :any,                 sonoma:         "37fd7cef4daca2b641a7960e7f4271f9329065af95edc794219b70ac024b7b79"
-    sha256 cellar: :any,                 ventura:        "a39df0a3650cf0b17f8292bbae7b27771f8016a0651ffc3359c6d87a9b2056a9"
-    sha256 cellar: :any,                 monterey:       "edbff9be05fb653675118d54d517094a508fc34c2e35d0306bd6261858cc53d0"
-    sha256 cellar: :any,                 big_sur:        "8cfe1ac09b2c94e3ecc194f606bda135202afc7b8877954ca835a15b712a6d59"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "17e7ce8eb9cf3eaff8118ee13604924e1cf320ab1176b175b746f2d2d26198d5"
+    sha256 cellar: :any,                 arm64_sonoma:   "da79421e0b2c78a449808e4b4cae188720efefc069176d6e1cc054f3a6079712"
+    sha256 cellar: :any,                 arm64_ventura:  "d3ae8e8d59119abbcd0e98c6d14d43abd699e50e656c9a8694d0660ecaec6ea7"
+    sha256 cellar: :any,                 arm64_monterey: "c7ae5f7b7fa30216177615fe35f2533064f51c5ee3423c96802cffd59fb54f8d"
+    sha256 cellar: :any,                 sonoma:         "98e66e8c483db6a58ef3f2718a607164d5a662a0926341632c9739beba938d2e"
+    sha256 cellar: :any,                 ventura:        "49c6d41e5a9ace104f66fad122ae9819e2cff32e0ace8b01303018c877e52d10"
+    sha256 cellar: :any,                 monterey:       "53d7f80d2c1b671848fb9614f6d74e8de773b7a63edf803f50814f46c9a86f59"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "dab74bfc6d8af77e8b48a70ef4b230d02c99eb23c41783c7bc05bd20f7d7a644"
   end
 
   depends_on "pkg-config" => [:build, :test]
   depends_on "cairo"
   depends_on "gdal"
   depends_on "pango"
-
   uses_from_macos "python" => :build
 
+  # Update waf for python 3.12
+  # Use resource instead of patch since applying corrupts waf
+  # https://github.com/propublica/simple-tiles/pull/23
+  resource "waf" do
+    url "https://raw.githubusercontent.com/propublica/simple-tiles/e402d6463f6afefd96a2e2d5ce630d909ba96af1/waf"
+    sha256 "dcec3e179f9c33a66544f1b3d7d91f20f6373530510fa6a858cddb6bfdcde14b"
+  end
+
   def install
-    system "python3", "./waf", "configure", "--prefix=#{prefix}"
-    system "make", "install"
+    python3 = "python3"
+    buildpath.install resource("waf")
+    system python3, "./waf", "configure", "--prefix=#{prefix}"
+    system python3, "./waf", "install"
   end
 
   test do

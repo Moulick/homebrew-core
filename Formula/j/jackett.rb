@@ -1,20 +1,18 @@
 class Jackett < Formula
   desc "API Support for your favorite torrent trackers"
   homepage "https://github.com/Jackett/Jackett"
-  url "https://github.com/Jackett/Jackett/archive/refs/tags/v0.21.1077.tar.gz"
-  sha256 "86ff14df47cb26c58cfaa5214f6deaf89eb543d5db62fa092ea82508c39af90a"
+  url "https://github.com/Jackett/Jackett/archive/refs/tags/v0.21.2503.tar.gz"
+  sha256 "9523b192d900300cd18b806f90085124c9ecabae819c00a6a4b0fc3c00a0ea49"
   license "GPL-2.0-only"
   head "https://github.com/Jackett/Jackett.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any,                 arm64_ventura:  "96d5e30c62ea8d1ce37166685256a3c8fbd03dfaf2f5818be71d9ea0e8237422"
-    sha256 cellar: :any,                 arm64_monterey: "aac7465fde077ea8826afe29e84137f9193d82f9b6d42d6ff5f91e8512cf28ad"
-    sha256 cellar: :any,                 ventura:        "5a8f688e93da2fd4d65d38cf329e878bf0a585d2eefc34c7886625eabdfbdb4c"
-    sha256 cellar: :any,                 monterey:       "b717100eda4456a0dab09ee662944601d37b9597e2ed72dc6b7cac6601446f77"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "8cdd6d72db15c17e6e8de8365707caa010f1e6d44ae7af03510ef84583875ac5"
+    sha256 cellar: :any,                 arm64_ventura:  "e726637607bee444100e3e0d6ebf1c466da9049c4f1dadf9a0e69ccddb849084"
+    sha256 cellar: :any,                 arm64_monterey: "264c57646f384922eaa7dae83db33d2a894dc76114882d808593f99fe999ec13"
+    sha256 cellar: :any,                 ventura:        "4e6cdee3e2455377cd95f66bfc99f220963aabd1c851bf42721ab8b7cdf55044"
+    sha256 cellar: :any,                 monterey:       "27a4f539c29d04ac76070e73bdac6f01dcf8a0241da65b147d3f9a4fd67f5c6c"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "26a1d455470a2c04326b9a3cff9f28ba0a232133fb1d2321449c8b12d3c0fb7c"
   end
-
-  deprecate! date: "2023-10-24", because: "uses deprecated `dotnet@6`"
 
   depends_on "dotnet@6"
 
@@ -63,7 +61,7 @@ class Jackett < Formula
     end
 
     begin
-      sleep 10
+      sleep 15
       assert_match "<title>Jackett</title>", shell_output("curl -b cookiefile -c cookiefile -L --silent http://localhost:#{port}")
     ensure
       Process.kill "TERM", pid

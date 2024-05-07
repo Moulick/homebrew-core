@@ -3,48 +3,47 @@ class Dolphie < Formula
 
   desc "Feature-rich top tool for monitoring MySQL"
   homepage "https://github.com/charles-001/dolphie"
-  url "https://files.pythonhosted.org/packages/42/62/5853fe74430773e0e4e5c29483f1ca633a5955d25f9ede4fad24f333a809/dolphie-3.1.3.tar.gz"
-  sha256 "62b008053c1ac7b5e17815782726345b95e5970ab22d29b517af58b71d3dfdb1"
+  url "https://files.pythonhosted.org/packages/ed/3a/321824c6cfd3ff12be53116e1f2c263217dd090af9d9fc6d998dc4f50fef/dolphie-5.0.1.tar.gz"
+  sha256 "b63e83d119a965e9ca28da041a67aa6a2cbd573f18d6bea1a8218606518d7ebc"
   license "GPL-3.0-or-later"
-  revision 2
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "01eb71c04c0b7d8c7b857e1234da956ec4079d85fd0d383bde41e0a9a4d693eb"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "1de946dc43a3b7eb1f34dbb2fce621672f30cc76044b39b8102fcb155c865a2a"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "3e81619f3df88b6b80b5f400be20bdab1eecf9de5a0b74193653c0300e80323c"
-    sha256 cellar: :any_skip_relocation, sonoma:         "3815c4fa864a9851629afc9c637291fa37a6d7d7edf230e450146bc496dede91"
-    sha256 cellar: :any_skip_relocation, ventura:        "6fd85ac036448f71794c43f274db8071692dfaff1f1c449da7187585ddd51d0e"
-    sha256 cellar: :any_skip_relocation, monterey:       "d2a5f5b464b49307ba8ac8b3c4fdd664439b9fdeea38c49eab439ac07f97c902"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "221efbf561cc9f8f0c8cd7cc16e93588a546f7e0ec56244742fdd19ae9647ba0"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "696eb73cced4c782b93062ea006f42dbe5c72feab62463d9848ce41915e8e653"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "facfaee5fb63f9b1b899a0db02c0287d3bd34bbd4a6d4ff22b348827746f657b"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "3fe4a90c6799ccd23227242f44ad2366122c2950b2243412409b7d777bb95931"
+    sha256 cellar: :any_skip_relocation, sonoma:         "3c67a3dd626fabfc0ac4f272e4511104c5f73d71fd9166060328dce3ca074f55"
+    sha256 cellar: :any_skip_relocation, ventura:        "35d9bd3a9ce841a26db3916ac558e3b87128de81a16a920aa8644386ad853463"
+    sha256 cellar: :any_skip_relocation, monterey:       "93cbbdf7590d9ce113b66d5321313ae4ba0e0f4830be6234cc62f50779314598"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "4e148fe404a01cba1e1ffbb75b4872655c77fd5fe3858ba846d891a9e544d6a0"
   end
 
-  depends_on "cffi"
-  depends_on "pycparser"
-  depends_on "pygments"
-  depends_on "python-certifi"
-  depends_on "python-cryptography"
-  depends_on "python-packaging"
-  depends_on "python-typing-extensions"
+  depends_on "certifi"
+  depends_on "cryptography"
   depends_on "python@3.12"
 
+  resource "cffi" do
+    url "https://files.pythonhosted.org/packages/68/ce/95b0bae7968c65473e1298efb042e10cafc7bafc14d9e4f154008241c91d/cffi-1.16.0.tar.gz"
+    sha256 "bcb3ef43e58665bbda2fb198698fcae6776483e0c4a631aa5647806c25e02cc0"
+  end
+
   resource "charset-normalizer" do
-    url "https://files.pythonhosted.org/packages/cf/ac/e89b2f2f75f51e9859979b56d2ec162f7f893221975d244d8d5277aa9489/charset-normalizer-3.3.0.tar.gz"
-    sha256 "63563193aec44bce707e0c5ca64ff69fa72ed7cf34ce6e11d5127555756fd2f6"
+    url "https://files.pythonhosted.org/packages/63/09/c1bc53dab74b1816a00d8d030de5bf98f724c52c1635e07681d312f20be8/charset-normalizer-3.3.2.tar.gz"
+    sha256 "f30c3cb33b24454a82faecaf01b19c18562b1e89558fb6c56de4d9118a032fd5"
+  end
+
+  resource "cython" do
+    url "https://files.pythonhosted.org/packages/d5/f7/2fdd9205a2eedee7d9b0abbf15944a1151eb943001dbdc5233b1d1cfc34e/Cython-3.0.10.tar.gz"
+    sha256 "dcc96739331fb854dcf503f94607576cfe8488066c61ca50dfd55836f132de99"
   end
 
   resource "idna" do
-    url "https://files.pythonhosted.org/packages/8b/e1/43beb3d38dba6cb420cefa297822eac205a277ab43e5ba5d5c46faf96438/idna-3.4.tar.gz"
-    sha256 "814f528e8dead7d329833b91c5faa87d60bf71824cd12a7530b5526063d02cb4"
-  end
-
-  resource "importlib-metadata" do
-    url "https://files.pythonhosted.org/packages/33/44/ae06b446b8d8263d712a211e959212083a5eda2bf36d57ca7415e03f6f36/importlib_metadata-6.8.0.tar.gz"
-    sha256 "dbace7892d8c0c4ac1ad096662232f831d4e64f4c4545bd53016a3e9d4654743"
+    url "https://files.pythonhosted.org/packages/21/ed/f86a79a07470cb07819390452f178b3bef1d375f2ec021ecfc709fc7cf07/idna-3.7.tar.gz"
+    sha256 "028ff3aadf0609c1fd278d8ea3089299412a7a8b9bd005dd08b9f8285bcb5cfc"
   end
 
   resource "linkify-it-py" do
-    url "https://files.pythonhosted.org/packages/8d/fd/73bb30ec2b3cd952fe139a79a40ce5f5fd0280dd2cc1de94c93ea6a714d2/linkify-it-py-2.0.2.tar.gz"
-    sha256 "19f3060727842c254c808e99d465c80c49d2c7306788140987a1a7a29b0d6ad2"
+    url "https://files.pythonhosted.org/packages/2a/ae/bb56c6828e4797ba5a4821eec7c43b8bf40f69cda4d4f5f8c8a2810ec96a/linkify-it-py-2.0.3.tar.gz"
+    sha256 "68cda27e162e9215c17d786649d1da0021a451bdc436ef9e0fa0ba5234b9b048"
   end
 
   resource "markdown-it-py" do
@@ -67,9 +66,24 @@ class Dolphie < Formula
     sha256 "c44b8d11e8f35a02eeac4b88bf244203c09cc496bfa19ce99a79561c038f9d09"
   end
 
+  resource "packaging" do
+    url "https://files.pythonhosted.org/packages/ee/b5/b43a27ac7472e1818c4bafd44430e69605baefe1f34440593e0332ec8b4d/packaging-24.0.tar.gz"
+    sha256 "eb82c5e3e56209074766e6885bb04b8c38a0c015d0a30036ebe7ece34c9989e9"
+  end
+
   resource "plotext" do
     url "https://files.pythonhosted.org/packages/27/d7/58f5ec766e41f8338f04ec47dbd3465db04fbe2a6107bca5f0670ced253a/plotext-5.2.8.tar.gz"
     sha256 "319a287baabeb8576a711995f973a2eba631c887aa6b0f33ab016f12c50ffebe"
+  end
+
+  resource "pycparser" do
+    url "https://files.pythonhosted.org/packages/1d/b2/31537cf4b1ca988837256c910a668b553fceb8f069bedc4b1c826024b52c/pycparser-2.22.tar.gz"
+    sha256 "491c8be9c040f5390f5bf44a5b07752bd07f56edf992381b05c701439eec10f6"
+  end
+
+  resource "Pygments" do
+    url "https://files.pythonhosted.org/packages/55/59/8bccf4157baf25e4aa5a0bb7fa3ba8600907de105ebc22b0c78cfbf6f565/pygments-2.17.2.tar.gz"
+    sha256 "da46cec9fd2de5be3a8a784f434e4c4ab670b4ff54d605c4c2717e9d49c4c367"
   end
 
   resource "pymysql" do
@@ -83,8 +97,13 @@ class Dolphie < Formula
   end
 
   resource "rich" do
-    url "https://files.pythonhosted.org/packages/b1/0e/e5aa3ab6857a16dadac7a970b2e1af21ddf23f03c99248db2c01082090a3/rich-13.6.0.tar.gz"
-    sha256 "5c14d22737e6d5084ef4771b62d5d4363165b403455a30a1c8ca39dc7b644bef"
+    url "https://files.pythonhosted.org/packages/b3/01/c954e134dc440ab5f96952fe52b4fdc64225530320a910473c1fe270d9aa/rich-13.7.1.tar.gz"
+    sha256 "9be308cb1fe2f1f57d67ce99e95af38a1e2bc71ad9813b0e247cf7ffbcc3a432"
+  end
+
+  resource "setuptools" do
+    url "https://files.pythonhosted.org/packages/d6/4f/b10f707e14ef7de524fe1f8988a294fb262a29c9b5b12275c7e188864aed/setuptools-69.5.1.tar.gz"
+    sha256 "6c1fccdac05a97e598fb0ae3bbed5904ccb317337a51139dcd51453611bbb987"
   end
 
   resource "sqlparse" do
@@ -93,8 +112,8 @@ class Dolphie < Formula
   end
 
   resource "textual" do
-    url "https://files.pythonhosted.org/packages/46/47/dda242d5de6dea10b64e118b194fb0934b84b28555783b1e7f04c25a0289/textual-0.37.1.tar.gz"
-    sha256 "0498894da7f4af5cac62d99e412e9d813e784f7a87834dd29aa656d31d068760"
+    url "https://files.pythonhosted.org/packages/f5/ad/02ace5f4cc7dcb3c0d1c596e4cbf0e90d56322979481eeadfbee62b8c373/textual-0.57.1.tar.gz"
+    sha256 "91029212b28c0cc73adad1e8b9fcda0b53947d4d81a1e8df4efbcb1346638744"
   end
 
   resource "textual-autocomplete" do
@@ -102,19 +121,30 @@ class Dolphie < Formula
     sha256 "ba31da6e9b77e4c35323c267f958f0b90e1c2ddeca9c825c7d6c29d4d33893ce"
   end
 
+  resource "tree-sitter" do
+    url "https://files.pythonhosted.org/packages/4a/64/71b3a0ff7d0d89cb333caeca01992099c165bdd663e7990ea723615e60f4/tree_sitter-0.20.4.tar.gz"
+    sha256 "6adb123e2f3e56399bbf2359924633c882cc40ee8344885200bca0922f713be5"
+  end
+
+  # sdist issue report, https://github.com/grantjenks/py-tree-sitter-languages/issues/63
+  resource "tree-sitter-languages" do
+    url "https://github.com/grantjenks/py-tree-sitter-languages/archive/refs/tags/v1.10.2.tar.gz"
+    sha256 "cdd03196ebaf8f486db004acd07a5b39679562894b47af6b20d28e4aed1a6ab5"
+  end
+
+  resource "typing-extensions" do
+    url "https://files.pythonhosted.org/packages/f6/f3/b827b3ab53b4e3d8513914586dcca61c355fa2ce8252dea4da56e67bf8f2/typing_extensions-4.11.0.tar.gz"
+    sha256 "83f085bd5ca59c80295fc2a82ab5dac679cbe02b9f33f7d83af68e241bea51b0"
+  end
+
   resource "uc-micro-py" do
-    url "https://files.pythonhosted.org/packages/75/db/241444fe6df6970a4c18d227193cad77fab7cec55d98e296099147de017f/uc-micro-py-1.0.2.tar.gz"
-    sha256 "30ae2ac9c49f39ac6dce743bd187fcd2b574b16ca095fa74cd9396795c954c54"
+    url "https://files.pythonhosted.org/packages/91/7a/146a99696aee0609e3712f2b44c6274566bc368dfe8375191278045186b8/uc-micro-py-1.0.3.tar.gz"
+    sha256 "d321b92cff673ec58027c04015fcaa8bb1e005478643ff4a500882eaab88c48a"
   end
 
   resource "urllib3" do
-    url "https://files.pythonhosted.org/packages/af/47/b215df9f71b4fdba1025fc05a77db2ad243fa0926755a52c5e71659f4e3c/urllib3-2.0.7.tar.gz"
-    sha256 "c97dfde1f7bd43a71c8d2a58e369e9b2bf692d1334ea9f9cae55add7d0dd0f84"
-  end
-
-  resource "zipp" do
-    url "https://files.pythonhosted.org/packages/58/03/dd5ccf4e06dec9537ecba8fcc67bbd4ea48a2791773e469e73f94c3ba9a6/zipp-3.17.0.tar.gz"
-    sha256 "84e64a1c28cf7e91ed2078bb8cc8c259cb19b76942096c8d7b84947690cabaf0"
+    url "https://files.pythonhosted.org/packages/7a/50/7fd50a27caa0652cd4caf224aa87741ea41d3265ad13f010886167cfcc79/urllib3-2.2.1.tar.gz"
+    sha256 "d0570876c61ab9e520d776c38acbbb5b05a776d3f9ff98a5c8fd5162a444cf19"
   end
 
   def install
@@ -122,8 +152,12 @@ class Dolphie < Formula
   end
 
   test do
-    output = shell_output("#{bin}/dolphie mysql://dolphie:test@localhost:3306 2>&1")
-    assert_match "Failed to connect to database host", output
+    # Fails in Linux CI with "ParseError: end of file reached"
+    # See https://github.com/Homebrew/homebrew-core/pull/152912#issuecomment-1787257320
+    return if OS.linux? && ENV["HOMEBREW_GITHUB_ACTIONS"]
+
+    output = shell_output("#{bin}/dolphie mysql://user:password@host:port 2>&1")
+    assert_match "Invalid URI: Port could not be cast to integer value as 'port'", output
 
     assert_match version.to_s, shell_output("#{bin}/dolphie --version")
   end

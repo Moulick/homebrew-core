@@ -1,9 +1,9 @@
 class RomTools < Formula
   desc "Tools for Multiple Arcade Machine Emulator"
   homepage "https://mamedev.org/"
-  url "https://github.com/mamedev/mame/archive/refs/tags/mame0260.tar.gz"
-  version "0.260"
-  sha256 "104ca8daab3ce7bb9637e19f1dc60a08ac6856db730ab544275567addb9541cd"
+  url "https://github.com/mamedev/mame/archive/refs/tags/mame0265.tar.gz"
+  version "0.265"
+  sha256 "3de68db66efb783eb5c5d7ccad1f4a4f5eadc6c7a29c1a9c2097e532c3e0b8b1"
   license "GPL-2.0-or-later"
   head "https://github.com/mamedev/mame.git", branch: "master"
 
@@ -12,24 +12,25 @@ class RomTools < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_sonoma:   "4f8f8e62379a118efc090e3edee155bc966888cc61b7c0cd764f94477dfbf944"
-    sha256 cellar: :any,                 arm64_ventura:  "e50849e6b8f3503d82dc53134fdcdc0e37bfaadc024299efac0f423407ded709"
-    sha256 cellar: :any,                 arm64_monterey: "d675a67f88318fbcf3dba8c5fc033c5fc143b8710e071c9169e1fab39f30715b"
-    sha256 cellar: :any,                 sonoma:         "8238b12c928ad703df95fffb179a3a9ab6aeb869b873fa3c07a92236f93dc217"
-    sha256 cellar: :any,                 ventura:        "20c9cde80d085de67c92f123d0c35823b4cc85c45e5c6e4b6904181827ddc3a1"
-    sha256 cellar: :any,                 monterey:       "7101e2d979377df71ecc69245af86e257cb29f0e27c46b36fe3838270bbcc44a"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "2c716e673c5017afd1238c81600c5c3ff0c2f63a14778e86d2dccdfcde01dd1c"
+    sha256 cellar: :any,                 arm64_sonoma:   "281e40ccb9d8f486c8c1ef51d93ce7bb2fd3e12b117e12c92fa3bb22b59efb16"
+    sha256 cellar: :any,                 arm64_ventura:  "4d2d018f44c09c676ab675922c099e2a75ce5d354a3e1a6bfc571cd14a7ff51f"
+    sha256 cellar: :any,                 arm64_monterey: "efbc7862c32912a041ef48094aff1b349c0e90d4cd59e60bf9735055d5e1ef90"
+    sha256 cellar: :any,                 sonoma:         "9067436ce28bc3ee0c070aa9beeb175dd8f002a4904bf17f7604f8539df9a816"
+    sha256 cellar: :any,                 ventura:        "cb3cbcdc56593d4b110aabf537bf9d7f09b0b83971d33a69c4527454ecefd315"
+    sha256 cellar: :any,                 monterey:       "485ad57a8418b387a424774897840f26a953313d01ea184ececefe34f0de5c4d"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "135d2044295db9d309c644033281a24c952253a4b8e8ffbf4e8ce682473a806b"
   end
 
   depends_on "asio" => :build
   depends_on "pkg-config" => :build
-  depends_on "python@3.11" => :build
   depends_on "flac"
   # Need C++ compiler and standard library support C++17.
   depends_on macos: :high_sierra
   depends_on "sdl2"
   depends_on "utf8proc"
+  depends_on "zstd"
 
+  uses_from_macos "python" => :build
   uses_from_macos "expat"
   uses_from_macos "zlib"
 
@@ -49,14 +50,17 @@ class RomTools < Formula
     inreplace "scripts/src/osd/sdl.lua", "--static", ""
 
     args = %W[
-      PYTHON_EXECUTABLE=#{which("python3.11")}
+      PYTHON_EXECUTABLE=#{which("python3")}
       TOOLS=1
+      EMULATOR=0
       USE_LIBSDL=1
       USE_SYSTEM_LIB_EXPAT=1
       USE_SYSTEM_LIB_ZLIB=1
       USE_SYSTEM_LIB_ASIO=1
       USE_SYSTEM_LIB_FLAC=1
       USE_SYSTEM_LIB_UTF8PROC=1
+      USE_SYSTEM_LIB_ZSTD=1
+      VERBOSE=1
     ]
     if OS.linux?
       args << "USE_SYSTEM_LIB_PORTAUDIO=1"
@@ -76,20 +80,20 @@ class RomTools < Formula
   # Needs more comprehensive tests
   test do
     # system "#{bin}/aueffectutil" # segmentation fault
-    system "#{bin}/castool"
+    system bin/"castool"
     assert_match "chdman info", shell_output("#{bin}/chdman help info", 1)
-    system "#{bin}/floptool"
-    system "#{bin}/imgtool", "listformats"
-    system "#{bin}/jedutil", "-viewlist"
+    system bin/"floptool"
+    system bin/"imgtool", "listformats"
+    system bin/"jedutil", "-viewlist"
     assert_match "linear equation", shell_output("#{bin}/ldresample 2>&1", 1)
     assert_match "avifile.avi", shell_output("#{bin}/ldverify 2>&1", 1)
-    system "#{bin}/nltool", "--help"
-    system "#{bin}/nlwav", "--help"
+    system bin/"nltool", "--help"
+    system bin/"nlwav", "--help"
     assert_match "image1", shell_output("#{bin}/pngcmp 2>&1", 10)
     assert_match "summary", shell_output("#{bin}/regrep 2>&1", 1)
-    system "#{bin}/romcmp"
-    system "#{bin}/rom-split"
-    system "#{bin}/srcclean"
+    system bin/"romcmp"
+    system bin/"rom-split"
+    system bin/"srcclean"
     assert_match "architecture", shell_output("#{bin}/unidasm", 1)
   end
 end

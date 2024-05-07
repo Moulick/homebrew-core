@@ -1,26 +1,26 @@
 class Talhelper < Formula
   desc "Configuration helper for talos clusters"
-  homepage "https://github.com/budimanjojo/talhelper"
-  url "https://github.com/budimanjojo/talhelper/archive/refs/tags/v1.14.0.tar.gz"
-  sha256 "916f260de8642c1f247b9308eb0619d90bf6d23e73d60be1d2dac9cd99fe2160"
+  homepage "https://budimanjojo.github.io/talhelper/latest/"
+  url "https://github.com/budimanjojo/talhelper/archive/refs/tags/v2.4.3.tar.gz"
+  sha256 "7dc6962fe2f355e4929453c1bcbd41e8c340785410c724f85a297ecda441e095"
   license "BSD-3-Clause"
   head "https://github.com/budimanjojo/talhelper.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "2a4a803f592918ec85d98f4741605e2843fff6e799edc008b2bfbae78de47915"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "8f1186d983d706746011f75629bc18e1e5fc9b86b9f91bd77d068a8f1896879f"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "02521bc30e357839ef1c8b453745ab44a9e7fda283a6df9e22b33c2690aeb955"
-    sha256 cellar: :any_skip_relocation, sonoma:         "d312bd5310865fa1a9d824b5ed28a4e27dc4a2b3d040e7d9ab503b9461b317cd"
-    sha256 cellar: :any_skip_relocation, ventura:        "bf0cbf19f791212090c23b98d2a7b7f76f1c01ce99a27f06228f3ad6562d422f"
-    sha256 cellar: :any_skip_relocation, monterey:       "7533c1ff8a48eeee65fec4f81df72329dcacfeb4dce4f3b405afa327012ec89f"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "9b82939a22ac4adf5a75829e846ed246ebf38d4c8f103b6cab8bb7484b72089f"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "b1220948c558d652ba6ddda39b4ce5ad70237effa946a15dac601b8b3edb1043"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "971a349bfcc0d24c295f9386c79fea23267230f7702199d167e0fc4bb27072dc"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "13627d0e8ed2f0fc71e4c99b33aa5b5cb1dcc6f5b5d20e8bcab16f9e166d2034"
+    sha256 cellar: :any_skip_relocation, sonoma:         "809cf394e4db14ae5d8262a9c33d871ec70370f64a932826ee7015d96045396c"
+    sha256 cellar: :any_skip_relocation, ventura:        "5a5b5b47439a7acea31ac2889e67f99ffac61189b3a5fbcbcb517e4d48dd27f2"
+    sha256 cellar: :any_skip_relocation, monterey:       "89456c9b38705113c3bee4005f02c5535dd9619f9a44b6f75135e9ae5c569266"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "b3e1090c3cf9ee15aedaa6a69f3600ddb490d6007ff584e24edc3adb2f10cf38"
   end
 
   depends_on "go" => :build
 
   def install
     ldflags = "-s -w -X github.com/budimanjojo/talhelper/cmd.version=#{version}"
-    system "go", "build", *std_go_args(ldflags: ldflags)
+    system "go", "build", *std_go_args(ldflags:)
 
     generate_completions_from_executable(bin/"talhelper", "completion")
     pkgshare.install "example"
@@ -30,7 +30,7 @@ class Talhelper < Formula
     cp_r Dir["#{pkgshare}/example/*"], testpath
 
     output = shell_output("#{bin}/talhelper genconfig 2>&1", 1)
-    assert_match "failed to decrypt/read env file talenv.yaml", output
+    assert_match "failed to load env file: trying to decrypt talenv.yaml with sops", output
 
     assert_match "cluster:", shell_output("#{bin}/talhelper gensecret")
 

@@ -1,8 +1,8 @@
 class CiliumCli < Formula
   desc "CLI to install, manage & troubleshoot Kubernetes clusters running Cilium"
   homepage "https://cilium.io"
-  url "https://github.com/cilium/cilium-cli/archive/refs/tags/v0.15.11.tar.gz"
-  sha256 "4c0021ae152d4ffa107daa30d9828122a8670cfdf95a4a059cc4771dd34e2b2b"
+  url "https://github.com/cilium/cilium-cli/archive/refs/tags/v0.16.7.tar.gz"
+  sha256 "3f4af0d0f30c5ebd379c5d33244d9fb155d71f618d76332bd8d8cb6bd08e29e0"
   license "Apache-2.0"
 
   # Upstream uses GitHub releases to indicate that a version is released
@@ -14,20 +14,20 @@ class CiliumCli < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "bb8f26908540554658e525402a090dee1ee5fa1ee046f93fa780fc802ed0364b"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "23627380a77124e0865453054437c62a3f7930f78a52aa64e21a639b4616841f"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "5a638e9cb58ee2c972bf9b3d22d488124f9c8ee9ccdc99c44edd43f3abccbbb3"
-    sha256 cellar: :any_skip_relocation, sonoma:         "7537b7f191626ca880bf8b54df6783c8f12ec330a79c9e43e21e564969981d49"
-    sha256 cellar: :any_skip_relocation, ventura:        "37e9de9319c7071a4a8b510d688d128a8b5c7848e906bac0fe71911b193329b6"
-    sha256 cellar: :any_skip_relocation, monterey:       "13ca84551244f82bce4b43371ea91f20177cf407b897c552015cb6b1ad133118"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "5fd22c73c2adb135e473425684ec421c9ed7f46dff1c670778709a9098ae22f1"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "8897ef54a78a42ab89ec7c2d75a94f10da127c802cbcc60c6d141a18a0a2aa90"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "a499fe33d3c0a010e3953167538c77352cccb41a9db64f7557c559dd6c627ff4"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "07ce8a6ac52d5c9e3f16ed5e499401a5e84f09cc71e6ed3e13415b9157d5fb3a"
+    sha256 cellar: :any_skip_relocation, sonoma:         "cd045b6305378affca9ef32b7c196b6b841c8b983d78ac1c68341a78d7fb65bf"
+    sha256 cellar: :any_skip_relocation, ventura:        "df207a5b88c7d1940997c9e076509b597fa02800fa09679538c49487e1f478e8"
+    sha256 cellar: :any_skip_relocation, monterey:       "e25f196c075e0f9b7856aaf6adf7124a6b76c12a7125ffdaee7e232c2c2ca800"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "c8b8b4bbb900fe2a1d37e4dee34dad1233b00cb14ef1fe5ca54462b1badb1345"
   end
 
   depends_on "go" => :build
 
   def install
-    ldflags = "-s -w -X github.com/cilium/cilium-cli/cli.Version=v#{version}"
-    system "go", "build", *std_go_args(output: bin/"cilium", ldflags: ldflags), "./cmd/cilium"
+    ldflags = "-s -w -X github.com/cilium/cilium-cli/defaults.CLIVersion=v#{version}"
+    system "go", "build", *std_go_args(ldflags:, output: bin/"cilium"), "./cmd/cilium"
 
     generate_completions_from_executable(bin/"cilium", "completion", base_name: "cilium")
   end

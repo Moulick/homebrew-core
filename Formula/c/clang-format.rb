@@ -7,22 +7,22 @@ class ClangFormat < Formula
   head "https://github.com/llvm/llvm-project.git", branch: "main"
 
   stable do
-    url "https://github.com/llvm/llvm-project/releases/download/llvmorg-17.0.4/llvm-17.0.4.src.tar.xz"
-    sha256 "4f5907fb547947d10df35230a0fc73cf2f81aa12e09fc8de96c023425412c9f6"
+    url "https://github.com/llvm/llvm-project/releases/download/llvmorg-18.1.5/llvm-18.1.5.src.tar.xz"
+    sha256 "8a134e58cb98061b6b8f312fe9c174a646fa0c8691b5511c43795dc980dfd226"
 
     resource "clang" do
-      url "https://github.com/llvm/llvm-project/releases/download/llvmorg-17.0.4/clang-17.0.4.src.tar.xz"
-      sha256 "56c99515be2f245848dacc60fe85fe9de66cdc438ea0a1b82640e68384d0e432"
+      url "https://github.com/llvm/llvm-project/releases/download/llvmorg-18.1.5/clang-18.1.5.src.tar.xz"
+      sha256 "82deec53b4535ae30fce3bcbb1a946020aaf8bdedc4f34ec025e29ee70678f1d"
     end
 
     resource "cmake" do
-      url "https://github.com/llvm/llvm-project/releases/download/llvmorg-17.0.4/cmake-17.0.4.src.tar.xz"
-      sha256 "1a5cbe4a1fcda56ecdd80f42c3437060a28c97ec31de1748f6ba6aa84948fb0f"
+      url "https://github.com/llvm/llvm-project/releases/download/llvmorg-18.1.5/cmake-18.1.5.src.tar.xz"
+      sha256 "dfe1eb2d464168eefdfda72bbaaf1ec9b8314f5a6e68652b49699e7cb618304d"
     end
 
     resource "third-party" do
-      url "https://github.com/llvm/llvm-project/releases/download/llvmorg-17.0.4/third-party-17.0.4.src.tar.xz"
-      sha256 "49358a7da2f49149a3028bf3aa6389052d4ebc15c548699cf19694141fdea847"
+      url "https://github.com/llvm/llvm-project/releases/download/llvmorg-18.1.5/third-party-18.1.5.src.tar.xz"
+      sha256 "c7f60186a8e140d50f02f4cf426d800991cf37b99f5d40503cecb417291a25ed"
     end
   end
 
@@ -33,13 +33,13 @@ class ClangFormat < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "e167db06df732c75972432934e6c4c3d1d07804ee7e923b53757efceb0b7d43e"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "ecb1159b1815293934884dea028fae88072e45feae2233bbf7634ee92430f843"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "1d5224379d3c6a2959b87b0416b3881a6903f3a4fe74043edf523ba7cda39b3d"
-    sha256 cellar: :any_skip_relocation, sonoma:         "79507a5f295e8af44d7ccf905b9987adaf10c8c851a70fac76056c3cc46dea7c"
-    sha256 cellar: :any_skip_relocation, ventura:        "f7a3ff2f2e57bda4b497827765f1d00efc17132fe1a204617ee5acd93c764603"
-    sha256 cellar: :any_skip_relocation, monterey:       "1997f0e20715b5ed14b9663f92d762fe7f520c75d213865be1ba863416cc30ef"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "5f22fb5b1c6b053d07de9fb65e57dd8453eb7b57c959d61288f8ebe0e723be8b"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "1c5ebe2b7c443690f2f8aa6141e8ac9a7713ee8acc38c7816ef8f6b1be6bc149"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "ea0691ce3e20c5e941cac6be9143ae995723e6730f9f593db3eac218b8b2eea6"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "8b2ec8282ba600f8d1297cb3709f06c09a59f44f0fa537e365712c13936ea950"
+    sha256 cellar: :any_skip_relocation, sonoma:         "f654efb7cb80a9a9521044ad54b4621342c7bd3ada13bc87e750ad572818d928"
+    sha256 cellar: :any_skip_relocation, ventura:        "5a0d748bca02a4f62103d735fab12c0540f773fd17205bc81c1a3cdf83a30040"
+    sha256 cellar: :any_skip_relocation, monterey:       "b29fb2c057705da5ff1177aa53eb3ca9a881b5a88775843e24ef5e305d541fc2"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "59d620207b789e90efe4ce3e9ba585b25b6ec1e17ef7791b22c3a554f8fca9c0"
   end
 
   depends_on "cmake" => :build
@@ -54,6 +54,10 @@ class ClangFormat < Formula
   end
 
   def install
+    odie "clang resource needs to be updated" if build.stable? && version != resource("clang").version
+    odie "cmake resource needs to be updated" if build.stable? && version != resource("cmake").version
+    odie "third-party resource needs to be updated" if build.stable? && version != resource("third-party").version
+
     llvmpath = if build.head?
       ln_s buildpath/"clang", buildpath/"llvm/tools/clang"
 

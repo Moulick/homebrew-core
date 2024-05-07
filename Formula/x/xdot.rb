@@ -9,15 +9,14 @@ class Xdot < Formula
   head "https://github.com/jrfonseca/xdot.py.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "a59db9e091ecff0b318f223f9ba316f91e1173e3221e19371cbf769f34721df4"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "8e2e3c088fc43db9fd8d2b2ebfa02e729a533ef3e8562a78e06cb2652dc8a873"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "4f6bb055d3e4b04f798da20971c16d3ea67b3464d892592db34c23bbad3dcc35"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "724df2bb58f5435fa527b1e2f8863071f369178bb7becf1d07e583b6eb0b98ac"
-    sha256 cellar: :any_skip_relocation, sonoma:         "0ffcc78cd4884c755043c73b53b8a795600b1627d94a54b69768fdb9b7ba5c8f"
-    sha256 cellar: :any_skip_relocation, ventura:        "f1f0e861109fab15e0bcd39fe16c3aec5496d7bac450d9229c315efc07c2dbe6"
-    sha256 cellar: :any_skip_relocation, monterey:       "2c74b79c48f9d6181e9182f154c4f8612db08f0ce53eee1e8cd1687ca8ead32d"
-    sha256 cellar: :any_skip_relocation, big_sur:        "a9458a255391d1ddc5e7770d16e971e38ad7746928afef9022a85a223cba1a60"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "5038c9497d3a17f42998673271a3546ac00a01dbdb15a11bae99f7e9a99bf458"
+    rebuild 2
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "a5fa743c1cd886c911a0b7be7e0c0ce047cb2137456dffd781df01a70bec5139"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "a5fa743c1cd886c911a0b7be7e0c0ce047cb2137456dffd781df01a70bec5139"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "a5fa743c1cd886c911a0b7be7e0c0ce047cb2137456dffd781df01a70bec5139"
+    sha256 cellar: :any_skip_relocation, sonoma:         "6388495e914b6a72dc929489a99f638305c3bbc1a3d9afe7f8e825dc844345e5"
+    sha256 cellar: :any_skip_relocation, ventura:        "6388495e914b6a72dc929489a99f638305c3bbc1a3d9afe7f8e825dc844345e5"
+    sha256 cellar: :any_skip_relocation, monterey:       "6388495e914b6a72dc929489a99f638305c3bbc1a3d9afe7f8e825dc844345e5"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "94dafcfccfdbb31a72bfbdd8840569763505d54610b024969e2b2cffa5fe8898"
   end
 
   depends_on "adwaita-icon-theme"
@@ -26,11 +25,16 @@ class Xdot < Formula
   depends_on "numpy"
   depends_on "py3cairo"
   depends_on "pygobject3"
-  depends_on "python@3.11"
+  depends_on "python@3.12"
 
   resource "graphviz" do
     url "https://files.pythonhosted.org/packages/a5/90/fb047ce95c1eadde6ae78b3fca6a598b4c307277d4f8175d12b18b8f7321/graphviz-0.20.1.zip"
     sha256 "8c58f14adaa3b947daf26c19bc1e98c4e0702cdc31cf99153e6f06904d492bf8"
+  end
+
+  resource "setuptools" do
+    url "https://files.pythonhosted.org/packages/4d/5b/dc575711b6b8f2f866131a40d053e30e962e633b332acf7cd2c24843d83d/setuptools-69.2.0.tar.gz"
+    sha256 "0ff4183f8f42cd8fa3acea16c45205521a4ef28f73c6391d8a25e92893134f2e"
   end
 
   def install

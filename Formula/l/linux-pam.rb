@@ -1,13 +1,13 @@
 class LinuxPam < Formula
   desc "Pluggable Authentication Modules for Linux"
   homepage "http://www.linux-pam.org"
-  url "https://github.com/linux-pam/linux-pam/releases/download/v1.5.3/Linux-PAM-1.5.3.tar.xz"
-  sha256 "7ac4b50feee004a9fa88f1dfd2d2fa738a82896763050cd773b3c54b0a818283"
+  url "https://github.com/linux-pam/linux-pam/releases/download/v1.6.1/Linux-PAM-1.6.1.tar.xz"
+  sha256 "f8923c740159052d719dbfc2a2f81942d68dd34fcaf61c706a02c9b80feeef8e"
   license any_of: ["BSD-3-Clause", "GPL-1.0-only"]
   head "https://github.com/linux-pam/linux-pam.git", branch: "master"
 
   bottle do
-    sha256 x86_64_linux: "ead04bf7c0145cd6b712e05b9adb5d946541537ce862aed512df04c79fc44a92"
+    sha256 x86_64_linux: "52a7fb9aec444e5cd3a7bb53318a375f65757c485782a6430bcde5e0754b915e"
   end
 
   depends_on "pkg-config" => :build
@@ -16,8 +16,6 @@ class LinuxPam < Formula
   depends_on "libtirpc"
   depends_on "libxcrypt"
   depends_on :linux
-
-  uses_from_macos "libxcrypt"
 
   skip_clean :la
 

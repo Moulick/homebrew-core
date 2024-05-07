@@ -1,19 +1,19 @@
 class Wangle < Formula
   desc "Modular, composable client/server abstractions framework"
   homepage "https://github.com/facebook/wangle"
-  url "https://github.com/facebook/wangle/releases/download/v2023.10.30.00/wangle-v2023.10.30.00.tar.gz"
-  sha256 "cd46e08eb43dbd7650bc2a40f9617c99127c6fd80d2c243b8e260460869fcb93"
+  url "https://github.com/facebook/wangle/archive/refs/tags/v2024.05.06.00.tar.gz"
+  sha256 "44e22905a7d5334b37cc25b27ca4124a63df6891b55641e157d9a75fea7bc21c"
   license "Apache-2.0"
   head "https://github.com/facebook/wangle.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any,                 arm64_sonoma:   "e7752bdb3b74021be188bfa52ed9a8510fd380658559efde38b5da5e19871a3b"
-    sha256 cellar: :any,                 arm64_ventura:  "32f562ac41495b88ae47e8fd42be332ea4fc450238f854e0324c74e313d56f71"
-    sha256 cellar: :any,                 arm64_monterey: "cd4f69448bf22e98df192b6be67fa6662d77eade4cc81dd05c4a95fab4ca2006"
-    sha256 cellar: :any,                 sonoma:         "cd20cd1a7e2bd8554610a7974b9836bf9b0c7ecdebda6379e95a2abbe6edffd2"
-    sha256 cellar: :any,                 ventura:        "27c74150f048494abfa3c23ef1ead941a857dad4c60ffd97bdc09f0ff95ab0ce"
-    sha256 cellar: :any,                 monterey:       "a6e41919af38358d5f32927b184bbbcef576a5a08a5aa2c43642636b8f42dabc"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "ed5032696b6e04292e47524842c050a87deb3cc73dc09b74854f3827d9786b17"
+    sha256 cellar: :any,                 arm64_sonoma:   "ac0a527fbe9ed86432f46b255874887afd2d644f6f5a78668edd154152dcd2a0"
+    sha256 cellar: :any,                 arm64_ventura:  "0bc6c6319946c5d2099d4f20fcc95053e6d2d2d3804d4599ba66385823c0a553"
+    sha256 cellar: :any,                 arm64_monterey: "b392423226bf007b64d82160648f36d22611d98a6253a2411e4a15f84a2cf0e8"
+    sha256 cellar: :any,                 sonoma:         "5019c4a960ff7617c0c6eea273f1f0f6a9e9dc8740d100b942c21969051d511a"
+    sha256 cellar: :any,                 ventura:        "96734b18803e9f475425a4bcf8a5895457975594753b5af11d62f43a455c3911"
+    sha256 cellar: :any,                 monterey:       "f551fff3999090e18f5c97f1dcf19a2aca2272f52549634b152f9e020695422e"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "6743cb8b91b0aa6d8d73c770f46e8a71c92047cb8929457ebf717216e866cdce"
   end
 
   depends_on "cmake" => :build
@@ -37,16 +37,17 @@ class Wangle < Formula
   fails_with gcc: "5"
 
   def install
-    cd "wangle" do
-      system "cmake", ".", "-DBUILD_TESTS=OFF", "-DBUILD_SHARED_LIBS=ON", *std_cmake_args
-      system "make", "install"
-      system "make", "clean"
-      system "cmake", ".", "-DBUILD_TESTS=OFF", "-DBUILD_SHARED_LIBS=OFF", *std_cmake_args
-      system "make"
-      lib.install "lib/libwangle.a"
+    args = ["-DBUILD_TESTS=OFF"]
 
-      pkgshare.install Dir["example/echo/*.cpp"]
-    end
+    system "cmake", "-S", "wangle", "-B", "build/shared", "-DBUILD_SHARED_LIBS=ON", *args, *std_cmake_args
+    system "cmake", "--build", "build/shared"
+    system "cmake", "--install", "build/shared"
+
+    system "cmake", "-S", "wangle", "-B", "build/static", "-DBUILD_SHARED_LIBS=OFF", *args, *std_cmake_args
+    system "cmake", "--build", "build/static"
+    lib.install "build/static/lib/libwangle.a"
+
+    pkgshare.install Dir["wangle/example/echo/*.cpp"]
   end
 
   test do

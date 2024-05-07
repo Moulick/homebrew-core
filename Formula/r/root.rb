@@ -1,8 +1,8 @@
 class Root < Formula
   desc "Object oriented framework for large scale data analysis"
   homepage "https://root.cern.ch/"
-  url "https://root.cern.ch/download/root_v6.28.06.source.tar.gz"
-  sha256 "af3b673b9aca393a5c9ae1bf86eab2672aaf1841b658c5c6e7a30ab93c586533"
+  url "https://root.cern.ch/download/root_v6.30.06.source.tar.gz"
+  sha256 "300db7ed1b678ed2fb9635ca675921a1945c7c2103da840033b493091f55700c"
   license "LGPL-2.1-or-later"
   head "https://github.com/root-project/root.git", branch: "master"
 
@@ -15,14 +15,13 @@ class Root < Formula
   end
 
   bottle do
-    sha256 arm64_sonoma:   "94e1426e8d16fc3e3c825888cc63c19bc9fd4a13af34d1b19cc5fdcdcb4d2c0e"
-    sha256 arm64_ventura:  "3014c8d983209f274ea11ecb083270a840b6d3625519c60709e0c276c2d68e13"
-    sha256 arm64_monterey: "3ae3aec1ce5aec5dca74a146eb15c4f50e203b962299a134d1c855f2d672d514"
-    sha256 arm64_big_sur:  "98aa1bf5a2713e90c028d738c4f0b1e8e29952ac4ec8c7b233e077ed286b2f21"
-    sha256 sonoma:         "03c3f3b0423d8cb3c91e6b7b3812094b5e503d677fcfb647401598e9cca640e7"
-    sha256 ventura:        "38eba991e027f38d40aa0c6ad561f52673a6a0eaf01e61bb224a5d307c8cf981"
-    sha256 monterey:       "bc9a2362b26f94b57c28138bbc07daf904f25d92812374aebcd83faf947d8d75"
-    sha256 big_sur:        "c3408f666240f788efe6c0b852aab6458ddebb1c605f65e17dcb61d8eceee56a"
+    sha256 arm64_sonoma:   "6bb71f42e538001ef19e857980cc818f24e7cd10c08c09807fab861df126f6a1"
+    sha256 arm64_ventura:  "e5acb2d64803db1debb33ed9c46fa384012cdfb4ac8c3f6bc79d3f88a43668f6"
+    sha256 arm64_monterey: "fe2e1b0dfc6887d398497cc2f303fd1b3d1364d0e0d914d79345c3141254b1d0"
+    sha256 sonoma:         "647753b1e3f8413f7a5c12c06316a779519df264762f4a22e1e58661e6bdc59c"
+    sha256 ventura:        "fa1aa3bce621fbaeb3d03f796a70120fc4b0b34fe881d11608bfd768c339c3cb"
+    sha256 monterey:       "8d9b24cf58b872d710c2098643c4704af44035d7be7af6adf944ae453cd7ccc7"
+    sha256 x86_64_linux:   "c56a683f7e18d977bccbdaba866e416e456e3cf1f9b5d38bb8aca388756ec8b5"
   end
 
   depends_on "cmake" => :build
@@ -45,7 +44,7 @@ class Root < Formula
   depends_on "openblas"
   depends_on "openssl@3"
   depends_on "pcre"
-  depends_on "python@3.11"
+  depends_on "python@3.12"
   depends_on "sqlite"
   depends_on "tbb"
   depends_on :xcode
@@ -68,7 +67,7 @@ class Root < Formula
   fails_with gcc: "5"
 
   def python3
-    "python3.11"
+    "python3.12"
   end
 
   def install
@@ -87,7 +86,7 @@ class Root < Formula
       -DCLING_CXX_PATH=clang++
       -DCMAKE_CXX_STANDARD=17
       -DCMAKE_INSTALL_ELISPDIR=#{elisp}
-      -DPYTHON_EXECUTABLE=#{python3}
+      -DPYTHON_EXECUTABLE=#{which(python3)}
       -DXROOTD_ROOT_DIR=#{Formula["xrootd"].opt_prefix}
       -Dbuiltin_afterimage=ON
       -Dbuiltin_cfitsio=OFF

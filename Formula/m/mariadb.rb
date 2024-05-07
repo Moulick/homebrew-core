@@ -1,8 +1,8 @@
 class Mariadb < Formula
   desc "Drop-in replacement for MySQL"
   homepage "https://mariadb.org/"
-  url "https://archive.mariadb.org/mariadb-11.1.2/source/mariadb-11.1.2.tar.gz"
-  sha256 "19a9e980e57fa332931f643b48ad7390528c889ff6ea8b0e16fd306aa3088238"
+  url "https://archive.mariadb.org/mariadb-11.3.2/source/mariadb-11.3.2.tar.gz"
+  sha256 "5570778f0a2c27af726c751cda1a943f3f8de96d11d107791be5b44a0ce3fb5c"
   license "GPL-2.0-only"
 
   livecheck do
@@ -17,15 +17,13 @@ class Mariadb < Formula
   end
 
   bottle do
-    sha256 arm64_sonoma:   "13a0808f11d27b86a00272cca9c2b2c73ceb739aa41deb8a6162ce9292e6f6bd"
-    sha256 arm64_ventura:  "401510a40e824eae474c46bd2f87215470af179d0a0e6169f1a31b1176719950"
-    sha256 arm64_monterey: "28659680ec89db6676b0fd91477e95e70b107811579f2186efdc879c602d584f"
-    sha256 arm64_big_sur:  "99dd5ac4521a69f497200236897c593fffd5023721eeb6f217386fb6ec7da9f8"
-    sha256 sonoma:         "d58e4792fc07416b90627fb024235e8e9574bff9e58aca66e325c09aacc371ed"
-    sha256 ventura:        "c12513697fb611308d4771be020ce6bfcd929b5411899b91259d6809a1e5b9b7"
-    sha256 monterey:       "d58132f4957fb5f61c3b751b430683721948197d98f8585d0de2fd7349d467c1"
-    sha256 big_sur:        "fb5b1759eaefe98ef21ca4e9787fb16be6c68aff5e11a044c8fe8faed95fc953"
-    sha256 x86_64_linux:   "1d20e99f1a2cbed4fc1cb83a95243d7edbbc86d01ced0b8195ce190d4487837f"
+    sha256 arm64_sonoma:   "62b3259218d3f4a3c1b52eb011382d9bfe2e2833f40d255d735c40320fa9d81c"
+    sha256 arm64_ventura:  "a9f71222869b1e0fcfe4cc0fd55ee340755efb5b31a26483a726b3a577a86828"
+    sha256 arm64_monterey: "2547a84d2c507b22d6163ccc994355933bf4cc9c9742e406080e13d3579c5b96"
+    sha256 sonoma:         "e8ef52d72c29883f186d75430147012cba4a68c1a44214a3e0516e6d8819edcb"
+    sha256 ventura:        "9ab7548d251c9ea816b5167d562df7026ac9e4b547e3b8c9f334c73e282f81a1"
+    sha256 monterey:       "4fe540840104edcffe20f5329e9a96a65ca5188e6d8f22de250c6ea03ac3774e"
+    sha256 x86_64_linux:   "190cfffaffb9692e8e8ca7ef32d5ba8a2f0fadb5287b3e0a4e9262f0838b72a7"
   end
 
   depends_on "bison" => :build
@@ -56,15 +54,11 @@ class Mariadb < Formula
 
   fails_with gcc: "5"
 
-  # Fix libfmt usage.
-  # https://github.com/MariaDB/server/pull/2732
+  # Remove on next release.
+  # Upstream PR: https://github.com/MariaDB/server/pull/3064
   patch do
-    url "https://github.com/MariaDB/server/commit/f4cec369a392c8a6056207012992ad4a5639965a.patch?full_index=1"
-    sha256 "1851d5ae209c770e8fd1ba834b840be12d7b537b96c7efa3d4e7c9523f188912"
-  end
-  patch do
-    url "https://github.com/MariaDB/server/commit/cd5808eb8da13c5626d4bdeb452cef6ada29cb1d.patch?full_index=1"
-    sha256 "4d288f82f56c61278aefecba8a90d214810b754e234f40b338e8cc809e0369e9"
+    url "https://github.com/MariaDB/server/commit/3624a36aed0346380255b141cb8a59998aaca4ee.patch?full_index=1"
+    sha256 "c9d0aa64b34c43ac9e3077d74c18532125c459d9d867ade69ce283d27b595b22"
   end
 
   def install
@@ -89,7 +83,6 @@ class Mariadb < Formula
       -DINSTALL_DOCDIR=share/doc/#{name}
       -DINSTALL_INFODIR=share/info
       -DINSTALL_MYSQLSHAREDIR=share/mysql
-      -DWITH_LIBFMT=system
       -DWITH_SSL=system
       -DWITH_UNIT_TESTS=OFF
       -DDEFAULT_CHARSET=utf8mb4

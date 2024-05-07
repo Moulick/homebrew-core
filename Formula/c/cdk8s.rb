@@ -3,17 +3,18 @@ require "language/node"
 class Cdk8s < Formula
   desc "Define k8s native apps and abstractions using object-oriented programming"
   homepage "https://cdk8s.io/"
-  url "https://registry.npmjs.org/cdk8s-cli/-/cdk8s-cli-2.163.0.tgz"
-  sha256 "7c4cdae73ac5655ce45d40c5c22fa4602f55287f7da693580f56af892e237de4"
+  url "https://registry.npmjs.org/cdk8s-cli/-/cdk8s-cli-2.198.112.tgz"
+  sha256 "bc6daddc40df0dd26627329f00aefbaa69aa1d199e5eaeb80d5849b179116018"
   license "Apache-2.0"
+
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "eb34927204212636afc96d75127aa66a175876b4e90a7d5b9c1e39bb1a27583f"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "eb34927204212636afc96d75127aa66a175876b4e90a7d5b9c1e39bb1a27583f"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "eb34927204212636afc96d75127aa66a175876b4e90a7d5b9c1e39bb1a27583f"
-    sha256 cellar: :any_skip_relocation, sonoma:         "89ba9f7c55f23b86424d4c720034e766bb1f421a9955992d59cca34820c48663"
-    sha256 cellar: :any_skip_relocation, ventura:        "89ba9f7c55f23b86424d4c720034e766bb1f421a9955992d59cca34820c48663"
-    sha256 cellar: :any_skip_relocation, monterey:       "89ba9f7c55f23b86424d4c720034e766bb1f421a9955992d59cca34820c48663"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "eb34927204212636afc96d75127aa66a175876b4e90a7d5b9c1e39bb1a27583f"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "a2c49dea797eaa95e6fdca9ecae37f750924c3dacc1927a0ef5768574ccd28d7"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "a2c49dea797eaa95e6fdca9ecae37f750924c3dacc1927a0ef5768574ccd28d7"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "a2c49dea797eaa95e6fdca9ecae37f750924c3dacc1927a0ef5768574ccd28d7"
+    sha256 cellar: :any_skip_relocation, sonoma:         "2a9eaa8e0c59efcf40fef744dfb99723d13d9d5cc4e207c84b3761b7e057f07f"
+    sha256 cellar: :any_skip_relocation, ventura:        "2a9eaa8e0c59efcf40fef744dfb99723d13d9d5cc4e207c84b3761b7e057f07f"
+    sha256 cellar: :any_skip_relocation, monterey:       "2a9eaa8e0c59efcf40fef744dfb99723d13d9d5cc4e207c84b3761b7e057f07f"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "a2c49dea797eaa95e6fdca9ecae37f750924c3dacc1927a0ef5768574ccd28d7"
   end
 
   depends_on "node"
@@ -24,7 +25,7 @@ class Cdk8s < Formula
   end
 
   test do
-    assert_match "Cannot initialize a project in a non-empty directory",
-      shell_output("#{bin}/cdk8s init python-app 2>&1", 1)
+    output = shell_output("#{bin}/cdk8s init python-app 2>&1", 1)
+    assert_match "Initializing a project from the python-app template", output
   end
 end

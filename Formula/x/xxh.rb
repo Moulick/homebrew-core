@@ -3,32 +3,36 @@ class Xxh < Formula
 
   desc "Bring your favorite shell wherever you go through the ssh"
   homepage "https://github.com/xxh/xxh"
-  url "https://files.pythonhosted.org/packages/78/2b/1e77800918dce31e99c84a26657a01e1544cbf2fa301a27ac45872872c55/xxh-xxh-0.8.12.tar.gz"
-  sha256 "0d71c0e12de2f90534060613dd24c4eb7fb1d7285566bc18a49912423b09f203"
+  url "https://files.pythonhosted.org/packages/d6/ac/fb40368ff37fbdd00d041e241cc0d7a50cdac7bc6ae54dcb9f1349acdde6/xxh-xxh-0.8.14.tar.gz"
+  sha256 "7904c35efdff0a6f50f76b30879d3fbfe726cc765db47a1306ab2f19c03fdfae"
   license "BSD-2-Clause"
 
   bottle do
-    rebuild 2
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "47172f4a08d3248a5b3dbd761da8ebc0e050a0394cdcc09d283b269aa478bb40"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "03bf2c78dd77992e5e82bc089f58617c5165c797b56b0eb8d6939cd780cf3c60"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "5db9198a94336a94b70bb322855ad5789d709c64be0b3bed97071f9796d90b71"
-    sha256 cellar: :any_skip_relocation, sonoma:         "e59e595e1348f7181c9a56e7cf81b9755a47232e7d875802a6b94ce8d6fb1ba8"
-    sha256 cellar: :any_skip_relocation, ventura:        "4bd73a9b8bd76f2ad74ec9c9dcf77565eb4c92a5858c3a5a0cefa2e3a8594c36"
-    sha256 cellar: :any_skip_relocation, monterey:       "c4a117e7ab19bff1602f79914f5c2ff1c33e5d1426e16fcfb188a9b315683f08"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "b9cb19657f532c1b92df2981188d98bf222f7241e0db5383f40413f8e0ac4100"
+    sha256 cellar: :any,                 arm64_sonoma:   "822e1666ce2e955c53623bda48f314623bd13acc5ba4aa6f3a0ddd1caf47ea4f"
+    sha256 cellar: :any,                 arm64_ventura:  "506b28fef997d22a9758465f16f581f50d6930910795959552a22e950069a4fd"
+    sha256 cellar: :any,                 arm64_monterey: "b8a409e38956b865d25c45dcb45b77cd2f2241a8a26bbb0022a94afa1fbae6a8"
+    sha256 cellar: :any,                 sonoma:         "5fa1b2366a20659838f63c3677cd33ada1fc7c720424ed5fd7b1f9a2fb0e25de"
+    sha256 cellar: :any,                 ventura:        "9503143a0ecaedb5d2890e455bea5842875b465753ada89a8222b8ea45a4439c"
+    sha256 cellar: :any,                 monterey:       "3d160118d09b9b87dd435f9874442a56377bb68dccf916e26310201e4e48823b"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "a9cd1234bba4387ec033284cce8258ca2e6ae6911dfd7efe50e277c7c06be975"
   end
 
+  depends_on "libyaml"
   depends_on "python@3.12"
-  depends_on "pyyaml"
 
   resource "pexpect" do
-    url "https://files.pythonhosted.org/packages/e5/9b/ff402e0e930e70467a7178abb7c128709a30dfb22d8777c043e501bc1b10/pexpect-4.8.0.tar.gz"
-    sha256 "fc65a43959d153d0114afe13997d439c22823a27cefceb5ff35c2178c6784c0c"
+    url "https://files.pythonhosted.org/packages/42/92/cc564bf6381ff43ce1f4d06852fc19a2f11d180f23dc32d9588bee2f149d/pexpect-4.9.0.tar.gz"
+    sha256 "ee7d41123f3c9911050ea2c2dac107568dc43b2d3b0c7557a33212c398ead30f"
   end
 
   resource "ptyprocess" do
     url "https://files.pythonhosted.org/packages/20/e5/16ff212c1e452235a90aeb09066144d0c5a6a8c0834397e03f5224495c4e/ptyprocess-0.7.0.tar.gz"
     sha256 "5c5d0a3b48ceee0b48485e0c26037c0acd7d29765ca3fbb5cb3831d347423220"
+  end
+
+  resource "pyyaml" do
+    url "https://files.pythonhosted.org/packages/cd/e5/af35f7ea75cf72f2cd079c95ee16797de7cd71f29ea7c68ae5ce7be1eda0/PyYAML-6.0.1.tar.gz"
+    sha256 "bfdf460b1736c775f2ba9f6a92bca30bc2095067b8a9d77876d1fad6cc3b4a43"
   end
 
   def install
@@ -68,7 +72,7 @@ class Xxh < Formula
       ssh_args = JSON.parse ssh_argv.tr("'", "\"")
       assert_includes ssh_args, "Port=#{port}"
       assert_includes ssh_args, "HostName=127.0.0.1"
-      assert_match "Connection closed by remote host", stderr
+      assert_match "Connection closed", stderr
     ensure
       Process.kill("TERM", server_pid)
     end

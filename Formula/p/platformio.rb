@@ -3,33 +3,33 @@ class Platformio < Formula
 
   desc "Your Gateway to Embedded Software Development Excellence"
   homepage "https://platformio.org/"
-  url "https://files.pythonhosted.org/packages/85/9b/37452c9b7e99638c9d761c7864a463e4721ce7206fb526174813ffe6a949/platformio-6.1.11.tar.gz"
-  sha256 "1977201887cd11487adf1babf17a28f45f6dbbec8cbc5e3cc144cb43b320a0d0"
+  url "https://files.pythonhosted.org/packages/13/78/8903f4f505a393ee48a18a00b4b9c866a726ef844d23ff3ce4863d710898/platformio-6.1.15.tar.gz"
+  sha256 "d3209a60d40340fdbab2c76ee23303d90e5ecea0a11f92980c9d2068d0975fde"
   license "Apache-2.0"
-  revision 2
   head "https://github.com/platformio/platformio-core.git", branch: "develop"
 
   bottle do
     rebuild 1
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "0362f383b6238acb9261fa7b859abd4d47ac317826a187d082066add9e2398e0"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "215ebe10122960bcc44c2e8171b2a04b2131c30e109a17cac0d0a10a5638c3bc"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "86e5711747caeb375214c85ab8d2de4ca9017a3c64f91ade0b808b46a81faa45"
-    sha256 cellar: :any_skip_relocation, sonoma:         "87749f39d71936bde9cb8768d1dcd3b6c44365dc42418ff53aec7b1defcbc25c"
-    sha256 cellar: :any_skip_relocation, ventura:        "0607dbb98a5112b2071117dc9c6d7ebdd89445e827d8004089afd7918f41e243"
-    sha256 cellar: :any_skip_relocation, monterey:       "3566e2104b45827c0443c6133ce961f89c3a1b251aa8e51c46d3b921dce89b29"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "ed1dbd71994dafa6a1c9fb5ae9b0758d06a9b2b19fb6ebf454580c8f12e2abb0"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "9ebcd4bfc0d65123e1d540d7e3331d956ed1be90c138dd682ebfa91167634f52"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "9ebcd4bfc0d65123e1d540d7e3331d956ed1be90c138dd682ebfa91167634f52"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "9ebcd4bfc0d65123e1d540d7e3331d956ed1be90c138dd682ebfa91167634f52"
+    sha256 cellar: :any_skip_relocation, sonoma:         "897795ce217662c4126ae2154bf0d8bb8af2290feb68ed54dad134ec3c6b6a70"
+    sha256 cellar: :any_skip_relocation, ventura:        "897795ce217662c4126ae2154bf0d8bb8af2290feb68ed54dad134ec3c6b6a70"
+    sha256 cellar: :any_skip_relocation, monterey:       "897795ce217662c4126ae2154bf0d8bb8af2290feb68ed54dad134ec3c6b6a70"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "b3b44acc28b1a7866bb82d3fba5c35608356992f13cf3467927a3b070b98518a"
   end
 
-  depends_on "python-certifi"
-  depends_on "python-click"
-  depends_on "python-packaging"
-  depends_on "python-tabulate"
+  depends_on "certifi"
   depends_on "python@3.12"
-  depends_on "uvicorn"
 
   resource "ajsonrpc" do
     url "https://files.pythonhosted.org/packages/da/5c/95a9b83195d37620028421e00d69d598aafaa181d3e55caec485468838e1/ajsonrpc-1.2.0.tar.gz"
     sha256 "791bac18f0bf0dee109194644f151cf8b7ff529c4b8d6239ac48104a3251a19f"
+  end
+
+  resource "anyio" do
+    url "https://files.pythonhosted.org/packages/db/4d/3970183622f0330d3c23d9b8a5f52e365e50381fd484d08e3285104333d3/anyio-4.3.0.tar.gz"
+    sha256 "f75253795a87df48568485fd18cdd2a3fa5c4f7c5be8e5e36637733fce06fed6"
   end
 
   resource "bottle" do
@@ -37,9 +37,19 @@ class Platformio < Formula
     sha256 "e1a9c94970ae6d710b3fb4526294dfeb86f2cb4a81eff3a4b98dc40fb0e5e021"
   end
 
+  resource "chardet" do
+    url "https://files.pythonhosted.org/packages/f3/0d/f7b6ab21ec75897ed80c17d79b15951a719226b9fababf1e40ea74d69079/chardet-5.2.0.tar.gz"
+    sha256 "1b3b6ff479a8c414bc3fa2c0852995695c4a026dcd6d0633b2dd092ca39c1cf7"
+  end
+
   resource "charset-normalizer" do
-    url "https://files.pythonhosted.org/packages/cf/ac/e89b2f2f75f51e9859979b56d2ec162f7f893221975d244d8d5277aa9489/charset-normalizer-3.3.0.tar.gz"
-    sha256 "63563193aec44bce707e0c5ca64ff69fa72ed7cf34ce6e11d5127555756fd2f6"
+    url "https://files.pythonhosted.org/packages/63/09/c1bc53dab74b1816a00d8d030de5bf98f724c52c1635e07681d312f20be8/charset-normalizer-3.3.2.tar.gz"
+    sha256 "f30c3cb33b24454a82faecaf01b19c18562b1e89558fb6c56de4d9118a032fd5"
+  end
+
+  resource "click" do
+    url "https://files.pythonhosted.org/packages/96/d3/f04c7bfcf5c1862a2a5b845c6b2b360488cf47af55dfa79c98f6a6bf98b5/click-8.1.7.tar.gz"
+    sha256 "ca9853ad459e787e2192211578cc907e7594e294c7ccc834310722b41b9ca6de"
   end
 
   resource "colorama" do
@@ -47,14 +57,29 @@ class Platformio < Formula
     sha256 "08695f5cb7ed6e0531a20572697297273c47b8cae5a63ffc6d6ed5c201be6e44"
   end
 
+  resource "h11" do
+    url "https://files.pythonhosted.org/packages/f5/38/3af3d3633a34a3316095b39c8e8fb4853a28a536e55d347bd8d8e9a14b03/h11-0.14.0.tar.gz"
+    sha256 "8f19fbbe99e72420ff35c00b27a34cb9937e902a8b810e2c88300c6f0a3b699d"
+  end
+
+  resource "idna" do
+    url "https://files.pythonhosted.org/packages/21/ed/f86a79a07470cb07819390452f178b3bef1d375f2ec021ecfc709fc7cf07/idna-3.7.tar.gz"
+    sha256 "028ff3aadf0609c1fd278d8ea3089299412a7a8b9bd005dd08b9f8285bcb5cfc"
+  end
+
   resource "marshmallow" do
-    url "https://files.pythonhosted.org/packages/e4/e0/3e49c0f91f3e8954806c1076f4eae2c95a9d3ed2546f267c683b877d327b/marshmallow-3.20.1.tar.gz"
-    sha256 "5d2371bbe42000f2b3fb5eaa065224df7d8f8597bc19a1bbfa5bfe7fba8da889"
+    url "https://files.pythonhosted.org/packages/a2/16/06ad266adc423f9d7ee49dce26787b973907aa70213760c9fe1711745405/marshmallow-3.21.2.tar.gz"
+    sha256 "82408deadd8b33d56338d2182d455db632c6313aa2af61916672146bb32edc56"
+  end
+
+  resource "packaging" do
+    url "https://files.pythonhosted.org/packages/ee/b5/b43a27ac7472e1818c4bafd44430e69605baefe1f34440593e0332ec8b4d/packaging-24.0.tar.gz"
+    sha256 "eb82c5e3e56209074766e6885bb04b8c38a0c015d0a30036ebe7ece34c9989e9"
   end
 
   resource "pyelftools" do
-    url "https://files.pythonhosted.org/packages/0e/35/e76da824595452a5ad07f289ea1737ca0971fc6cc7b6ee9464279be06b5e/pyelftools-0.29.tar.gz"
-    sha256 "ec761596aafa16e282a31de188737e5485552469ac63b60cfcccf22263fd24ff"
+    url "https://files.pythonhosted.org/packages/88/56/0f2d69ed9a0060da009f672ddec8a71c041d098a66f6b1d80264bf6bbdc0/pyelftools-0.31.tar.gz"
+    sha256 "c774416b10310156879443b81187d182d8d9ee499660380e645918b50bc88f99"
   end
 
   resource "pyserial" do
@@ -72,14 +97,29 @@ class Platformio < Formula
     sha256 "bdabb6d336998cbb378d4b9db3a4b56a1e3235701dc05ea2690d9a997ed5041c"
   end
 
+  resource "sniffio" do
+    url "https://files.pythonhosted.org/packages/a2/87/a6771e1546d97e7e041b6ae58d80074f81b7d5121207425c964ddf5cfdbd/sniffio-1.3.1.tar.gz"
+    sha256 "f4324edc670a0f49750a81b895f35c3adb843cca46f0530f79fc1babb23789dc"
+  end
+
   resource "starlette" do
-    url "https://files.pythonhosted.org/packages/e1/4b/fcd426d9477554d31dacb0c8069828466841b69ad26c8cfab9c5321830ec/starlette-0.31.1.tar.gz"
-    sha256 "a4dc2a3448fb059000868d7eb774dd71229261b6d49b6851e7849bec69c0a011"
+    url "https://files.pythonhosted.org/packages/61/b5/6bceb93ff20bd7ca36e6f7c540581abb18f53130fabb30ba526e26fd819b/starlette-0.37.2.tar.gz"
+    sha256 "9af890290133b79fc3db55474ade20f6220a364a0402e0b556e7cd5e1e093823"
+  end
+
+  resource "tabulate" do
+    url "https://files.pythonhosted.org/packages/ec/fe/802052aecb21e3797b8f7902564ab6ea0d60ff8ca23952079064155d1ae1/tabulate-0.9.0.tar.gz"
+    sha256 "0095b12bf5966de529c0feb1fa08671671b3368eec77d7ef7ab114be2c068b3c"
   end
 
   resource "urllib3" do
-    url "https://files.pythonhosted.org/packages/af/47/b215df9f71b4fdba1025fc05a77db2ad243fa0926755a52c5e71659f4e3c/urllib3-2.0.7.tar.gz"
-    sha256 "c97dfde1f7bd43a71c8d2a58e369e9b2bf692d1334ea9f9cae55add7d0dd0f84"
+    url "https://files.pythonhosted.org/packages/7a/50/7fd50a27caa0652cd4caf224aa87741ea41d3265ad13f010886167cfcc79/urllib3-2.2.1.tar.gz"
+    sha256 "d0570876c61ab9e520d776c38acbbb5b05a776d3f9ff98a5c8fd5162a444cf19"
+  end
+
+  resource "uvicorn" do
+    url "https://files.pythonhosted.org/packages/49/8d/5005d39cd79c9ae87baf7d7aafdcdfe0b13aa69d9a1e3b7f1c984a2ac6d2/uvicorn-0.29.0.tar.gz"
+    sha256 "6a69214c0b6a087462412670b3ef21224fa48cae0e452b5883e8e8bdfdd11dd0"
   end
 
   resource "wsproto" do
@@ -89,10 +129,6 @@ class Platformio < Formula
 
   def install
     virtualenv_install_with_resources
-
-    site_packages = Language::Python.site_packages("python3.12")
-    paths = %w[uvicorn].map { |p| Formula[p].opt_libexec/site_packages }
-    (libexec/site_packages/"homebrew-deps.pth").write paths.join("\n")
 
     generate_completions_from_executable(bin/"pio", shells: [:fish, :zsh], shell_parameter_format: :click)
   end

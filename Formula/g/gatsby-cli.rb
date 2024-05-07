@@ -3,18 +3,18 @@ require "language/node"
 class GatsbyCli < Formula
   desc "Gatsby command-line interface"
   homepage "https://www.gatsbyjs.org/docs/gatsby-cli/"
-  url "https://registry.npmjs.org/gatsby-cli/-/gatsby-cli-5.12.4.tgz"
-  sha256 "24e604fc2ddac7f5a011edc45f0711c97c1e6661b7e2c229ad401abaf5f41060"
+  url "https://registry.npmjs.org/gatsby-cli/-/gatsby-cli-5.13.3.tgz"
+  sha256 "22419fe3354ce4a4e373aaa54160294b8d5cc5ab95ad6b632b07a047c6287378"
   license "MIT"
 
   bottle do
-    sha256                               arm64_sonoma:   "b726d9bd3c3611d89266e3336364b15d2c7bcbf9f504e36d356b5f967bb4d0cf"
-    sha256                               arm64_ventura:  "ccd58311aba86cbfc6b6e0571b65af49d58797f75c430ba99f6d803c50596d09"
-    sha256                               arm64_monterey: "5299d6ab829ecf6535e7a79f38943df1b9a6dc02d3e8a89816961fe5363943fa"
-    sha256                               sonoma:         "fa9598e0605cb3b8de26b1d96339e624cfaa8e2dbc964ad18866642c66f54f65"
-    sha256                               ventura:        "515bb758e5e62592322b99eba5c3dd3cdd69766a902255fd1796e55657f6cfef"
-    sha256                               monterey:       "56523dfd0abb042e53852c656b8a31cede8e27988aca5e50dd759eac9c62c0c7"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "c4937f3e266ba7a345d7c67b76e2de48728867196d36c568d94c1dda638a60a1"
+    sha256                               arm64_sonoma:   "93e8f4c67f5e0ab8914bbc762a37c6f21dc6795b1962273d1c2954778e61fcb7"
+    sha256                               arm64_ventura:  "4af3f7d83f71ba6be1011f33c0d401cec382f5e4f6ef47cdd6da230f849c2238"
+    sha256                               arm64_monterey: "7de68bc0f132452013a46b0f1c3bcedeff429d80e6cd4784a4d1996b8a34da71"
+    sha256                               sonoma:         "30507a2a4f791c8de4282012cb752822a46e7fe98f27db441c86d3cda10c2a39"
+    sha256                               ventura:        "b4b496ab46b78d0980a5b5555b4cbd4dc41c10ef7dae267dee8d4cc82ca2a727"
+    sha256                               monterey:       "71bab880233972938f092c4420aa4abdbbbc88c48504fb403df161fc3a1e40d7"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "8a83fd61a35c2e589e0f4f07d8f3ac1caa00076c4304b1bc193e687c2b49662b"
   end
 
   depends_on "node"

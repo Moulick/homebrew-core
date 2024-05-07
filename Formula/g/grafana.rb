@@ -1,26 +1,33 @@
 class Grafana < Formula
   desc "Gorgeous metric visualizations and dashboards for timeseries databases"
   homepage "https://grafana.com"
-  url "https://github.com/grafana/grafana/archive/refs/tags/v10.1.1.tar.gz"
-  sha256 "55f8822105d15fcb6e8dbfb16c3636dfa6e08f8fc6cd1f98700adbb6ba28bbb4"
+  url "https://github.com/grafana/grafana/archive/refs/tags/v10.4.2.tar.gz"
+  sha256 "7f50ff23608bc0d9713ac8aeadfb6fbf0e1a945292c7e792873b04078b11579d"
   license "AGPL-3.0-only"
   head "https://github.com/grafana/grafana.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "31f547ed00edb1ac7b60a764fee642f70c1eecb811400974f266861a8efba094"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "bc80fd27215878f15c86267e46b78a7da31c99ff022285dfa49b09089bedc0bf"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "9f0bcc0b0dd381e5222db7a6395a717b4c6e1ab8c8fd916cc395446562518d8f"
-    sha256 cellar: :any_skip_relocation, ventura:        "f9e99037d79674a4b14db8f0eda54d373666b473e62d670acba9f73db281308b"
-    sha256 cellar: :any_skip_relocation, monterey:       "96fd109b20bd3cf6485e24631828f17510fb9adbbd9e8d8980b5f92094e1aa66"
-    sha256 cellar: :any_skip_relocation, big_sur:        "648cb1c891328082032559b3b85cea9a496747b43fb14cdae75637f0a6cfac43"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "6f25d2de91fabe3a65a97fac3365be6f7f073e7dd1a32b5950c19dc8895fcb02"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "790f0b281439f47da2bd28b3e798955a29c52ed3d7c3093e98cce82d7ef20d7a"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "efbb674af694c5c810183e896e8caab0d51a476452f16e6d0ca10037f8d9dfe8"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "028c2faed32d3b1349a420173ed045db2e4cc5da5158724389c7784adadd3ba0"
+    sha256 cellar: :any_skip_relocation, sonoma:         "cb493a7fcf8bad4dc1f2971b109f24f2fe270e1b954fde7758c2300e9fec63aa"
+    sha256 cellar: :any_skip_relocation, ventura:        "4469d5bf221408269e727eac4bdd1b660bf6a7f76191f8c68eb520c92e022cac"
+    sha256 cellar: :any_skip_relocation, monterey:       "82a049b31768a45a6d7594c8ef0af90650e090b9e0b1305d2827ca661d4abb8c"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "127313fbb2064a054f23c9789c80541d1957ba7c9dd32514ec6374ccaa7d9179"
   end
 
   depends_on "go" => :build
   depends_on "node" => :build
   depends_on "yarn" => :build
 
+  uses_from_macos "python" => :build, since: :catalina
   uses_from_macos "zlib"
+
+  on_system :linux, macos: :mojave_or_older do
+    # Workaround for old `node-gyp` that needs distutils.
+    # TODO: Remove when `node-gyp` is v10+
+    depends_on "python-setuptools" => :build
+  end
 
   on_linux do
     depends_on "fontconfig"

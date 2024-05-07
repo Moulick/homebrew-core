@@ -2,21 +2,19 @@ class Neatvi < Formula
   desc "Clone of ex/vi for editing bidirectional utf-8 text"
   homepage "https://repo.or.cz/neatvi.git"
   url "https://repo.or.cz/neatvi.git",
-      tag:      "12",
-      revision: "baaeb1a5cc24c82af732de468aeed61cc41bafe6"
+      tag:      "15",
+      revision: "d16828a4a46cbc84c30cf58c38978ad819bc0379"
   license "ISC"
   head "https://repo.or.cz/neatvi.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "25751777bc4e8793c64e58116983ce439dd1e54744321e478cb3524a72a01907"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "2423c8416f487e0e40d40480e5b72793ba6cb785319697b0af5b2514a8556b78"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "2104e4ae913da3c966aa0a0dfdf33ca9b577cad677a4eef1d91b89abfbf5a946"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "2382b8577664a05b5c4f5e0dd6dba028cd7d0b6d645529edb18002c2c4db6440"
-    sha256 cellar: :any_skip_relocation, sonoma:         "3d7d4c530e77c7115193907745a9c60eece854f9df94fb3fa295cdf3ab43e901"
-    sha256 cellar: :any_skip_relocation, ventura:        "35657c62d6b0c90970e81938713b56d184b63bb763f99d0df6cec585ce29eded"
-    sha256 cellar: :any_skip_relocation, monterey:       "41c48e0fb85dae26495d8fa77df66141c8c9fc57351bf226042ae4a741fa9f4c"
-    sha256 cellar: :any_skip_relocation, big_sur:        "f1043dd5a4f3f974a78378c74ed1102e29c3047fe5e73c0404e5ee80dbf3e84e"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "63609ed2bbdce05d357d045a39c8c40b6b0be353f0b1c82ecebabb6ec8d297b3"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "32d6fc1d3843b6a9a311745c1fd4b4992a2b66a65e2e5a25dc6b287f788b3073"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "50174f1ef2009aa082eb1af8dee8c19515d352a3dce3b06dfb16239d3d59ee63"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "4c956559a72ad8ac26ed9edf47b268eb2fdd49b2b2cb0658ff4038c328a79c93"
+    sha256 cellar: :any_skip_relocation, sonoma:         "10b09148dbc99b1274ac8409e3c7eb7a042ff0ae7d017430a2e91f3d31b9b02a"
+    sha256 cellar: :any_skip_relocation, ventura:        "c0046330b2a5a34e58f6427cb25706740840c0f8568fe481bf85a93091be539f"
+    sha256 cellar: :any_skip_relocation, monterey:       "c72937c5db3c31caee1c08eb4ea36ca29b56a949adb91a600f4ffa9b9d106f1c"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "ed0aa6ff92a31a2ca7bcf10ad614e0d9ddc2fac74733754967880fd84237c5f1"
   end
 
   def install

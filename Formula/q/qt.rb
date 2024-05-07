@@ -3,10 +3,10 @@ class Qt < Formula
 
   desc "Cross-platform application and UI framework"
   homepage "https://www.qt.io/"
-  url "https://download.qt.io/official_releases/qt/6.6/6.6.0/single/qt-everywhere-src-6.6.0.tar.xz"
-  mirror "https://qt.mirror.constant.com/archive/qt/6.6/6.6.0/single/qt-everywhere-src-6.6.0.tar.xz"
-  mirror "https://mirrors.ukfast.co.uk/sites/qt.io/archive/qt/6.6/6.6.0/single/qt-everywhere-src-6.6.0.tar.xz"
-  sha256 "652538fcb5d175d8f8176c84c847b79177c87847b7273dccaec1897d80b50002"
+  url "https://download.qt.io/official_releases/qt/6.7/6.7.0/single/qt-everywhere-src-6.7.0.tar.xz"
+  mirror "https://qt.mirror.constant.com/archive/qt/6.7/6.7.0/single/qt-everywhere-src-6.7.0.tar.xz"
+  mirror "https://mirrors.ukfast.co.uk/sites/qt.io/archive/qt/6.7/6.7.0/single/qt-everywhere-src-6.7.0.tar.xz"
+  sha256 "bf5089912364f99cf9baf6c109de76a3172eec6267f148c69800575c47f90087"
   license all_of: [
     "BSD-3-Clause",
     "GFDL-1.3-no-invariants-only",
@@ -14,6 +14,7 @@ class Qt < Formula
     { "GPL-3.0-only" => { with: "Qt-GPL-exception-1.0" } },
     "LGPL-3.0-only",
   ]
+  revision 1
   head "https://code.qt.io/qt/qt5.git", branch: "dev"
 
   # The first-party website doesn't make version information readily available,
@@ -24,21 +25,20 @@ class Qt < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_sonoma:   "36abdf7a31580688b39447d9baffc76a45b76a01af6e6911e7ceef8722516c9b"
-    sha256 cellar: :any,                 arm64_ventura:  "da6b8e4dfcb405b4c4d3b1846b42b4fa0e77c27df4cefc122aaa296e0c56b073"
-    sha256 cellar: :any,                 arm64_monterey: "0cc9140f18437b7d1f4e110854e1a72b44497a891ac5a19594ad5d5bedf41af7"
-    sha256 cellar: :any,                 sonoma:         "be8f2b26cff18e744ffcd7f9832c6c60600ed297e2c7146cf98efa4035d64df2"
-    sha256 cellar: :any,                 ventura:        "8fa8d83184e2f27cc81fbe5419c2ad60ffc1a01d25dd0090c5108afbf9ae4c48"
-    sha256 cellar: :any,                 monterey:       "7fca175e333869e9da846caad9afb329320e7f26a029f0e8e711988b9b2bbe83"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "35b32e2ed05837fce951d095f11e2da309acb04dbb50774ef079c9a2a6b46868"
+    sha256 cellar: :any,                 arm64_sonoma:   "cf3871fc01cfdde43ad7352803291a5b680d05b2f8c2653ab5f79c498a15f1b5"
+    sha256 cellar: :any,                 arm64_ventura:  "d7fa2aac662c9f25e8770b3ab2d5c72802304c46cdd5a8fce8ad93bffa9388b3"
+    sha256 cellar: :any,                 arm64_monterey: "fe6ab103f6afb70dff45c8eccdcf4a47fd1ec95530ea7a2b338990451975578d"
+    sha256 cellar: :any,                 sonoma:         "717760d77542ffaf69199d69ef15de96c711ab088a4528ce51c94d541d233495"
+    sha256 cellar: :any,                 ventura:        "fbe23a62ef1968615988cee985e7aa1e075295132869ebc90efd3e8a5f418863"
+    sha256 cellar: :any,                 monterey:       "bc9a8c39a4dd5c1fd36523ee6109c63881db9b6d438b2eb85949582506ed2af8"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "705216c67f0f0c4d712311bfb1ce4dc2cec95aa1094fc6d42596c22f966faa55"
   end
 
-  depends_on "cmake"      => [:build, :test]
-  depends_on "ninja"      => :build
-  depends_on "node"       => :build
+  depends_on "cmake" => [:build, :test]
+  depends_on "ninja" => :build
+  depends_on "node" => :build
   depends_on "pkg-config" => :build
-  depends_on "python@3.11" => :build
-  depends_on "six" => :build
+  depends_on "python@3.12" => :build
   depends_on "vulkan-headers" => [:build, :test]
   depends_on "vulkan-loader" => [:build, :test]
   depends_on xcode: :build
@@ -66,9 +66,8 @@ class Qt < Formula
   depends_on "zstd"
 
   uses_from_macos "bison" => :build
-  uses_from_macos "flex"  => :build
+  uses_from_macos "flex" => :build
   uses_from_macos "gperf" => :build
-  uses_from_macos "llvm" => :test # Our test relies on `clang++` in `PATH`.
 
   uses_from_macos "cups"
   uses_from_macos "krb5"
@@ -83,7 +82,7 @@ class Qt < Formula
     depends_on "alsa-lib"
     depends_on "at-spi2-core"
     # TODO: depends_on "bluez"
-    depends_on "ffmpeg"
+    depends_on "ffmpeg@6"
     depends_on "fontconfig"
     depends_on "gstreamer"
     # TODO: depends_on "gypsy"
@@ -108,6 +107,7 @@ class Qt < Formula
     depends_on "systemd"
     depends_on "wayland"
     depends_on "xcb-util"
+    depends_on "xcb-util-cursor"
     depends_on "xcb-util-image"
     depends_on "xcb-util-keysyms"
     depends_on "xcb-util-renderutil"
@@ -121,23 +121,36 @@ class Qt < Formula
     sha256 "b2e5b40261e20f354d198eae92afc10d750afb487ed5e50f9c4eaf07c184146f"
   end
 
+  resource "six" do
+    url "https://files.pythonhosted.org/packages/71/39/171f1c67cd00715f190ba0b100d606d440a28c93c7714febeca8b79af85e/six-1.16.0.tar.gz"
+    sha256 "1e61c37477a1626458e36f7b1d82aa5c9b094fa4802892072e49de9c60c4c926"
+  end
+
   resource "webencodings" do
     url "https://files.pythonhosted.org/packages/0b/02/ae6ceac1baeda530866a85075641cec12989bd8d31af6d5ab4a3e8c92f47/webencodings-0.5.1.tar.gz"
     sha256 "b36a1c245f2d304965eb4e0a82848379241dc04b865afcc4aab16748587e1923"
   end
 
+  # Backport fix to allow QtWebEngine to build with ninja>=1.12.0.
+  # Issue ref: https://bugreports.qt.io/browse/QTBUG-124375
+  patch do
+    url "https://github.com/qt/qtwebengine-chromium/commit/a766045f65f934df3b5f1aa63bc86fbb3e003a09.patch?full_index=1"
+    sha256 "4d097145bf99a61704a99bf3e4b449b9bf613ae1f06efdcf44b881a045c5230c"
+    directory "qtwebengine/src/3rdparty"
+  end
+
   def install
+    python3 = "python3.12"
+
     # Allow -march options to be passed through, as Qt builds
     # arch-specific code with runtime detection of capabilities:
     # https://bugreports.qt.io/browse/QTBUG-113391
     ENV.runtime_cpu_detection
 
-    python = "python3.11"
     # Install python dependencies for QtWebEngine
-    venv_root = buildpath/"venv"
-    venv = virtualenv_create(venv_root, python)
+    venv = virtualenv_create(buildpath/"venv", python3)
     venv.pip_install resources
-    ENV.prepend_path "PYTHONPATH", venv_root/Language::Python.site_packages(python)
+    ENV.prepend_path "PYTHONPATH", venv.site_packages
 
     # FIXME: GN requires clang in clangBasePath/bin
     inreplace "qtwebengine/src/3rdparty/chromium/build/toolchain/apple/toolchain.gni",
@@ -149,15 +162,19 @@ class Qt < Formula
     # because on macOS `/tmp` -> `/private/tmp`
     inreplace "qtwebengine/src/3rdparty/gn/src/base/files/file_util_posix.cc",
               "FilePath(full_path)", "FilePath(input)"
-    realpath_files = %w[
-      qtwebengine/cmake/Gn.cmake
-      qtwebengine/cmake/Functions.cmake
-      qtwebengine/src/core/api/CMakeLists.txt
-      qtwebengine/src/CMakeLists.txt
-      qtwebengine/src/gn/CMakeLists.txt
-      qtwebengine/src/process/CMakeLists.txt
+
+    # Modify Assistant path as we manually move `*.app` bundles from `bin` to `libexec`.
+    # This fixes invocation of Assistant via the Help menu of apps like Designer and
+    # Linguist as they originally relied on Assistant.app being in `bin`.
+    assistant_files = %w[
+      qttools/src/designer/src/designer/assistantclient.cpp
+      qttools/src/linguist/linguist/mainwindow.cpp
     ]
-    inreplace realpath_files, "REALPATH", "ABSOLUTE"
+    inreplace assistant_files, '"Assistant.app/Contents/MacOS/Assistant"', '"Assistant"'
+
+    # Allow generating unofficial pkg-config files for macOS to be used by other formulae.
+    # Upstream currently does not provide them: https://bugreports.qt.io/browse/QTBUG-86080
+    inreplace "qtbase/cmake/QtPkgConfigHelpers.cmake", "(NOT UNIX OR QT_FEATURE_framework)", "(NOT UNIX)"
 
     config_args = %W[
       -release
@@ -168,49 +185,80 @@ class Qt < Formula
       -archdatadir share/qt
       -datadir share/qt
       -examplesdir share/qt/examples
+      -hostdatadir share/qt/mkspecs
       -testsdir share/qt/tests
-
-      -no-feature-relocatable
-      -system-harfbuzz
-      -system-sqlite
 
       -no-sql-mysql
       -no-sql-odbc
       -no-sql-psql
     ]
 
+    # We prefer CMake `-DQT_FEATURE_system*=ON` arg over configure `-system-*` arg
+    # since the latter may be ignored when auto-detection fails.
+    #
+    # We disable clang feature to avoid linkage to `llvm`. This is how we have always
+    # built on macOS and it prevents complicating `llvm` version bumps on Linux.
     cmake_args = std_cmake_args(install_prefix: HOMEBREW_PREFIX, find_framework: "FIRST") + %w[
       -DFEATURE_pkg_config=ON
-      -DINSTALL_MKSPECSDIR=share/qt/mkspecs
+      -DQT_FEATURE_clang=OFF
+      -DQT_FEATURE_relocatable=OFF
+      -DQT_FEATURE_system_assimp=ON
+      -DQT_FEATURE_system_doubleconversion=ON
+      -DQT_FEATURE_system_freetype=ON
+      -DQT_FEATURE_system_harfbuzz=ON
+      -DQT_FEATURE_system_hunspell=ON
+      -DQT_FEATURE_system_jpeg=ON
+      -DQT_FEATURE_system_libb2=ON
+      -DQT_FEATURE_system_pcre2=ON
+      -DQT_FEATURE_system_png=ON
+      -DQT_FEATURE_system_sqlite=ON
+      -DQT_FEATURE_system_tiff=ON
+      -DQT_FEATURE_system_webp=ON
+      -DQT_FEATURE_system_zlib=ON
       -DQT_FEATURE_webengine_proprietary_codecs=ON
       -DQT_FEATURE_webengine_kerberos=ON
       -DQT_ALLOW_SYMLINK_IN_PATHS=ON
     ]
 
-    if OS.mac?
-      # Fix a regression in Qt 6.5.2 w.r.t. system libpng
-      # https://bugreports.qt.io/browse/QTBUG-115357
-      cmake_args << "-DQT_FEATURE_webengine_system_libpng=OFF"
-
-      cmake_args << "-DCMAKE_OSX_DEPLOYMENT_TARGET=#{MacOS.version}.0"
+    cmake_args += if OS.mac?
       config_args << "-sysroot" << MacOS.sdk_path.to_s
       # NOTE: `chromium` should be built with the latest SDK because it uses
       # `___builtin_available` to ensure compatibility.
       config_args << "-skip" << "qtwebengine" if DevelopmentTools.clang_build_version <= 1200
+
+      # FIXME: `-DQT_FEATURE_webengine_vulkan=OFF` is a workaround for
+      # error: use of undeclared identifier 'importMemoryHandleInfo'
+      # Remove once properly handled by Qt.
+      %W[
+        -DCMAKE_OSX_DEPLOYMENT_TARGET=#{MacOS.version}.0
+        -DQT_FEATURE_ffmpeg=OFF
+        -DQT_FEATURE_webengine_vulkan=OFF
+      ]
     else
       # Explicitly specify QT_BUILD_INTERNALS_RELOCATABLE_INSTALL_PREFIX so
       # that cmake does not think $HOMEBREW_PREFIX/lib is the install prefix.
-      cmake_args << "-DQT_BUILD_INTERNALS_RELOCATABLE_INSTALL_PREFIX=#{prefix}"
-
-      # The vendored copy of libjpeg is also used instead of the brewed copy, because the build
-      # fails due to a missing symbol otherwise.
-      # On macOS chromium will always use bundled copies and the QT_FEATURE_webengine_system_*
-      # arguments are ignored.
-      cmake_args += %w[
+      #
+      # For QtWebEngine arguments:
+      # * The vendored copy of `libvpx` is used for VA-API hardware acceleration,
+      #   see https://codereview.qt-project.org/c/qt/qtwebengine/+/454908
+      # * The vendored copy of `re2` is used to avoid rebuilds with `re2` version
+      #   bumps and due to frequent API incompatibilities in Qt's copy of Chromium
+      # * On macOS Chromium will always use bundled copies and the
+      #   -DQT_FEATURE_webengine_system_*=ON arguments are ignored.
+      # * As of Qt 6.6.0, webengine_ozone_x11 feature appears to be mandatory for Linux.
+      %W[
+        -DQT_BUILD_INTERNALS_RELOCATABLE_INSTALL_PREFIX=#{prefix}
+        -DQT_FEATURE_xcb=ON
+        -DQT_FEATURE_system_xcb_xinput=ON
+        -DQT_FEATURE_webengine_ozone_x11=ON
         -DQT_FEATURE_webengine_system_alsa=ON
         -DQT_FEATURE_webengine_system_ffmpeg=ON
+        -DQT_FEATURE_webengine_system_freetype=ON
+        -DQT_FEATURE_webengine_system_harfbuzz=ON
         -DQT_FEATURE_webengine_system_icu=ON
+        -DQT_FEATURE_webengine_system_lcms2=ON
         -DQT_FEATURE_webengine_system_libevent=ON
+        -DQT_FEATURE_webengine_system_libjpeg=ON
         -DQT_FEATURE_webengine_system_libpng=ON
         -DQT_FEATURE_webengine_system_libxml=ON
         -DQT_FEATURE_webengine_system_libwebp=ON
@@ -218,11 +266,9 @@ class Qt < Formula
         -DQT_FEATURE_webengine_system_opus=ON
         -DQT_FEATURE_webengine_system_poppler=ON
         -DQT_FEATURE_webengine_system_pulseaudio=ON
+        -DQT_FEATURE_webengine_system_snappy=ON
         -DQT_FEATURE_webengine_system_zlib=ON
       ]
-
-      # As of Qt 6.6.0, this feature appears to be mandatory for Linux.
-      cmake_args << "-DQT_FEATURE_webengine_ozone_x11=ON"
     end
 
     system "./configure", *config_args, "--", *cmake_args
@@ -230,18 +276,6 @@ class Qt < Formula
     system "cmake", "--install", "."
 
     inreplace lib/"cmake/Qt6/qt.toolchain.cmake", "#{Superenv.shims_path}/", ""
-
-    # The pkg-config files installed suggest that headers can be found in the
-    # `include` directory. Make this so by creating symlinks from `include` to
-    # the Frameworks' Headers folders.
-    # Tracking issues:
-    # https://bugreports.qt.io/browse/QTBUG-86080
-    # https://gitlab.kitware.com/cmake/cmake/-/merge_requests/6363
-    lib.glob("*.framework") do |f|
-      # Some config scripts will only find Qt in a "Frameworks" folder
-      frameworks.install_symlink f
-      include.install_symlink f/"Headers" => f.stem
-    end
 
     # Install a qtversion.xml to ease integration with QtCreator
     # As far as we can tell, there is no ability to make the Qt buildsystem
@@ -278,9 +312,33 @@ class Qt < Formula
 
     return unless OS.mac?
 
+    # The pkg-config files installed suggest that headers can be found in the
+    # `include` directory. Make this so by creating symlinks from `include` to
+    # the Frameworks' Headers folders.
+    # Tracking issues:
+    # https://bugreports.qt.io/browse/QTBUG-86080
+    # https://gitlab.kitware.com/cmake/cmake/-/merge_requests/6363
+    lib.glob("*.framework") do |f|
+      # Some config scripts will only find Qt in a "Frameworks" folder
+      frameworks.install_symlink f
+      include.install_symlink f/"Headers" => f.stem
+    end
+
     bin.glob("*.app") do |app|
       libexec.install app
       bin.write_exec_script libexec/app.basename/"Contents/MacOS"/app.stem
+    end
+
+    # Modify unofficial pkg-config files to fix up paths and use frameworks.
+    # Also move them to `libexec` as they are not guaranteed to work for users,
+    # i.e. there is no upstream or Homebrew support.
+    lib.glob("pkgconfig/*.pc") do |pc|
+      inreplace pc do |s|
+        s.gsub! " -L${libdir}", " -F${libdir}", false
+        s.gsub! " -lQt6", " -framework Qt", false
+        s.gsub! " -Ilib/", " -I${libdir}/", false
+      end
+      (libexec/"lib/pkgconfig").install pc
     end
   end
 
@@ -310,7 +368,7 @@ class Qt < Formula
         3DCore Svg Quick3D Network NetworkAuth WebEngineCore REQUIRED)
 
       add_executable(test
-          main.cpp
+        main.cpp
       )
 
       target_link_libraries(test PRIVATE Qt6::Core Qt6::Widgets
@@ -371,14 +429,14 @@ class Qt < Formula
       }
     EOS
 
-    ENV["QT_VULKAN_LIB"] = Formula["vulkan-loader"].opt_lib/(shared_library "libvulkan")
+    ENV["QT_VULKAN_LIB"] = Formula["vulkan-loader"].opt_lib/shared_library("libvulkan")
     ENV["QT_QPA_PLATFORM"] = "minimal" if OS.linux? && ENV["HOMEBREW_GITHUB_ACTIONS"]
 
     system "cmake", testpath
     system "make"
     system "./test"
 
-    ENV.delete "CPATH" if MacOS.version > :mojave
+    ENV.delete "CPATH" if OS.mac? && MacOS.version > :mojave
     system bin/"qmake", testpath/"test.pro"
     system "make"
     system "./test"

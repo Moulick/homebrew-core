@@ -3,20 +3,21 @@ require "language/node"
 class Cdktf < Formula
   desc "Cloud Development Kit for Terraform"
   homepage "https://github.com/hashicorp/terraform-cdk"
-  url "https://registry.npmjs.org/cdktf-cli/-/cdktf-cli-0.19.0.tgz"
-  sha256 "1e8cf857b5ef4ef2b737e8366a51a923013d231c38ff301d0a43c14f293c1b4d"
+  url "https://registry.npmjs.org/cdktf-cli/-/cdktf-cli-0.20.4.tgz"
+  sha256 "a2e5c935958828154ce736888a4259a5e782130a6cc628baab91050686c2fe42"
   license "MPL-2.0"
-  revision 1
 
   bottle do
-    sha256                               arm64_sonoma:   "c2b13603929ea3285828acd37c21a40c26ace189c79bb201a7f87c9940b8e230"
-    sha256                               arm64_ventura:  "fc1e82ee42db919f8475a7b788e45c6a59a28f1fe50499b9467ccb885bddb8bc"
-    sha256                               arm64_monterey: "e29089d4ad74b383e03f3a52ca9e27ba165ac2962fc5ea58f3d6bc48ab1ada33"
-    sha256                               sonoma:         "311d7c2bf907f490b4187cd69d0cc962288adc34a44ccbafe933728c6145de4b"
-    sha256                               ventura:        "670d37390d86dd5d10f9910cd840b60af91f386a41e66ff1cb048a8fc205a115"
-    sha256                               monterey:       "e0bdf93dd2f962fe8a8781dedf994b6bb0c5f296aaca23fa1bd2ae1bc65a456c"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "63d8e8af6ced4674c25853f0f4974962a3b238c21d575ab3d24e10ae0fc0a837"
+    sha256                               arm64_sonoma:   "c6c3fd92fa6fb45295ee9753873e04d226ddd633dcb639eb89d18ebd4a375caf"
+    sha256                               arm64_ventura:  "a8292a25b7d45df4ba791f40872165dee2785efe0d753a1d9888e742fab9250c"
+    sha256                               arm64_monterey: "0e511a319c8ee3169b04f1305945c5307aee19bbad9f2890cc33fa35de9cfd5c"
+    sha256                               sonoma:         "ab6caaa54e6917839f4ae365d69981097f2e2037d2e8169538a4220d9aefb29d"
+    sha256                               ventura:        "a492ddf71a3f462cc5ad66e991c28b0135073b37c144cd679ae4e1f45cc3f87a"
+    sha256                               monterey:       "d303976fa24b5cd3ff52542fd6e94ff11c0515398c2e9b285c9b67f754883848"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "3672caff49c3eedaa4014e4da69d7bc198d68344000473d45305716352e4fc00"
   end
+
+  deprecate! date: "2024-03-13", because: "uses soon-to-be deprecated terraform"
 
   depends_on "node"
   depends_on "terraform"

@@ -3,59 +3,54 @@ class Flintrock < Formula
 
   desc "Tool for launching Apache Spark clusters"
   homepage "https://github.com/nchammas/flintrock"
-  url "https://files.pythonhosted.org/packages/dc/ad/6e3871a510f0d053aa49caee2140a2f64f2d3fa584d3b70408043295fa57/Flintrock-2.0.0.tar.gz"
-  sha256 "ccbbc912823772ea733802ca3f9751c98dacda8c67518683a3dc4ec8b1de38dd"
+  url "https://files.pythonhosted.org/packages/e9/3b/810c7757f6abb0a73a50c2da6da2dacb5af85a04b056aef81323b2b6a082/Flintrock-2.1.0.tar.gz"
+  sha256 "dde4032630ad44c374c2a9b12f0d97db87fa5117995f1c7dd0f70b631f47a035"
   license "Apache-2.0"
-  revision 7
 
   bottle do
-    rebuild 2
-    sha256 cellar: :any,                 arm64_sonoma:   "46a845df284feb079ea1406c3e6458be92fcc2c7e2a3b79ef889d9bb1bd0d03e"
-    sha256 cellar: :any,                 arm64_ventura:  "43feda1c89b72135cc7390386c39ade62c992b7e66104b465d0b38929a601633"
-    sha256 cellar: :any,                 arm64_monterey: "c77e8d00ee2152bbdc616dbde4b0093a92855e7e64340d485e3b56fe418b48a9"
-    sha256 cellar: :any,                 arm64_big_sur:  "24c5a6c10bf16c6c0ff9859fa4380886a95b2a7beef71d7be28f034199221624"
-    sha256 cellar: :any,                 sonoma:         "a251c69c8792a0276870b749fc913fc66c4341f14084f0444def9efe4eeefd3d"
-    sha256 cellar: :any,                 ventura:        "6fba1800ef8b82207a82fe5ff77a6b48deb099b6cb1fa92e706a30415867d121"
-    sha256 cellar: :any,                 monterey:       "862a3aa80efca9871c745622e4578f27c04522db12a7f157e02e9e1b968f580d"
-    sha256 cellar: :any,                 big_sur:        "e5b50682434b31091c86a8a0d5c68be4ee87dae044423b341b718cb55edcc1e0"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "86f49049502bf32b12a1a1cf54dc03d9a7fd301f826501a47607053d631dc8db"
+    rebuild 1
+    sha256 cellar: :any,                 arm64_sonoma:   "b02e4f19ea21a172b683e7a131e872d9aab6dae8387a476b3128b9ae3b004480"
+    sha256 cellar: :any,                 arm64_ventura:  "502e7ab2ba22f2eb53e31cdc2da1d10fab07cf8d2def81ff8d3f2095ef2d4326"
+    sha256 cellar: :any,                 arm64_monterey: "c0df45e674d446728de75a3698804a246718e68b77ac75e914cd3d7b636fa508"
+    sha256 cellar: :any,                 sonoma:         "8b880baf99fb76c026ae45e3feb68c96311966c1534c78648729f37d4b8fc3e6"
+    sha256 cellar: :any,                 ventura:        "87cf58ccdf42a4c0c320e86a97fab378b05d0d03f89a77d5b66e69cc6e00a95e"
+    sha256 cellar: :any,                 monterey:       "de3b60115beaff0d2139daa6e084d17e93460938f34634fa3519b3a524b352ca"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "f3fd864a912e442c7dda03560738b8b3747c84b1c914917ca5518a18631daa47"
   end
 
   depends_on "rust" => :build # for bcrypt
-  depends_on "cffi"
-  depends_on "python-cryptography"
-  depends_on "python@3.11"
-  depends_on "pyyaml"
-  depends_on "six"
+  depends_on "cryptography"
+  depends_on "libyaml"
+  depends_on "python@3.12"
 
   resource "bcrypt" do
-    url "https://files.pythonhosted.org/packages/8c/ae/3af7d006aacf513975fd1948a6b4d6f8b4a307f8a244e1a3d3774b297aad/bcrypt-4.0.1.tar.gz"
-    sha256 "27d375903ac8261cfe4047f6709d16f7d18d39b1ec92aaf72af989552a650ebd"
+    url "https://files.pythonhosted.org/packages/72/07/6a6f2047a9dc9d012b7b977e4041d37d078b76b44b7ee4daf331c1e6fb35/bcrypt-4.1.2.tar.gz"
+    sha256 "33313a1200a3ae90b75587ceac502b048b840fc69e7f7a0905b5f87fac7a1258"
   end
 
   resource "boto3" do
-    url "https://files.pythonhosted.org/packages/d3/61/3b325524005f8d89e5ab62ac71d697ae26f8a546402917b4f759ee707b00/boto3-1.17.90.tar.gz"
-    sha256 "bbf727d770a9844834bfbf3f811db1d3438320897f67cfb21cdca5bb8fc23c13"
+    url "https://files.pythonhosted.org/packages/8d/5f/4ee13ee77641c98032fcddb51456a26976f69365fdc3c6c9e699970b9e99/boto3-1.29.4.tar.gz"
+    sha256 "ca9b04fc2c75990c2be84c43b9d6edecce828960fc27e07ab29036587a1ca635"
   end
 
   resource "botocore" do
-    url "https://files.pythonhosted.org/packages/d4/a4/ef715db7192535688fae0130714fde5dce91ce2ed8e521aad55a213a5820/botocore-1.20.90.tar.gz"
-    sha256 "b301810c4bd6cab1b6eaf6bfd9f25abb27959b586c2e1689bbce035b3fb8ae66"
+    url "https://files.pythonhosted.org/packages/10/6f/e7fe287501ae0bb2732e0752dde93c4a2ad1922953be16dd912acc2c26be/botocore-1.32.4.tar.gz"
+    sha256 "6bfa75e28c9ad0321cefefa51b00ff233b16b2416f8b95229796263edba45a39"
   end
 
   resource "click" do
-    url "https://files.pythonhosted.org/packages/f8/5c/f60e9d8a1e77005f664b76ff8aeaee5bc05d0a91798afd7f53fc998dbc47/Click-7.0.tar.gz"
-    sha256 "5b94b49521f6456670fdb30cd82a4eca9412788a93fa6dd6df72c94d5a8ff2d7"
+    url "https://files.pythonhosted.org/packages/96/d3/f04c7bfcf5c1862a2a5b845c6b2b360488cf47af55dfa79c98f6a6bf98b5/click-8.1.7.tar.gz"
+    sha256 "ca9853ad459e787e2192211578cc907e7594e294c7ccc834310722b41b9ca6de"
   end
 
   resource "jmespath" do
-    url "https://files.pythonhosted.org/packages/3c/56/3f325b1eef9791759784aa5046a8f6a1aff8f7c898a2e34506771d3b99d8/jmespath-0.10.0.tar.gz"
-    sha256 "b85d0567b8666149a93172712e68920734333c0ce7e89b78b3e987f71e5ed4f9"
+    url "https://files.pythonhosted.org/packages/00/2a/e867e8531cf3e36b41201936b7fa7ba7b5702dbef42922193f05c8976cd6/jmespath-1.0.1.tar.gz"
+    sha256 "90261b206d6defd58fdd5e85f478bf633a2901798906be2ad389150c5c60edbe"
   end
 
   resource "paramiko" do
-    url "https://files.pythonhosted.org/packages/cf/a1/20d00ce559a692911f11cadb7f94737aca3ede1c51de16e002c7d3a888e0/paramiko-2.7.2.tar.gz"
-    sha256 "7f36f4ba2c0d81d219f4595e35f70d56cc94f9ac40a6acdf51d6ca210ce65035"
+    url "https://files.pythonhosted.org/packages/44/03/158ae1dcb950bd96f04038502238159e116fafb27addf5df1ba35068f2d6/paramiko-3.3.1.tar.gz"
+    sha256 "6a3777a961ac86dbef375c5f5b8d50014a1a96d0fd7f054a43bc880134b0ff77"
   end
 
   resource "pynacl" do
@@ -68,14 +63,24 @@ class Flintrock < Formula
     sha256 "0123cacc1627ae19ddf3c27a5de5bd67ee4586fbdd6440d9748f8abb483d3e86"
   end
 
+  resource "pyyaml" do
+    url "https://files.pythonhosted.org/packages/cd/e5/af35f7ea75cf72f2cd079c95ee16797de7cd71f29ea7c68ae5ce7be1eda0/PyYAML-6.0.1.tar.gz"
+    sha256 "bfdf460b1736c775f2ba9f6a92bca30bc2095067b8a9d77876d1fad6cc3b4a43"
+  end
+
   resource "s3transfer" do
-    url "https://files.pythonhosted.org/packages/27/90/f467e516a845cf378d85f0a51913c642e31e2570eb64b352c4dc4c6cbfc7/s3transfer-0.4.2.tar.gz"
-    sha256 "cb022f4b16551edebbb31a377d3f09600dbada7363d8c5db7976e7f47732e1b2"
+    url "https://files.pythonhosted.org/packages/3f/ff/5fd9375f3fe467263cff9cad9746fd4c4e1399440ea9563091c958ff90b5/s3transfer-0.7.0.tar.gz"
+    sha256 "fd3889a66f5fe17299fe75b82eae6cf722554edca744ca5d5fe308b104883d2e"
+  end
+
+  resource "six" do
+    url "https://files.pythonhosted.org/packages/71/39/171f1c67cd00715f190ba0b100d606d440a28c93c7714febeca8b79af85e/six-1.16.0.tar.gz"
+    sha256 "1e61c37477a1626458e36f7b1d82aa5c9b094fa4802892072e49de9c60c4c926"
   end
 
   resource "urllib3" do
-    url "https://files.pythonhosted.org/packages/e2/7d/539e6f0cf9f0b95b71dd701a56dae89f768cd39fd8ce0096af3546aeb5a3/urllib3-1.26.16.tar.gz"
-    sha256 "8f135f6502756bde6b2a9b28989df5fbe87c9970cecaa69041edcce7f0589b14"
+    url "https://files.pythonhosted.org/packages/af/47/b215df9f71b4fdba1025fc05a77db2ad243fa0926755a52c5e71659f4e3c/urllib3-2.0.7.tar.gz"
+    sha256 "c97dfde1f7bd43a71c8d2a58e369e9b2bf692d1334ea9f9cae55add7d0dd0f84"
   end
 
   def install

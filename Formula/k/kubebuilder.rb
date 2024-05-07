@@ -2,21 +2,19 @@ class Kubebuilder < Formula
   desc "SDK for building Kubernetes APIs using CRDs"
   homepage "https://github.com/kubernetes-sigs/kubebuilder"
   url "https://github.com/kubernetes-sigs/kubebuilder.git",
-      tag:      "v3.12.0",
-      revision: "b48f95cd5384eadcdfd02a47a02910f72ddc7ea8"
+      tag:      "v3.14.2",
+      revision: "d7b4febe6b673709100b780b5b99151c5e26a206"
   license "Apache-2.0"
   head "https://github.com/kubernetes-sigs/kubebuilder.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "b503e0fd52816fcdb7c733a690a79fc608544ee2a3bf223370a0f811f3369d30"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "a9a11939a84eef740632a2a6db6011ad1fb1a8d87d23f15090ca8037ca9e39a1"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "cb99c6089ebc567b91081e9836381e1d16f9ae87d439ebe975c81ec9fd62f49b"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "d30a64b127570182be27ba37792557747f8ccbd4e05a1a8714f44711049e70f9"
-    sha256 cellar: :any_skip_relocation, sonoma:         "7d24e0a7437bb57df990dc9cd93176dee84f60634eb690d6dd12c6f4948e76bf"
-    sha256 cellar: :any_skip_relocation, ventura:        "63368cd294318f2bd07f83f58ea777799b42b18ef71d3857ef709a18fd563484"
-    sha256 cellar: :any_skip_relocation, monterey:       "2800b504d7fe1936e62cba74bc60425191095669d11d5b6f77c427bb2e0929c5"
-    sha256 cellar: :any_skip_relocation, big_sur:        "302732d171970744beb31dfc592e097c985bd01fe1c3c386f324eae7ba5f0280"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "276b872be8885ad5e99a909098a04e3633ed5ec223fbe2706efb6a31920c3b5c"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "bfe28574ec2f007e41a8fedbf8f326c877980f1d45bddbc2473280566a4addf7"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "ef5d2b7a73d29bd0fc0a638088bea2a384d3f19a46c5f940bcb1fe61b4ad3c71"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "a8cff22d46baf5a57df445df83f9105f21507915479a0269ff45432b1c2c333f"
+    sha256 cellar: :any_skip_relocation, sonoma:         "fe10adbc9afbb5d2c80bf6705b679df433deccf3a052879fe793798dd4256cc0"
+    sha256 cellar: :any_skip_relocation, ventura:        "6b5da0d7ba552a10112d0eb92504db560d6d2e6117eb9c0224bda7e4bc6b2f7a"
+    sha256 cellar: :any_skip_relocation, monterey:       "fb0291b480981c450b8e241a41c228e5f9148ab0f9b33fc21d653cbcbd0f9b89"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "704be83fd9e35e58e6e0a5612489e1f5001a5e812eca7b14380ffd5554f6a6cc"
   end
 
   depends_on "go"
@@ -31,7 +29,7 @@ class Kubebuilder < Formula
       -X main.gitCommit=#{Utils.git_head}
       -X main.buildDate=#{time.iso8601}
     ]
-    system "go", "build", *std_go_args(ldflags: ldflags), "./cmd"
+    system "go", "build", *std_go_args(ldflags:), "./cmd"
 
     generate_completions_from_executable(bin/"kubebuilder", "completion")
   end

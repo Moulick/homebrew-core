@@ -1,19 +1,19 @@
 class CrunchyCli < Formula
   desc "Command-line downloader for Crunchyroll"
   homepage "https://github.com/crunchy-labs/crunchy-cli"
-  url "https://github.com/crunchy-labs/crunchy-cli/archive/refs/tags/v3.0.3.tar.gz"
-  sha256 "9ee633b0de18b3cc2b6246c596b6b752a888e56203b8bc59db10dd7a8e4fa70a"
+  url "https://github.com/crunchy-labs/crunchy-cli/archive/refs/tags/v3.6.1.tar.gz"
+  sha256 "3219493204e7e34fa14240007ea905ec397db75624ea6c0570a2fdfb6a6366ad"
   license "MIT"
   head "https://github.com/crunchy-labs/crunchy-cli.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "5249dc53e9768a8a739df1bd7def2712e89c1ef5b48b9a2b72f4993b3dd728f4"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "5c4b5faad3e9315a70cbfab2c449d76f8eff8f60b3216fb289e373b4b5512c9d"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "660b331becc115094df1a46168a9f824e31749aa10d983cbe53c386ee539d63a"
-    sha256 cellar: :any_skip_relocation, sonoma:         "f1098cf5e7c49c60fe611ffb9bed6bd328eefd8869ac08a5250a0182ff1567a1"
-    sha256 cellar: :any_skip_relocation, ventura:        "b4ad1ff77fdd6407a031380b72b3ed0cf2e47638c0639139f9b5d52f80681248"
-    sha256 cellar: :any_skip_relocation, monterey:       "13fa18ebdba0a738870fdd825d3273598ee3e83c260d5226f3df44a4ec334682"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "96380970ea66d0b1c74512ed64bd395d4d275cb2726575567343d6f323f531fe"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "6d2664371de1eb0220a79ee2a927cd776a7b615051b19507cb0df31703a15794"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "87fcbe6bd5c275ba1d6d3b666a412947089ce8b62b13a737a8d9bdc95c5a9ea9"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "43b5b006b103b6c95908554031dd6d637155175b60484af9b687eab0c6536219"
+    sha256 cellar: :any_skip_relocation, sonoma:         "c5d078a2d9bf465a08e31a5693bbb108e4575349955754b1bc28cf2e8774a039"
+    sha256 cellar: :any_skip_relocation, ventura:        "8c68686bbb9309ec503ab1c91bc9e8c471130747887cd1bce1659828a05838ce"
+    sha256 cellar: :any_skip_relocation, monterey:       "597444a784f1ae70fa3eff2b38217d66b7bce755eaf2480301b0e9e3f39183cf"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "2e74a4e7466b90948ac5e8bdf4800025a14fd2785eb0f2b3529dea1b1ed963c5"
   end
 
   depends_on "pkg-config" => :build

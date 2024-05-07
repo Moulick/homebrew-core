@@ -2,19 +2,19 @@ class Teku < Formula
   desc "Java Implementation of the Ethereum 2.0 Beacon Chain"
   homepage "https://docs.teku.consensys.net/"
   url "https://github.com/ConsenSys/teku.git",
-      tag:      "23.10.0",
-      revision: "121c1487a3694854d9024dd48b09009adaf6af06"
+      tag:      "24.4.0",
+      revision: "cdcb17736cefdfeb0233d972956625a164f5b3a1"
   license "Apache-2.0"
   head "https://github.com/ConsenSys/teku.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "24b413ac9343c80fea29cef0a947e18b3ec94c9e6cbeceaefaea9bfc46feaded"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "24b413ac9343c80fea29cef0a947e18b3ec94c9e6cbeceaefaea9bfc46feaded"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "24b413ac9343c80fea29cef0a947e18b3ec94c9e6cbeceaefaea9bfc46feaded"
-    sha256 cellar: :any_skip_relocation, sonoma:         "faa379b70eb1198e75285dd39af28237abeccfad170561572bc36ad20b4cd2e4"
-    sha256 cellar: :any_skip_relocation, ventura:        "faa379b70eb1198e75285dd39af28237abeccfad170561572bc36ad20b4cd2e4"
-    sha256 cellar: :any_skip_relocation, monterey:       "faa379b70eb1198e75285dd39af28237abeccfad170561572bc36ad20b4cd2e4"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "4ba20f42c56a9bd6666d2f386ad51f4388cf7b84ee7352d8d603ea70867e7273"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "a1a8fdad544b08342ec713ed2dec4e4b37fcd1a1892e2bdd49e38e45a3a7e812"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "a1a8fdad544b08342ec713ed2dec4e4b37fcd1a1892e2bdd49e38e45a3a7e812"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "a1a8fdad544b08342ec713ed2dec4e4b37fcd1a1892e2bdd49e38e45a3a7e812"
+    sha256 cellar: :any_skip_relocation, sonoma:         "74139ac03fcc182fa6dddaa89dacaafd3f556229e7dd1dba8e0ef1ba6ed80525"
+    sha256 cellar: :any_skip_relocation, ventura:        "74139ac03fcc182fa6dddaa89dacaafd3f556229e7dd1dba8e0ef1ba6ed80525"
+    sha256 cellar: :any_skip_relocation, monterey:       "74139ac03fcc182fa6dddaa89dacaafd3f556229e7dd1dba8e0ef1ba6ed80525"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "a1a8fdad544b08342ec713ed2dec4e4b37fcd1a1892e2bdd49e38e45a3a7e812"
   end
 
   depends_on "gradle" => :build
@@ -32,8 +32,16 @@ class Teku < Formula
     assert_match "teku/", shell_output("#{bin}/teku --version")
 
     rest_port = free_port
+    test_args = %W[
+      --ee-endpoint=http://127.0.0.1
+      --ignore-weak-subjectivity-period-enabled
+      --rest-api-enabled
+      --rest-api-port=#{rest_port}
+      --p2p-enabled=false
+
+    ]
     fork do
-      exec bin/"teku", "--rest-api-enabled", "--rest-api-port=#{rest_port}", "--p2p-enabled=false", "--ee-endpoint=http://127.0.0.1"
+      exec bin/"teku", *test_args
     end
     sleep 15
 

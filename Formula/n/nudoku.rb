@@ -1,22 +1,19 @@
 class Nudoku < Formula
   desc "Ncurses based sudoku game"
   homepage "https://jubalh.github.io/nudoku/"
-  url "https://github.com/jubalh/nudoku/archive/refs/tags/2.1.0.tar.gz"
-  sha256 "eeff7f3adea5bfe7b88bf7683d68e9a597aabd1442d1621f21760c746400b924"
+  url "https://github.com/jubalh/nudoku/archive/refs/tags/4.0.1.tar.gz"
+  sha256 "070dc06d9dad2a436fd44ff52a24f51c2522b13cc68e3d97765f4357f4dfc3d8"
   license "GPL-3.0-or-later"
-  revision 1
   head "https://github.com/jubalh/nudoku.git", branch: "master"
 
   bottle do
-    sha256 arm64_sonoma:   "bb2b871aec0bd81cab3758b17adeb6c372fc788e0ac03b194b14b4265734151b"
-    sha256 arm64_ventura:  "7af32212d5adb183528f350950913d31cb9de5644c1d8af158eef5b68bfc00de"
-    sha256 arm64_monterey: "b1bf18647b1f42eb7dce94d90649f314d99be5575fbc417c103a94cc9282b3b5"
-    sha256 arm64_big_sur:  "6350cd17943ce3a889f193d13ca662ffdc19eef6bfa38dc5e0f97b7a193e48b9"
-    sha256 sonoma:         "606257ef1db3e5489c3e3dd79da80eae055bf6b8cdc43c2ebd9a2175f791b49e"
-    sha256 ventura:        "414db0599466260fc27e629e4f325d9bc33e6fb30f37cb99c07bcf3b450d99c8"
-    sha256 monterey:       "8f296f4c8b2f0352e5ed7c492536c38f26c604c82c9a604559e17b75e9038685"
-    sha256 big_sur:        "83449b550966a303d2095e8232d98d629abccced9f104442ca7d24ec102e1d3d"
-    sha256 x86_64_linux:   "ae2f2e43eb521a04f347c59288bb2a9c68bfa8e95d2e06fa33e53e5dac693c56"
+    sha256 arm64_sonoma:   "0af8b4c36a68855242d8c6b5c11edafa23d95b99f01c75ff5afe5e363fc5ffdf"
+    sha256 arm64_ventura:  "d36571bdc6681967b1b4c4415749977df1cf546dfe6e7497144ceb7dece98b26"
+    sha256 arm64_monterey: "b497e4ceb353928460e9a4b0d68d4cea8beefd949ac12997e24c830e74e47d59"
+    sha256 sonoma:         "0fff4919f933d9b8a591945215e69af29ebfc388d9ee3daad5ce8fdf2ba6cafa"
+    sha256 ventura:        "04242eff8300d13cb0a02454eb9499283995ae5694c32d4b4f5422abc9eb04bd"
+    sha256 monterey:       "03f8f7201d2d950ae6b02ae3cf6a29e55424af8942447801d0b5ba9a440c8ec1"
+    sha256 x86_64_linux:   "f7ba800fdbd5b5aeeba031362afb606cde57e93d1763c581212084793a23c267"
   end
 
   depends_on "autoconf" => :build
@@ -28,7 +25,7 @@ class Nudoku < Formula
   uses_from_macos "ncurses"
 
   def install
-    system "autoreconf", "-fiv"
+    system "autoreconf", "--force", "--install", "--verbose"
     system "./configure", "--disable-dependency-tracking",
                           "--disable-silent-rules",
                           "--enable-cairo",

@@ -1,13 +1,10 @@
 class OpensslAT3 < Formula
   desc "Cryptography and SSL/TLS Toolkit"
   homepage "https://openssl.org/"
-  url "https://www.openssl.org/source/openssl-3.1.4.tar.gz"
-  mirror "https://www.mirrorservice.org/sites/ftp.openssl.org/source/openssl-3.1.4.tar.gz"
-  mirror "https://www.openssl.org/source/old/3.1/openssl-3.1.4.tar.gz"
-  mirror "https://www.mirrorservice.org/sites/ftp.openssl.org/source/old/3.1/openssl-3.1.4.tar.gz"
-  mirror "http://www.mirrorservice.org/sites/ftp.openssl.org/source/openssl-3.1.4.tar.gz"
-  mirror "http://www.mirrorservice.org/sites/ftp.openssl.org/source/old/3.1/openssl-3.1.4.tar.gz"
-  sha256 "840af5366ab9b522bde525826be3ef0fb0af81c6a9ebd84caa600fea1731eee3"
+  url "https://github.com/openssl/openssl/releases/download/openssl-3.3.0/openssl-3.3.0.tar.gz"
+  mirror "https://www.openssl.org/source/openssl-3.3.0.tar.gz"
+  mirror "http://fresh-center.net/linux/misc/openssl-3.3.0.tar.gz"
+  sha256 "53e66b043322a606abf0087e7699a0e033a37fa13feb9742df35c3a33b18fb02"
   license "Apache-2.0"
 
   livecheck do
@@ -16,28 +13,29 @@ class OpensslAT3 < Formula
   end
 
   bottle do
-    sha256 arm64_sonoma:   "9d4a5ce04bbdd512930efe9726c373c492598af4bdd4f6378a8ab93d99b150d0"
-    sha256 arm64_ventura:  "1ff0549b8fc8e8f279a6272009c980762d25ca1cb3e8816fd89fcd8eb129fcf5"
-    sha256 arm64_monterey: "81f024814ded9921e2d3d57782afb253a23c77530a5cfa17b86d6353436a428b"
-    sha256 sonoma:         "42038036c3c79c86f73e084d089015efcb031914d32d3cc92a8ffa264ee17bf7"
-    sha256 ventura:        "92ca3dee40d93846740172ef9d7e64587a57d2948289c2015e0373eab5140f82"
-    sha256 monterey:       "1afee5b2ecce7edc8417799ead32399f3846b03327a0d4876312c85a2504e061"
-    sha256 x86_64_linux:   "9d25623d60634b81347e22c20e81d830b91b8f80557c77dca9ecdcedb98d43c6"
+    rebuild 1
+    sha256 arm64_sonoma:   "ec6f9daf8e32d96f4a2f4cd56d18533ee47bb8d9e7cb3d832ac64115d8a1a4ca"
+    sha256 arm64_ventura:  "58665ec9e2873dba2799be5992eab3973f230acc352d09bd4a69131ac3ccd2d4"
+    sha256 arm64_monterey: "1afa5e6964d9418fb8bb2d489e5069becd55f963c1ea7a2a30ca838b17d9bf66"
+    sha256 sonoma:         "f37328addd300e16046ee900f26d3ed026a6c810ea88269e114a4e0f06ed41b6"
+    sha256 ventura:        "28be258776e175a8c29a19be5312b885574a98324d7b03c7ec12f2d7eadcbce1"
+    sha256 monterey:       "f5b70155f3fdbf574843741924758ca05fc996263e348660ac817e75052dacf9"
+    sha256 x86_64_linux:   "005380f94547e270e9c8617fe0211c30daad8a5712d038f7edee3fb5bc0f1226"
   end
 
   depends_on "ca-certificates"
 
   on_linux do
     resource "Test::Harness" do
-      url "https://cpan.metacpan.org/authors/id/L/LE/LEONT/Test-Harness-3.44.tar.gz"
-      mirror "http://cpan.metacpan.org/authors/id/L/LE/LEONT/Test-Harness-3.44.tar.gz"
-      sha256 "7eb591ea6b499ece6745ff3e80e60cee669f0037f9ccbc4e4511425f593e5297"
+      url "https://cpan.metacpan.org/authors/id/L/LE/LEONT/Test-Harness-3.48.tar.gz"
+      mirror "http://cpan.metacpan.org/authors/id/L/LE/LEONT/Test-Harness-3.48.tar.gz"
+      sha256 "e73ff89c81c1a53f6baeef6816841b89d3384403ad97422a7da9d1eeb20ef9c5"
     end
 
     resource "Test::More" do
-      url "https://cpan.metacpan.org/authors/id/E/EX/EXODIST/Test-Simple-1.302195.tar.gz"
-      mirror "http://cpan.metacpan.org/authors/id/E/EX/EXODIST/Test-Simple-1.302195.tar.gz"
-      sha256 "b390bb23592e0b946c95adbb3c30b11bc634a286b2847be611ad929c57e39a6c"
+      url "https://cpan.metacpan.org/authors/id/E/EX/EXODIST/Test-Simple-1.302198.tar.gz"
+      mirror "http://cpan.metacpan.org/authors/id/E/EX/EXODIST/Test-Simple-1.302198.tar.gz"
+      sha256 "1dc07bcffd23e49983433c948de3e3f377e6e849ad7fe3432c717fa782024faa"
     end
 
     resource "ExtUtils::MakeMaker" do
@@ -60,7 +58,7 @@ class OpensslAT3 < Formula
     args = %W[
       --prefix=#{prefix}
       --openssldir=#{openssldir}
-      --libdir=#{lib}
+      --libdir=lib
       no-ssl3
       no-ssl3-method
       no-zlib

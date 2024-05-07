@@ -1,8 +1,8 @@
 class Fheroes2 < Formula
-  desc "Free Heroes of Might and Magic II is a recreation of HoMM2 game engine"
+  desc "Recreation of the Heroes of Might and Magic II game engine"
   homepage "https://ihhub.github.io/fheroes2/"
-  url "https://github.com/ihhub/fheroes2/archive/refs/tags/1.0.9.tar.gz"
-  sha256 "22e73ee4ff8a38e9e648fcb8df681fbb309b136e68483639517dfc9f61f867df"
+  url "https://github.com/ihhub/fheroes2/archive/refs/tags/1.0.13.tar.gz"
+  sha256 "eb7f960e77ee8012e5bbab385baf4959797e578454ace82574a3c6fee24f94c8"
   license "GPL-2.0-or-later"
   head "https://github.com/ihhub/fheroes2.git", branch: "master"
 
@@ -12,21 +12,20 @@ class Fheroes2 < Formula
   end
 
   bottle do
-    sha256 arm64_sonoma:   "5bc32db2fd0b0e3a0858dc723834edd0bbcf9ab0bdbbd420a9a7a6cae0bba19c"
-    sha256 arm64_ventura:  "7130860f665b300167bf5d571444b48bcdac1468aa565cf2cf7e1963de006037"
-    sha256 arm64_monterey: "5c7df58c5983f192709955357ad50f7468eb3edd022a0786134f221cb42beaf3"
-    sha256 sonoma:         "3078f147141ce141f346d649de89f307c0910c4bb6fbb79f1969a9688c2f5117"
-    sha256 ventura:        "5e0d09d2eebb21548d86c57b1c72e8d41a824727e6c1b42aef8530f329bc262f"
-    sha256 monterey:       "1c815d536ae714edc71761b8eec0032171981e1715c7bc9037639429c601a57b"
-    sha256 x86_64_linux:   "2fb8f9f0ce678d9be88e2bcc840481688cd20b6be59c2e786f27b99b5e7d3d49"
+    sha256 arm64_sonoma:   "707fee6937afb9b7a48f31d91a3c6bd1f76458367f5884525050bc96fb68b1d4"
+    sha256 arm64_ventura:  "5304ab6d4c46389a1cd8b90a54517ca7a3ef659b406c84441ac7275f2b68e24a"
+    sha256 arm64_monterey: "5347faa70d9e59ea2cd8268895e538604319f58f6a26d7f79c81186b1b5d7344"
+    sha256 sonoma:         "5eb13df49fcd61a8312b6df5192ba975b4526581eecdbf461a0d9076ff057c3e"
+    sha256 ventura:        "470c2366c18365f284413bb0ad708cc8c53437f05071b625d9dbf53dc3afcbba"
+    sha256 monterey:       "61e1ed752bf45e9b6a65c121c9e841790829c56ccc9ed1bbd57f0a0ba38443a9"
+    sha256 x86_64_linux:   "5b466d1d84f397fd1ad6e043b8cfceab234c75edb6c52c743da3ff00014876b8"
   end
 
   depends_on "cmake" => :build
   depends_on "gettext" => :build
 
-  depends_on "libpng"
+  depends_on "innoextract"
   depends_on "sdl2"
-  depends_on "sdl2_image"
   depends_on "sdl2_mixer"
 
   uses_from_macos "zlib"

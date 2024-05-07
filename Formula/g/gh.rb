@@ -1,8 +1,8 @@
 class Gh < Formula
   desc "GitHub command-line tool"
-  homepage "https://github.com/cli/cli"
-  url "https://github.com/cli/cli/archive/refs/tags/v2.38.0.tar.gz"
-  sha256 "8ba98b5e46526c9828507a587b429448fe9436ce1f875aa567d77ec3a8cae56c"
+  homepage "https://cli.github.com/"
+  url "https://github.com/cli/cli/archive/refs/tags/v2.49.0.tar.gz"
+  sha256 "fc21c007219919da19f09180d3b966db95cd766bdb4123800d5ce292633a2132"
   license "MIT"
 
   head "https://github.com/cli/cli.git", branch: "trunk"
@@ -13,16 +13,18 @@ class Gh < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "8a45091ca9a15d19eea28d739135ddb35982bbd20ea186811658111e2bf45a49"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "c3889896724f6388af8b44259e8a2960c3ff35dbc74a4c81ee12a4fe65e401c3"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "ea6f3f76bc04d9142eb2b3930c88d833dbd8e0c38103a4124c880b536c975444"
-    sha256 cellar: :any_skip_relocation, sonoma:         "a98c5922707167d04bcc6cca2f355720b7cc68a1304e4c53902e68216672f726"
-    sha256 cellar: :any_skip_relocation, ventura:        "e4af4867a88bd4dd045c7e9817b6c6d1fb4f69f0d6b8a41336807550afdb9f4c"
-    sha256 cellar: :any_skip_relocation, monterey:       "0a1d2f52aba655bae25317714334c2e275800138a0a81f956e5ef0869f55aad4"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "0fd996df52bf6c372cfbb2847f6fa27a8cb3e2c87822a34cc960842a10699e91"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "6ba0ae0cb9d9b866f95df261ef7d53f0b87d16c16a99d85b1cf6f8550db571aa"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "33aeacca7a9e0801c4d570c7b84a79025e70e85c7f220db310b932fd37ae9575"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "9a0abcc90de5c806053a377dbb36f30a09d2afff5dcf3e4672a9b3dfc99b0d70"
+    sha256 cellar: :any_skip_relocation, sonoma:         "6c5a8c717a602d2ce91ad049c258b8128f33fcf90b0f1c7c7a7d5728ac8ceb24"
+    sha256 cellar: :any_skip_relocation, ventura:        "45f23f52de38d1838332bb3d98a70b033255431ee9a96b335e6a015b46552d04"
+    sha256 cellar: :any_skip_relocation, monterey:       "a7e03a5415983ee080cfa0169f14db34ced03cc7640cafa61d5a74a517b96a65"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "aaf818fd94805ac1a774981e07c49e7fda3e6bdc807e6e816241bb6815d7ab7a"
   end
 
   depends_on "go" => :build
+
+  deny_network_access! [:postinstall, :test]
 
   def install
     with_env(

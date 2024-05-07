@@ -3,31 +3,31 @@ class Xonsh < Formula
 
   desc "Python-powered, cross-platform, Unix-gazing shell language and command prompt"
   homepage "https://xon.sh/"
-  url "https://files.pythonhosted.org/packages/f2/72/478183446101120a8ec1544d8611e5b47f2a0469745dd5e511dc367942d4/xonsh-0.14.1.tar.gz"
-  sha256 "81dbf5b5d4d23fe780c7ee5b4ded4f41239e8a8945b1742bf77ee030bdf9f9e5"
+  url "https://files.pythonhosted.org/packages/bf/10/768d42e8eaaad61c68204ed2f062bc289f79d1bb9a4737e0623919dde33c/xonsh-0.16.0.tar.gz"
+  sha256 "087be3080082f7464960663809472f96ea4ca2a95631623c28ba50a8d1879e7b"
   license "BSD-2-Clause-Views"
   head "https://github.com/xonsh/xonsh.git", branch: "main"
 
   bottle do
-    rebuild 1
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "d42e2ca14aae41731ac3b9288437288f54d7958261345fd3d4452ea53e85423b"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "c19097123e4a028dc86b05f5951bd6f895d4f7b77709dac413d5b5cb3e1cf0b6"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "e249a5adc4edd4b7ba3b92616276909ef24301c541690ab439a69ca1ad3f3c33"
-    sha256 cellar: :any_skip_relocation, sonoma:         "aee1d059f93d0d448c552747fa7b76348ca999963941554e8ba22aed6b13ed33"
-    sha256 cellar: :any_skip_relocation, ventura:        "84186d85a66e8c53795cd9cd48902bef0501889e90246ae8d828f14da813fe02"
-    sha256 cellar: :any_skip_relocation, monterey:       "365e25d76ab9fade6d1f78309fe7bfe3ea9d5ffaf2338d356501ed146bd5e601"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "7955d9d80e3ef3b5bea7cd79a95fd6c07759c3414c5e43c168654dcae6feaa76"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "c8b49d336e5513a3c116e764ca7b60a07d5b395a14cf32a68b60c76749c77d8d"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "4c15b073a50843f9a06094355e84b59635e281c01223928ab2e9d7b51d31dcf0"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "c0315fc05b7af4857d40643aa2e6e489f9b913e0a3c7aa5501ab47365bfe2800"
+    sha256 cellar: :any_skip_relocation, sonoma:         "7a443b73d36a9887240753052480457a016d1cb6c2b6cc95402d8f4130154576"
+    sha256 cellar: :any_skip_relocation, ventura:        "1e87f3a7111dc20e41cdb5790e8e3a3740cf0a6ccac83f4ceaa8cbb654c23fd8"
+    sha256 cellar: :any_skip_relocation, monterey:       "d4efbb04660ff92f82ccf8fb1ae340038bfcf59fde54436e3d324d12cdf40dae"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "3bf893212efcf59bfa3d6cbcdf75ddec5676847fc00c751f60ea617a69c40815"
   end
 
-  depends_on "pygments"
   depends_on "python@3.12"
 
-  # Resources based on `pip3 install xonsh[ptk,pygments,proctitle]`
-  # See https://xon.sh/osx.html#dependencies
-
   resource "prompt-toolkit" do
-    url "https://files.pythonhosted.org/packages/9a/02/76cadde6135986dc1e82e2928f35ebeb5a1af805e2527fe466285593a2ba/prompt_toolkit-3.0.39.tar.gz"
-    sha256 "04505ade687dc26dc4284b1ad19a83be2f2afe83e7a828ace0c72f3a1df72aac"
+    url "https://files.pythonhosted.org/packages/99/ce/172e474a87241a69baad1ce46bc8f31eae590a770cb138b9b73812c8234d/prompt_toolkit-3.0.40.tar.gz"
+    sha256 "a371c06bb1d66cd499fecd708e50c0b6ae00acba9822ba33c586e2f16d1b739e"
+  end
+
+  resource "pygments" do
+    url "https://files.pythonhosted.org/packages/55/59/8bccf4157baf25e4aa5a0bb7fa3ba8600907de105ebc22b0c78cfbf6f565/pygments-2.17.2.tar.gz"
+    sha256 "da46cec9fd2de5be3a8a784f434e4c4ab670b4ff54d605c4c2717e9d49c4c367"
   end
 
   resource "pyperclip" do
@@ -36,13 +36,13 @@ class Xonsh < Formula
   end
 
   resource "setproctitle" do
-    url "https://files.pythonhosted.org/packages/b5/47/ac709629ddb9779fee29b7d10ae9580f60a4b37e49bce72360ddf9a79cdc/setproctitle-1.3.2.tar.gz"
-    sha256 "b9fb97907c830d260fa0658ed58afd48a86b2b88aac521135c352ff7fd3477fd"
+    url "https://files.pythonhosted.org/packages/ff/e1/b16b16a1aa12174349d15b73fd4b87e641a8ae3fb1163e80938dbbf6ae98/setproctitle-1.3.3.tar.gz"
+    sha256 "c913e151e7ea01567837ff037a23ca8740192880198b7fbb90b16d181607caae"
   end
 
   resource "wcwidth" do
-    url "https://files.pythonhosted.org/packages/5e/5f/1e4bd82a9cc1f17b2c2361a2d876d4c38973a997003ba5eb400e8a932b6c/wcwidth-0.2.6.tar.gz"
-    sha256 "a5220780a404dbe3353789870978e472cfe477761f06ee55077256e509b156d0"
+    url "https://files.pythonhosted.org/packages/6c/63/53559446a878410fc5a5974feb13d31d78d752eb18aeba59c7fef1af7598/wcwidth-0.2.13.tar.gz"
+    sha256 "72ea0c06399eb286d978fdedb6923a9eb47e1c486ce63e9b4e64fc18303972b5"
   end
 
   def install

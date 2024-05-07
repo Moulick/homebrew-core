@@ -1,40 +1,34 @@
 class CargoOutdated < Formula
   desc "Cargo subcommand for displaying when Rust dependencies are out of date"
   homepage "https://github.com/kbknapp/cargo-outdated"
-  # TODO: check if we can use unversioned `libgit2` at version bump.
-  # See comments below for details.
-  url "https://github.com/kbknapp/cargo-outdated/archive/refs/tags/v0.13.1.tar.gz"
-  sha256 "571910b0c44f0bcf0b6e5c24184247e4603f474c7bde5f0eaa1203ce802b4a4a"
+  # We use crates.io url since the corresponding GitHub tag is missing. This is the latest
+  # release as the official installation method of `cargo install --locked cargo-outdated`
+  # pulls same source from crates.io. v0.15.0+ is needed to avoid an older unsupported libgit2.
+  # We can switch back to GitHub releases when upstream decides to upload.
+  # Issue ref: https://github.com/kbknapp/cargo-outdated/issues/388
+  url "https://static.crates.io/crates/cargo-outdated/cargo-outdated-0.15.0.crate"
+  sha256 "0641d14a828fe7dcf73e6df54d31ce19d4def4654d6fa8ec709961e561658a4d"
   license "MIT"
-  revision 2
   head "https://github.com/kbknapp/cargo-outdated.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any,                 arm64_sonoma:   "3c30a8c7f4381740c44b92cffa654aec291389550915bd58c96056855bed77d1"
-    sha256 cellar: :any,                 arm64_ventura:  "aa2214131cf25fd2d538428aa6619335604545a082b0437c2860f8e9b87e59cf"
-    sha256 cellar: :any,                 arm64_monterey: "d5dd9bf61bcd2564a2902d52325780c01de19ee03e458d403aca3f223e9ad857"
-    sha256 cellar: :any,                 arm64_big_sur:  "3b00d458873a9e22f1992ba05e5e670fd4517b4463eafe42ff6c412ac67c2b14"
-    sha256 cellar: :any,                 sonoma:         "d791d0d28e14c2665b3ea80fc2fc3d0a28f4bb30173c637d9e543aab2b8d7d23"
-    sha256 cellar: :any,                 ventura:        "0f3c8226b69b412c10d7176527c9dd40ff4d0781fef709283c3171db3a1563b9"
-    sha256 cellar: :any,                 monterey:       "9a72734928b3551faeae251b6955b4dc060dac4e3bed37af7554db570aab5b36"
-    sha256 cellar: :any,                 big_sur:        "b53fbcad34125c6f15de105c15c76eef98c1751a6ddf3d66ac983ff921ec81f1"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "d2a7c074738a25b95854fd998ac0231b76862c38d889b975eef94b42347e0c66"
+    sha256 cellar: :any,                 arm64_sonoma:   "2a64cfa869ebf18a5b503eb18e9fff3a5bfbe03ff140c13632ab474a9f4aec52"
+    sha256 cellar: :any,                 arm64_ventura:  "97f5a8cd382904cbadf6cebb05aa4724f1a4ea2e33c1de7dc49e1d5e3779b645"
+    sha256 cellar: :any,                 arm64_monterey: "66c5b1160d69b285925f22908da23f5c16e012d02c2886b47dbb2e4e296fbaa2"
+    sha256 cellar: :any,                 sonoma:         "6b79a061b01990586e093d97fac5dc62a14d2d15c6eb70b45935d6ccfacf3de6"
+    sha256 cellar: :any,                 ventura:        "6bd512544a6d9822d3a049df30d68300f462af2df0d1476822623d3857f2280b"
+    sha256 cellar: :any,                 monterey:       "5a05df06ef26ab97b72391a7bd91bf06afe8b016944c691557d0063b76971492"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "7543eddf05cf16cdf8c4f938e19509b9a1d160fae615f0e7aa8603397e8d5740"
   end
 
   depends_on "pkg-config" => :build
   depends_on "rust" => :build
   depends_on "rustup-init" => :test
-  # To check for `libgit2` version:
-  # 1. Search for `libgit2-sys` version at https://github.com/kbknapp/cargo-outdated/blob/v#{version}/Cargo.lock
-  # 2. If the version suffix of `libgit2-sys` is newer than +1.6.*, then:
-  #    - Migrate to the corresponding `libgit2` formula.
-  #    - Change the `LIBGIT2_SYS_USE_PKG_CONFIG` env var below to `LIBGIT2_NO_VENDOR`.
-  #      See: https://github.com/rust-lang/git2-rs/commit/59a81cac9ada22b5ea6ca2841f5bd1229f1dd659.
-  depends_on "libgit2@1.6"
+  depends_on "libgit2"
   depends_on "openssl@3"
 
   def install
-    ENV["LIBGIT2_SYS_USE_PKG_CONFIG"] = "1"
+    ENV["LIBGIT2_NO_VENDOR"] = "1"
     ENV["OPENSSL_NO_VENDOR"] = "1"
     ENV["OPENSSL_DIR"] = Formula["openssl@3"].opt_prefix
     system "cargo", "install", *std_cargo_args
@@ -78,7 +72,7 @@ class CargoOutdated < Formula
     end
 
     [
-      Formula["libgit2@1.6"].opt_lib/shared_library("libgit2"),
+      Formula["libgit2"].opt_lib/shared_library("libgit2"),
       Formula["openssl@3"].opt_lib/shared_library("libssl"),
       Formula["openssl@3"].opt_lib/shared_library("libcrypto"),
     ].each do |library|

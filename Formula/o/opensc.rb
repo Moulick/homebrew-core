@@ -1,8 +1,8 @@
 class Opensc < Formula
   desc "Tools and libraries for smart cards"
   homepage "https://github.com/OpenSC/OpenSC/wiki"
-  url "https://github.com/OpenSC/OpenSC/releases/download/0.23.0/opensc-0.23.0.tar.gz"
-  sha256 "a4844a6ea03a522ecf35e49659716dacb6be03f7c010a1a583aaf3eb915ed2e0"
+  url "https://github.com/OpenSC/OpenSC/releases/download/0.25.1/opensc-0.25.1.tar.gz"
+  sha256 "23cbaae8bd7c8eb589b68c0a961dfb0d02007bea3165a3fc5efe2621d549b37b"
   license "LGPL-2.1-or-later"
   head "https://github.com/OpenSC/OpenSC.git", branch: "master"
 
@@ -12,15 +12,13 @@ class Opensc < Formula
   end
 
   bottle do
-    sha256 arm64_sonoma:   "f5d02711cf34e2ff0cf7555c847393c081748bc8332be543445667565a2a6295"
-    sha256 arm64_ventura:  "ed81cd1b4ee92927ea5a489e09a34878c81a924082e101071658e105cf858638"
-    sha256 arm64_monterey: "53e0966e77ab894831dc960cedd4efe50bad79d288866877242a476121158969"
-    sha256 arm64_big_sur:  "031be42a1b8ea5874e2ae9fea4ca3e2070fe99dd544356c98ea260de4ff4d564"
-    sha256 sonoma:         "f0c2463b9a9e5a119c19f446b30b8d969080cde4e826e3d363cb0e0fb22ab7e8"
-    sha256 ventura:        "cb74b08610f26136891fc4f039712c29138d2b347b19bf9cbb3b2659b153e2a8"
-    sha256 monterey:       "ee4912d3e4173f004b7bf0df0a5ab7293bfa6e36cbe1d5a19b59eac5f1ab5637"
-    sha256 big_sur:        "e00651f78485c68d4f435363466a44827f332adcb20ee16fff6f2f17b8fc13e4"
-    sha256 x86_64_linux:   "152fb46a04da9f6e492ed3b9c1e0b4672e02fdc6cd98d4f177f646abe3d77ff2"
+    sha256 arm64_sonoma:   "f0107f0b54f55535c337cb76d6158f68ce02cf1f8f4f10be9a65fac14bf7c5a2"
+    sha256 arm64_ventura:  "8c9ed4589ec37481862838d43f0d40954bc333ad3cf4505784e1850188652625"
+    sha256 arm64_monterey: "93b0d2c9be69a6f5eb221f0ffe6ab04a80b617fb2a26a5a95a11f3d93dbf41df"
+    sha256 sonoma:         "7073bab28896c1dc2a7af797200f91d322873a17b9dcc030154311a8e623064c"
+    sha256 ventura:        "860ff6efcbe2328dad7658fe939d64f5e60eed1ac857dfd7e5edded12072a989"
+    sha256 monterey:       "5cd706446f087b87f251880290c437200896ac3fd00616cf3c9ef402e6d59c70"
+    sha256 x86_64_linux:   "47a739239d0087a0204d56e6e459e7d0acf01df3b4c9e36122e4626d3e1091f9"
   end
 
   depends_on "autoconf" => :build

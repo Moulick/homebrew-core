@@ -3,8 +3,8 @@ require "language/node"
 class Emscripten < Formula
   desc "LLVM bytecode to JavaScript compiler"
   homepage "https://emscripten.org/"
-  url "https://github.com/emscripten-core/emscripten/archive/refs/tags/3.1.46.tar.gz"
-  sha256 "2c1474286f6b3a06b3442a57ba043f809849573a179db681c6a350bf327ce360"
+  url "https://github.com/emscripten-core/emscripten/archive/refs/tags/3.1.59.tar.gz"
+  sha256 "55f26f6ec4f05e0de2b5e4ccd9e350acc54081364cee10cc4b05071919f152a4"
   license all_of: [
     "Apache-2.0", # binaryen
     "Apache-2.0" => { with: "LLVM-exception" }, # llvm
@@ -18,21 +18,22 @@ class Emscripten < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_sonoma:   "8da805ed1adce5804d81644226ed8e1bdd1ef575b5ad3dfdd97162b63e273d22"
-    sha256 cellar: :any,                 arm64_ventura:  "437499ad734beb3a26d056ab4fc0094e03a960ff9ac129a8703ef0f941c335c9"
-    sha256 cellar: :any,                 arm64_monterey: "0468ce004d374eb22f3bb61c2d59e60ad3e6df784f595b0b8aa36bd079614f5e"
-    sha256 cellar: :any,                 arm64_big_sur:  "e128662febaeb9ba2bd7c0cfb4cc19b749a115ca3dbf5ebd016de77b2091808e"
-    sha256 cellar: :any,                 sonoma:         "29f32f49a61e677ded0df0ee9e91a14ddb62c33a12f004558c2383004aa2e2b3"
-    sha256 cellar: :any,                 ventura:        "9942eb140dd053356af58cb6d00f8abf683de8fd7350dbf09cb43b920a0f8e7d"
-    sha256 cellar: :any,                 monterey:       "040f49e834c757385005d8633cb05ae04632aed635e7ad273ea3ee1ab7d8527a"
-    sha256 cellar: :any,                 big_sur:        "194b81958ad918e230c6e61ff20946714034ac752e53100cd975ae064018eb39"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "2b0b7c70b67419eac81187b9b98ce59ba022e19517671c73803757ceb9b1731f"
+    sha256 cellar: :any,                 arm64_sonoma:   "a5bfeb13d41e97979f7feb3f518395193e992446e074b65bbf4079bec5c2b27e"
+    sha256 cellar: :any,                 arm64_ventura:  "a17f37394fe224247b1ad2e6a75c605fb55d20d81e43d3086aa74691d9ee4106"
+    sha256 cellar: :any,                 arm64_monterey: "b6f815c21fdce3a2cd392dfd5f08d8d670bdb443d5fce8b40c517a5575d5d7f5"
+    sha256 cellar: :any,                 sonoma:         "ac6eed62fe853a6775ce4b17b76a1b1e4472bc8e960676db0369bc8a3ff3cbcd"
+    sha256 cellar: :any,                 ventura:        "0c56ff7c9299d4e33f7598b7715c0240f28571c9791032c1419e38bb9bfc7562"
+    sha256 cellar: :any,                 monterey:       "dc6907bc002bfffde7bcafd38baa57c614c578773580a0aa225c6a98cc81e018"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "64ee26f5d4264f9183182722db3bfb0be3a466b9534bcf8f3df6be5f7e0c2860"
   end
 
   depends_on "cmake" => :build
   depends_on "node"
-  depends_on "python@3.11"
+  depends_on "python@3.12"
   depends_on "yuicompressor"
+
+  uses_from_macos "llvm" => :build
+  uses_from_macos "zlib"
 
   # OpenJDK is needed as a dependency on Linux and ARM64 for google-closure-compiler,
   # an emscripten dependency, because the native GraalVM image will not work.
@@ -46,26 +47,34 @@ class Emscripten < Formula
     depends_on "openjdk"
   end
 
-  fails_with gcc: "5"
+  # We use LLVM to work around an error while building bundled `google-benchmark` with GCC
+  fails_with :gcc do
+    cause <<~EOS
+      .../third-party/benchmark/src/thread_manager.h:50:31: error: expected ‘)’ before ‘(’ token
+         50 |   GUARDED_BY(GetBenchmarkMutex()) Result results;
+            |                               ^
+    EOS
+  end
 
   # Use emscripten's recommended binaryen revision to avoid build failures.
   # https://github.com/emscripten-core/emscripten/issues/12252
-  # See llvm resource below for instructions on how to update this.
+  # To find the correct binaryen revision, find the corresponding version commit at:
+  # https://github.com/emscripten-core/emsdk/blob/main/emscripten-releases-tags.json
+  # Then take this commit and go to:
+  # https://chromium.googlesource.com/emscripten-releases/+/<commit>/DEPS
+  # Then use the listed binaryen_revision for the revision below.
   resource "binaryen" do
     url "https://github.com/WebAssembly/binaryen.git",
-        revision: "16a59938563c93d8459bf36679c83497aeba7cc7"
+        revision: "abd51437426c72a2d2f8195da5d5cf570941b805"
   end
 
   # emscripten does not support using the stable version of LLVM.
   # https://github.com/emscripten-core/emscripten/issues/11362
-  # To find the correct llvm revision, find a corresponding commit at:
-  # https://github.com/emscripten-core/emsdk/blob/main/emscripten-releases-tags.json
-  # Then take this commit and go to:
-  # https://chromium.googlesource.com/emscripten-releases/+/<commit>/DEPS
-  # Then use the listed llvm_project_revision for the resource below.
+  # See binaryen resource above for instructions on how to update this.
+  # Then use the listed llvm_project_revision for the tarball below.
   resource "llvm" do
-    url "https://github.com/llvm/llvm-project.git",
-        revision: "75501f53624de92aafce2f1da698b249a7293dc7"
+    url "https://github.com/llvm/llvm-project/archive/df762a1643bb5b0b3c907611d118c82d4b68a39d.tar.gz"
+    sha256 "f379650efec50c51420c5d56310667e065fa6fa3046060681a45da5be5d97807"
   end
 
   def install
@@ -171,12 +180,15 @@ class Emscripten < Formula
 
     # Add JAVA_HOME to env_script on ARM64 macOS and Linux, so that google-closure-compiler
     # can find OpenJDK
-    emscript_env = { PYTHON: Formula["python@3.11"].opt_bin/"python3.11" }
+    emscript_env = { PYTHON: Formula["python@3.12"].opt_bin/"python3.12" }
     emscript_env.merge! Language::Java.overridable_java_home_env if OS.linux? || Hardware::CPU.arm?
 
     emscripts.each do |emscript|
       (bin/emscript).write_env_script libexec/emscript, emscript_env
     end
+
+    # Replace universal binaries with their native slices
+    deuniversalize_machos libexec/"node_modules/fsevents/fsevents.node"
   end
 
   def post_install
@@ -188,7 +200,6 @@ class Emscripten < Formula
       s.change_make_var! "LLVM_ROOT", "'#{libexec}/llvm/bin'"
       s.change_make_var! "BINARYEN_ROOT", "'#{libexec}/binaryen'"
       s.change_make_var! "NODE_JS", "'#{Formula["node"].opt_bin}/node'"
-      s.change_make_var! "JAVA", "'#{Formula["openjdk"].opt_bin}/java'"
     end
   end
 

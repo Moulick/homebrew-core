@@ -2,8 +2,8 @@ class DockerCompletion < Formula
   desc "Bash, Zsh and Fish completion for Docker"
   homepage "https://www.docker.com/"
   url "https://github.com/docker/cli.git",
-      tag:      "v24.0.7",
-      revision: "afdd53b4e341be38d2056a42113b938559bb1d94"
+      tag:      "v26.1.1",
+      revision: "4cf5afaefa0bec8ab94fcf631add24e284d0ecbf"
   license "Apache-2.0"
   head "https://github.com/docker/cli.git", branch: "master"
 
@@ -12,13 +12,7 @@ class DockerCompletion < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "9907e5be8244124f0393748cbedba2a642930d3eccdc63ac9705eae79f997398"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "9907e5be8244124f0393748cbedba2a642930d3eccdc63ac9705eae79f997398"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "9907e5be8244124f0393748cbedba2a642930d3eccdc63ac9705eae79f997398"
-    sha256 cellar: :any_skip_relocation, sonoma:         "9907e5be8244124f0393748cbedba2a642930d3eccdc63ac9705eae79f997398"
-    sha256 cellar: :any_skip_relocation, ventura:        "9907e5be8244124f0393748cbedba2a642930d3eccdc63ac9705eae79f997398"
-    sha256 cellar: :any_skip_relocation, monterey:       "9907e5be8244124f0393748cbedba2a642930d3eccdc63ac9705eae79f997398"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "2e54187b5ac5a263c5ee9ec68f84b1c5afca652a3efb354b1f80da3957402b3d"
+    sha256 cellar: :any_skip_relocation, all: "0872ef8d9508920d77a8aa1d957230043f8f77d269b0e1fd2229727979805ca7"
   end
 
   # These used to also be provided by the `docker` formula.

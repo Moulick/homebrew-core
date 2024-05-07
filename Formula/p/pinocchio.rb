@@ -1,10 +1,9 @@
 class Pinocchio < Formula
   desc "Efficient and fast C++ library implementing Rigid Body Dynamics algorithms"
   homepage "https://stack-of-tasks.github.io/pinocchio"
-  url "https://github.com/stack-of-tasks/pinocchio/releases/download/v2.6.20/pinocchio-2.6.20.tar.gz"
-  sha256 "2fcead7b1b2f08aa47acd28891e4b204f2e9cc14a4e4c9027168b8c58f9aedd2"
+  url "https://github.com/stack-of-tasks/pinocchio/releases/download/v2.7.1/pinocchio-2.7.1.tar.gz"
+  sha256 "fd50b72f9f32c14c8f9e7712d9abe077c154d2072e780faf12cc132cc198815f"
   license "BSD-2-Clause"
-  revision 1
   head "https://github.com/stack-of-tasks/pinocchio.git", branch: "master"
 
   livecheck do
@@ -13,26 +12,27 @@ class Pinocchio < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_sonoma:   "366311e84cfcf1ae0f12b06135f8708003ef6ba3f0f3cb267bdb46cf6f66b9f1"
-    sha256 cellar: :any,                 arm64_ventura:  "140feb32bd7d332e671f6a4426c17401aa5410f631661e2539c38e17edb3acf5"
-    sha256 cellar: :any,                 arm64_monterey: "618f283c5e5df0d62dbdcbfd044c706ee18c9c39a327f76ded9b561b37d16bc3"
-    sha256 cellar: :any,                 sonoma:         "67eb6b1d7e9f08dc44d5ec8e9a4846423be027c2fda8ad519b89e3afd2528449"
-    sha256 cellar: :any,                 ventura:        "b505b3bcb88b0a5e3061bbd904c5dfdf9902f68bf2590cfd2255702ef4f962a7"
-    sha256 cellar: :any,                 monterey:       "a65b65f37851582de0db11220303d14aff84c8cab270ad03e535ec35040f202d"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "f9bf1e77ddc80249e6f1ca699b04d06a51e56a258bcaf24af5de8cb6bb67a028"
+    sha256 cellar: :any,                 arm64_sonoma:   "0e2575f8d573f3760be3ad8de68785c552935d4479196ad53bb2fcc4ead3dbcc"
+    sha256 cellar: :any,                 arm64_ventura:  "ba757831239ab83459de79d8411861c5950e6007394721bd9369073da00b9a2b"
+    sha256 cellar: :any,                 arm64_monterey: "7103ae81cdb44f41458d8dee0e9c91f946ec11b7920f7815dceed29d630ba023"
+    sha256 cellar: :any,                 sonoma:         "2d0a09efb7e362932f1758caf129203aed2b5b10295a4cc512979d332bd01bcd"
+    sha256 cellar: :any,                 ventura:        "d31f608a766fd378b309755067f707dffad0b099ef7c6a2b452a8520724be2d3"
+    sha256 cellar: :any,                 monterey:       "e71c53c9c664f6e9b666d85678a2e8a32c9148b0500201b1d096dc007f08fcd9"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "b8051834fa5c74a06105dcf814f538c5234e38ec84de4075f41d60c8c56bf4b9"
   end
 
   depends_on "cmake" => :build
   depends_on "doxygen" => :build
+  depends_on "pkg-config" => :build
   depends_on "boost"
   depends_on "eigen"
   depends_on "eigenpy"
   depends_on "hpp-fcl"
-  depends_on "python@3.11"
+  depends_on "python@3.12"
   depends_on "urdfdom"
 
   def python3
-    "python3.11"
+    "python3.12"
   end
 
   def install

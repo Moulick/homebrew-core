@@ -1,20 +1,25 @@
 class Gedit < Formula
   desc "GNOME text editor"
   homepage "https://wiki.gnome.org/Apps/Gedit"
-  url "https://download.gnome.org/sources/gedit/46/gedit-46.1.tar.xz"
-  sha256 "a1a6e37f041765dff7227a1f5578b6f49faaf016b1e17e869caf5bfb94c6aa4e"
+  url "https://download.gnome.org/sources/gedit/46/gedit-46.2.tar.xz"
+  sha256 "c0866412bad147ebace2d282ffcbb5a0e9a304b20fd55640bee21c81e6d501ef"
   license "GPL-2.0-or-later"
 
+  # gedit doesn't seem to follow the typical GNOME version scheme, so we
+  # provide a regex to disable the `Gnome` strategy's version filtering.
+  livecheck do
+    url :stable
+    regex(/gedit[._-]v?(\d+(?:\.\d+)+)\.t/i)
+  end
+
   bottle do
-    sha256 arm64_sonoma:   "08de43866055e24e23f9a4454283240453dc31689134ff5c8ad79920281c35eb"
-    sha256 arm64_ventura:  "c5c423f03f3223640738588e8b039ffba1a7aa693ee624c3351faa5befeee5e4"
-    sha256 arm64_monterey: "94eb96a3893d9ff2594a62d0121ee2e7da81c089612fab86fbb0889b2a3857c9"
-    sha256 arm64_big_sur:  "4c9bd81c2ac45b00625beab8471105e7e8c1b861f8749a30e1a7c3033697a7e2"
-    sha256 sonoma:         "b7c5a552209d74b04184e045677c7bd46568d51dbc0a6ba05db087e7f99956cd"
-    sha256 ventura:        "0e3029e4939dabcce383c8a3d69dee70863c2508d6af010da83e4e61af717132"
-    sha256 monterey:       "f3c17e4bfcf524a88662f4adab87a00b4b9ba7a5802623f7261a523dbd76eb28"
-    sha256 big_sur:        "aefd5b227129370ddb1d90bc92c6df4908980984fdec991a2f461edb6dbccb4d"
-    sha256 x86_64_linux:   "ccb491551263d3e43dc064c02141b0095ebf615e78374445f59df7a2eecd8a3e"
+    sha256 arm64_sonoma:   "8f2cfff223961d0c42ef7b773cd7c340bb97c348ab86080b01f72c311c066c41"
+    sha256 arm64_ventura:  "8a5402472280c1148b2aedf23ea342d65f3dd4a2a939f05be224742374b25d56"
+    sha256 arm64_monterey: "6a89552f93b4487c6106b4ac0e519594b0e1865e1c97cb34b64096fd0b430332"
+    sha256 sonoma:         "708944a5115f5c2982bbe97ddd73a2d69d66f495d2a769477aa0e5991ae69731"
+    sha256 ventura:        "96fae25d1372008b7bb96d5ca8e0860fdfefdc24172ccc2c9e2dd9eb95da8696"
+    sha256 monterey:       "02e0d4a94208fc06e1f643f051be16a3513f8dca4b78c86c10953e512c801605"
+    sha256 x86_64_linux:   "454403a0bddc2bcfa64625ea50c2cd5d436df9a1d817d37800cc649f242a9bcc"
   end
 
   depends_on "desktop-file-utils" => :build # for update-desktop-database
@@ -26,7 +31,7 @@ class Gedit < Formula
   depends_on "pkg-config" => [:build, :test]
   depends_on "vala" => :build
   depends_on "adwaita-icon-theme"
-  depends_on "atk"
+  depends_on "at-spi2-core"
   depends_on "cairo"
   depends_on "gdk-pixbuf"
   depends_on "gettext"

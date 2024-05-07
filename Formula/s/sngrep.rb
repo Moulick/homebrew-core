@@ -1,20 +1,18 @@
 class Sngrep < Formula
   desc "Command-line tool for displaying SIP calls message flows"
   homepage "https://github.com/irontec/sngrep"
-  url "https://github.com/irontec/sngrep/archive/refs/tags/v1.7.0.tar.gz"
-  sha256 "2e5ba3a4d6486ea00bd73d2cceff383ba162dcd6d0170ae74cfa3b1c206e2cb1"
+  url "https://github.com/irontec/sngrep/archive/refs/tags/v1.8.1.tar.gz"
+  sha256 "678875d44c6fdacb533f2d9e1b8db33ee8252723bb95653368fd43fae58969fe"
   license "GPL-3.0-or-later" => { with: "openvpn-openssl-exception" }
 
   bottle do
-    sha256 cellar: :any,                 arm64_sonoma:   "50258dc1b23e8175650ec6a46b44e0df2f6a491127013b275ae10b190753b33e"
-    sha256 cellar: :any,                 arm64_ventura:  "e8f6d7da1a5362d2056f0e49430026ad83098ce813331c3c32caa7c495b3da64"
-    sha256 cellar: :any,                 arm64_monterey: "d9835ceb28b18b5e8f4141423b1dd4de5c436cceedaa85ee1490497863667c70"
-    sha256 cellar: :any,                 arm64_big_sur:  "c2455f214c1d24c99643320842f12ea63d79f59631ca334ff2d341e2e8fbddc8"
-    sha256                               sonoma:         "0458fdb4fff12553178907ac0e84e72b7b334fbbff4bce0dad1aa39e1d93715b"
-    sha256                               ventura:        "aa7dfb7bd3a5eb2e9882475f6fbc7b77a08d25d67c988c6c405911ea727ad3ab"
-    sha256                               monterey:       "308a7206a0c6fccb75965cabc4051183b7b849c06771640742e5ca2c24bbbcab"
-    sha256                               big_sur:        "771bc6dd65f0594fcf163c0409365bf216eabe0d4d33e4e675645b3fc34ce350"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "8f37d6459d16e6d983ff4e52af07d38b354b4fa0d5855ed0a34bf3968e3f1a39"
+    sha256 cellar: :any,                 arm64_sonoma:   "68307fa5179d441454cb15e1ad2daa3e10b83aeb86314ada37508fedca78d1ed"
+    sha256 cellar: :any,                 arm64_ventura:  "fb1e759d1bc7b451eb3bf5b3494321ba3407975a0e024023e8827ae2bed115b6"
+    sha256 cellar: :any,                 arm64_monterey: "ed3f485d7f233e87d681fbe3129652a83499310e0e181009b1e96f62e79aa28a"
+    sha256                               sonoma:         "ba93efa661eed18d6fdeb23cf5e973ce6f2b4ebe124d47ff6b3264e2ee89aff5"
+    sha256                               ventura:        "c6ddc9eb9c12fa931e806036c4c917c252a2804b3dbc8fd2604a19ff143348e0"
+    sha256                               monterey:       "c06d57f2e6d7965ce2fb5e442acf9cc317f16f353bc5b68e3ab84c727b8dceb5"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "d76277ba85ee919973a64e3bef6fe04380765a3cd3da1ccabeff74188a376378"
   end
 
   depends_on "autoconf" => :build

@@ -1,27 +1,27 @@
 class Sqlite < Formula
   desc "Command-line interface for SQLite"
   homepage "https://sqlite.org/index.html"
-  url "https://www.sqlite.org/2023/sqlite-autoconf-3430200.tar.gz"
-  version "3.43.2"
-  sha256 "6d422b6f62c4de2ca80d61860e3a3fb693554d2f75bb1aaca743ccc4d6f609f0"
+  url "https://www.sqlite.org/2024/sqlite-autoconf-3450300.tar.gz"
+  version "3.45.3"
+  sha256 "b2809ca53124c19c60f42bf627736eae011afdcc205bb48270a5ee9a38191531"
   license "blessing"
 
   livecheck do
     url :homepage
     regex(%r{href=.*?releaselog/v?(\d+(?:[._]\d+)+)\.html}i)
     strategy :page_match do |page, regex|
-      page.scan(regex).map { |match| match&.first&.gsub("_", ".") }
+      page.scan(regex).map { |match| match&.first&.tr("_", ".") }
     end
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_sonoma:   "6911319bc3cd3be7b63d3f5a07b859011fd977b48f1d455c40da1cbd85d1e1aa"
-    sha256 cellar: :any,                 arm64_ventura:  "15519c90d32f12a2a4462b4c7822d7b3885e211ddb98957b2256b49dbf54e48f"
-    sha256 cellar: :any,                 arm64_monterey: "4dca3e726fa072faad306f87e9f0440545107b0a73b80e714800b8eb0b5118df"
-    sha256 cellar: :any,                 sonoma:         "96e50e9d331b273ff3b490b91e1ce7c31e2ef0ed952f44c3653eefe4e9cdd342"
-    sha256 cellar: :any,                 ventura:        "187252f4128c2d2e9460f9c3a1e549b14a4f83265166f91c074ebe11f351cb83"
-    sha256 cellar: :any,                 monterey:       "e1271c53bfc11db0a422e52f2bc258539590628687089503e7988dbf6ad7e1f4"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "66a33f0bfe15dde5c666749f064999dcffba30de3190f42d90232d5b2b2528cb"
+    sha256 cellar: :any,                 arm64_sonoma:   "253a7732af34b28f992072e84d9977d511844a0ebd238e94a5cb2f3fe254604c"
+    sha256 cellar: :any,                 arm64_ventura:  "844fbdee84f718f211936a2aea851a6983af3501533af643afccb17314e30fd2"
+    sha256 cellar: :any,                 arm64_monterey: "e51cd4fb90a3a233f8b19d0068f1f4dfd537198be60b25261069b86a463090d5"
+    sha256 cellar: :any,                 sonoma:         "47e8a06001c02bd20d69431a76023baa4662a60127faf9fb8a3106d5f532dd29"
+    sha256 cellar: :any,                 ventura:        "0b7a573709f3fad083805cd2cf0d7649721386a177cc18a08613c10a2d4c9753"
+    sha256 cellar: :any,                 monterey:       "71900ed318d6491eac58d5828b46e939f8dbcb5e1b1cb70c6bbc8c21bbe93192"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "ea3542fea62b40b86e30d357fab3679ede4e2172662b594bf638464ae9708154"
   end
 
   keg_only :provided_by_macos

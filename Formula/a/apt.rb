@@ -1,10 +1,9 @@
 class Apt < Formula
   desc "Advanced Package Tool"
   homepage "https://wiki.debian.org/Apt"
-  url "https://deb.debian.org/debian/pool/main/a/apt/apt_2.7.6.tar.xz"
-  sha256 "8683f54eff0bf54e51e025b348bd0774d0fd437799616f48512956cf15c05f67"
+  url "https://deb.debian.org/debian/pool/main/a/apt/apt_2.9.2.tar.xz"
+  sha256 "80aa74466b132e50ed8d0159f10e64a448b6a6c64723d62c42b83a5199ca03a7"
   license "GPL-2.0-or-later"
-  revision 1
 
   livecheck do
     url "https://deb.debian.org/debian/pool/main/a/apt/"
@@ -12,8 +11,10 @@ class Apt < Formula
   end
 
   bottle do
-    sha256 x86_64_linux: "67ae498d7ae4d596cd3b9f370ce94ac692d868895daf242c143d50716c0af95e"
+    sha256 x86_64_linux: "2826c71ef02a6398c61282ffb803059bf89bbc7c4ffa93d841906777df4f427d"
   end
+
+  keg_only "not linked to prevent conflicts with system apt"
 
   depends_on "cmake" => :build
   depends_on "docbook" => :build
@@ -24,7 +25,7 @@ class Apt < Formula
   depends_on "po4a" => :build
   depends_on "w3m" => :build
 
-  depends_on "berkeley-db"
+  depends_on "berkeley-db@5" # keep berkeley-db < 6 to avoid AGPL-3.0 restrictions
   depends_on "bzip2"
   depends_on "dpkg"
   depends_on "gettext"
@@ -35,10 +36,6 @@ class Apt < Formula
   depends_on "perl"
   depends_on "xxhash"
   depends_on "zlib"
-
-  on_linux do
-    keg_only "not linked to prevent conflicts with system apt"
-  end
 
   fails_with gcc: "5"
 
@@ -84,18 +81,18 @@ class Apt < Formula
   end
 
   resource "Pod::Parser" do
-    url "https://cpan.metacpan.org/authors/id/M/MA/MAREKR/Pod-Parser-1.66.tar.gz"
-    sha256 "22928a7bffe61b452c05bbbb8f5216d4b9cf9fe2a849b776c25500d24d20df7c"
+    url "https://cpan.metacpan.org/authors/id/M/MA/MAREKR/Pod-Parser-1.67.tar.gz"
+    sha256 "5deccbf55d750ce65588cd211c1a03fa1ef3aaa15d1ac2b8d85383a42c1427ea"
   end
 
   resource "ExtUtils::CChecker" do
-    url "https://cpan.metacpan.org/authors/id/P/PE/PEVANS/ExtUtils-CChecker-0.11.tar.gz"
-    sha256 "117736677e37fc611f5b76374d7f952e1970eb80e1f6ad5150d516e7ae531bf5"
+    url "https://cpan.metacpan.org/authors/id/P/PE/PEVANS/ExtUtils-CChecker-0.12.tar.gz"
+    sha256 "8b87d145337dec1ee754d30871d0b105c180ad4c92c7dc0c7fadd76cec8c57d3"
   end
 
   resource "XS::Parse::Keyword::Builder" do
-    url "https://cpan.metacpan.org/authors/id/P/PE/PEVANS/XS-Parse-Keyword-0.38.tar.gz"
-    sha256 "2500c47869cf5ca8c61dd23c67badabf66b8f1efb5e279207657c1ce693e211e"
+    url "https://cpan.metacpan.org/authors/id/P/PE/PEVANS/XS-Parse-Keyword-0.39.tar.gz"
+    sha256 "b4e775becc8a5d9b52cb5d569b9d3230eea451c134735845e77f89fa6a6c23d8"
   end
 
   resource "Syntax::Keyword::Try" do
@@ -134,7 +131,7 @@ class Apt < Formula
     system "cmake", "-S", ".", "-B", "build",
                     "-DDPKG_DATADIR=#{Formula["dpkg"].opt_libexec}/share/dpkg",
                     "-DDOCBOOK_XSL=#{Formula["docbook-xsl"].opt_prefix}/docbook-xsl",
-                    "-DBERKELEY_INCLUDE_DIRS=#{Formula["berkeley-db"].opt_include}",
+                    "-DBERKELEY_INCLUDE_DIRS=#{Formula["berkeley-db@5"].opt_include}",
                     *std_cmake_args
     system "cmake", "--build", "build"
     system "cmake", "--install", "build"

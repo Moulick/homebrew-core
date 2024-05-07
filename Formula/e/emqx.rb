@@ -1,10 +1,8 @@
 class Emqx < Formula
   desc "MQTT broker for IoT"
   homepage "https://www.emqx.io/"
-  # TODO: Check if we can use unversioned `erlang` at version bump:
-  #   https://github.com/emqx/emqx/blob/v#{version}/scripts/ensure-rebar3.sh#L9
-  url "https://github.com/emqx/emqx/archive/refs/tags/v5.3.0.tar.gz"
-  sha256 "086b1df81a7e5c93c7838a79076dacd2c2ce0371031991f239b6b5a628ecd08f"
+  url "https://github.com/emqx/emqx/archive/refs/tags/v5.6.1.tar.gz"
+  sha256 "1896399da468b20c0637875ebfe28a9519e1c2bf85a1fdd33c90e726f72287b0"
   license "Apache-2.0"
   head "https://github.com/emqx/emqx.git", branch: "master"
 
@@ -17,13 +15,13 @@ class Emqx < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_sonoma:   "ca4c303352f820c8d0167902e99f2c77a94f25624df35546c3d0354e0771f0ea"
-    sha256 cellar: :any,                 arm64_ventura:  "e7e554eb0d3eb6a0b252a2ba87cff7ff262b431eb9842a909fe5278927be8d11"
-    sha256 cellar: :any,                 arm64_monterey: "5cfdc23d3e14fa9e6637c1bfe4fece6e3942f0382ca8e2da34f749967837c5db"
-    sha256 cellar: :any,                 sonoma:         "0629ffef4adfbb671018e0e24e14d7784f310aba37d9275c14e0a2b77eab7173"
-    sha256 cellar: :any,                 ventura:        "cd91b2b24e31ee9b1b8d8de732b4be183998a29f654e5bee8c1d4731604758d9"
-    sha256 cellar: :any,                 monterey:       "09930459b416581d7609e45bff2472f4d2faa173a64de1b9a652252cb1d25417"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "adb64dafa5afab5325ef563ded57640de9160d561e4d1356c6b73510b2e80b0f"
+    sha256 cellar: :any,                 arm64_sonoma:   "3553ebd4aa99f89bf2107484738d955a8eb1df1ed91370420e193e020d3249e9"
+    sha256 cellar: :any,                 arm64_ventura:  "190d27b0eadc9bc94b7e6a982cccd3fa93b3b5ab8fbcf1791631bd42ca1dc520"
+    sha256 cellar: :any,                 arm64_monterey: "868c5accf082bb53564f6b091b8f7289b87b5733b26179ecedac322290d2b076"
+    sha256 cellar: :any,                 sonoma:         "f83c5764e3fff3c520f81831a5d40ecfdf33428366c1fa6ec00794baf11d8405"
+    sha256 cellar: :any,                 ventura:        "ff6b462aabd8f76e54d616f6e39dbddab44bd3400dbb65bb25f657e358ca01c1"
+    sha256 cellar: :any,                 monterey:       "97617d73f980fcabd11ec00b5d2470b1caf52bc337cbd3f9a2fb8ed708d4a27e"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "9a7036b24986e97851d65c49b9b7b10874e99bcc2ac5c02e554e5450db49baa4"
   end
 
   depends_on "autoconf"  => :build
@@ -31,7 +29,7 @@ class Emqx < Formula
   depends_on "ccache"    => :build
   depends_on "cmake"     => :build
   depends_on "coreutils" => :build
-  depends_on "erlang@25" => :build
+  depends_on "erlang" => :build
   depends_on "freetds"   => :build
   depends_on "libtool"   => :build
   depends_on "openssl@3"

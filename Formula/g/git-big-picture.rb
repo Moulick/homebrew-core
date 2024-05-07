@@ -3,19 +3,19 @@ class GitBigPicture < Formula
 
   desc "Visualization tool for Git repositories"
   homepage "https://github.com/git-big-picture/git-big-picture"
-  url "https://github.com/git-big-picture/git-big-picture/archive/refs/tags/v1.2.2.tar.gz"
-  sha256 "7b2826d72e146c7a53e7a1cc9533c360cd8e0feb870c7d1eadcc189b8bc2c5f6"
+  url "https://github.com/git-big-picture/git-big-picture/archive/refs/tags/v1.3.0.tar.gz"
+  sha256 "cccbd3e35dfe6d0ce86d06079e80cf9219cb25f887c7a782e2808e740dc23c3a"
   license "GPL-3.0-or-later"
 
   bottle do
     rebuild 1
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "8de6bbe8b5c7293c1f6e575852a38c6b65b00cdd190c55230a53c6bdfcfd10b5"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "9ad313fc8c69a6f17d6c915f379fa40b84a61455ff5460e1a17683ba1623975f"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "380bdacca80e26c09b989e5442b440a2fd86ff3f1020d7bc89855b207a8c8170"
-    sha256 cellar: :any_skip_relocation, sonoma:         "356f88202af3e98cd99916751973845ffa16e1c6718478207aad53a0f0ef7324"
-    sha256 cellar: :any_skip_relocation, ventura:        "696a271d7e38776f12fcea58b3c01f06b0439ed20aa99e054705642b3cb77341"
-    sha256 cellar: :any_skip_relocation, monterey:       "502bb70f3206a39565d8d680ed90be45b5417da759f7b15133bc40ac61a7415a"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "f41d674a0efc5e158ff3fea38fe417cb9d50a018238955a0c41a7aa38f9a6aca"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "2cdbaab936da0256565622a77bcbb1294910f17a0ac75c94a78f5f17df4b0781"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "2cdbaab936da0256565622a77bcbb1294910f17a0ac75c94a78f5f17df4b0781"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "2cdbaab936da0256565622a77bcbb1294910f17a0ac75c94a78f5f17df4b0781"
+    sha256 cellar: :any_skip_relocation, sonoma:         "2cdbaab936da0256565622a77bcbb1294910f17a0ac75c94a78f5f17df4b0781"
+    sha256 cellar: :any_skip_relocation, ventura:        "2cdbaab936da0256565622a77bcbb1294910f17a0ac75c94a78f5f17df4b0781"
+    sha256 cellar: :any_skip_relocation, monterey:       "2cdbaab936da0256565622a77bcbb1294910f17a0ac75c94a78f5f17df4b0781"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "447fa107a56fb283f0fa4837f087da0149b352a0a0bbba1c92d217c69a243e63"
   end
 
   depends_on "graphviz"

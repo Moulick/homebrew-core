@@ -8,18 +8,22 @@ class Diceware < Formula
   license "GPL-3.0-or-later"
 
   bottle do
-    rebuild 2
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "681a742488bc20ae096c628a5ac2e4d9f979821b43a5a0b1daf3f03193da142e"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "b9ae808ef971b35d938fd9462698108a89b35c1d9418a9151186c1912430c9b4"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "9830e1d1a3f676c2f7770e57d53b1816f6358d5f1cd4817e989523f8bbacd035"
-    sha256 cellar: :any_skip_relocation, sonoma:         "5829088526f79a5ada0f9d95a155fd4dd1ed019ccfa01f661239d06e69cbd8c5"
-    sha256 cellar: :any_skip_relocation, ventura:        "ad4aa23750b9b06f946f68ead8fc509fe3419b0461d938f20f94b336236d274c"
-    sha256 cellar: :any_skip_relocation, monterey:       "5f20c464e18bb82300f76c18d783fe9aac841d554360cd4c44fc801651d649c6"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "61d3f337b990f1d738d153894f7f6250254f0960a9d2326fc3ca84e7fa37a3cf"
+    rebuild 4
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "4c6ecc1155edaf131229b4419e6ca8271e32896fa091bbb33e6449bad4f51513"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "ac29db679db5b09dc6a5ebfa01674c9017c4fa8fa883581423de518b8f34d56c"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "927f4dcd92b7cc5ab0a4e71aec0b6749e66b95c26df587eb09bc743ded817358"
+    sha256 cellar: :any_skip_relocation, sonoma:         "3f01d968d9545f38b443b985cec9315ba768b925ab5dad7a74c114eeaa0776ba"
+    sha256 cellar: :any_skip_relocation, ventura:        "16a5f7e354160529d334f8cc196f59b70d9e8508a0938f94ba2dc87bd786ca93"
+    sha256 cellar: :any_skip_relocation, monterey:       "4c1ae92e608c4b6c27d983d9eec19b3dbde35892a5e3b2412b4206a16f22f6fb"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "198d662c21378d2a4b6e0d4979de37d42a8c7b8801d024be822c26d70be4d72f"
   end
 
-  depends_on "python-setuptools" # remove for v0.11+
   depends_on "python@3.12"
+
+  resource "setuptools" do
+    url "https://files.pythonhosted.org/packages/c8/1f/e026746e5885a83e1af99002ae63650b7c577af5c424d4c27edcf729ab44/setuptools-69.1.1.tar.gz"
+    sha256 "5c0806c7d9af348e6dd3777b4f4dbb42c7ad85b190104837488eab9a7c945cf8"
+  end
 
   def install
     virtualenv_install_with_resources

@@ -9,13 +9,14 @@ class Asciinema < Formula
   head "https://github.com/asciinema/asciinema.git", branch: "develop"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "393a402f4c28a3aed2db166e5fff6ea6cce93af5b3f6c03af4f23d9f79fb0fe9"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "43e7a7f5bed84cca809d1d2d6b1ccd93ec53b33e35d628d3ff4d4d01592e8ec4"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "11aa0f514bcbae441f7ac420a8aa34df9197f3124bdcb95a08d4179f3235fa08"
-    sha256 cellar: :any_skip_relocation, sonoma:         "a9c437d7e2229f1ca12f37fb851d832046f8809f0cfee59479d85d719f02b59b"
-    sha256 cellar: :any_skip_relocation, ventura:        "d12c60fff4c98c2b3703e8f13b5f3122c2d77447d9be0aceef1d66f2b7adb7a1"
-    sha256 cellar: :any_skip_relocation, monterey:       "53402504d5c8b0533289c2ec53618c6e34ecfcf6c84eb753a14a094a5c36d8ac"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "6b922f833eefb8fee5dc01fe81bf68f146a06ec251cbbcbdf7689e04b87345f3"
+    rebuild 2
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "10d155f8515514023454514b2f7898badc826c2756d064b17d7e6473a0ccbb8d"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "3186a5d3dfcd25a6af378ce0f1cea2ddbeb719b15140917c0729a76a51979570"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "258717dd75b271d86099190bd535fc24e6d71d78e9869491a1396e2209efae9b"
+    sha256 cellar: :any_skip_relocation, sonoma:         "c4c5445b99b3dd2e29feb8a1d2526777d7be095776d53616a06f5fcc8f83bc80"
+    sha256 cellar: :any_skip_relocation, ventura:        "9e26a627695b47fd486bfd3be764213000e92c79b8fc49a907646c1fe2144418"
+    sha256 cellar: :any_skip_relocation, monterey:       "62aaac2d7f795100ab5b9485f14f7f2c0454b495e0aba80b353c3555df74c5ff"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "9999efc810cc5521c71849c602de3928cedf782bafe450ba151a1b7f46d948f5"
   end
 
   depends_on "python@3.12"

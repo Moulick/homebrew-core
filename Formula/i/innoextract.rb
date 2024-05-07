@@ -4,7 +4,7 @@ class Innoextract < Formula
   url "https://constexpr.org/innoextract/files/innoextract-1.9.tar.gz"
   sha256 "6344a69fc1ed847d4ed3e272e0da5998948c6b828cb7af39c6321aba6cf88126"
   license "Zlib"
-  revision 6
+  revision 8
   head "https://github.com/dscharrer/innoextract.git", branch: "master"
 
   livecheck do
@@ -13,25 +13,30 @@ class Innoextract < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_sonoma:   "2123d53eec27b2f68656f72df70ca1625d0579a2d2582ef6b66664f31ac90305"
-    sha256 cellar: :any,                 arm64_ventura:  "5d3be8341c3452bc90f94b9d9e6ba45e5c4d6708d7b3c3cca81ea5ca56f69b82"
-    sha256 cellar: :any,                 arm64_monterey: "7ebe336dbca7d52211b6dcdf183bb9c241bab7efe28edc6cfa3c4fbe6ee1c365"
-    sha256 cellar: :any,                 sonoma:         "a1f1f376f09ba0910e014ab9548c98b0083502aa7fa2ec7cd0f7a91f447f413d"
-    sha256 cellar: :any,                 ventura:        "5438b13e79c2f9d37d0af1661d6f2c14fcaf0b976731bf74a8fecd9e72830cfd"
-    sha256 cellar: :any,                 monterey:       "222d556a09ccc53fa4d8e69060825c85cac9cde2c64bb6d089c7f0d439dbf0ec"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "1bd41318171b61adac1811c3f06bc4ce8e8fedcc5c61d51723b46d78b42d603a"
+    sha256 cellar: :any,                 arm64_sonoma:   "9f2ca2ec92ed901109a7b6e58a76ee317d005789802a99c1eac42cf864a123b5"
+    sha256 cellar: :any,                 arm64_ventura:  "d92956e6f247321985b2e5ab306dc982679dbe753f1064bdf855613818025c84"
+    sha256 cellar: :any,                 arm64_monterey: "aa0796b56c364212a2acaaf00e88a895aa28b3f1b27e1df0031351058c2ed472"
+    sha256 cellar: :any,                 sonoma:         "6bd4b35fbab4381c5c4641aea04c3a9c6d05a18ba437904b486336c58321a1a2"
+    sha256 cellar: :any,                 ventura:        "fb354b7b22cc5c586c135ab1db0a7801c3212881d7057990e9b0ce72bf4f608b"
+    sha256 cellar: :any,                 monterey:       "a0106888f740f7da1b967f9e841b305fe377048185c092621b11ce9db3cdb54b"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "842ce66d5a1cc8187b9dc53482b7811b633bad34df863b7480ad42bccd3942da"
   end
 
   depends_on "cmake" => :build
   depends_on "boost"
   depends_on "xz"
 
+  # Fix build with `boost` 1.85.0 using open PR
+  # PR ref: https://github.com/dscharrer/innoextract/pull/169
+  patch do
+    url "https://github.com/dscharrer/innoextract/commit/264c2fe6b84f90f6290c670e5f676660ec7b2387.patch?full_index=1"
+    sha256 "f968a9c0521083dd4076ce5eed56127099a9c9888113fc50f476b914396045cc"
+  end
+
   def install
-    mkdir "build" do
-      system "cmake", "..", *std_cmake_args
-      system "make"
-      system "make", "install"
-    end
+    system "cmake", "-S", ".", "-B", "build", *std_cmake_args
+    system "cmake", "--build", "build"
+    system "cmake", "--install", "build"
   end
 
   test do

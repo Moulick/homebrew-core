@@ -1,10 +1,9 @@
 class Libxml2 < Formula
   desc "GNOME XML library"
   homepage "http://xmlsoft.org/"
-  url "https://download.gnome.org/sources/libxml2/2.11/libxml2-2.11.5.tar.xz"
-  sha256 "3727b078c360ec69fa869de14bd6f75d7ee8d36987b071e6928d4720a28df3a6"
+  url "https://download.gnome.org/sources/libxml2/2.12/libxml2-2.12.6.tar.xz"
+  sha256 "889c593a881a3db5fdd96cc9318c87df34eb648edfc458272ad46fd607353fbb"
   license "MIT"
-  revision 1
 
   # We use a common regex because libxml2 doesn't use GNOME's "even-numbered
   # minor is stable" version scheme.
@@ -14,13 +13,13 @@ class Libxml2 < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_sonoma:   "8fd3dfc23275635bd786a3ef09749c909ac2bb2ea2e4b271ff82bd9f575d7215"
-    sha256 cellar: :any,                 arm64_ventura:  "ecd502e0a296fa9ff0b093eec0d0ff537ee6750a11ca3475c3317bdfe032b5ec"
-    sha256 cellar: :any,                 arm64_monterey: "77927824b8c8aaf89f77eeab57396835d1d33cc8d150c2e3ca86264dd4aef943"
-    sha256 cellar: :any,                 sonoma:         "fd14314e2f93b55340e363ebb5fa52283871c9df33e7d04674fe84ee865cf4b0"
-    sha256 cellar: :any,                 ventura:        "df22f461f6b5412d06d4e2dbf2802b59d09ebc2a599c112673e069c75e482757"
-    sha256 cellar: :any,                 monterey:       "696c7526f3e6d052af2e8c9d8556b0c32dc840b76574480025ede87b1f5d9d23"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "57ceccd15fd3b58cb7be51a09879c6d31f58ddc300a74379f29823177975f280"
+    sha256 cellar: :any,                 arm64_sonoma:   "9c37ec3428a8874a2c06cb6b7c06e6fa245f6c901d11e98cd1fb1a026c19b107"
+    sha256 cellar: :any,                 arm64_ventura:  "42f2f051d27bffbc179a9ffd4a3004c7422c776233267b1b471e10c1e413744d"
+    sha256 cellar: :any,                 arm64_monterey: "2891384cf532ff7e81ed87248ba71c50039dbb21b03890ade4ba4e03f30af9de"
+    sha256 cellar: :any,                 sonoma:         "67634d87d45a885b274d3282e36d795251d4db9f00996b0e7d815f0e5c6c8a22"
+    sha256 cellar: :any,                 ventura:        "7ade43ba71ec4b40b8d287063d86b671644b18760eba47a04de37ac4a76efad8"
+    sha256 cellar: :any,                 monterey:       "a6d3512246ccd15f742332c17fa77c635c194b917da0c5ff0ed2a580dfcb5271"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "e71c388c95d8b83c907784a9fcc57bf2462e33ee97ea4406d214e177e67c095d"
   end
 
   head do
@@ -35,7 +34,6 @@ class Libxml2 < Formula
   keg_only :provided_by_macos
 
   depends_on "python-setuptools" => :build
-  depends_on "python@3.10" => [:build, :test]
   depends_on "python@3.11" => [:build, :test]
   depends_on "python@3.12" => [:build, :test]
   depends_on "pkg-config" => :test
@@ -53,6 +51,7 @@ class Libxml2 < Formula
   def install
     system "autoreconf", "--force", "--install", "--verbose" if build.head?
     system "./configure", *std_configure_args,
+                          "--sysconfdir=#{etc}",
                           "--disable-silent-rules",
                           "--with-history",
                           "--with-icu",
@@ -76,8 +75,12 @@ class Libxml2 < Formula
       inreplace "setup.py", "includes_dir = [",
                             "includes_dir = [#{includes}"
 
-      pythons.each do |python|
-        system python, "-m", "pip", "install", *std_pip_args, "."
+      # Needed for Python 3.12+.
+      # https://github.com/Homebrew/homebrew-core/pull/154551#issuecomment-1820102786
+      with_env(PYTHONPATH: buildpath/"python") do
+        pythons.each do |python|
+          system python, "-m", "pip", "install", *std_pip_args, "."
+        end
       end
     end
   end

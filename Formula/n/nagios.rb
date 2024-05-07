@@ -1,8 +1,8 @@
 class Nagios < Formula
   desc "Network monitoring and management system"
   homepage "https://www.nagios.org/"
-  url "https://downloads.sourceforge.net/project/nagios/nagios-4.x/nagios-4.4.14/nagios-4.4.14.tar.gz"
-  sha256 "507caac1ae89974ffa8ea5b310aa048ba9ab00cd9711693ef36eb17eeea9f84f"
+  url "https://downloads.sourceforge.net/project/nagios/nagios-4.x/nagios-4.5.2/nagios-4.5.2.tar.gz"
+  sha256 "84dd5bc03c5280484ada3a8c1f446499c437bc1e6f631f6440409071d4ea3d21"
   license "GPL-2.0-only"
 
   livecheck do
@@ -11,15 +11,13 @@ class Nagios < Formula
   end
 
   bottle do
-    sha256 arm64_sonoma:   "a5e4d2b326149e5726cc37895231f89f778013b779dcdc59fe5b81d10b336697"
-    sha256 arm64_ventura:  "3e11c8d47ab27bfe9ae845d6a390dda158b2f3fc3f579fcabdb79a7cdbba4451"
-    sha256 arm64_monterey: "f71f5b21f4f04d8506eb3b16fcf3e6ab8953cef5c08588e4490a44cd5db1afa0"
-    sha256 arm64_big_sur:  "2fadc0c51d7b242433b17f35afd047da6816512bd8862307ad8c71cd15cef64c"
-    sha256 sonoma:         "6a73175ddfd71c08866a4df8261743a09ba8d82ab6e85c4d6e337eb73738e9c4"
-    sha256 ventura:        "508f7b24fd3b5112ce3f3e4efd5f370a4d50052baa98b972dcb98db369b00df5"
-    sha256 monterey:       "9fb3c90a139643ea2d17cd914476dbe8631d45f52a2b07b6952d9c96c376fecc"
-    sha256 big_sur:        "5b818ef03ef91ac3851c0d110018e1d2e767b4360ddb0bee3b5862aff7f88a7a"
-    sha256 x86_64_linux:   "d53805470dfaf177423fd5279ce71b8cbaef2eec739c676fde0790d48f1f7254"
+    sha256 arm64_sonoma:   "c71c9fa9a96a3f6b9541b8f8175a2b0e8d3bd56dea243ba8f442e5daee2ec589"
+    sha256 arm64_ventura:  "030d44d8c6a8b4604f24f5a24fcd20dee2350f43b4d98cd699c201aa79c4c7b6"
+    sha256 arm64_monterey: "9bb39488ba73d387d9635e4e3903b25b18471c8554179426a0c440ef82c6273a"
+    sha256 sonoma:         "c2f5dee2a9251563c70a5e261ee735c152749fff8fffe14bc9ccbd01b9330b43"
+    sha256 ventura:        "2b8b536161bae53d5894c81bc4810f6a27f64d6134e35ee1536f29dcf1a2693b"
+    sha256 monterey:       "87c0108fa9deba73637c036d44f3eee9025e0dd22c1eed75631274b4af624073"
+    sha256 x86_64_linux:   "41c0e4cb868ab16dbd70de1bc49c00c8351b340dc65ac9bd2203b9508b135882"
   end
 
   depends_on "gd"

@@ -1,18 +1,18 @@
 class Vte3 < Formula
   desc "Terminal emulator widget used by GNOME terminal"
   homepage "https://wiki.gnome.org/Apps/Terminal/VTE"
-  url "https://download.gnome.org/sources/vte/0.74/vte-0.74.1.tar.xz"
-  sha256 "2328c3f1c998350a18e0e513348e9fc581d57ea4e7b89aedf11e0e3c65042b4f"
+  url "https://download.gnome.org/sources/vte/0.76/vte-0.76.1.tar.xz"
+  sha256 "084e83ef765774269a4b29df97ca22edc343b9a1d81433d300b8cb2d087a1ec2"
   license "LGPL-2.0-or-later"
 
   bottle do
-    sha256 arm64_sonoma:   "21e7d8c2be2b75d20dab8f84b25d87d1402bc539d98affd15c636221dc25d18a"
-    sha256 arm64_ventura:  "560ca78106d886b6a099c7aba9983a7f2a160ed511fb2325a45510b341ba2d8b"
-    sha256 arm64_monterey: "6d0d488a968ffbe722ef7a4b8f1f5f1f33ce02d733c8f3e98dde4543a679ac06"
-    sha256 sonoma:         "744676486abf9d32a5013fd8dc457fdc0e1aa8718a69271f29304480ab0b9a29"
-    sha256 ventura:        "4162f2077783c7255eb661d58be379c4b31b3f74bf169fa03f29954411e1fccd"
-    sha256 monterey:       "d4f592f51bc76d788ba5ea5a99d22a2193e70197e730ed0dbb026adae70ace2c"
-    sha256 x86_64_linux:   "473b1eeaed4cd5819fb5794a95c99eeef74c2b896e3000e9c0be89ae9a170605"
+    sha256 arm64_sonoma:   "0aa63ad76cf7e037c35621512520ca6312a8709e25f877bb054e25dcedc27e6f"
+    sha256 arm64_ventura:  "09424815e4f6011b6094548b0ca590ad47ba65e5e2e4761d8464ec91dae721d4"
+    sha256 arm64_monterey: "9f4743abb7fe9c7d8e6cb5aff6d0dd5d1c2b0f325cb5b79fe802c28bcdc40b1f"
+    sha256 sonoma:         "f2a1266902eb1a303cd29c2b362c8508dd92f5a177610a5ca79848b3128cc712"
+    sha256 ventura:        "61c79e18b81355a6715f5c52f0b7ec3a21cfd8bbbd4c5983092cba8bee4a920a"
+    sha256 monterey:       "d3c35a14dfd6cf95dd159e7dae85732b5c6819bc7e22977f65407cf44e441dd4"
+    sha256 x86_64_linux:   "a93b0c3f9870a0caed82b99974ca9615caf9c5bd5325ab76708f84b8fa69ced0"
   end
 
   depends_on "gettext" => :build
@@ -32,8 +32,19 @@ class Vte3 < Formula
   depends_on "pcre2"
 
   on_macos do
-    depends_on "llvm" => :build if DevelopmentTools.clang_build_version <= 1200
     depends_on "gettext"
+  end
+
+  on_ventura :or_newer do
+    depends_on "llvm" => :build if DevelopmentTools.clang_build_version <= 1500
+  end
+
+  on_monterey :or_older do
+    # We use GCC on older macOS as build fails with brew `llvm`.
+    # Undefined symbols for architecture x86_64:
+    #   "std::__1::__libcpp_verbose_abort(char const*, ...)", referenced from: ...
+    depends_on "gcc"
+    fails_with :clang
   end
 
   on_linux do
@@ -42,7 +53,7 @@ class Vte3 < Formula
   end
 
   fails_with :clang do
-    build 1200
+    build 1500
     cause "Requires C++20"
   end
 
@@ -55,7 +66,11 @@ class Vte3 < Formula
   patch :DATA
 
   def install
-    ENV.llvm_clang if OS.mac? && (DevelopmentTools.clang_build_version <= 1200)
+    ENV.llvm_clang if OS.mac? && MacOS.version >= :ventura && DevelopmentTools.clang_build_version <= 1500
+    # Work around an Xcode 15 linker issue which causes linkage against LLVM's
+    # libunwind due to it being present in a library search path.
+    ENV.remove "HOMEBREW_LIBRARY_PATHS", Formula["llvm"].opt_lib if DevelopmentTools.clang_build_version == 1500
+
     ENV["XML_CATALOG_FILES"] = etc/"xml/catalog"
 
     system "meson", "setup", "build", "-Dgir=true",

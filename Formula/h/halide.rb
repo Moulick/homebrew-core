@@ -1,9 +1,8 @@
 class Halide < Formula
   desc "Language for fast, portable data-parallel computation"
   homepage "https://halide-lang.org"
-  # TODO: Check if we can use unversioned `llvm` at version bump.
-  url "https://github.com/halide/Halide/archive/refs/tags/v16.0.0.tar.gz"
-  sha256 "a0cccee762681ea697124b8172dd65595856d0fa5bd4d1af7933046b4a085b04"
+  url "https://github.com/halide/Halide/archive/refs/tags/v17.0.1.tar.gz"
+  sha256 "beb18331d9e4b6f69943bcc75fb9d923a250ae689f09f6940a01636243289727"
   license "MIT"
   revision 1
   head "https://github.com/halide/Halide.git", branch: "main"
@@ -14,20 +13,21 @@ class Halide < Formula
   end
 
   bottle do
-    rebuild 1
-    sha256 cellar: :any,                 arm64_ventura:  "9c225bdb3cb4289b5bb121934519e09d08673d20edb675597fc98624612c5539"
-    sha256 cellar: :any,                 arm64_monterey: "778bbca758d3945f263f9bc18781d4a54f49e3ab8dbc67e0913aa902b04972af"
-    sha256 cellar: :any,                 sonoma:         "cfc7bf242ade7297dbd59128746629c3058f0078eb504f62513c52922124734e"
-    sha256 cellar: :any,                 ventura:        "83b5ff39ff7172243c85d146faf5e8f689d5eb11d3d32e807417c867526559b1"
-    sha256 cellar: :any,                 monterey:       "39caeadda09ef26ba1956eb243b65e42d8880090b7c2f1ad0133e02a3d5885bb"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "233c56cd195d0183d4d70fac3fa9f846fc5b5c53a37415758302958f1b07de0f"
+    sha256 cellar: :any,                 arm64_sonoma:   "acfb233ba9a4fe0dbf9cc356ce05089e4898e2a704bd042eb63adc834d06ee7f"
+    sha256 cellar: :any,                 arm64_ventura:  "255b0a6cee8ff2e5da7911bc7e2d5bd3c4f9ee1b40341b9bafc0babc005bf02c"
+    sha256 cellar: :any,                 arm64_monterey: "911f16993b0b0dd7e6663afb595b7f37a8260330ebda522a302931b7ae7b0772"
+    sha256 cellar: :any,                 sonoma:         "20ba24f50c8e9ac478b9f8c95a2eea9f14ab969a5705908aa2a926c499a8897f"
+    sha256 cellar: :any,                 ventura:        "52ca13bb0b1db321ef034e694197024ba66feffe89c78bb1ba0aa742d6df1825"
+    sha256 cellar: :any,                 monterey:       "98510b52e0ca95f63ca49860d123d6b8ecf8ecb51d294bb7505968795bcc80a5"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "fd4cc8f18056d83d9ac55a7a3616cfd66ca9495e034a56af7074eceb70a09d5a"
   end
 
   depends_on "cmake" => :build
   depends_on "pybind11" => :build
+  depends_on "flatbuffers"
   depends_on "jpeg-turbo"
   depends_on "libpng"
-  depends_on "llvm@16"
+  depends_on "llvm@17"
   depends_on "python@3.12"
 
   fails_with :gcc do
@@ -35,19 +35,36 @@ class Halide < Formula
     cause "Requires C++17"
   end
 
+  # Check wabt version in `dependencies/wasm/CMakeLists.txt`.
+  # TODO: Ask upstream to support usage of a system-provided wabt.
+  # TODO: Do we really need a git checkout here?
+  resource "wabt" do
+    url "https://github.com/WebAssembly/wabt.git",
+        tag:      "1.0.33",
+        revision: "963f973469b45969ce198e0c86d3af316790a780"
+  end
+
   def python3
     "python3.12"
   end
 
   def install
-    system "cmake", "-S", ".", "-B", "build",
+    # Work around an Xcode 15 linker issue which causes linkage against LLVM's
+    # libunwind due to it being present in a library search path.
+    ENV.remove "HOMEBREW_LIBRARY_PATHS", Formula["llvm@17"].opt_lib if DevelopmentTools.clang_build_version >= 1500
+
+    builddir = buildpath/"build"
+    (builddir/"_deps/wabt-src").install resource("wabt")
+
+    system "cmake", "-S", ".", "-B", builddir,
                     "-DCMAKE_INSTALL_RPATH=#{rpath}",
                     "-DHalide_INSTALL_PYTHONDIR=#{prefix/Language::Python.site_packages(python3)}",
                     "-DHalide_SHARED_LLVM=ON",
                     "-DPYBIND11_USE_FETCHCONTENT=OFF",
+                    "-DFLATBUFFERS_USE_FETCHCONTENT=OFF",
                     *std_cmake_args
-    system "cmake", "--build", "build"
-    system "cmake", "--install", "build"
+    system "cmake", "--build", builddir
+    system "cmake", "--install", builddir
   end
 
   test do

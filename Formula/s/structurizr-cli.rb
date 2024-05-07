@@ -1,12 +1,12 @@
 class StructurizrCli < Formula
   desc "Command-line utility for Structurizr"
   homepage "https://structurizr.com"
-  url "https://github.com/structurizr/cli/releases/download/v1.34.0/structurizr-cli-1.34.0.zip"
-  sha256 "484cbcceed36e165ed2b274c947a323bc9e5ea8f240800db5ac3ee416f29e414"
+  url "https://github.com/structurizr/cli/releases/download/v2024.03.03/structurizr-cli.zip"
+  sha256 "e0cffb88b5b998bbbeae428a463cf001154e82668ce8c61b9f87ccb2743bb1f7"
   license "Apache-2.0"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, all: "d3e72624f951e92b0eb014cf056c82eca46b3343ce3a6916ae4d4b4f1f84bb18"
+    sha256 cellar: :any_skip_relocation, all: "1799049eefb8e76f148a8e0329257c0b9957cc6c0898278cab7f77b27c64a362"
   end
 
   depends_on "openjdk"
@@ -18,8 +18,8 @@ class StructurizrCli < Formula
   end
 
   test do
-    result = pipe_output("#{bin}/structurizr-cli").strip
-    assert_match "Usage: structurizr push|pull|lock|unlock|export|validate|list|version|help [options]", result
+    result = shell_output("#{bin}/structurizr-cli validate -w /dev/null", 1)
+    assert_match "/dev/null is not a JSON or DSL file", result
 
     assert_match "structurizr-cli: #{version}", shell_output("#{bin}/structurizr-cli version")
   end

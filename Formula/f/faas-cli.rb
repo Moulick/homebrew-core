@@ -2,8 +2,8 @@ class FaasCli < Formula
   desc "CLI for templating and/or deploying FaaS functions"
   homepage "https://www.openfaas.com/"
   url "https://github.com/openfaas/faas-cli.git",
-      tag:      "0.16.17",
-      revision: "f72db8de657001a2967582c535fe8351c259c5f6"
+      tag:      "0.16.26",
+      revision: "a9a775760ba88f37820e2939f5c5f24311f5d45c"
   license "MIT"
   head "https://github.com/openfaas/faas-cli.git", branch: "master"
 
@@ -13,13 +13,13 @@ class FaasCli < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "4179ca4cec379aa22c9de517d54ee747b1cd985c7363f7942e281c7207f4e8d1"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "4c0f3915800f04cf0f3d86eaca3bc86b80b180890da10416392542c390e15dbf"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "05b65d0251d2059ea5bf61c8ba870dfd924b889ab5085105f45a208604745f2b"
-    sha256 cellar: :any_skip_relocation, sonoma:         "4d3187a5e1cc7d3db0b93b068f5b83a3c481ebed868df90969c41a81a3e1d2d0"
-    sha256 cellar: :any_skip_relocation, ventura:        "ff1f5f981ae6701ababa089b7df77e2040c1c01004be658453ed174bba9bff7b"
-    sha256 cellar: :any_skip_relocation, monterey:       "ffcf5e5f99edb89ed86b5ef75779aa95afb2335170cd575f6661e6a8cb481b56"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "dea2e960f935c1f3678d5b866514bcb0a51f3633e9f2d52f5e6ab4402d3f2cb9"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "fa914359651d6cbbe60a97042dc5dbca648df722ce7faa8a46bf049d2a94518b"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "66c5ba0689e749e0ab775cee4af1d2679ac37d50c2866312a3a86702e0e871b3"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "0e8b517c9cc513dbcd979f5c706fced8f877bd465944e596c4170b3d81191548"
+    sha256 cellar: :any_skip_relocation, sonoma:         "6e6be1bdd76d285bed61083d9d2c5047ed70e9bf392080a91509ee5449d6e1b9"
+    sha256 cellar: :any_skip_relocation, ventura:        "5d7e87391a9f475ed86d2d7e203d2a16b81af4a49acb28d375709a850548e522"
+    sha256 cellar: :any_skip_relocation, monterey:       "3840ea4867020d5c617e3c70f9f632f98d92697bfb993a1c06c5608fdc7877d7"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "99c55786f7142958c892c7d8c49be17633f0d53a13e0e45a772aae29e27d3cea"
   end
 
   depends_on "go" => :build
@@ -33,7 +33,7 @@ class FaasCli < Formula
       -X #{project}/version.GitCommit=#{Utils.git_head}
       -X #{project}/version.Version=#{version}
     ]
-    system "go", "build", *std_go_args(ldflags: ldflags), "-a", "-installsuffix", "cgo"
+    system "go", "build", *std_go_args(ldflags:), "-a", "-installsuffix", "cgo"
     bin.install_symlink "faas-cli" => "faas"
 
     generate_completions_from_executable(bin/"faas-cli", "completion", "--shell", shells: [:bash, :zsh])

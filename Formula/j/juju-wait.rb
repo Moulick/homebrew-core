@@ -9,20 +9,34 @@ class JujuWait < Formula
   revision 3
 
   bottle do
-    rebuild 3
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "b964072250fd4fc0930d02431037c75008e91338584ef64ebf3690e30fa40451"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "93ef2e2bd11280c71d4ff71a189c6660888b1e1b57cf854e77e848fcb68ceb15"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "72670a66a3322b29fda3139ce923922a60e9a73f39e6fd8cb50b6ef326cf16b6"
-    sha256 cellar: :any_skip_relocation, sonoma:         "88c0b2f156a0d80c583da9f8694d937343ba0d332200f8f66fffa25ed52f8614"
-    sha256 cellar: :any_skip_relocation, ventura:        "94143f3cdce9f58465abf05c338925950badeedd941a551e7babac27cd3b0a32"
-    sha256 cellar: :any_skip_relocation, monterey:       "1dbc90f242ade37de5952256a392af87ccc1ac3d6c49001eb942fb76a36b3db3"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "642a58a4256a48a36478e1ebc1df488b00a8375295986d21661ee34d702c34bb"
+    rebuild 5
+    sha256 cellar: :any,                 arm64_sonoma:   "586783238caaf8b1947e5f37955209eb7df05b528cddb3cccfa0e4f3ba01c7cc"
+    sha256 cellar: :any,                 arm64_ventura:  "f2583a6872555a52166daae3ab7a6fe3d625f273b7f0b2fcd4d6657c48108350"
+    sha256 cellar: :any,                 arm64_monterey: "06cf598be9fb449ffe7a666d2d2361b185fb47b1963353e0ef0906c8d07c24f8"
+    sha256 cellar: :any,                 sonoma:         "efc417cd2f1b32f71a7cf94aefc45c8d962c6b43c4d31dceaf8e616fae81b303"
+    sha256 cellar: :any,                 ventura:        "4c518cb63b8ee35f9ee3d68cbf31ab4c8969c5542fb7be107241e84d7fcdf2de"
+    sha256 cellar: :any,                 monterey:       "910d64ff5fca96376a9faca8ec8e5f2ea2d5962c46fac12cc62fb0d3be4839e7"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "227cffc879030285ded0425b1d084c63acf69aa453841bde987666f0fb296798"
   end
 
+  # From homepage:
+  # [DEPRECATED] Since Juju 3, there's a native Juju command covering this -
+  # https://juju.is/docs/olm/juju-wait-for. Please use that instead.
+  deprecate! date: "2024-02-22", because: :deprecated_upstream
+
   depends_on "juju"
-  depends_on "python-setuptools"
+  depends_on "libyaml"
   depends_on "python@3.12"
-  depends_on "pyyaml"
+
+  resource "pyyaml" do
+    url "https://files.pythonhosted.org/packages/cd/e5/af35f7ea75cf72f2cd079c95ee16797de7cd71f29ea7c68ae5ce7be1eda0/PyYAML-6.0.1.tar.gz"
+    sha256 "bfdf460b1736c775f2ba9f6a92bca30bc2095067b8a9d77876d1fad6cc3b4a43"
+  end
+
+  resource "setuptools" do
+    url "https://files.pythonhosted.org/packages/c9/3d/74c56f1c9efd7353807f8f5fa22adccdba99dc72f34311c30a69627a0fad/setuptools-69.1.0.tar.gz"
+    sha256 "850894c4195f09c4ed30dba56213bf7c3f21d86ed6bdaafb5df5972593bfc401"
+  end
 
   def install
     virtualenv_install_with_resources

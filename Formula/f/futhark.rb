@@ -1,19 +1,19 @@
 class Futhark < Formula
   desc "Data-parallel functional programming language"
   homepage "https://futhark-lang.org/"
-  url "https://github.com/diku-dk/futhark/archive/refs/tags/v0.25.6.tar.gz"
-  sha256 "76ecb969323b3722821cbbfe03029a9f54fbcf48fb1943e696f5e3de7c74d482"
+  url "https://github.com/diku-dk/futhark/archive/refs/tags/v0.25.16.tar.gz"
+  sha256 "1192fcf50671bc8ff2f60e754e500fa2b6790a7e38d7eb5fc7db303039524188"
   license "ISC"
   head "https://github.com/diku-dk/futhark.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "808c04c238acf5b68cc0b8e0c8145018e014e1cf0cbeddfa52c19e67220a5752"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "d58a63b89eed953ccbcd44e6a072cc94971c78319048c67ad04cbd8cba6194ca"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "1e9afeabaa01c1e0cf7fddb26ab0fa1cf4f92211dc9799a65ad4d0dab8cde67d"
-    sha256 cellar: :any_skip_relocation, sonoma:         "4e19c8a49ae4a852a33410608b1ce8a9f078a35654677c0bb78cafe9e38eb0f1"
-    sha256 cellar: :any_skip_relocation, ventura:        "3b5bc611427bc1b281eb812f93cd370e8844c0cad510821c43d9f8d95fc2ceda"
-    sha256 cellar: :any_skip_relocation, monterey:       "d3d0aab31542acfbe3c95d4e1c3ed127fbf5720b4fb380449956f7ccf9476c16"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "7fad09e4d1637623ffc5817934ff5deea87bb68ff7b4d9f6f6855262bb4cdf23"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "e981fb2ebbe7f7bfcabedbe636d160ff5ca7c736739e44a593b75fafe093cd9d"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "4395a2b5a7ab6cb789431379e60e33b71a8fe69519ac6eed6c2b351c7274c1ef"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "9def2c782e2e816410b2b20ac5415175130b115c83456e97657658be0c58eda4"
+    sha256 cellar: :any_skip_relocation, sonoma:         "999badc5af59698fdd5d4fa773cec7c15e8af088164c94527d440e471bdbd724"
+    sha256 cellar: :any_skip_relocation, ventura:        "c15dce449b317ea4db6ee35e00badefdc44dda07dce156f3d2ddf09c957621a9"
+    sha256 cellar: :any_skip_relocation, monterey:       "3a7f81e0a6853c1b7787e8af2d1b497f14628fd0bd0cf8ba779d1b2222fe0f4e"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "020978cd9fafb705dbe7581987db655e7a3ccce9b2ca51cbe38fad563cb6ac7f"
   end
 
   depends_on "cabal-install" => :build

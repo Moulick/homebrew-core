@@ -4,7 +4,7 @@ class Mupen64plus < Formula
   url "https://github.com/mupen64plus/mupen64plus-core/releases/download/2.5/mupen64plus-bundle-src-2.5.tar.gz"
   sha256 "9c75b9d826f2d24666175f723a97369b3a6ee159b307f7cc876bbb4facdbba66"
   license "GPL-2.0-or-later"
-  revision 6
+  revision 8
 
   livecheck do
     url :stable
@@ -12,9 +12,10 @@ class Mupen64plus < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 ventura:      "e761a381d60f957e9bad76a0d4d9512655b748d7a422d2c660ade33c23913aed"
-    sha256 cellar: :any,                 monterey:     "a61b4851ea2497c2d35d98b4881fc4c7f1d07be2b0d986bd34bbe63e0cab59ca"
-    sha256 cellar: :any_skip_relocation, x86_64_linux: "902b7740000a570908ddbdc6eacea27250749f1abac551d15f554d8ec2e5f8ec"
+    sha256 sonoma:       "0f437da2a2cfdf2ced2d2479d2ab607f32b22b9cb3d7a5a1e44ccbe95b8daa03"
+    sha256 ventura:      "199fa074563658ae7b6c05a47f9110ee598410f9238f429d929b456f45c9245c"
+    sha256 monterey:     "dba7bba059b6b612f87feebf35af939c3fb9508fb3e8fb2e5441f71778e4726a"
+    sha256 x86_64_linux: "98724239e9ae73bfcce1db911635ba6cc7947878c1843c488a6408466282bf91"
   end
 
   depends_on "pkg-config" => :build
@@ -35,10 +36,24 @@ class Mupen64plus < Formula
   end
 
   def install
+    # Work around build failure with `boost` 1.85.0
+    # Issue ref: https://github.com/mupen64plus/mupen64plus-video-glide64mk2/issues/128
+    wpath_files = %w[
+      source/mupen64plus-video-glide64mk2/src/GlideHQ/TxCache.cpp
+      source/mupen64plus-video-glide64mk2/src/GlideHQ/TxHiResCache.cpp
+      source/mupen64plus-video-glide64mk2/src/GlideHQ/TxHiResCache.h
+      source/mupen64plus-video-glide64mk2/src/GlideHQ/TxTexCache.cpp
+    ]
+    inreplace wpath_files, /\bboost::filesystem::wpath\b/, "boost::filesystem::path"
+    inreplace "source/mupen64plus-video-glide64mk2/src/GlideHQ/TxHiResCache.cpp",
+              "->path().leaf().", "->path().filename()."
+
     # Prevent different C++ standard library warning
-    inreplace Dir["source/mupen64plus-**/projects/unix/Makefile"],
-              /(-mmacosx-version-min)=\d+\.\d+/,
-              "\\1=#{MacOS.version}"
+    if OS.mac?
+      inreplace Dir["source/mupen64plus-**/projects/unix/Makefile"],
+                /(-mmacosx-version-min)=\d+\.\d+/,
+                "\\1=#{MacOS.version}"
+    end
 
     # Fix build with Xcode 9 using upstream commit:
     # https://github.com/mupen64plus/mupen64plus-video-glide64mk2/commit/5ac11270
@@ -51,7 +66,7 @@ class Mupen64plus < Formula
       ENV.append "CFLAGS", "-fpie"
     end
 
-    args = ["install", "PREFIX=#{prefix}"]
+    args = ["install", "PREFIX=#{prefix}", "COREDIR=#{lib}/"]
     args << if OS.mac?
       "INSTALL_STRIP_FLAG=-S"
     else

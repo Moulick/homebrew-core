@@ -1,8 +1,8 @@
 class Gtk4 < Formula
   desc "Toolkit for creating graphical user interfaces"
   homepage "https://gtk.org/"
-  url "https://download.gnome.org/sources/gtk/4.12/gtk-4.12.3.tar.xz"
-  sha256 "148ce262f6c86487455fb1d9793c3f58bc3e1da477a29617fadb0420f5870a89"
+  url "https://download.gnome.org/sources/gtk/4.14/gtk-4.14.4.tar.xz"
+  sha256 "443518b97e8348f9f6430ac435b1010f9a6c5207f4dc6a7cd5d24e3820cee633"
   license "LGPL-2.1-or-later"
 
   livecheck do
@@ -11,13 +11,13 @@ class Gtk4 < Formula
   end
 
   bottle do
-    sha256 arm64_sonoma:   "f44f31d9a220357beabd3db55ab802185b6afcc5b94ba3a16e13dfe84b09a744"
-    sha256 arm64_ventura:  "73a887bca2a27d369027c8a01ad0d46ae531055a51c7da7a54079ec3564c0e7e"
-    sha256 arm64_monterey: "8459e35842015867877cc64e04166b62216049e1bf94c9f57cc32e8db137457e"
-    sha256 sonoma:         "8155a6fcea9753412a08b4f72bd3f5b516a937acce9405e2c0959308636212b1"
-    sha256 ventura:        "97c1021d1312e42055cb31ba0da8514208c2a0ffb265fe71896f0f43d4da53e4"
-    sha256 monterey:       "9f73d0fd6b5eb332ea16d91f48a37b0d56faafb56a0bbfc0e68928bbc5d2f4bc"
-    sha256 x86_64_linux:   "cc422a47a87958e4f5932d12c3170734572ed4548b7a498a5dd9ec8ae0783cbd"
+    sha256 arm64_sonoma:   "8aef3b1e36ee584a6b784af40a489f7c2ec4bdd71c806df593f0b0f7a8ce0044"
+    sha256 arm64_ventura:  "4b30ec06e41ef4c8baae2fddd49d0cc7a6d3ab9795e16b492cf3410ac59f9082"
+    sha256 arm64_monterey: "fa30a1fe7a2292edd2aac2f58bc0a839440f5a4b36b2d43c5199972ee99d7075"
+    sha256 sonoma:         "c5bf2cda0bd89dbffd8b0366ba72cf1d943ed09872f966c71ee14c1c13f0ee8b"
+    sha256 ventura:        "8bd81d03917f687c21fc6714ad937e838bf8879ee6d850dc3079d4aa733fb5f7"
+    sha256 monterey:       "4724e63235d130d3c050078400e50db06c40482df52fe9620ba47fe22c7d6faa"
+    sha256 x86_64_linux:   "76537ee1532b6e1afcfacb674259f64f5d8d2a8cf0fd48070ee19c030abd195e"
   end
 
   depends_on "docbook" => :build
@@ -46,13 +46,6 @@ class Gtk4 < Formula
     depends_on "libxkbcommon"
   end
 
-  # patch macOS build
-  # upstream PR ref, https://gitlab.gnome.org/GNOME/gtk/-/merge_requests/6208
-  patch do
-    url "https://gitlab.gnome.org/GNOME/gtk/-/commit/aa888c0b3f775776fe3b71028396b7a8c6adb1d6.diff"
-    sha256 "07604078655c73b5db8b5fcdf2288677f0d19a791f336293d7f1c561819488e1"
-  end
-
   def install
     args = %w[
       -Dgtk_doc=false
@@ -61,6 +54,7 @@ class Gtk4 < Formula
       -Dbuild-examples=false
       -Dbuild-tests=false
       -Dmedia-gstreamer=disabled
+      -Dvulkan=disabled
     ]
 
     if OS.mac?

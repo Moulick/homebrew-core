@@ -1,21 +1,19 @@
 class Packmol < Formula
   desc "Packing optimization for molecular dynamics simulations"
   homepage "https://www.ime.unicamp.br/~martinez/packmol/"
-  url "https://github.com/m3g/packmol/archive/refs/tags/v20.14.2.tar.gz"
-  sha256 "9b7647179bb3780f0df7bad866ada346d7cb3f67576199f95b654fe833e728a4"
+  url "https://github.com/m3g/packmol/archive/refs/tags/v20.14.4.tar.gz"
+  sha256 "45ec33798d5f10c0aac6046675531a0e98567890c1a76f753450c5fc6b1aaa2f"
   license "MIT"
   head "https://github.com/m3g/packmol.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any,                 arm64_sonoma:   "1c144c0e19871e73b3e7a5bd04d104411d8e315107a98df8dd6037d75017c6aa"
-    sha256 cellar: :any,                 arm64_ventura:  "d3b983af8b2e95b1382462ffe464718147f43ee0a589962ec59c3e40ee99a37f"
-    sha256 cellar: :any,                 arm64_monterey: "e69c747e0218728e6db1857e70ed872ccb40382ba6767fbc452afd9ca1aeb891"
-    sha256 cellar: :any,                 arm64_big_sur:  "c2e07dd1f235047d3bb96d27afe8065c33f0d117d614cf983d824bcc4c1c225d"
-    sha256                               sonoma:         "1f29593b6fab4bdd35f8562c2bb1930ea2588c6e15e4921a7207ead77aafe896"
-    sha256                               ventura:        "7ae04b000294196fa456309860aa8a608a6ebd1984623eaf2bd6d2da4b3c6755"
-    sha256                               monterey:       "f97bcaeb053fc51f43ee3e12c0fd931150fa6cc764401bdc61cefcc8279d53f2"
-    sha256                               big_sur:        "3561870306303c91c377f240cc754a1f0dc362c3495e8bd44d0629550dd9c066"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "3c5a1a48a91c5c51e5cca78f64da59cd75cb440beae29608354072558b9e59c2"
+    sha256 cellar: :any,                 arm64_sonoma:   "d3b16a432f027c075f1fd7078db57b6feb1eada927947473146af4876094b9b2"
+    sha256 cellar: :any,                 arm64_ventura:  "c1c3e091d3d7667c3983cfff7cde909e2099832bb4343fb0fbd5fb0a7a4baca6"
+    sha256 cellar: :any,                 arm64_monterey: "c48c02e992d18b5ef28d6a1d4260c2c1664988f9292ee742511f338bb227fe16"
+    sha256                               sonoma:         "fe83dca542e6972cd3e6ca69964f311a55a21b799e46ec1a9a840d1a4788fbfe"
+    sha256                               ventura:        "388131107a818f2bf37273696aa423cec6d2bc899d812611b7912cbea74ec7ff"
+    sha256                               monterey:       "19bc18bc68954cd1b02b2ba6e43e5f89689c7d5dd241423f2eb45db51c20fe0e"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "f4d15ae2efa286fcc0c4769a9360423f99329610bd69b456bf089b1957dbdee2"
   end
 
   depends_on "gcc" # for gfortran

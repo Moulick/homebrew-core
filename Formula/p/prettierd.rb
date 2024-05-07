@@ -3,12 +3,12 @@ require "language/node"
 class Prettierd < Formula
   desc "Prettier daemon"
   homepage "https://github.com/fsouza/prettierd"
-  url "https://registry.npmjs.org/@fsouza/prettierd/-/prettierd-0.25.1.tgz"
-  sha256 "9b19f11c6b099c518fc8d4c0b6da697c8e15796fb2bb4ab689737f084d29ac3f"
+  url "https://registry.npmjs.org/@fsouza/prettierd/-/prettierd-0.25.3.tgz"
+  sha256 "39b761c81a6d1d65819ea2f30e96965e25e7ada6d14644e449116e9543b4619f"
   license "ISC"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, all: "0f2b9045f60539c715079e26b01313e78eac5e433f7c4e559b072c54ac91c578"
+    sha256 cellar: :any_skip_relocation, all: "2407fad452f5fb7ccf331779fc7393eaac93009dd0f0a391a04ad3136675dc58"
   end
 
   depends_on "node"

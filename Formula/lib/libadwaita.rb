@@ -1,8 +1,8 @@
 class Libadwaita < Formula
   desc "Building blocks for modern adaptive GNOME applications"
   homepage "https://gnome.pages.gitlab.gnome.org/libadwaita/"
-  url "https://download.gnome.org/sources/libadwaita/1.3/libadwaita-1.3.5.tar.xz"
-  sha256 "faa3ff0f36db18ab4942f4904a295293ccb144755b9bb85131393f201926b586"
+  url "https://download.gnome.org/sources/libadwaita/1.5/libadwaita-1.5.0.tar.xz"
+  sha256 "fd92287df9bb95c963654fb6e70d3e082e2bcb37b147e0e3c905567167993783"
   license "LGPL-2.1-or-later"
 
   # libadwaita doesn't use GNOME's "even-numbered minor is stable" version
@@ -14,24 +14,26 @@ class Libadwaita < Formula
   end
 
   bottle do
-    sha256 arm64_sonoma:   "ef1daeea57ba4deb70ef5338bd739ae51646c471edc3bd4c0d8ad1bf3c3b4f40"
-    sha256 arm64_ventura:  "6d85d0d5c2d4d48934730d04b1d71fcdaaaa4d5340121de7331be6a454df411a"
-    sha256 arm64_monterey: "8f6bfd36aa92234f34c453fbb9d8556470b18c0955610551c4d1a3e1a1fd46fe"
-    sha256 arm64_big_sur:  "63ce30ff4af57ce0a74b87470b1924407af75a14b94cc9c81740a62b7b46e9d9"
-    sha256 sonoma:         "2f5c848d832ea53d1b9649104bc727b7886458b0e1091194339f1c26fb8b736b"
-    sha256 ventura:        "a65f238ab3becb3d69862e92ded83bc75255ce9291e58a2622497798a0537340"
-    sha256 monterey:       "eb4efa96500402a29400b4ed1a7bf6813904bce971e5637052d88efdcc37e44d"
-    sha256 big_sur:        "0c21c762f5e5e0a84d8d749cc6214ee9aae2ff566e4dfd4abf5b75923553ae83"
-    sha256 x86_64_linux:   "9c9ed668d719bab47cc21c920d3214de8c81b9447232ba8f0bce968053a41b05"
+    sha256 arm64_sonoma:   "141f8951e517f984acc674a4a8822afbc54faf10810f4722b8604a8c95bd08fb"
+    sha256 arm64_ventura:  "6d634bbb0e09f253063be4bd1250841a30468bdff2735e79c7590481288e058d"
+    sha256 arm64_monterey: "cc53aedcc0d535a8366c4c5c8abbbc103a8cc755efeb89be90dea0076877170f"
+    sha256 sonoma:         "7e22b362836ebe2677eaecb10682091c3a6486418709143a61c7355a5e3e9e7a"
+    sha256 ventura:        "7be0d127b045cee3ac7b8f24cd25a2a75717f218df17d75e97c5eb0a42b4a101"
+    sha256 monterey:       "c2817f55bc11b02fd8c65cc61b65a384f86ed17a2347f14a897e41bef2efef59"
+    sha256 x86_64_linux:   "3915cdf230e9d640a6fc8bfd4ccfdd7be5bf553d82fdc659256878243d610a22"
   end
 
+  depends_on "cmake" => :build
   depends_on "gettext" => :build
   depends_on "gobject-introspection" => :build
   depends_on "meson" => :build
   depends_on "ninja" => :build
   depends_on "pkg-config" => [:build, :test]
   depends_on "vala" => :build
+  depends_on "appstream"
   depends_on "gtk4"
+
+  uses_from_macos "python" => :build
 
   def install
     system "meson", "setup", "build", "-Dtests=false", *std_meson_args
@@ -45,7 +47,7 @@ class Libadwaita < Formula
 
       int main(int argc, char *argv[]) {
         g_autoptr (AdwApplication) app = NULL;
-        app = adw_application_new ("org.example.Hello", G_APPLICATION_FLAGS_NONE);
+        app = adw_application_new ("org.example.Hello", G_APPLICATION_DEFAULT_FLAGS);
         return g_application_run (G_APPLICATION (app), argc, argv);
       }
     EOS

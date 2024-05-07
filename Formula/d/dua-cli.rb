@@ -1,20 +1,18 @@
 class DuaCli < Formula
   desc "View disk space usage and delete unwanted data, fast"
   homepage "https://lib.rs/crates/dua-cli"
-  url "https://github.com/Byron/dua-cli/archive/refs/tags/v2.20.1.tar.gz"
-  sha256 "05ce2d74ec1282803c6825b0436d8b268eef176060b844ae29746a3d338fe658"
+  url "https://github.com/Byron/dua-cli/archive/refs/tags/v2.29.0.tar.gz"
+  sha256 "af58bfc5146b296ced1ed711b0bbd21bce731a69fb6bea6622e6acfbe180a91a"
   license "MIT"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "2b6f07a3ce9832a81916ea622a3ce684366169e705fcbb23832f157c9d462f16"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "e55e886006366e0bbaf87b741d782997cff53779204060d772fa641104a0f4fc"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "9e45562d2303c72404e917d6ebd21d45e08e92da458fa7e31bc92503f158d1cf"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "911dece14e16458500f806ef74be1f22fd9bee50e6ecd9b48f8eb02953a67843"
-    sha256 cellar: :any_skip_relocation, sonoma:         "3639d633ed3519c9f0b9b9625f7ca7b4ba9ce2e560d408aad31ff86810c4728b"
-    sha256 cellar: :any_skip_relocation, ventura:        "df03bc090641f93dc0c122dd6e323183af61c8c7e1b0fa50f7ee7792b6117ba8"
-    sha256 cellar: :any_skip_relocation, monterey:       "c58a5d68db3faa7d3b29049598c0967202e08bc68fa85bc3efdfaa2b97983776"
-    sha256 cellar: :any_skip_relocation, big_sur:        "18ed6f07fc379d000cb96ac204e7f0e1249ca8a69529ad8ca4abecb731b7e0dd"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "44dff7181ddb90c892a558ceadbd44eae2c65d6e8738be65e7798dca0142bd55"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "41b81de15b5861ce5f498fa86dda98659eac1c435af87707cbf025f569754c03"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "55dbf43f6a6f1898591f7668821733301344c7d071907d39481fd516af34bef1"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "e25573c322a111194255a44a6e22ba0c28ef53eb012c6a6eb61689f9f1327894"
+    sha256 cellar: :any_skip_relocation, sonoma:         "697b01901e1739927e117751826b2281529cf881b37581b0f23311b77e8d5681"
+    sha256 cellar: :any_skip_relocation, ventura:        "3e3d8ad351b3b405f7e3b29df8a55449950a0132c81cd8e4b0560b930d3269c5"
+    sha256 cellar: :any_skip_relocation, monterey:       "3e1b4b301a075fd4af7dff95ff0694c02135f969b31d0a51d180b8e404c01f7b"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "13f29acc7cb223068167243b0831794c67836b5be3ecaec3e9fd789d49dc540e"
   end
 
   depends_on "rust" => :build
@@ -28,24 +26,11 @@ class DuaCli < Formula
     (testpath/"empty.txt").write("")
     (testpath/"file.txt").write("01")
 
-    # upstream discussions, https://github.com/Byron/dua-cli/issues/163
-    # need update after this PR, https://github.com/Byron/dua-cli/pull/158
-    expected_macos = <<~EOS
-      \e[32m      0  B\e[39m #{testpath}/empty.txt
-      \e[32m      2  B\e[39m #{testpath}/file.txt
-      \e[32m      2  B\e[39m total
-    EOS
-
-    expected_linux = <<~EOS
-      \e[32m     0   B\e[39m #{testpath}/empty.txt
-      \e[32m     2   B\e[39m #{testpath}/file.txt
-      \e[32m     2   B\e[39m total
-    EOS
-
-    if OS.mac?
-      assert_equal expected_macos, shell_output("#{bin}/dua -A #{testpath}/*.txt")
-    else
-      assert_equal expected_linux, shell_output("#{bin}/dua -A #{testpath}/*.txt")
-    end
+    expected = %r{
+      \e\[32m\s*0\s*B\e\[39m\ #{testpath}/empty.txt\n
+      \e\[32m\s*2\s*B\e\[39m\ #{testpath}/file.txt\n
+      \e\[32m\s*2\s*B\e\[39m\ total\n
+    }x
+    assert_match expected, shell_output("#{bin}/dua -A #{testpath}/*.txt")
   end
 end

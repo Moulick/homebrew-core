@@ -1,25 +1,21 @@
 class NagiosPlugins < Formula
   desc "Plugins for the nagios network monitoring system"
   homepage "https://www.nagios-plugins.org/"
-  url "https://github.com/nagios-plugins/nagios-plugins/releases/download/release-2.4.6/nagios-plugins-2.4.6.tar.gz"
-  sha256 "47af67196507b2ae2ab03a802b0709bcd5e453ec5bdd419333233b5a8485bcd0"
+  url "https://github.com/nagios-plugins/nagios-plugins/releases/download/release-2.4.10/nagios-plugins-2.4.10.tar.gz"
+  sha256 "e43d4a655141aa66132f92fe03dfc97db9dfb4173c4c845f1af9574001117a25"
   license "GPL-3.0-or-later"
-  head "https://github.com/nagios-plugins/nagios-plugins.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any,                 arm64_sonoma:   "90793b5a1997752d3b77ba1e3d694b6ca4e801eda115a50d14f720e5647b3087"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "a4960e5eef62e7e2a4c73e8e32e8e5dfbbb5401908d0cc246e5b2acbe5a4c09f"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "7b4e86fef3508d9b66f3e9e4066a0efe28561e37e7219d928f78b61c137153fc"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "ed56e24ee68dc2b2b39e95e5f9e7c35e96e544918e47494c11ce7d84397e6410"
-    sha256 cellar: :any,                 sonoma:         "10656b8674c533cfce5536f9f8b4d810c07bde162668e4131c22e1e46f1cd0b3"
-    sha256 cellar: :any_skip_relocation, ventura:        "90c1c5053635fd159cf9cbb3af0ed660d35ceef405d7cb567fb3fb7dbdacbeb7"
-    sha256 cellar: :any_skip_relocation, monterey:       "aba244fdf215c3416ca4be6d2a98feb8dc0b075deb9cfbaa8f026c225fb23a0f"
-    sha256 cellar: :any_skip_relocation, big_sur:        "c0b34183485cb432daa81b78d7960b33f7ff0bd2fa067dac84559f494a03d4dd"
-    sha256                               x86_64_linux:   "19589d1eb2649621e170e338749b8c8c446a714e99e64d8f50bfc99cd7a3ab22"
+    sha256 arm64_sonoma:   "5ce85db57c3dc0923a8789a256a0988860fa9ee901c61dac689f59954154f2dc"
+    sha256 arm64_ventura:  "9270fab5981c85fa19946b9b00dc1272436f15bb3e259216f2910d32c5e53679"
+    sha256 arm64_monterey: "99d0a352e1a7d585381eb38dc0424046139aba10e4b131e84d33123a262706e3"
+    sha256 sonoma:         "fd24f5c08a4ce32614badb99cfba011597d15fb72fbce798d53e9f1817f2e44c"
+    sha256 ventura:        "dd7e8b9882904a5970825de52f43c6f5103226a697a962fb2a2d93b6b386b8d2"
+    sha256 monterey:       "878ce6885758aba7703c79092721a46e91108a0391a4d979165599f6a4f937d5"
+    sha256 x86_64_linux:   "2d4c2f1929db65b411c24801fcb9b0935c99191521d631ac30fefbc0c961d369"
   end
 
-  depends_on "autoconf" => :build
-  depends_on "automake" => :build
+  depends_on "gettext"
   depends_on "openssl@3"
 
   on_linux do
@@ -36,7 +32,6 @@ class NagiosPlugins < Formula
       --with-openssl=#{Formula["openssl@3"].opt_prefix}
     ]
 
-    system "./tools/setup" if build.head?
     system "./configure", *args
     system "make", "install"
     sbin.write_exec_script Dir["#{libexec}/sbin/*"]

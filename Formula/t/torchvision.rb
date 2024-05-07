@@ -3,9 +3,10 @@ class Torchvision < Formula
 
   desc "Datasets, transforms, and models for computer vision"
   homepage "https://github.com/pytorch/vision"
-  url "https://github.com/pytorch/vision/archive/refs/tags/v0.15.2.tar.gz"
-  sha256 "1efcb80e0a6e42c54f07ee16167839b4d302aeeecc12839cc47c74b06a2c20d4"
+  url "https://github.com/pytorch/vision/archive/refs/tags/v0.17.0.tar.gz"
+  sha256 "55e395d5c7d9bf7658c82ac633cac2224aa168e1bfe8bb5b2b2a296c792a3500"
   license "BSD-3-Clause"
+  revision 3
 
   livecheck do
     url :stable
@@ -13,24 +14,23 @@ class Torchvision < Formula
   end
 
   bottle do
-    rebuild 1
-    sha256 cellar: :any,                 arm64_sonoma:   "b44609f8e3db9a1261d427c146773199f26cb361443ee4421ade88fd1475761f"
-    sha256                               arm64_ventura:  "1e940d1d0bf48766dca5cb234b0a02144dfac406c086034b6b6520be93c2a4b0"
-    sha256                               arm64_monterey: "a3515f767ca6a27bde2b59b2f56389f090ce93211b760191c0c1ea4e3f686e18"
-    sha256 cellar: :any,                 sonoma:         "eb4a3a5b5af591068e914236c2089c5fe96d991620175be3937848a16d044949"
-    sha256                               monterey:       "a20ded6ef80e2bac95c8af8937cd57d213f3c0f97043b0e863866341fbf27df4"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "c9d42cdbf6e02aab4a170bb86d176c6d75627508d46c1af2e4bf6ae77e9e37dd"
+    sha256 cellar: :any,                 arm64_sonoma:   "df7f946be163a8525ce627f70656345e189cb001d325271682e7d76dfffa3a20"
+    sha256 cellar: :any,                 arm64_ventura:  "95cef3493e8398e2b4b88a6cb877e01f9aa212c1c9f267c2ea9f9c12213535b6"
+    sha256 cellar: :any,                 arm64_monterey: "557595a2dd490ce89657205beefb16446148422323566f40255464fdfe294ef6"
+    sha256 cellar: :any,                 sonoma:         "22c7faa55dbf78ffa60b7b21b583c7bcaa8b88c0caa03c84728e4e6dea61b05b"
+    sha256 cellar: :any,                 ventura:        "6fb38e025316f68d2f0abaf799d595ed3c76b12e81b76973743d7a8c9c352617"
+    sha256 cellar: :any,                 monterey:       "2b04230010c99cf4cd2efbc020bcacd1d09699780c6455adde780034e8c5f9d2"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "1575c7aed788dbb65579cb1cfcd17e96fdb1d932296c45caf8a8cfd567619945"
   end
 
   depends_on "cmake" => :build
   depends_on "ninja" => :build
-  depends_on "python@3.11" => [:build, :test]
+  depends_on "python@3.12" => [:build, :test]
+  depends_on "certifi"
   depends_on "jpeg-turbo"
   depends_on "libpng"
   depends_on "numpy"
   depends_on "pillow"
-  depends_on "python-certifi"
-  depends_on "python-typing-extensions"
   depends_on "pytorch"
 
   on_macos do
@@ -38,23 +38,23 @@ class Torchvision < Formula
   end
 
   resource "charset-normalizer" do
-    url "https://files.pythonhosted.org/packages/ff/d7/8d757f8bd45be079d76309248845a04f09619a7b17d6dfc8c9ff6433cac2/charset-normalizer-3.1.0.tar.gz"
-    sha256 "34e0a2f9c370eb95597aae63bf85eb5e96826d81e3dcf88b8886012906f509b5"
+    url "https://files.pythonhosted.org/packages/63/09/c1bc53dab74b1816a00d8d030de5bf98f724c52c1635e07681d312f20be8/charset-normalizer-3.3.2.tar.gz"
+    sha256 "f30c3cb33b24454a82faecaf01b19c18562b1e89558fb6c56de4d9118a032fd5"
   end
 
   resource "idna" do
-    url "https://files.pythonhosted.org/packages/8b/e1/43beb3d38dba6cb420cefa297822eac205a277ab43e5ba5d5c46faf96438/idna-3.4.tar.gz"
-    sha256 "814f528e8dead7d329833b91c5faa87d60bf71824cd12a7530b5526063d02cb4"
+    url "https://files.pythonhosted.org/packages/21/ed/f86a79a07470cb07819390452f178b3bef1d375f2ec021ecfc709fc7cf07/idna-3.7.tar.gz"
+    sha256 "028ff3aadf0609c1fd278d8ea3089299412a7a8b9bd005dd08b9f8285bcb5cfc"
   end
 
   resource "requests" do
-    url "https://files.pythonhosted.org/packages/e0/69/122171604bcef06825fa1c05bd9e9b1d43bc9feb8c6c0717c42c92cc6f3c/requests-2.30.0.tar.gz"
-    sha256 "239d7d4458afcb28a692cdd298d87542235f4ca8d36d03a15bfc128a6559a2f4"
+    url "https://files.pythonhosted.org/packages/9d/be/10918a2eac4ae9f02f6cfe6414b7a155ccd8f7f9d4380d62fd5b955065c3/requests-2.31.0.tar.gz"
+    sha256 "942c5a758f98d790eaed1a29cb6eefc7ffb0d1cf7af05c3d2791656dbd6ad1e1"
   end
 
   resource "urllib3" do
-    url "https://files.pythonhosted.org/packages/fb/c0/1abba1a1233b81cf2e36f56e05194f5e8a0cec8c03c244cab56cc9dfb5bd/urllib3-2.0.2.tar.gz"
-    sha256 "61717a1095d7e155cdb737ac7bb2f4324a858a1e2e6466f6d03ff630ca68d3cc"
+    url "https://files.pythonhosted.org/packages/7a/50/7fd50a27caa0652cd4caf224aa87741ea41d3265ad13f010886167cfcc79/urllib3-2.2.1.tar.gz"
+    sha256 "d0570876c61ab9e520d776c38acbbb5b05a776d3f9ff98a5c8fd5162a444cf19"
   end
 
   def install
@@ -67,7 +67,7 @@ class Torchvision < Formula
       "(jpeg_found, jpeg_conda, jpeg_include, jpeg_lib) = find_library(\"jpeglib\", vision_include)",
       "(jpeg_found, jpeg_conda, jpeg_include, jpeg_lib) = (True, False, \"#{jpeg.include}\", \"#{jpeg.lib}\")"
 
-    python3 = "python3.11"
+    python3 = "python3.12"
     venv = virtualenv_create(libexec, python3)
     venv.pip_install resources
 
@@ -84,11 +84,13 @@ class Torchvision < Formula
 
   test do
     # test that C++ libraries are available
+    # See also https://github.com/pytorch/vision/issues/2134#issuecomment-1793846900
     (testpath/"test.cpp").write <<~EOS
       #include <assert.h>
       #include <torch/script.h>
       #include <torch/torch.h>
       #include <torchvision/vision.h>
+      #include <torchvision/ops/nms.h>
 
       int main() {
         auto& ops = torch::jit::getAllOperatorsFor(torch::jit::Symbol::fromQualString("torchvision::nms"));
@@ -106,11 +108,11 @@ class Torchvision < Formula
     else
       %w[-fopenmp]
     end
-    system ENV.cxx, "-std=c++14", "test.cpp", "-o", "test", *openmp_flags,
+    system ENV.cxx, "-std=c++17", "test.cpp", "-o", "test", *openmp_flags,
                     "-I#{pytorch.opt_include}",
                     "-I#{pytorch.opt_include}/torch/csrc/api/include",
                     "-L#{pytorch.opt_lib}", "-ltorch", "-ltorch_cpu", "-lc10",
-                    "-L#{lib}", "-ltorchvision"
+                    "-L#{lib}", *("-Wl,--no-as-needed" if OS.linux?), "-ltorchvision"
 
     system "./test"
 

@@ -1,8 +1,8 @@
 class Openjdk < Formula
   desc "Development kit for the Java programming language"
   homepage "https://openjdk.java.net/"
-  url "https://github.com/openjdk/jdk21u/archive/refs/tags/jdk-21.0.1-ga.tar.gz"
-  sha256 "4414ebc898e53489c2325ff6cb1a73640840f31c2fd671bd598e23c8a87e88ad"
+  url "https://github.com/openjdk/jdk21u/archive/refs/tags/jdk-21.0.3-ga.tar.gz"
+  sha256 "818e9dee28ae390f2781406d594690fc42bd994d078ad9f8360a4fbca6a3df1f"
   license "GPL-2.0-only" => { with: "Classpath-exception-2.0" }
 
   livecheck do
@@ -11,13 +11,13 @@ class Openjdk < Formula
   end
 
   bottle do
-    sha256 cellar: :any, arm64_sonoma:   "8434ad4d2e79651c391fde1ef01214306472efbec91586314a85c02bd72fc2cb"
-    sha256 cellar: :any, arm64_ventura:  "b0223e230b1086a6dab7c00472fac8ef67f799bf570a8f1b38e6844f9c224368"
-    sha256 cellar: :any, arm64_monterey: "cd6a8ae3e2b9c3edcbb41a91086e7b9eba56f43e4c2df0129da940eb6f7de92c"
-    sha256 cellar: :any, sonoma:         "ab5d32ae29ea72e85d1169d4c34cdf6faaf96c7859f51bcb98305efd89c9602c"
-    sha256 cellar: :any, ventura:        "1b4756f75bd4f3050d72c6edfcc3d67da764526cc66cae6ed021b8cb41c6b1aa"
-    sha256 cellar: :any, monterey:       "28ffa2b1363d45e92a5bd425a8fd3ec77696b3a859f63dd61c15a149690b54bf"
-    sha256               x86_64_linux:   "90f191bb2d7a118a3509df17eddcad6ec3be26a13064b10145a26c7de1578733"
+    sha256 cellar: :any, arm64_sonoma:   "899a85f9494e22325c35bc9250dfd640a2b611ddf240965510f89ad796999b45"
+    sha256 cellar: :any, arm64_ventura:  "6092129025731e6b3e000bfe612e2970ff72654413ae9186679d8fde129db496"
+    sha256 cellar: :any, arm64_monterey: "1e9cfd336b0f99065751017556feb4666d838569aac32d52c723d7116fd11655"
+    sha256 cellar: :any, sonoma:         "0962f564a5b1abce89ae74cf6aa7c75a6057ee08073bb60f9619f11e91b57fe5"
+    sha256 cellar: :any, ventura:        "457ecf4522b60ae3d467189f14eb673d27f1eb88ee0184f8d9a0fe346be46191"
+    sha256 cellar: :any, monterey:       "5a2384e6025e1029677e5da8507da50bf8033714428c3229532e05b75c665be1"
+    sha256               x86_64_linux:   "8dcb8f3701e23abdb557dc4211a5fe65ba9281b95fb0387396b1b5fa343dade1"
   end
 
   keg_only :shadowed_by_macos
@@ -55,28 +55,25 @@ class Openjdk < Formula
   resource "boot-jdk" do
     on_macos do
       on_arm do
-        url "https://download.java.net/java/GA/jdk20.0.2/6e380f22cbe7469fa75fb448bd903d8e/9/GPL/openjdk-20.0.2_macos-aarch64_bin.tar.gz"
-        sha256 "2e6522bb574f76cd3f81156acd59115a014bf452bbe4107f0d31ff9b41b3da57"
+        url "https://download.java.net/java/GA/jdk21.0.1/415e3f918a1f4062a0074a2794853d0d/12/GPL/openjdk-21.0.1_macos-aarch64_bin.tar.gz"
+        sha256 "9760eaa019b6d214a06bd44a304f3700ac057d025000bdfb9739b61080969a96"
       end
       on_intel do
-        url "https://download.java.net/java/GA/jdk20.0.2/6e380f22cbe7469fa75fb448bd903d8e/9/GPL/openjdk-20.0.2_macos-x64_bin.tar.gz"
-        sha256 "c65ba92b73d8076e2a10029a0674d40ce45c3e0183a8063dd51281e92c9f43fc"
+        url "https://download.java.net/java/GA/jdk21.0.1/415e3f918a1f4062a0074a2794853d0d/12/GPL/openjdk-21.0.1_macos-x64_bin.tar.gz"
+        sha256 "1ca6db9e6c09752f842eee6b86a2f7e51b76ae38e007e936b9382b4c3134e9ea"
       end
     end
     on_linux do
       on_arm do
-        url "https://download.java.net/java/GA/jdk20.0.2/6e380f22cbe7469fa75fb448bd903d8e/9/GPL/openjdk-20.0.2_linux-aarch64_bin.tar.gz"
-        sha256 "3238c93267c663dbca00f5d5b0e3fbba40e1eea2b4281612f40542d208b6dd9a"
+        url "https://download.java.net/java/GA/jdk21.0.1/415e3f918a1f4062a0074a2794853d0d/12/GPL/openjdk-21.0.1_linux-aarch64_bin.tar.gz"
+        sha256 "f5e4e4622756fafe05ac0105a8efefa1152c8aad085a2bbb9466df0721bf2ba4"
       end
       on_intel do
-        url "https://download.java.net/java/GA/jdk20.0.2/6e380f22cbe7469fa75fb448bd903d8e/9/GPL/openjdk-20.0.2_linux-x64_bin.tar.gz"
-        sha256 "beaf61959c2953310595e1162b0c626aef33d58628771033ff2936609661956c"
+        url "https://download.java.net/java/GA/jdk21.0.1/415e3f918a1f4062a0074a2794853d0d/12/GPL/openjdk-21.0.1_linux-x64_bin.tar.gz"
+        sha256 "7e80146b2c3f719bf7f56992eb268ad466f8854d5d6ae11805784608e458343f"
       end
     end
   end
-
-  # Patch to restore build on macOS 13
-  patch :DATA
 
   def install
     boot_jdk = buildpath/"boot-jdk"
@@ -107,7 +104,10 @@ class Openjdk < Formula
       --with-zlib=system
     ]
 
-    ldflags = ["-Wl,-rpath,#{loader_path.gsub("$", "\\$$")}/server"]
+    ldflags = %W[
+      -Wl,-rpath,#{loader_path.gsub("$", "\\$$")}
+      -Wl,-rpath,#{loader_path.gsub("$", "\\$$")}/server
+    ]
     args += if OS.mac?
       ldflags << "-headerpad_max_install_names"
 
@@ -168,19 +168,3 @@ class Openjdk < Formula
     assert_match "Hello, world!", shell_output("#{bin}/java HelloWorld")
   end
 end
-
-__END__
-diff -pur a/src/jdk.net/macosx/native/libextnet/MacOSXSocketOptions.c b/src/jdk.net/macosx/native/libextnet/MacOSXSocketOptions.c
---- a/src/jdk.net/macosx/native/libextnet/MacOSXSocketOptions.c	2022-08-12 22:24:53.000000000 +0200
-+++ b/src/jdk.net/macosx/native/libextnet/MacOSXSocketOptions.c	2022-10-24 18:27:36.000000000 +0200
-@@ -29,9 +29,9 @@
- #include <unistd.h>
- 
- #include <jni.h>
--#include <netinet/tcp.h>
- 
- #define __APPLE_USE_RFC_3542
-+#include <netinet/tcp.h>
- #include <netinet/in.h>
- 
- #ifndef IP_DONTFRAG

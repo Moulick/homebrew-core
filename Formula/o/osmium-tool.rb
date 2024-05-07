@@ -4,16 +4,16 @@ class OsmiumTool < Formula
   url "https://github.com/osmcode/osmium-tool/archive/refs/tags/v1.16.0.tar.gz"
   sha256 "f98454d9f901be42e0b6751aef40106d734887ee35190c224b174c2f27ef1c0f"
   license "GPL-3.0-or-later"
-  revision 1
+  revision 3
 
   bottle do
-    sha256 cellar: :any,                 arm64_sonoma:   "55329c1becac125aeb151223fd76b76ccb81aea0d6ce15fb3c2232e3ca4943e0"
-    sha256 cellar: :any,                 arm64_ventura:  "db12bbd293ca97a9aa6e368d0528eea332305d6907cdac8e3a433ce6bc09a243"
-    sha256 cellar: :any,                 arm64_monterey: "e2c7fc365262f6ebb99429c03d756a59129e9b5d4929c91c68e614c7edd9934c"
-    sha256 cellar: :any,                 sonoma:         "906525c1fe6001685e8aff71b7483eb813be1c4997f34a25685764d23617aede"
-    sha256 cellar: :any,                 ventura:        "69b1356c9997b12d054443564e84108f71c60ba2ebb30ba845dd94c0c599a257"
-    sha256 cellar: :any,                 monterey:       "e256f4edcdf493b546f56f009182620de8359bcf7ad1824000f37be677eafa4e"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "3fe8f6f3c8d8237b37bfd4b6b418b1a64352aa88a2fa8a701c338ad64c82e486"
+    sha256 cellar: :any,                 arm64_sonoma:   "fd0d21dc080d2b571d2578b44c2afe064dea0098e7e9ad4e3ffbd731099ebcdd"
+    sha256 cellar: :any,                 arm64_ventura:  "e8aede9852983954a795ad5feba52e5af7489e3b115edc9cb015f5aeeea14dcc"
+    sha256 cellar: :any,                 arm64_monterey: "6cc6becea818334ee87c8fd83b7a64ddb2aad443de982ad0c7c1b5ce147b387d"
+    sha256 cellar: :any,                 sonoma:         "574af3654f45beb15f313d3036cf3d43c20b25d75bf767bc8df3314478145aed"
+    sha256 cellar: :any,                 ventura:        "be683bcf46e09596a379467e8a04b066e5db61a8cad17f5acfc7fe7e11bf8226"
+    sha256 cellar: :any,                 monterey:       "4f8a6d611e53e50e399055f4446189211039961a607ae94c535d055b5a8e051b"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "ca4cbbba7059ea0336d0c94250f2a7e469d9572848539ecdc1e4f0a559c607a3"
   end
 
   depends_on "cmake" => :build

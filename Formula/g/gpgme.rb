@@ -1,8 +1,8 @@
 class Gpgme < Formula
   desc "Library access to GnuPG"
   homepage "https://www.gnupg.org/related_software/gpgme/"
-  url "https://www.gnupg.org/ftp/gcrypt/gpgme/gpgme-1.23.1.tar.bz2"
-  sha256 "a0c316f7ab7d3bfb01a8753c3370dc906e5b61436021f3b54ff1483b513769bd"
+  url "https://www.gnupg.org/ftp/gcrypt/gpgme/gpgme-1.23.2.tar.bz2"
+  sha256 "9499e8b1f33cccb6815527a1bc16049d35a6198a6c5fae0185f2bd561bce5224"
   license "LGPL-2.1-or-later"
   revision 1
 
@@ -12,21 +12,21 @@ class Gpgme < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_sonoma:   "e3568623e7bfa4d7dee6903eff925f8f255602d26255900399e23c720728192d"
-    sha256 cellar: :any,                 arm64_ventura:  "989ee41879e1db38b52906f6551b3f620f57acd518337bbf88953f1dc73fc855"
-    sha256 cellar: :any,                 arm64_monterey: "44b894bdb8a84b6d3c47804bcbfbdec9dbb336b9e121042d47da47d4aa6d1007"
-    sha256 cellar: :any,                 sonoma:         "2ef15d47117a53dbbe68b96c8fe1500aa0d454985c5595e4d065661bbf07fb70"
-    sha256 cellar: :any,                 ventura:        "a763f60e7824ba95264ff0e25e46616cbfd26944522fe0dc6169e85545dd53d2"
-    sha256 cellar: :any,                 monterey:       "c11ee9d3913848f62a7f9699e358aa3a9e177be948dbe55414fd22bb7ed63e47"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "ec16603d2d8f7f10f1e9c4790717091f374557df0e145cd54edfd86e98f7fe45"
+    sha256 cellar: :any,                 arm64_sonoma:   "eedb9535788809e98ab8feebae75fabd5ffa39f89ec5fcc50b5d7b36ad612e69"
+    sha256 cellar: :any,                 arm64_ventura:  "148a6fdda6b21c51ede9d5885488d8d2b84180d3f7c1a557d5141b510b433c82"
+    sha256 cellar: :any,                 arm64_monterey: "2098f6407f43115f8b8309d5e75b0a7b40351bb60f0e8d6eba9d70026d587778"
+    sha256 cellar: :any,                 sonoma:         "b7454a4447fb551431c9a922af388721cc817f4d2f6e676b6f0e938c00bf70d7"
+    sha256 cellar: :any,                 ventura:        "e01422542cb10489454f6138817c7864ce951af1cc2cc2d05c09065f612cb1aa"
+    sha256 cellar: :any,                 monterey:       "f74f4bb89b250e4b2f7a50863f87129ea34bffdad74a52440e05a0a4233f78ee"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "d9b08fc6006ba8ef398c061eea1af523a7855924c12940913849524b87a88e52"
   end
 
+  depends_on "python-setuptools" => :build
   depends_on "python@3.12" => [:build, :test]
   depends_on "swig" => :build
   depends_on "gnupg"
   depends_on "libassuan"
   depends_on "libgpg-error"
-  depends_on "python-setuptools"
 
   def python3
     "python3.12"
@@ -42,13 +42,11 @@ class Gpgme < Formula
     # error: 'auto' not allowed in lambda parameter
     ENV.append "CXXFLAGS", "-std=c++14"
 
-    site_packages = prefix/Language::Python.site_packages(python3)
-    ENV.append_path "PYTHONPATH", site_packages
-    # Work around Homebrew's "prefix scheme" patch which causes non-pip installs
-    # to incorrectly try to write into HOMEBREW_PREFIX/lib since Python 3.10.
+    # Use pip over executing setup.py, which installs a deprecated egg distribution
+    # https://dev.gnupg.org/T6784
     inreplace "lang/python/Makefile.in",
-              /^\s*install\s*\\\n\s*--prefix "\$\(DESTDIR\)\$\(prefix\)"/,
-              "\\0 --install-lib=#{site_packages}"
+              /^\s*\$\$PYTHON setup\.py\s*\\/,
+              "$$PYTHON -m pip install --use-pep517 #{std_pip_args.join(" ")} . && : \\"
 
     system "./configure", *std_configure_args,
                           "--disable-silent-rules",
@@ -56,11 +54,12 @@ class Gpgme < Formula
     system "make"
     system "make", "install"
 
-    # Rename the `easy-install.pth` file to avoid `brew link` conflicts.
-    site_packages.install site_packages/"easy-install.pth" => "homebrew-gpgme-#{version}.pth"
-
     # avoid triggering mandatory rebuilds of software that hard-codes this path
     inreplace bin/"gpgme-config", prefix, opt_prefix
+
+    # replace libassuan Cellar paths to avoid breakage on libassuan version/revision bumps
+    dep_cellar_path_files = [bin/"gpgme-config", lib/"cmake/Gpgmepp/GpgmeppConfig.cmake"]
+    inreplace dep_cellar_path_files, Formula["libassuan"].prefix.realpath, Formula["libassuan"].opt_prefix
   end
 
   test do

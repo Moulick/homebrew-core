@@ -1,19 +1,18 @@
 class Libbpf < Formula
   desc "Berkeley Packet Filter library"
   homepage "https://github.com/libbpf/libbpf"
-  url "https://github.com/libbpf/libbpf/archive/refs/tags/v1.2.2.tar.gz"
-  sha256 "32b0c41eabfbbe8e0c8aea784d7495387ff9171b5a338480a8fbaceb9da8d5e5"
+  url "https://github.com/libbpf/libbpf/archive/refs/tags/v1.4.1.tar.gz"
+  sha256 "cc01a3a05d25e5978c20be7656f14eb8b6fcb120bb1c7e8041e497814fc273cb"
   license "BSD-2-Clause"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, x86_64_linux: "550513c17e3dbc0f32727c7d4b49963ba7923dca98cabbee0f495db26d6c303b"
+    sha256 cellar: :any_skip_relocation, x86_64_linux: "97c44b19c8fb1c376d572586e163bebd8e78c15b72ef0f0be6bb80af6c494933"
   end
 
   depends_on "pkg-config" => :build
   depends_on "elfutils"
   depends_on :linux
-
-  uses_from_macos "zlib"
+  depends_on "zlib"
 
   def install
     system "make", "-C", "src"

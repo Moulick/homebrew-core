@@ -28,6 +28,8 @@ class PkgConfig < Formula
     sha256 cellar: :any_skip_relocation, x86_64_linux:   "3d9b8bf9b7b4bd08086be1104e3e18afb1c437dfaca03e6e7df8f2710b9c1c1a"
   end
 
+  conflicts_with "pkgconf", because: "both install `pkg.m4` file"
+
   # FIXME: The bottle is mistakenly considered relocatable on Linux.
   # See https://github.com/Homebrew/homebrew-core/pull/85032.
   pour_bottle? only_if: :default_prefix
@@ -38,21 +40,29 @@ class PkgConfig < Formula
       #{HOMEBREW_PREFIX}/share/pkgconfig
     ]
     pc_path << if OS.mac?
+      system_include_path = "#{MacOS.sdk_path_if_needed}/usr/include"
+
       pc_path << "/usr/local/lib/pkgconfig"
       pc_path << "/usr/lib/pkgconfig"
       "#{HOMEBREW_LIBRARY}/Homebrew/os/mac/pkgconfig/#{MacOS.version}"
     else
+      system_include_path = "/usr/include"
+
       "#{HOMEBREW_LIBRARY}/Homebrew/os/linux/pkgconfig"
     end
 
     pc_path = pc_path.uniq.join(File::PATH_SEPARATOR)
+
+    # Work-around for build issue with Xcode 15.3
+    # https://gitlab.freedesktop.org/pkg-config/pkg-config/-/issues/81
+    ENV.append_to_cflags "-Wno-int-conversion"
 
     system "./configure", "--disable-debug",
                           "--prefix=#{prefix}",
                           "--disable-host-tool",
                           "--with-internal-glib",
                           "--with-pc-path=#{pc_path}",
-                          "--with-system-include-path=#{MacOS.sdk_path_if_needed}/usr/include"
+                          "--with-system-include-path=#{system_include_path}"
     system "make"
     system "make", "install"
   end

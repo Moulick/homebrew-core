@@ -1,23 +1,23 @@
 class Mdless < Formula
   desc "Provides a formatted and highlighted view of Markdown files in Terminal"
   homepage "https://github.com/ttscoff/mdless"
-  url "https://github.com/ttscoff/mdless/archive/refs/tags/1.0.37.tar.gz"
-  sha256 "9bd58b26f681a275cccbb11d877fcb53a72622ae7150b15e0e3257e5bf179973"
+  url "https://github.com/ttscoff/mdless/archive/refs/tags/2.1.42.tar.gz"
+  sha256 "c9f9a846eea7a6fdbbd82549197de1faee5ca84929a7d117202c2c774f6c262f"
   license "MIT"
+  revision 1
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "a5e20dc35f8c5fac99066e982b12842e50e66859c539c020a2c05b49e13dff5a"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "a5e20dc35f8c5fac99066e982b12842e50e66859c539c020a2c05b49e13dff5a"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "a5e20dc35f8c5fac99066e982b12842e50e66859c539c020a2c05b49e13dff5a"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "a5e20dc35f8c5fac99066e982b12842e50e66859c539c020a2c05b49e13dff5a"
-    sha256 cellar: :any_skip_relocation, sonoma:         "a5e20dc35f8c5fac99066e982b12842e50e66859c539c020a2c05b49e13dff5a"
-    sha256 cellar: :any_skip_relocation, ventura:        "a5e20dc35f8c5fac99066e982b12842e50e66859c539c020a2c05b49e13dff5a"
-    sha256 cellar: :any_skip_relocation, monterey:       "a5e20dc35f8c5fac99066e982b12842e50e66859c539c020a2c05b49e13dff5a"
-    sha256 cellar: :any_skip_relocation, big_sur:        "a5e20dc35f8c5fac99066e982b12842e50e66859c539c020a2c05b49e13dff5a"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "74689bfcf5f62937fffa69da30455f66ac2147ce80118f5aa17acdba93d10d0e"
+    sha256 cellar: :any,                 arm64_sonoma:   "d14c17776340e20d3330fce4796de5e6b6384b22cc8ad28356415963dcd51fbc"
+    sha256 cellar: :any,                 arm64_ventura:  "f5e252648296e3fddfefbcf5f96429cbe432fdcafc359180892214018a199599"
+    sha256 cellar: :any,                 arm64_monterey: "d887fc81b7698332aa0961c95f581d85af459710f73492f8413e2eed4965bff2"
+    sha256 cellar: :any,                 sonoma:         "1d676b07d0e2b4bc1411afd96b55951f7d7e2025711cf5b7acc165bb7dab37ef"
+    sha256 cellar: :any,                 ventura:        "2785dbbb55f4e8457626d036eadb751e991a7212c8653a8350ac5604782f373d"
+    sha256 cellar: :any,                 monterey:       "9a9e54d2d9778078b3a972589a52e7fa0ea20639a7e7a3261f8b5ef20d774afd"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "3fb577102a312827d1615615255a0c55b9c86a5a3b1cd5dc646de396f496f09f"
   end
 
-  uses_from_macos "ruby"
+  # Requires Ruby >= 2.7
+  depends_on "ruby"
 
   def install
     ENV["GEM_HOME"] = libexec

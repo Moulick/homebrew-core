@@ -8,16 +8,16 @@ class AvroCpp < Formula
       tag:      "release-1.11.3",
       revision: "35ff8b997738e4d983871902d47bfb67b3250734"
   license "Apache-2.0"
-  revision 1
+  revision 3
 
   bottle do
-    sha256 cellar: :any,                 arm64_sonoma:   "c1f9e13f15654e854eff1f6d696f86cfbe80a6504109c489a5d79e20f9684ce2"
-    sha256 cellar: :any,                 arm64_ventura:  "fe953a2849f1cdf4c2cd4adf5a222bd03ba1c663ad923e30ebd7de35d241a753"
-    sha256 cellar: :any,                 arm64_monterey: "a2acb256c03c1e5a4b017f1b8b6636e292670ef28f3e9c557e8cc340e3ba3cf7"
-    sha256 cellar: :any,                 sonoma:         "9371e77112081fc1236c81acd2e3323fd07df8c369bd44352daadece50b651bd"
-    sha256 cellar: :any,                 ventura:        "91dea807fa06c7956b0f9266b2c4fc126fd93fbf056799a9c7f227067828c982"
-    sha256 cellar: :any,                 monterey:       "d74b2a06d76bb4ebd43e75b5406297c2319635f12bde926e76c133b6ba511583"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "709c7743ccc5dfb632ce54668083db634a992aebc7052978a9c62ce8598c7400"
+    sha256 cellar: :any,                 arm64_sonoma:   "9c18b3e6a70662c65940c9c801ee5922ce4e544bc72d43e46d152c82f2ecf9e8"
+    sha256 cellar: :any,                 arm64_ventura:  "383756d16a7283848668dce914fbe1a3c20bdcb940f17aefc164b0bee73bb28b"
+    sha256 cellar: :any,                 arm64_monterey: "3bc07ae9ff324a636b14711adf2fba1097a47cc29450349cc5c8aaf46f5495a5"
+    sha256 cellar: :any,                 sonoma:         "562b3515afee306e3b66c89cf6821057febf6ab5d7b33e8d750de315e2510b0d"
+    sha256 cellar: :any,                 ventura:        "4f83184b24b6d10f6f3112b3d9a60ce118f056ea47f3f220304acc88a76e328f"
+    sha256 cellar: :any,                 monterey:       "07b66ac00605ab6f36c1ade022db1f0799bb1c9c473bafe4494970d13bd83ecf"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "583938354670ae2694cf6f543a906c471fed38b3c5299b5716302585bb94165b"
   end
 
   depends_on "cmake" => :build

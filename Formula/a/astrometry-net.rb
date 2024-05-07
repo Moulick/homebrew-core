@@ -3,10 +3,9 @@ class AstrometryNet < Formula
 
   desc "Automatic identification of astronomical images"
   homepage "https://github.com/dstndstn/astrometry.net"
-  url "https://github.com/dstndstn/astrometry.net/releases/download/0.94/astrometry.net-0.94.tar.gz"
-  sha256 "38c0d04171ecae42033ce5c9cd0757d8c5fc1418f2004d85e858f29aee383c5f"
+  url "https://github.com/dstndstn/astrometry.net/releases/download/0.95/astrometry.net-0.95.tar.gz"
+  sha256 "b8239e39b44d6877b0427edeffd95efc258520044ff5afdd0fb1a89ff8f1afc0"
   license "BSD-3-Clause"
-  revision 3
 
   livecheck do
     url :stable
@@ -14,18 +13,17 @@ class AstrometryNet < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_sonoma:   "36cdffb5f2d46c92e05cff1ee5889f930e28e465837f568be8eb5f54092990b0"
-    sha256 cellar: :any,                 arm64_ventura:  "356db74e6046493a7127d43ea1de143bf091a84c39787429976d3ab0e090c25f"
-    sha256 cellar: :any,                 arm64_monterey: "256c59d966aaf972fc85c0e7e9ecbcda086d44d748f332fa99e4c35a72d04340"
-    sha256 cellar: :any,                 arm64_big_sur:  "ab294e1b740d8a0a0ac9780b8b509bad3440d674cb4a0114ff24dacf8156b400"
-    sha256 cellar: :any,                 sonoma:         "9f4d92c0f6b5238786ff19de2a6b974b7d51652502ada85833c06286a0afd15c"
-    sha256 cellar: :any,                 ventura:        "6ce43a9102d8a11dc8065925ca9621255edd20c3feb61a09c0a3216806ba0e9d"
-    sha256 cellar: :any,                 monterey:       "d620964767090e24f85d5893772c6fe4edf7a2770b5f1b4cd3d31f6549996baf"
-    sha256 cellar: :any,                 big_sur:        "3e9fd0fa60d70e538921151ec1f32c60e4dd45b2148ef41ff6237a0d0196c89d"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "9be1eddc62ef98158eb65ba839be9d798f104b57c0ed1b42f08fe348bec94975"
+    sha256 cellar: :any,                 arm64_sonoma:   "e6fb8ec426f755ef1b4ddbd3f1ea03dc3aaacf5cfd5d6a80cfa874979ffe5a38"
+    sha256 cellar: :any,                 arm64_ventura:  "fd49a3b2aba7ad52ec114e219297f4388edda04b58139d4368cd78faab41742a"
+    sha256 cellar: :any,                 arm64_monterey: "798d42abbd899d65406336e91ae16b8a42797bfed8e13cda63265d380ca2f2a1"
+    sha256 cellar: :any,                 sonoma:         "b8e1278ffd89f28c523d5d03610a840bde224813ae379096aa340d8d6ddf3a59"
+    sha256 cellar: :any,                 ventura:        "655b0157dafd37b4454ea03d9b1260f90dc28de8b05f6f381f295765d0a5f0dd"
+    sha256 cellar: :any,                 monterey:       "e410667649f2c55410a5ade1245c0ca54bbee8983bec0a1025112dd0957731dc"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "d9dd3a68a30bdcce2f24e8852237cfa21590307e3ef09dbd7a3d10db32623bab"
   end
 
   depends_on "pkg-config" => :build
+  depends_on "python-setuptools" => :build
   depends_on "swig" => :build
   depends_on "cairo"
   depends_on "cfitsio"
@@ -34,19 +32,12 @@ class AstrometryNet < Formula
   depends_on "libpng"
   depends_on "netpbm"
   depends_on "numpy"
-  depends_on "python@3.11"
+  depends_on "python@3.12"
   depends_on "wcslib"
 
   resource "fitsio" do
-    url "https://files.pythonhosted.org/packages/1f/0e/b312ff3f6b588c13fc2256a5df4c4d63c527a07e176012d0593136af53ee/fitsio-1.1.8.tar.gz"
-    sha256 "61f569b2682a0cadce52c9653f0c9b81f951d000522cef645ce1cb49f78300f9"
-  end
-
-  # https://github.com/Homebrew/homebrew-core/issues/130484
-  # Review for removal on next release
-  patch do
-    url "https://github.com/dstndstn/astrometry.net/commit/f85136190b6e39393049e9be1cf14ac32b89b538.patch?full_index=1"
-    sha256 "82f8968805dacfd66961ea7cfea7e190be6faaaaa5367f2b86b0b5a62f160706"
+    url "https://files.pythonhosted.org/packages/aa/03/d7d0b77f938627cb46f6d91257d859c78459fbb5b155899d6c4c78970faa/fitsio-1.2.1.tar.gz"
+    sha256 "c64f60588f25fb2ba499854082bca73b0eda43b32ed6091f09dfcbcb72a911a6"
   end
 
   def install
@@ -54,20 +45,19 @@ class AstrometryNet < Formula
     # See https://github.com/dstndstn/astrometry.net/issues/178#issuecomment-592741428
     ENV.deparallelize
 
-    python = which("python3.11")
+    ENV["FITSIO_USE_SYSTEM_FITSIO"] = "1"
     ENV["NETPBM_INC"] = "-I#{Formula["netpbm"].opt_include}/netpbm"
     ENV["NETPBM_LIB"] = "-L#{Formula["netpbm"].opt_lib} -lnetpbm"
     ENV["SYSTEM_GSL"] = "yes"
-    ENV["PYTHON"] = python
+    ENV["PYTHON"] = python3 = which("python3.12")
 
-    venv = virtualenv_create(libexec, python)
-    venv.pip_install resources
+    venv = virtualenv_create(libexec, python3)
+    venv.pip_install(resources, build_isolation: false)
 
     ENV["INSTALL_DIR"] = prefix
-    site_packages = Language::Python.site_packages(python)
-    ENV["PY_BASE_INSTALL_DIR"] = libexec/site_packages/"astrometry"
-    ENV["PY_BASE_LINK_DIR"] = libexec/site_packages/"astrometry"
-    ENV["PYTHON_SCRIPT"] = libexec/"bin/python"
+    ENV["PY_BASE_INSTALL_DIR"] = venv.site_packages/"astrometry"
+    ENV["PY_BASE_LINK_DIR"] = venv.site_packages/"astrometry"
+    ENV["PYTHON_SCRIPT"] = venv.root/"bin/python"
 
     system "make"
     system "make", "py"

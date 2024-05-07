@@ -2,11 +2,23 @@ class Spades < Formula
   include Language::Python::Shebang
 
   desc "De novo genome sequence assembly"
-  homepage "https://cab.spbu.ru/software/spades/"
-  url "https://github.com/ablab/spades/releases/download/v3.15.5/SPAdes-3.15.5.tar.gz"
-  sha256 "155c3640d571f2e7b19a05031d1fd0d19bd82df785d38870fb93bd241b12bbfa"
+  homepage "https://github.com/ablab/spades"
   license "GPL-2.0-only"
-  head "https://github.com/ablab/spades.git", branch: "spades_#{version}"
+
+  # TODO: Remove stable dependencies and fails_with in the next release.
+  # Instead, the head dependencies should be used everywhere.
+  stable do
+    url "https://github.com/ablab/spades/releases/download/v3.15.5/SPAdes-3.15.5.tar.gz"
+    sha256 "155c3640d571f2e7b19a05031d1fd0d19bd82df785d38870fb93bd241b12bbfa"
+
+    on_macos do
+      depends_on "gcc"
+    end
+
+    fails_with :clang do
+      cause "fails to link with recent `libomp`"
+    end
+  end
 
   livecheck do
     url :stable
@@ -14,35 +26,41 @@ class Spades < Formula
   end
 
   bottle do
-    rebuild 1
-    sha256 cellar: :any_skip_relocation, sonoma:       "2801af7d1693b0ddb1a6e0121633240f5128958f0ded1f63e5297fe0c6738147"
-    sha256 cellar: :any_skip_relocation, ventura:      "04556a71583e8f9a32f8eb0e68509156ceb41f801c7c67311ed5abee49c673fd"
-    sha256 cellar: :any_skip_relocation, monterey:     "20789d391cc248d051c8370922326ed590944aaf6bbdd822ae9ba506f73cfdbb"
-    sha256 cellar: :any_skip_relocation, big_sur:      "57f9773581ada2f7410f4b8a75e987fdb1571a95e32361780efdbec29edb9217"
-    sha256 cellar: :any_skip_relocation, x86_64_linux: "ba08213dc4deed3d1ddc56d1a6a7c449c782f8eb1d5bc25fd8e6d50f356edb64"
+    rebuild 3
+    sha256 cellar: :any,                 sonoma:       "596f3c88c276179428ce87c7801b6e41483bdaca32f97e809d1e74c6ab656104"
+    sha256 cellar: :any,                 ventura:      "f03d022acc5928a400a57d56815a314cdbe2b72c5600eb952096e57fd4abd85a"
+    sha256 cellar: :any,                 monterey:     "c4da4be23d91abf193367765d6bee9cbd758add046aee900caec845d1bed243b"
+    sha256 cellar: :any_skip_relocation, x86_64_linux: "c284a1b00ebca8794f3f4396f481c09228aedc0ea4b6d2ad364a4efb29115a7e"
+  end
+
+  head do
+    url "https://github.com/ablab/spades.git", branch: "next"
+
+    on_macos do
+      depends_on "libomp"
+    end
   end
 
   depends_on "cmake" => :build
-  depends_on "python@3.11"
+  depends_on "python@3.12"
 
   uses_from_macos "bzip2"
   uses_from_macos "ncurses"
   uses_from_macos "zlib"
-
-  on_macos do
-    depends_on "libomp"
-  end
 
   on_linux do
     depends_on "jemalloc"
     depends_on "readline"
   end
 
+  # Drop distutils, upstream commit doesn't apply cleanly
+  # https://github.com/ablab/spades/commit/3ba9e5254b7d1ccb0c55d42b7d38b8be6f7d0648
+  patch :DATA
+
   def install
-    mkdir "src/build" do
-      system "cmake", "..", *std_cmake_args
-      system "make", "install"
-    end
+    system "cmake", "-S", "src", "-B", "build", *std_cmake_args
+    system "cmake", "--build", "build"
+    system "cmake", "--install", "build"
     rewrite_shebang detected_python_shebang, *bin.children
   end
 
@@ -50,3 +68,58 @@ class Spades < Formula
     assert_match "TEST PASSED CORRECTLY", shell_output("#{bin}/spades.py --test")
   end
 end
+
+__END__
+diff --git a/src/spades_pipeline/support.py b/src/spades_pipeline/support.py
+index c66faf0..ac1af7d 100644
+--- a/src/spades_pipeline/support.py
++++ b/src/spades_pipeline/support.py
+@@ -20,7 +20,6 @@ import sys
+ import tempfile
+ import traceback
+ from platform import uname
+-from distutils.version import LooseVersion
+ from os.path import abspath, expanduser, join
+
+ import options_storage
+@@ -95,30 +94,16 @@ def sys_error(cmd, log, exit_code):
+
+
+ def check_python_version():
+-    def __next_version(version):
+-        components = version.split('.')
+-        for i in reversed(range(len(components))):
+-            if components[i].isdigit():
+-                components[i] = str(int(components[i]) + 1)
+-                break
+-        return '.'.join(components)
+-
+-    current_version = sys.version.split()[0]
+-    supported_versions_msg = []
+-    for supported_versions in options_storage.SUPPORTED_PYTHON_VERSIONS:
+-        major = supported_versions[0]
+-        if '-' in supported_versions:  # range
+-            min_inc, max_inc = supported_versions.split('-')
+-        elif supported_versions.endswith('+'):  # half open range
+-            min_inc, max_inc = supported_versions[:-1], major
+-        else:  # exact version
+-            min_inc = max_inc = supported_versions
+-        max_exc = __next_version(max_inc)
+-        supported_versions_msg.append("Python%s: %s" % (major, supported_versions.replace('+', " and higher")))
+-        if LooseVersion(min_inc) <= LooseVersion(current_version) < LooseVersion(max_exc):
+-            return True
+-    error("python version %s is not supported!\n"
+-          "Supported versions are %s" % (current_version, ", ".join(supported_versions_msg)))
++    MINIMAL_PYTHON_VERSION = (3, 2)
++
++    if sys.version_info < MINIMAL_PYTHON_VERSION:
++        error(
++            "\nPython version %s is not supported!\n"
++            "Minimal supported version is %s"
++            % (sys.version.split()[0], ".".join(list(map(str, MINIMAL_PYTHON_VERSION))))
++        )
++        return False
++    return True
+
+
+ def get_spades_binaries_info_message():

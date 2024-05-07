@@ -1,20 +1,18 @@
 class Libmapper < Formula
   desc "Distributed system for media control mapping"
   homepage "http://www.libmapper.org"
-  url "https://github.com/libmapper/libmapper/releases/download/2.4.4/libmapper-2.4.4.tar.gz"
-  sha256 "2204f610f6a3eff4f66cb866101c3cda911a5e5a9fe04b518a0a99608a8473ff"
+  url "https://github.com/libmapper/libmapper/releases/download/2.4.6/libmapper-2.4.6.tar.gz"
+  sha256 "ee08a02e0234599658fac2dd847a61c251ebcc1a49787f0e24afd8f09ba7ca61"
   license "LGPL-2.1-or-later"
 
   bottle do
-    sha256 cellar: :any,                 arm64_sonoma:   "f815735aacd516f08d19dcbdf52d1e8e1debc016d74cdce1a0dff48d7ca219c4"
-    sha256 cellar: :any,                 arm64_ventura:  "35cfd6a1ebeb7b1972ba02e2a72ebced311ca8105c1578cfd6430f4b39b63143"
-    sha256 cellar: :any,                 arm64_monterey: "f376d8f2b23d4a31021455cc5bccb4eb5a18680bba3cc005735dda8240800dd0"
-    sha256 cellar: :any,                 arm64_big_sur:  "fac6bccd4981c29700fa149986fd16c72a7abfef4afe263ae8a25fe731df123a"
-    sha256 cellar: :any,                 sonoma:         "822493d0745260d7a1b65dd808f9e79580f8b6735af11d8292eee06c30d90420"
-    sha256 cellar: :any,                 ventura:        "c3f5d81edf4cc1fb4445c7cb97d5eb712f1b82d8e537afbbd37c167c0ffe39d4"
-    sha256 cellar: :any,                 monterey:       "96e34dcaee6d6d07e05bca570aefe3601ad8c24e6d850258f21aaf7144529b2a"
-    sha256 cellar: :any,                 big_sur:        "5affd8c13da08159d12f496a6abe4ce7d4900cb2d3d21a25ddee94a59009fe73"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "089ec04b44e1bd620ac7e68c60c6c31a0367b5daeb80e0d9fe389ba0c18aa3cd"
+    sha256 cellar: :any,                 arm64_sonoma:   "b2f2833c64dd7c92728443cedc89a20ae647c9018106bd3606838fc2c9f138ce"
+    sha256 cellar: :any,                 arm64_ventura:  "57fa51a0a9acef324cf7ced073e2eba22b59e7ed12f433b39210210275934f9c"
+    sha256 cellar: :any,                 arm64_monterey: "0e18fd483e5f755ed5eb0486d8fce8445f7c8079e7c9d3f00cb0ff866c3adf07"
+    sha256 cellar: :any,                 sonoma:         "62aea0f692eea5415dca148065c7ed01700cf21bc8ff21cacf378d855e6fba50"
+    sha256 cellar: :any,                 ventura:        "3cfab7e9a7f6383b24ec4f0b9166a586fd2d7d7a1bdebe65f4f2d95da8571df8"
+    sha256 cellar: :any,                 monterey:       "2422beb08a446b2da732a3a6d13085790693c5445816f5ce1d0ab492f83dc890"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "d7f156dae5d18691ad2379aaf29507bd1ba98a1d9b672c58b1c3a81d28ee0240"
   end
 
   depends_on "autoconf" => :build

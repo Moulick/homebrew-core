@@ -2,22 +2,20 @@ class Graphviz < Formula
   desc "Graph visualization software from AT&T and Bell Labs"
   homepage "https://graphviz.org/"
   url "https://gitlab.com/graphviz/graphviz.git",
-      tag:      "9.0.0",
-      revision: "5733d3a95898f1380424ab15f966ace9a283d506"
+      tag:      "11.0.0",
+      revision: "b6b3d533b8b67b61dd662c5d7cb1bec590f9f3d0"
   license "EPL-1.0"
   version_scheme 1
   head "https://gitlab.com/graphviz/graphviz.git", branch: "main"
 
   bottle do
-    sha256 arm64_sonoma:   "9c88e00ddc1c61fb3ac7af5057713d787592f2d67082414c77f3d74620af38e9"
-    sha256 arm64_ventura:  "2cc4f492ac0cf9ba2365cc0e2e6763231b619868f7a4946ea3b4c5220c9af079"
-    sha256 arm64_monterey: "3cba12a32c8f5cc97d487b9b77413218e777b55310452067c6ae7a2664c6df3c"
-    sha256 arm64_big_sur:  "4dd9221c03b2039786e8a556389a4d9ccebcc6fc18fd17abff6795d0e8e6467b"
-    sha256 sonoma:         "986a6deea25ccf3e888c2b66d4eca1cd5b6ae129c30422fa407cf42f91784dfe"
-    sha256 ventura:        "064d78f90717572c3b20a6146b54562dffd50a6f5fb1aea08a3a59590aae9b09"
-    sha256 monterey:       "c6abec7d7afa13f34292cf25a4277aa2559793d419b1c5ad24d23cde471ee795"
-    sha256 big_sur:        "38f0fb9200716b0c703d0e383a964d3901aabe675e8c1accfbeb15f255083b3e"
-    sha256 x86_64_linux:   "66667387399dc578ab3a9d1bbca76062f2641dbbb086328208a304acc8b0afde"
+    sha256 arm64_sonoma:   "29eb1e32e80a89d08d97932fcd82105deae9ef6d84d22811b5e9190417600deb"
+    sha256 arm64_ventura:  "5e3d22decb0cc58b4952bd9cb41621b603d832d025de3f35d15d78c6042b3703"
+    sha256 arm64_monterey: "b850f16b57112308d3244ef07764c4787f437751ac07fa7a1d64e9589309199b"
+    sha256 sonoma:         "c61311aefb20279fca68ee60b4a455381db6433b9e126707d294dbdf2e9add2d"
+    sha256 ventura:        "e0a790680fbfa22a93b1fc73c7e6f5ca71bc115dacb84cfbf9409c80ee16ec89"
+    sha256 monterey:       "bc67e4cb1889c29730b4ccfae7cbf82b796c91481bd99ffbccd06cdccfff6b06"
+    sha256 x86_64_linux:   "25cc32990dded2f7d7351834cc39d8e41b05e62142a6e5f6b8d788c8d56ec784"
   end
 
   depends_on "autoconf" => :build

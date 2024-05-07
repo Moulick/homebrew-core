@@ -1,8 +1,8 @@
 class CaCertificates < Formula
   desc "Mozilla CA certificate store"
   homepage "https://curl.se/docs/caextract.html"
-  url "https://curl.se/ca/cacert-2023-08-22.pem"
-  sha256 "23c2469e2a568362a62eecf1b49ed90a15621e6fa30e29947ded3436422de9b9"
+  url "https://curl.se/ca/cacert-2024-03-11.pem"
+  sha256 "1794c1d4f7055b7d02c2170337b61b48a2ef6c90d77e95444fd2596f4cac609f"
   license "MPL-2.0"
 
   livecheck do
@@ -11,15 +11,7 @@ class CaCertificates < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "a331e92e7a759571296581f029e5cc2ec7cee70cd92dc0b5f8eb76095f94a21a"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "a331e92e7a759571296581f029e5cc2ec7cee70cd92dc0b5f8eb76095f94a21a"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "a331e92e7a759571296581f029e5cc2ec7cee70cd92dc0b5f8eb76095f94a21a"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "a331e92e7a759571296581f029e5cc2ec7cee70cd92dc0b5f8eb76095f94a21a"
-    sha256 cellar: :any_skip_relocation, sonoma:         "a331e92e7a759571296581f029e5cc2ec7cee70cd92dc0b5f8eb76095f94a21a"
-    sha256 cellar: :any_skip_relocation, ventura:        "a331e92e7a759571296581f029e5cc2ec7cee70cd92dc0b5f8eb76095f94a21a"
-    sha256 cellar: :any_skip_relocation, monterey:       "a331e92e7a759571296581f029e5cc2ec7cee70cd92dc0b5f8eb76095f94a21a"
-    sha256 cellar: :any_skip_relocation, big_sur:        "a331e92e7a759571296581f029e5cc2ec7cee70cd92dc0b5f8eb76095f94a21a"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "68805f32523ea598c61d118e1a41cceb4589fe6e8c265133dcf70d6b1ae05883"
+    sha256 cellar: :any_skip_relocation, all: "cab828953672906e00a8f25db751977b8dc4115f021f8dfe82b644ade03dacdb"
   end
 
   def install

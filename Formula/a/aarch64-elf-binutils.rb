@@ -1,9 +1,9 @@
 class Aarch64ElfBinutils < Formula
   desc "GNU Binutils for aarch64-elf cross development"
   homepage "https://www.gnu.org/software/binutils/"
-  url "https://ftp.gnu.org/gnu/binutils/binutils-2.41.tar.bz2"
-  mirror "https://ftpmirror.gnu.org/binutils/binutils-2.41.tar.bz2"
-  sha256 "a4c4bec052f7b8370024e60389e194377f3f48b56618418ea51067f67aaab30b"
+  url "https://ftp.gnu.org/gnu/binutils/binutils-2.42.tar.bz2"
+  mirror "https://ftpmirror.gnu.org/binutils/binutils-2.42.tar.bz2"
+  sha256 "aa54850ebda5064c72cd4ec2d9b056c294252991486350d9a97ab2a6dfdfaf12"
   license "GPL-3.0-or-later"
 
   livecheck do
@@ -11,16 +11,19 @@ class Aarch64ElfBinutils < Formula
   end
 
   bottle do
-    sha256 arm64_sonoma:   "659929a97d93c2af461175e4e97bc019409f513208f573d7008b3dec2fd47bc0"
-    sha256 arm64_ventura:  "446d041fddffb999b73b38e49c9363c65a3fdc7ff708a0cc1ee4bb64298c9b31"
-    sha256 arm64_monterey: "089ee6620bedb633fe986c50d9e540c7bc6099519e6652e537d04bb10334750f"
-    sha256 arm64_big_sur:  "44e895834d33f67056570b7ca7de0ae6721d4bbf2dace5e27dccd20ae8afd820"
-    sha256 sonoma:         "2ccc142e95c586bd6d455a495925f1a83f5d66c4e263ddec8aab4ca8c1cfa528"
-    sha256 ventura:        "e24a5d453a925f1240e7e753a098328ccaa8670a392e2d4898a0b805d8a24310"
-    sha256 monterey:       "0339d54d096bd0cdd4c7592c5db57f2a6a39041225cfc9688bd7eb8581caa277"
-    sha256 big_sur:        "cecf0afa0f8176b0342444e9c8f6236d6d35093ab28769833eb92cacf0cbd942"
-    sha256 x86_64_linux:   "437e5bb688e90abf63efb2311b1685a77f701a2a3f17315d96e70e9c690df5fe"
+    sha256 arm64_sonoma:   "6163b3a3bbd5982e1014f3574ed346328021db1cbb17ad153e9637e3c119f4cc"
+    sha256 arm64_ventura:  "00a9f5682c616800d01ee003e238c475c89049accdf91b59b758137a9042d192"
+    sha256 arm64_monterey: "f6eeabd899b27317df2f8133b64f5b4c707524191f55dc55c42e5c7b212b8907"
+    sha256 sonoma:         "9b541b078ca1c68964a415c7f48fb2aa0c66b4c593956df21c6b8d2ae71f9d70"
+    sha256 ventura:        "7891227c9827f9a5ae10c89a9ea5ca92cb6e8aa49a4690cad063d9919dc47970"
+    sha256 monterey:       "5b526e708d3e4c353f01eac594b26d99f57cb0485831abcc4114de5034901874"
+    sha256 x86_64_linux:   "fd34d303cfc6c8c4135653aff5b8ffbe16d76c0e5036b7c3d29adf865b6acf6b"
   end
+
+  depends_on "pkg-config" => :build
+  depends_on "zstd"
+
+  uses_from_macos "zlib"
 
   on_system :linux, macos: :ventura_or_newer do
     depends_on "texinfo" => :build
@@ -32,6 +35,8 @@ class Aarch64ElfBinutils < Formula
            "--prefix=#{prefix}",
            "--libdir=#{lib}/#{target}",
            "--infodir=#{info}/#{target}",
+           "--with-system-zlib",
+           "--with-zstd",
            "--disable-nls"
     system "make"
     system "make", "install"

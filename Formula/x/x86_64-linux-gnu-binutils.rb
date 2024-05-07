@@ -1,9 +1,9 @@
 class X8664LinuxGnuBinutils < Formula
   desc "GNU Binutils for x86_64-linux-gnu cross development"
   homepage "https://www.gnu.org/software/binutils/binutils.html"
-  url "https://ftp.gnu.org/gnu/binutils/binutils-2.41.tar.bz2"
-  mirror "https://ftpmirror.gnu.org/binutils/binutils-2.41.tar.bz2"
-  sha256 "a4c4bec052f7b8370024e60389e194377f3f48b56618418ea51067f67aaab30b"
+  url "https://ftp.gnu.org/gnu/binutils/binutils-2.42.tar.bz2"
+  mirror "https://ftpmirror.gnu.org/binutils/binutils-2.42.tar.bz2"
+  sha256 "aa54850ebda5064c72cd4ec2d9b056c294252991486350d9a97ab2a6dfdfaf12"
   license "GPL-3.0-or-later"
 
   livecheck do
@@ -11,16 +11,18 @@ class X8664LinuxGnuBinutils < Formula
   end
 
   bottle do
-    sha256 arm64_sonoma:   "b6f479357bd9cd1cf8470a4104baaa7e80c88d2f70c4fc7277ad1507f91e8072"
-    sha256 arm64_ventura:  "9e6a5eca124acb249ec7c309c901901b8ce3e01b7abb830394e949c7e35eae54"
-    sha256 arm64_monterey: "529b09dd895cd252ccc89e70873dceb9b48d9fb5cd49e6a750dc1617f6ee9135"
-    sha256 arm64_big_sur:  "2ce56322498fd2f0f37c372e402e3f89b91f851c4ebcc48d3c527dca862d5050"
-    sha256 sonoma:         "e150f82fdd5df5ec9e81042b8597783562611f9a11a18a1e5430229fe219880c"
-    sha256 ventura:        "8d1e84b29b0cb2cb3f879a0440a329e9a4d82d13d9e03db294830957112b187d"
-    sha256 monterey:       "26a415990e39704f59dd2edcb32d9272c0268088e513e7866050d591f46ba59b"
-    sha256 big_sur:        "5ace1f5fe636ae8a44cb68fc9d59cdc0189d1aa34059748f32b7615aad87e4b2"
-    sha256 x86_64_linux:   "a682430e349878636cd02f87248927839741d839688d2f970fce750a8d0fa371"
+    sha256 arm64_sonoma:  "fa80a2ab5e34288aff6b158346fba3f6cf4f69fa5b1216b88d316d015c35ebf1"
+    sha256 arm64_ventura: "9a6b3c44d4508df299347cbe271ffa51ca4282d207ad9401ef8efa51fc394b55"
+    sha256 sonoma:        "e4537973ade8a0ecbca8f635c21a990644db79476eb5a63e0d8ecbc838e62356"
+    sha256 ventura:       "b9f47ddfa3606e0cebb4d22278595b739dac8e815494197e998d1934de5c18ed"
+    sha256 x86_64_linux:  "0149367619cc17ea2da3f7a58ee7d180b6798579c49e9769fd5921d277a1f7c5"
   end
+
+  depends_on "pkg-config" => :build
+  # Requires the <uchar.h> header
+  # https://sourceware.org/bugzilla/show_bug.cgi?id=31320
+  depends_on macos: :ventura
+  depends_on "zstd"
 
   uses_from_macos "zlib"
 
@@ -56,6 +58,7 @@ class X8664LinuxGnuBinutils < Formula
                           "--enable-ld=yes",
                           "--enable-interwork",
                           "--with-system-zlib",
+                          "--with-zstd",
                           "--disable-nls",
                           "--disable-gprofng" # Fails to build on Linux
     system "make"

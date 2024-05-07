@@ -1,21 +1,18 @@
 class Libavif < Formula
   desc "Library for encoding and decoding .avif files"
   homepage "https://github.com/AOMediaCodec/libavif"
-  url "https://github.com/AOMediaCodec/libavif/archive/refs/tags/v1.0.1.tar.gz"
-  sha256 "398fe7039ce35db80fe7da8d116035924f2c02ea4a4aa9f4903df6699287599c"
+  url "https://github.com/AOMediaCodec/libavif/archive/refs/tags/v1.0.4.tar.gz"
+  sha256 "dc56708c83a4b934a8af2b78f67f866ba2fb568605c7cf94312acf51ee57d146"
   license "BSD-2-Clause"
 
   bottle do
-    rebuild 1
-    sha256 cellar: :any,                 arm64_sonoma:   "0266cde96981b2b619c1966bf77062c269b83cf6b00e3c6a698ebf1103c5f3f8"
-    sha256 cellar: :any,                 arm64_ventura:  "aa693b58c72506486ef50575cc41622694f3defbfc0f22cfe70beb6440fd95e2"
-    sha256 cellar: :any,                 arm64_monterey: "d9365bd3d2af26a58a0b97bd38950f4a3552e2db636e94fe979adc4afe862bb5"
-    sha256 cellar: :any,                 arm64_big_sur:  "3d5d27c66520861b3617a5bbeec94fce564c00b7372f5442003b782202b8b51d"
-    sha256 cellar: :any,                 sonoma:         "6eb61ade3a108c890610fe3451366c4b9772f764eabbfb4b8f6d00a682f5260b"
-    sha256 cellar: :any,                 ventura:        "ddcc5741e21a55901035eac578f559d7082fd16ff9e38c0f3071feb448d928e6"
-    sha256 cellar: :any,                 monterey:       "0f2f58c588305b6e29d99b9e789c59a1c72dfb9f34936f6ecefea7db605db4c3"
-    sha256 cellar: :any,                 big_sur:        "cf9e39eadf86c47bac043ea4ce305bd934384ad466ecc862385c7c81b0a3ccd2"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "e0306509252db9ce7dedb1801697e4a65f7e8340c668b9c36d8e0ec1f8d17ca1"
+    sha256 cellar: :any,                 arm64_sonoma:   "9008bf76467537b799707b9f01c1129e64619787f8c198b0ce530f3656479b4b"
+    sha256 cellar: :any,                 arm64_ventura:  "977e29672df4024348ace66dd3edde30e9dae814e853495ab71952f7235709b5"
+    sha256 cellar: :any,                 arm64_monterey: "318bc676dd0a6ce9909989d6de3bbe4384fa896be79836fd4732dfb6751b30d9"
+    sha256 cellar: :any,                 sonoma:         "793d7b8f74e2da2cfd2cb8d962f19ef9f86166b0d94725a229306ce5c1f53bb4"
+    sha256 cellar: :any,                 ventura:        "ea4a0c3cd59b1464c0386028044e4b8e14f222a0a26b8507bf462819a9f05eeb"
+    sha256 cellar: :any,                 monterey:       "79bd420212737f7dcd74fbb75ed52e3ceed73dafad61b2fc1201e5ff2630c706"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "88c480ade965017a0f73774b2517df7579fd06dc9495db9d08f0d2b4faf2272c"
   end
 
   depends_on "cmake" => :build

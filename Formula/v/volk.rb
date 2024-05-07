@@ -3,47 +3,48 @@ class Volk < Formula
 
   desc "Vector Optimized Library of Kernels"
   homepage "https://www.libvolk.org/"
-  url "https://github.com/gnuradio/volk/releases/download/v3.0.0/volk-3.0.0.tar.gz"
-  sha256 "797c208bd449f77186684c9fa368cc8577fb98ce3763db5de526e6809de32d28"
+  url "https://github.com/gnuradio/volk/releases/download/v3.1.2/volk-3.1.2.tar.gz"
+  sha256 "eded90e8a3958ee39376f17c1f9f8d4d6ad73d960b3dd98cee3f7ff9db529205"
   license "LGPL-3.0-or-later"
 
   bottle do
-    rebuild 2
-    sha256 arm64_sonoma:   "0cc483d3b627ca413559e042ec8490e72e4e89b94b1ce9e843abc1f265402d11"
-    sha256 arm64_ventura:  "cd4bd7224339fe505ba92c6499e293e2e09ff1bd92f7ec59bd8b1b1c435bfcb4"
-    sha256 arm64_monterey: "6f5a4f9da3f8e68634a37d8424d3ea7932f2c35c096f83363eb00aaa84f41fba"
-    sha256 sonoma:         "11bd508d48a3ee05c2bae2e03227a26172b1c1eaf8caea047ad03e784798e68a"
-    sha256 ventura:        "502c305f3ef12668a78187baec9fff3932ab7ff4d449a12153d49e157f3f9e71"
-    sha256 monterey:       "33435c0f6c14b6b473ebd62217b64e8d0cce837057eb0c2af8d5f1613189bd25"
-    sha256 x86_64_linux:   "05a6f706e27f0089342f093168e0112c8005128ea171d297f3093285d1ccdeed"
+    rebuild 1
+    sha256 arm64_sonoma:   "3369be458932d78df5c6e4432c9be636096f0b4a798405e77737668cfc7ebce7"
+    sha256 arm64_ventura:  "be2ed1dbfd99c846c715a49b552bbfc227e9073c8e3563ac4aece3a729c0e1ac"
+    sha256 arm64_monterey: "1e4363cad92930dcd37f4936c9e9a035fe2acc44fb3728351de72944e1bd5b0c"
+    sha256 sonoma:         "edf0d750df72c3e36ccdd50cc7ba12e2dfaafd180a042ae1d89909ea9d4dfc76"
+    sha256 ventura:        "d5f2a417e4614af7a53a61a195bef94452193e5d0c0181225e6154fc1876bfb6"
+    sha256 monterey:       "2deccebd9473a5bc01f398bc1e6cc1da56fafef82a4cbddf06cad03f7c436d7a"
+    sha256 x86_64_linux:   "c1395effef2eba67b708e7820e48cd51d25214eded4ce85c77d8c37390244ebe"
   end
 
   depends_on "cmake" => :build
   depends_on "pkg-config" => :build
+  depends_on "cpu_features"
   depends_on "orc"
-  depends_on "pygments"
-  depends_on "python-markupsafe"
   depends_on "python@3.12"
-
-  on_intel do
-    depends_on "cpu_features"
-  end
 
   fails_with gcc: "5" # https://github.com/gnuradio/volk/issues/375
 
-  resource "Mako" do
-    url "https://files.pythonhosted.org/packages/05/5f/2ba6e026d33a0e6ddc1dddf9958677f76f5f80c236bd65309d280b166d3e/Mako-1.2.4.tar.gz"
-    sha256 "d60a3903dc3bb01a18ad6a89cdbe2e4eadc69c0bc8ef1e3773ba53d44c3f7a34"
+  resource "mako" do
+    url "https://files.pythonhosted.org/packages/d4/1b/71434d9fa9be1ac1bc6fb5f54b9d41233be2969f16be759766208f49f072/Mako-1.3.2.tar.gz"
+    sha256 "2a0c8ad7f6274271b3bb7467dd37cf9cc6dab4bc19cb69a4ef10669402de698e"
+  end
+
+  resource "markupsafe" do
+    url "https://files.pythonhosted.org/packages/87/5b/aae44c6655f3801e81aa3eef09dbbf012431987ba564d7231722f68df02d/MarkupSafe-2.1.5.tar.gz"
+    sha256 "d283d37a890ba4c1ae73ffadf8046435c76e7bc2247bbb63c00bd1a709c6544b"
   end
 
   def install
-    python = "python3.12"
+    python3 = "python3.12"
 
-    # Set up Mako
-    venv_root = libexec/"venv"
-    ENV.prepend_create_path "PYTHONPATH", venv_root/Language::Python.site_packages(python)
-    venv = virtualenv_create(venv_root, python)
+    venv = virtualenv_create(buildpath/"venv", python3)
     venv.pip_install resources
+    ENV.prepend_path "PYTHONPATH", buildpath/"venv"/Language::Python.site_packages(python3)
+
+    # Avoid falling back to bundled cpu_features
+    (buildpath/"cpu_features").rmtree
 
     # Avoid references to the Homebrew shims directory
     inreplace "lib/CMakeLists.txt" do |s|
@@ -51,20 +52,12 @@ class Volk < Formula
       s.gsub! "${CMAKE_CXX_COMPILER}", ENV.cxx
     end
 
-    # cpu_features fails to build on ARM macOS.
-    args = %W[
-      -DPYTHON_EXECUTABLE=#{venv_root}/bin/python
-      -DENABLE_TESTING=OFF
-      -DVOLK_CPU_FEATURES=#{Hardware::CPU.intel?}
-    ]
-    system "cmake", "-S", ".", "-B", "build", *std_cmake_args, *args
+    system "cmake", "-S", ".", "-B", "build",
+                    "-DPYTHON_EXECUTABLE=#{which(python3)}",
+                    "-DENABLE_TESTING=OFF",
+                    *std_cmake_args
     system "cmake", "--build", "build"
     system "cmake", "--install", "build"
-
-    # Set up volk_modtool paths
-    site_packages = prefix/Language::Python.site_packages(python)
-    pth_contents = "import site; site.addsitedir('#{site_packages}')\n"
-    (venv_root/Language::Python.site_packages(python)/"homebrew-volk.pth").write pth_contents
   end
 
   test do

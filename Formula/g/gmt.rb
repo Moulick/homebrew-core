@@ -1,23 +1,20 @@
 class Gmt < Formula
   desc "Tools for manipulating and plotting geographic and Cartesian data"
   homepage "https://www.generic-mapping-tools.org/"
-  url "https://github.com/GenericMappingTools/gmt/releases/download/6.4.0/gmt-6.4.0-src.tar.xz"
-  mirror "https://mirrors.ustc.edu.cn/gmt/gmt-6.4.0-src.tar.xz"
-  sha256 "b46effe59cf96f50c6ef6b031863310d819e63b2ed1aa873f94d70c619490672"
+  url "https://github.com/GenericMappingTools/gmt/releases/download/6.5.0/gmt-6.5.0-src.tar.xz"
+  mirror "https://mirrors.ustc.edu.cn/gmt/gmt-6.5.0-src.tar.xz"
+  sha256 "4022adb44033f9c1d5a4d275b69506449e4d486efe2218313f3ff7a6c6c3141e"
   license "LGPL-3.0-or-later"
-  revision 8
   head "https://github.com/GenericMappingTools/gmt.git", branch: "master"
 
   bottle do
-    sha256 arm64_sonoma:   "940750a21ca2f619bec475428be560fc084e838d90a608bb36ce7e83913e2e42"
-    sha256 arm64_ventura:  "2c478f7eaad97757d8dec773ffd8abbf86e1a7c410e8f514703e866cb5998e4b"
-    sha256 arm64_monterey: "9c69a27b194966e39f0d25e14ac9fafc059caa27bff91a92455787fe6d493fa9"
-    sha256 arm64_big_sur:  "7699a26d303482d94f1220dac0c18dc6a6f3045975eaa048e70c5e5d0329ab1a"
-    sha256 sonoma:         "5a14b6abb50fa7a0ff1047b0612aab2e9728710de6e2f1ade195cfc1be74ed50"
-    sha256 ventura:        "93871a2ca6f312ef311195182fd54982f2a6edf47fd0fa6cb0335bde7207c7d8"
-    sha256 monterey:       "b6d654d94f1d3474a0d587781ee543faa77163cd25f9886b2402bfb6d0feb7f5"
-    sha256 big_sur:        "6701d695e81094b3bb188449b0c7df3bc8e9e845dccdb301b3b92d7bfa8c06be"
-    sha256 x86_64_linux:   "905d89efbaa1db34f900fee2532f48cca5c42d33375f0a837462033412e4a947"
+    sha256 arm64_sonoma:   "ba82c9715316e45e91201d173028377adaed8f10221fc88403b55f2b3c888d6d"
+    sha256 arm64_ventura:  "360938a5b222c2e967e4649f7a77e437c50d184e2bbb15f5aa473a374e27e52f"
+    sha256 arm64_monterey: "5c43bed954e3ad794537c74e7aa851560ce94f95abc9f7e96fb32ae74fea4322"
+    sha256 sonoma:         "2a855f1972922cddccf98e2e6a2286b3c35d65fcbba43fc47bf5a6df8136444d"
+    sha256 ventura:        "746b79ba5ac4cca50760014d2b9acadbd6cf8d387f29334b92de1bb63ce6d702"
+    sha256 monterey:       "677c8728626fe616acc5d8aed70454bd3262e18a75ad9ed5530fe0526481e6a0"
+    sha256 x86_64_linux:   "dd165f5ec670ba015c86b058a5e0dc3381b497d0e23505408c67afd8f03ddc88"
   end
 
   depends_on "cmake" => :build

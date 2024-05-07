@@ -1,8 +1,8 @@
 class Dumpling < Formula
   desc "Creating SQL dump from a MySQL-compatible database"
   homepage "https://github.com/pingcap/tidb"
-  url "https://github.com/pingcap/tidb/archive/refs/tags/v7.4.0.tar.gz"
-  sha256 "bebf20f649ec12fd7e1c2c86ca5359e9fb1671e677aa56d55a94a6c3c19eac00"
+  url "https://github.com/pingcap/tidb/archive/refs/tags/v8.0.0.tar.gz"
+  sha256 "43af645a9a93a71a22430267c9e37572b88ecf949ae60f771a9cfdaecfd24bb7"
   license "Apache-2.0"
   head "https://github.com/pingcap/tidb.git", branch: "master"
 
@@ -12,13 +12,13 @@ class Dumpling < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "63f5f24eaf2c62045bd7b06835febb1f38fee862a24eb4be2715f818f4d513bd"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "cf697ae071e2ae5e0b110e48f749cacaf362da15d902fe7f4a162f76cd5b164b"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "16a1452e35b5a4413125e47be1add9a702380b14bce8f3ae17f5845544607897"
-    sha256 cellar: :any_skip_relocation, sonoma:         "b2dcf1358aac8877d4023ff0a562e8b78ae89f564b76acb14ab9de390b8afcba"
-    sha256 cellar: :any_skip_relocation, ventura:        "de552484686ae47ff8a34c8ae3141a4ca7200576e89d2b3d1aa9d9eef27e1b9e"
-    sha256 cellar: :any_skip_relocation, monterey:       "0f9615e31f999c60a57bf3ac8ac39bebeba74d17e18f456c8321fc3b95dd7a00"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "6c0c324b1b00069db40adb276eb92f042a63b32c45ec2a26cdf69de9de55c24d"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "8ef74f428cf0f85fc10b964cc403ddc1202fe58a727bfd5b2048aa3a908b0c3b"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "6f228961a9380d839dc60fe5d7b38670bf90e8c578d19c9663611c2d87f97332"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "73b3e047b097b2f548f93f97916f53a000755c0343923520b846c8faa96d5189"
+    sha256 cellar: :any_skip_relocation, sonoma:         "a4f1ff1a90174428ab9e56159922868208f24acbfa4bc834db75828069ce1bfd"
+    sha256 cellar: :any_skip_relocation, ventura:        "510aecb79a3f90febbcf2c3de9ffd02da4b7a964b6d8a89dac7a489fb47b14e6"
+    sha256 cellar: :any_skip_relocation, monterey:       "eb5cbcb8aa558126265d5463419ac0ca90a0b2fa479f9e0e4d11545258469c9e"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "5dc1461ae1a8d91906f1f947a6fb010b7ac656b9586d16fc4dd099963e2f691a"
   end
 
   depends_on "go" => :build
@@ -34,7 +34,7 @@ class Dumpling < Formula
       -X #{project}/cli.GoVersion=go#{Formula["go"].version}
     ]
 
-    system "go", "build", *std_go_args(ldflags: ldflags), "./dumpling/cmd/dumpling"
+    system "go", "build", *std_go_args(ldflags:), "./dumpling/cmd/dumpling"
   end
 
   test do

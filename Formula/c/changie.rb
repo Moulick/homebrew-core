@@ -1,26 +1,26 @@
 class Changie < Formula
   desc "Automated changelog tool for preparing releases"
   homepage "https://changie.dev/"
-  url "https://github.com/miniscruff/changie/archive/refs/tags/v1.15.1.tar.gz"
-  sha256 "60ece4f71a64d862abd0edc3eeb0e5e1f11b307e8d602a546402b47f112d2b52"
+  url "https://github.com/miniscruff/changie/archive/refs/tags/v1.18.0.tar.gz"
+  sha256 "42a82bd245016c6c78f747a336d4e3f81b430d89daf7ec75bf9dc2a4c05af3ad"
   license "MIT"
   head "https://github.com/miniscruff/changie.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "c6a0e65f82690022d1e4708d6277071389c0a5a71fb6e3d863b0d936a1c6013f"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "6ca20949970c4fbbc7f5724b80bc7c2d5a17d483c650e25544bf0a923ccb01be"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "40d8cf77fe85a0f00514c6001ed2fb25da726c04b3adbae0cb2a37fd5da0f5b6"
-    sha256 cellar: :any_skip_relocation, sonoma:         "6276abcee3bf5f6589d993bfff73f5d52f975e2bfcdd63d29a246ad5234882c1"
-    sha256 cellar: :any_skip_relocation, ventura:        "22dd045fe6ad228e8fe48f098b5c625d22d082648941893034e5aba41de50279"
-    sha256 cellar: :any_skip_relocation, monterey:       "6a092f14426b9fe66fb5228a9ac9adb83a328e4cfa11d3f2d434feb8118c422e"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "da6db7af9b533e54201f1e8163f1ae711a7d06d3664efe6c3ac14ef5a496047a"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "6c73dd2f27d5a06fb3d2b484efb9d41a121498dff0b2b3263ae3bbda7f11846b"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "36d49a0e9e7b712c4f89c5031040136389d4aa973dc0b75a241dbfba588d41b2"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "98dcb0ac7737184c87b1b26e8eeea396de8fc87d2c0f4342aed40a551bc02af7"
+    sha256 cellar: :any_skip_relocation, sonoma:         "5b2afb4e6f25e5677b5cad76fcb292fa7ea0c12454a5fa1cb2d51f9f20887641"
+    sha256 cellar: :any_skip_relocation, ventura:        "43b0691e1392c88f8dae4d32d0ec39ca5d68791db0e1782aa76e223c9029e8bc"
+    sha256 cellar: :any_skip_relocation, monterey:       "3e8247075ec5e2b00ae8bf017f265f457c00a22e22816e2ea87d8ae80cf8c6a3"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "6806abe380b5d976d566a0f8f7d1298c77834319badb396c0cf678d3b52a3149"
   end
 
   depends_on "go" => :build
 
   def install
     ldflags = "-s -w -X main.version=#{version}"
-    system "go", "build", *std_go_args(ldflags: ldflags)
+    system "go", "build", *std_go_args(ldflags:)
 
     generate_completions_from_executable(bin/"changie", "completion")
   end

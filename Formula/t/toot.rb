@@ -3,39 +3,44 @@ class Toot < Formula
 
   desc "Mastodon CLI & TUI"
   homepage "https://toot.bezdomni.net/"
-  url "https://files.pythonhosted.org/packages/4c/55/f7c6578f031e1c5d6605c1977ea36a9d7b89a72aef79b93fbd9719a15a74/toot-0.38.1.tar.gz"
-  sha256 "be9e5479a21ea8fb13cf7ba98d542daae07fd87fb56b20b8923b69ffa521c6b2"
+  url "https://files.pythonhosted.org/packages/e4/01/dcfb2d4fd58a5c96d99d9ff98f7a48cf0813e4a615b5953da11e67374075/toot-0.43.0.tar.gz"
+  sha256 "6aa84c4b8df6e2214a3e735142bf5bd57b3b10aa08e35579425c5dbe3bc25ae7"
   license "GPL-3.0-only"
   revision 2
   head "https://github.com/ihabunek/toot.git", branch: "master"
 
   bottle do
-    rebuild 1
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "f0e25287cb6aeac49a505a2bbc6b3d7c3e6c656d59404ae6e1204dff47fe4470"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "574872893fe084520029d1ef8e4b81eb39a94a7fef43b77aa5246493ac534d93"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "37d6f8118a8a16682b3407e87a4e46b43ab71691e7c82a44726009bb07350c4f"
-    sha256 cellar: :any_skip_relocation, sonoma:         "b57104763f3145e4579f145c2c851f88050f586ada47f601e0af77ac6aacbcf2"
-    sha256 cellar: :any_skip_relocation, ventura:        "2f758389f452d6c8e73e72cb127a5768449cec0f9abe50dba62b9d2688dd24a3"
-    sha256 cellar: :any_skip_relocation, monterey:       "5690dc646af710bde358075f893b7c2e98a81bef488107f9f159abe9602ffe8e"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "bf6fa292a4349c707cebfb205cb47687e44fcd84aca3e6d7c82c32fe3e38e042"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "4b1048864fd6a905741f87dee6acc614080921354fc040112997a2bd15a75981"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "4b1048864fd6a905741f87dee6acc614080921354fc040112997a2bd15a75981"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "4b1048864fd6a905741f87dee6acc614080921354fc040112997a2bd15a75981"
+    sha256 cellar: :any_skip_relocation, sonoma:         "4b1048864fd6a905741f87dee6acc614080921354fc040112997a2bd15a75981"
+    sha256 cellar: :any_skip_relocation, ventura:        "4b1048864fd6a905741f87dee6acc614080921354fc040112997a2bd15a75981"
+    sha256 cellar: :any_skip_relocation, monterey:       "4b1048864fd6a905741f87dee6acc614080921354fc040112997a2bd15a75981"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "6de7b59864e53f5a326a2d0e28f9423ba74d26dd59f235147521161ef4161b1f"
   end
 
-  depends_on "python-certifi"
+  depends_on "certifi"
+  depends_on "pillow"
   depends_on "python@3.12"
 
   resource "beautifulsoup4" do
-    url "https://files.pythonhosted.org/packages/af/0b/44c39cf3b18a9280950ad63a579ce395dda4c32193ee9da7ff0aed547094/beautifulsoup4-4.12.2.tar.gz"
-    sha256 "492bbc69dca35d12daac71c4db1bfff0c876c00ef4a2ffacce226d4638eb72da"
+    url "https://files.pythonhosted.org/packages/b3/ca/824b1195773ce6166d388573fc106ce56d4a805bd7427b624e063596ec58/beautifulsoup4-4.12.3.tar.gz"
+    sha256 "74e3d1928edc070d21748185c46e3fb33490f22f52a3addee9aee0f4f7781051"
   end
 
   resource "charset-normalizer" do
-    url "https://files.pythonhosted.org/packages/cf/ac/e89b2f2f75f51e9859979b56d2ec162f7f893221975d244d8d5277aa9489/charset-normalizer-3.3.0.tar.gz"
-    sha256 "63563193aec44bce707e0c5ca64ff69fa72ed7cf34ce6e11d5127555756fd2f6"
+    url "https://files.pythonhosted.org/packages/63/09/c1bc53dab74b1816a00d8d030de5bf98f724c52c1635e07681d312f20be8/charset-normalizer-3.3.2.tar.gz"
+    sha256 "f30c3cb33b24454a82faecaf01b19c18562b1e89558fb6c56de4d9118a032fd5"
+  end
+
+  resource "click" do
+    url "https://files.pythonhosted.org/packages/96/d3/f04c7bfcf5c1862a2a5b845c6b2b360488cf47af55dfa79c98f6a6bf98b5/click-8.1.7.tar.gz"
+    sha256 "ca9853ad459e787e2192211578cc907e7594e294c7ccc834310722b41b9ca6de"
   end
 
   resource "idna" do
-    url "https://files.pythonhosted.org/packages/8b/e1/43beb3d38dba6cb420cefa297822eac205a277ab43e5ba5d5c46faf96438/idna-3.4.tar.gz"
-    sha256 "814f528e8dead7d329833b91c5faa87d60bf71824cd12a7530b5526063d02cb4"
+    url "https://files.pythonhosted.org/packages/21/ed/f86a79a07470cb07819390452f178b3bef1d375f2ec021ecfc709fc7cf07/idna-3.7.tar.gz"
+    sha256 "028ff3aadf0609c1fd278d8ea3089299412a7a8b9bd005dd08b9f8285bcb5cfc"
   end
 
   resource "requests" do
@@ -48,24 +53,39 @@ class Toot < Formula
     sha256 "5663d5a7b3bfaeee0bc4372e7fc48f9cff4940b3eec54a6451cc5299f1097690"
   end
 
+  resource "term-image" do
+    url "https://files.pythonhosted.org/packages/f2/59/019a0ca982be3e6d686b9c58a72ae26333b69f8a312ea6edcbefef57279b/term-image-0.7.0.tar.gz"
+    sha256 "d62d85b62b58a90576b2dc22478aeee7eb71bfac169862a0abc94c9f494c8b0c"
+  end
+
   resource "tomlkit" do
-    url "https://files.pythonhosted.org/packages/0d/07/d34a911a98e64b07f862da4b10028de0c1ac2222ab848eaf5dd1877c4b1b/tomlkit-0.12.1.tar.gz"
-    sha256 "38e1ff8edb991273ec9f6181244a6a391ac30e9f5098e7535640ea6be97a7c86"
+    url "https://files.pythonhosted.org/packages/7d/49/4c0764898ee67618996148bdba4534a422c5e698b4dbf4001f7c6f930797/tomlkit-0.12.4.tar.gz"
+    sha256 "7ca1cfc12232806517a8515047ba66a19369e71edf2439d0f5824f91032b6cc3"
+  end
+
+  resource "typing-extensions" do
+    url "https://files.pythonhosted.org/packages/f6/f3/b827b3ab53b4e3d8513914586dcca61c355fa2ce8252dea4da56e67bf8f2/typing_extensions-4.11.0.tar.gz"
+    sha256 "83f085bd5ca59c80295fc2a82ab5dac679cbe02b9f33f7d83af68e241bea51b0"
   end
 
   resource "urllib3" do
-    url "https://files.pythonhosted.org/packages/af/47/b215df9f71b4fdba1025fc05a77db2ad243fa0926755a52c5e71659f4e3c/urllib3-2.0.7.tar.gz"
-    sha256 "c97dfde1f7bd43a71c8d2a58e369e9b2bf692d1334ea9f9cae55add7d0dd0f84"
+    url "https://files.pythonhosted.org/packages/7a/50/7fd50a27caa0652cd4caf224aa87741ea41d3265ad13f010886167cfcc79/urllib3-2.2.1.tar.gz"
+    sha256 "d0570876c61ab9e520d776c38acbbb5b05a776d3f9ff98a5c8fd5162a444cf19"
   end
 
   resource "urwid" do
-    url "https://files.pythonhosted.org/packages/5f/cf/2f01d2231e7fb52bd8190954b6165c89baa17e713c690bdb2dfea1dcd25d/urwid-2.2.2.tar.gz"
-    sha256 "5f83b241c1cbf3ec6c4b8c6b908127e0c9ad7481c5d3145639524157fc4e1744"
+    url "https://files.pythonhosted.org/packages/8e/74/8c2082f2b07a72ff5d2438447c13a70f0cbede73584e0a262c166a30785c/urwid-2.6.10.tar.gz"
+    sha256 "ae33355c414c13214e541d3634f3c8a0bfb373914e62ffbcf2fa863527706321"
+  end
+
+  resource "urwidgets" do
+    url "https://files.pythonhosted.org/packages/60/6d/e7847c2a472bf16b87e4ecc3764bb059631fa5453d4148f3bb5cdd81e301/urwidgets-0.2.0.tar.gz"
+    sha256 "d41acf9d9f8d576cb580bc042919b209c5aeeb60e1f81052809c63f31c4e7688"
   end
 
   resource "wcwidth" do
-    url "https://files.pythonhosted.org/packages/cb/ee/20850e9f388d8b52b481726d41234f67bc89a85eeade6e2d6e2965be04ba/wcwidth-0.2.8.tar.gz"
-    sha256 "8705c569999ffbb4f6a87c6d1b80f324bd6db952f5eb0b95bc07517f4c1813d4"
+    url "https://files.pythonhosted.org/packages/6c/63/53559446a878410fc5a5974feb13d31d78d752eb18aeba59c7fef1af7598/wcwidth-0.2.13.tar.gz"
+    sha256 "72ea0c06399eb286d978fdedb6923a9eb47e1c486ce63e9b4e64fc18303972b5"
   end
 
   def install
@@ -73,7 +93,7 @@ class Toot < Formula
   end
 
   test do
-    assert_match version.to_s, shell_output("#{bin}/toot")
-    assert_match "You are not logged in to any accounts", shell_output("#{bin}/toot auth")
+    assert_match version.to_s, shell_output("#{bin}/toot --version")
+    assert_equal "You are not logged in to any accounts", shell_output("#{bin}/toot auth").chomp
   end
 end

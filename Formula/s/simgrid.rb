@@ -3,10 +3,10 @@ class Simgrid < Formula
 
   desc "Studies behavior of large-scale distributed systems"
   homepage "https://simgrid.org/"
-  url "https://gitlab.inria.fr/simgrid/simgrid/uploads/9bdf42319806680ee59c56210287ee1e/simgrid-3.34.tar.gz"
-  sha256 "161f1c6c0ebb588c587aea6388114307bb31b3c6d5332fa3dc678151f1d0564d"
+  url "https://gitlab.inria.fr/simgrid/simgrid/-/archive/v3.35/simgrid-v3.35.tar.bz2"
+  sha256 "de4c34ea424d99702419736e51cb5ad425dc01502a39f303128483a70405c473"
   license "LGPL-2.1-only"
-  revision 1
+  revision 2
 
   livecheck do
     url :homepage
@@ -14,20 +14,21 @@ class Simgrid < Formula
   end
 
   bottle do
-    sha256 arm64_sonoma:   "74b2b07b00f13d2474ce208225f4034666625ac6368ed56eeadb0081dc43c89b"
-    sha256 arm64_ventura:  "0b0269eeaf15438edace7e743dc71c5c60c1a7be3f90fdddd276e5dfe5dac657"
-    sha256 arm64_monterey: "518a8d49bd9b25052edb565fcdbacf6167b6db151e5ac79552bafee491deb939"
-    sha256 sonoma:         "9bf664dd427cc2050b7f025dbd851aace8941e5a2199d41a639e766c70d3dedd"
-    sha256 ventura:        "801431f43e08aaf16dc0af22d226e946da42c9f58f20b2798c6a7d9248bc343c"
-    sha256 monterey:       "d7eeef3d0f67652493912896c36d406f2f659a391483cd65b4338958abdb7a04"
-    sha256 x86_64_linux:   "304a802f1828e12afce2fe5c4839610162c08c8be6b0196efc8db6de26024329"
+    sha256 arm64_sonoma:   "8d96b3df03cb0acee23b19b114431ee60ce83ff9be7ea7f5c8ef5945a89bde10"
+    sha256 arm64_ventura:  "67899be53148fda6745f98f0fd44eecc37d106212d8059ccbb249f955656e3a6"
+    sha256 arm64_monterey: "5946e04472ab8d3685a8f67a275697e3aa4443d1fde7a2b4d47a7f74ff3ee493"
+    sha256 sonoma:         "ebc1a6c4cefe4348425e42959e81feecd15c84b6d6cb71ac1e1456bbbc5e0984"
+    sha256 ventura:        "95789997999efce593fe87226a59230c7d58174fb973ee7dd4ea2af019c26877"
+    sha256 monterey:       "e989ee84ea89342b955ee00ac70b2a951720e0a36122e7736da7927258fa0963"
+    sha256 x86_64_linux:   "72b3b0404b3dc8cdfbdd8c029ae59ea5456900287c0d6af2b3eacf07c80aeb7a"
   end
 
   depends_on "cmake" => :build
   depends_on "doxygen" => :build
   depends_on "boost"
   depends_on "graphviz"
-  depends_on "python@3.11"
+
+  uses_from_macos "python", since: :catalina
 
   fails_with gcc: "5"
 
@@ -40,6 +41,7 @@ class Simgrid < Formula
     ENV.append "LDFLAGS", "-L#{Formula["graphviz"].opt_lib}"
 
     system "cmake", "-S", ".", "-B", "build",
+                    "-DPython3_EXECUTABLE=#{which("python3")}",
                     "-Denable_debug=on",
                     "-Denable_compile_optimizations=off",
                     "-Denable_fortran=off",
@@ -47,7 +49,7 @@ class Simgrid < Formula
     system "cmake", "--build", "build"
     system "cmake", "--install", "build"
 
-    rewrite_shebang detected_python_shebang, *bin.children
+    rewrite_shebang detected_python_shebang(use_python_from_path: true), *bin.children
   end
 
   test do

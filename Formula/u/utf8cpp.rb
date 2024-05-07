@@ -1,12 +1,12 @@
 class Utf8cpp < Formula
   desc "UTF-8 with C++ in a Portable Way"
   homepage "https://github.com/nemtrif/utfcpp"
-  url "https://github.com/nemtrif/utfcpp/archive/refs/tags/v4.0.1.tar.gz"
-  sha256 "9014342a716258da00b97bf8c201a2edc4d72d2025cd8d62f0650ac627038f95"
+  url "https://github.com/nemtrif/utfcpp/archive/refs/tags/v4.0.5.tar.gz"
+  sha256 "ffc668a310e77607d393f3c18b32715f223da1eac4c4d6e0579a11df8e6b59cf"
   license "BSL-1.0"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, all: "9ccb95369bc17b258dcf66d2fe9bb7ddd96754c9e13185b5169bd02d8801026d"
+    sha256 cellar: :any_skip_relocation, all: "2f2f6543ec0b8e1ebfa3138fe4bbf88f442ee611b70620909ef0d0253cfc4d70"
   end
 
   depends_on "cmake" => [:build, :test]
@@ -26,7 +26,7 @@ class Utf8cpp < Formula
     EOS
 
     (testpath/"utf8_append.cpp").write <<~EOS
-      #include <utf8.h>
+      #include <utf8cpp/utf8.h>
       int main() {
         unsigned char u[5] = {0, 0, 0, 0, 0};
         utf8::append(0x0448, u);

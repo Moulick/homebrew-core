@@ -1,8 +1,8 @@
 class Pkgconf < Formula
   desc "Package compiler and linker metadata toolkit"
   homepage "https://github.com/pkgconf/pkgconf"
-  url "https://distfiles.ariadne.space/pkgconf/pkgconf-2.0.3.tar.xz"
-  sha256 "cabdf3c474529854f7ccce8573c5ac68ad34a7e621037535cbc3981f6b23836c"
+  url "https://distfiles.ariadne.space/pkgconf/pkgconf-2.1.1.tar.xz"
+  sha256 "3a224f2accf091b77a5781316e27b9ee3ba82c083cc2e539e08940b68a44fec5"
   license "ISC"
 
   livecheck do
@@ -11,15 +11,13 @@ class Pkgconf < Formula
   end
 
   bottle do
-    sha256 arm64_sonoma:   "e43cf7bf3262964d17b5c07e1a2d065dc46705eb0749adb5af3b98df523f90a7"
-    sha256 arm64_ventura:  "6c97564eb8b3746671f0c6f5fdb0a544a3af326fab41b5781a99fcc810fbab00"
-    sha256 arm64_monterey: "54bd66532feb26f055b3fc79a39a3ad27ed210eed32231d8c096805ee67f6e1c"
-    sha256 arm64_big_sur:  "a5ac60ba814d8d8fe4bc6379a2279078a77a46c39cd6d1d3709223a59addbc7b"
-    sha256 sonoma:         "ab4f89cd2efa5d6ed06a7a5554c244abf10c5d5cfa7010f25f7f4df674ada58a"
-    sha256 ventura:        "ad8c5070e4445df33eb1857f7995a5a0310bd3f97ee46c4fe2947a7a01c20717"
-    sha256 monterey:       "d5a9ca2ead811a1b3814329863df3c0f68c82d90534c861a47eb7b9a1180b6b7"
-    sha256 big_sur:        "5ae0b4ed4bf6880d99a433844bfd62059eddec8c92f0c7c8bc6cfe5cea04a990"
-    sha256 x86_64_linux:   "f35562a79af267639bf31f991a97412d9ed6b14042020762b4407cafdf0b6851"
+    sha256 arm64_sonoma:   "2a0ec1c727c62fafcb589fdc6e765325a7caaedde89a2fb9d94fdaafdc29c4c8"
+    sha256 arm64_ventura:  "9a23ebfbead02b5b57a6c815c3aa1043fa458e4e0476093aeb909c0c70f8471d"
+    sha256 arm64_monterey: "fa4a6587a441a45ca8ae4c6d32c4d558c391c219f7c57349f670c304b5bb8656"
+    sha256 sonoma:         "48982567258c35a554d37ed2e031ccd0c39e29d133fafc50512eb36691bd7005"
+    sha256 ventura:        "c096d91615f491e6899b7eb79647a66b2d201ef69bb14e8353daf941cdae0031"
+    sha256 monterey:       "c656440b85c1c44a952334fac8685456dcf3414b95b335ef67cd02551be4d796"
+    sha256 x86_64_linux:   "847855571701d1824bb455d49739acc993463864a5227c6dbbc02e49cd9c5a5e"
   end
 
   head do
@@ -29,6 +27,8 @@ class Pkgconf < Formula
     depends_on "automake" => :build
     depends_on "libtool" => :build
   end
+
+  conflicts_with "pkg-config", because: "both install `pkg.m4` file"
 
   def install
     if build.head?

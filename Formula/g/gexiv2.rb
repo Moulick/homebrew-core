@@ -6,33 +6,42 @@ class Gexiv2 < Formula
   url "https://download.gnome.org/sources/gexiv2/0.14/gexiv2-0.14.2.tar.xz"
   sha256 "2a0c9cf48fbe8b3435008866ffd40b8eddb0667d2212b42396fdf688e93ce0be"
   license "GPL-2.0-or-later"
+  revision 1
 
   bottle do
-    sha256 cellar: :any, arm64_sonoma:   "21456f0d9f146e737dfcafcbca6bf138b4b154152a6f3273223a05fdff4b6cf7"
-    sha256 cellar: :any, arm64_ventura:  "35d3a7abe2c441366641dfa49341e741a0850041cbb1498bf4a916fa2dbe8988"
-    sha256 cellar: :any, arm64_monterey: "dd18a7a934b25bc03b0bab02dacaca8d6bda12a934ea3fb566a6dd2cd0f840b3"
-    sha256 cellar: :any, arm64_big_sur:  "1e6b309ab6e74bbe315a19db19252ed5e6837ffce275025ca2564fff12db6f66"
-    sha256 cellar: :any, sonoma:         "c595d87216be6c429c41c952c5ab529864d2be75fbd6e665cc1f4ac93ab7ca70"
-    sha256 cellar: :any, ventura:        "56c24c526d715211d5e4301e56b7aeb22b0f8ab32f0d613c76fadae27839ab18"
-    sha256 cellar: :any, monterey:       "0ba2f996b0423efb0dbad102ffbb3cebb530f247927da34f3d7864ed4d5de6da"
-    sha256 cellar: :any, big_sur:        "278657972231bf1cf85ee3027fde22c509377980bf9552c3d98fc5a45b47143e"
-    sha256               x86_64_linux:   "073c9867aa36797320047535854b00c861eaa3b9f04755bf1f8196f9e773cf4b"
+    rebuild 1
+    sha256 cellar: :any, arm64_sonoma:   "c80f38f7bc014d4b17196583ed6d1de648e5000e52663f8d00f95341d26cba60"
+    sha256 cellar: :any, arm64_ventura:  "612684a73317a22620479756fcee11fae7fd1436446b087edff24385df11eed2"
+    sha256 cellar: :any, arm64_monterey: "469e0ea99ac26cf6fb64feecd2bb2b5a96f8e2e4d3db4eebd409c4a7ff9cef3b"
+    sha256 cellar: :any, sonoma:         "853e45314b2824c293a4124245ffac4773b7ef79653be1c77fa47372b8e1c8fd"
+    sha256 cellar: :any, ventura:        "8765986471baf740607e563c7b99eb3a447fb4ff3b51557ea6e652705d3b1c7b"
+    sha256 cellar: :any, monterey:       "26bcd41689a5be13d78bd78a1728448ac6114cb3b63ad4fb6e03aa517cde7594"
+    sha256               x86_64_linux:   "f940fee4151e253561119242611886f248a6a6ef1c21813d0a91c9872e5762cc"
   end
 
   depends_on "gobject-introspection" => :build
   depends_on "meson" => :build
   depends_on "ninja" => :build
   depends_on "pkg-config" => :build
-  depends_on "pygobject3" => :build
-  depends_on "python@3.11" => :build
+  depends_on "pygobject3" => [:build, :test]
+  depends_on "python@3.12" => [:build, :test]
   depends_on "vala" => :build
   depends_on "exiv2"
   depends_on "glib"
 
+  def python3
+    "python3.12"
+  end
+
   def install
+    site_packages = prefix/Language::Python.site_packages(python3)
+
     # Update to use c++17 when `exiv2` is updated to use c++17
-    system "meson", *std_meson_args, "build", "-Dcpp_std=c++11"
-    system "meson", "compile", "-C", "build", "-v"
+    system "meson", "setup", "build", "-Dcpp_std=c++11",
+                                      "-Dpython.platlibdir=#{site_packages}",
+                                      "-Dpython.purelibdir=#{site_packages}",
+                                      *std_meson_args
+    system "meson", "compile", "-C", "build", "--verbose"
     system "meson", "install", "-C", "build"
   end
 
@@ -51,5 +60,14 @@ class Gexiv2 < Formula
                    "-L#{lib}",
                    "-lgexiv2"
     system "./test"
+
+    (testpath/"test.py").write <<~EOS
+      import gi
+      gi.require_version('GExiv2', '0.10')
+      from gi.repository import GExiv2
+      exif = GExiv2.Metadata('#{test_fixtures("test.jpg")}')
+      print(exif.try_get_gps_info())
+    EOS
+    assert_equal "(longitude=0.0, latitude=0.0, altitude=0.0)\n", shell_output("#{python3} test.py")
   end
 end

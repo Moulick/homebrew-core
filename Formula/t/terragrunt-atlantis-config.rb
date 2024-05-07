@@ -1,20 +1,18 @@
 class TerragruntAtlantisConfig < Formula
   desc "Generate Atlantis config for Terragrunt projects"
   homepage "https://github.com/transcend-io/terragrunt-atlantis-config"
-  url "https://github.com/transcend-io/terragrunt-atlantis-config/archive/refs/tags/v1.16.0.tar.gz"
-  sha256 "a266aa0a3fd41f188551a3951af2c8c241a3956edc1eb99d81b1f9d2012923b2"
+  url "https://github.com/transcend-io/terragrunt-atlantis-config/archive/refs/tags/v1.18.0.tar.gz"
+  sha256 "6b0d26b611836c121d19b6800d59ec3b705dd6b65f5b353f104337e171c16976"
   license "MIT"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "91b06cf528e282590138c8391910c85f029da68de8917823fb8a0d3f554e34be"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "522b60c0f4aed84b153f78547d3a53d6ea6f55aa7a9f1e1f8dd9acfd33f311b7"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "522b60c0f4aed84b153f78547d3a53d6ea6f55aa7a9f1e1f8dd9acfd33f311b7"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "522b60c0f4aed84b153f78547d3a53d6ea6f55aa7a9f1e1f8dd9acfd33f311b7"
-    sha256 cellar: :any_skip_relocation, sonoma:         "748349dca0e70df49047488ece171b96534577d4a1c19d17a9b98866b4b70cd0"
-    sha256 cellar: :any_skip_relocation, ventura:        "518af1cbfce0795429d38b4e810bcb75466c9f5143d26a237565048ab4f44f20"
-    sha256 cellar: :any_skip_relocation, monterey:       "518af1cbfce0795429d38b4e810bcb75466c9f5143d26a237565048ab4f44f20"
-    sha256 cellar: :any_skip_relocation, big_sur:        "518af1cbfce0795429d38b4e810bcb75466c9f5143d26a237565048ab4f44f20"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "d3925f39fe87e9c7aab1f60384480d79327d15d98391367340a17c708feb7890"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "d02ff6a8a53fd34d4a521381da440ec773f98dfcb062fcf615df2cc88f5deadb"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "4d529a165c03b52d89fbdc6b188db30dd4b10dcce8cb2c28cd1e47132f86c263"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "ff99a9e35ba21df820b3e57b95b18a71ef1fa3511e1afda44877147e53e590de"
+    sha256 cellar: :any_skip_relocation, sonoma:         "55c1fe4342db8e73e096010cef6ae63759e0a1200179e2ae83aed6eb2c77d542"
+    sha256 cellar: :any_skip_relocation, ventura:        "e9b54db437f82455391b84b8eb284c237863f06bd7bf5554f3c06e83aff06a93"
+    sha256 cellar: :any_skip_relocation, monterey:       "bcb47c9243511561b9efc56f7dde315a447c3f0571bcd9f6e6fadd61a106ca41"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "789add0637f8e22d11aac2edccc8003ca1d8c8ffbf8d9af9b009d55396fd4cfa"
   end
 
   depends_on "go" => :build

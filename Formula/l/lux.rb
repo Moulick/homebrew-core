@@ -1,28 +1,33 @@
 class Lux < Formula
   desc "Fast and simple video downloader"
   homepage "https://github.com/iawia002/lux"
-  url "https://github.com/iawia002/lux/archive/refs/tags/v0.21.0.tar.gz"
-  sha256 "a2bdcaadf7430aa6ce3e38e5c223e6b8178362cd7da0408f61d288bbed05bfe3"
+  url "https://github.com/iawia002/lux/archive/refs/tags/v0.24.1.tar.gz"
+  sha256 "69d4fe58c588cc6957b8682795210cd8154170ac51af83520c6b1334901c6d3d"
   license "MIT"
   head "https://github.com/iawia002/lux.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "92a4759be831ef7162b2972a22d8a3d46e4c9f2d7a4327759069aea3b1fc5893"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "a257c9c164686b6529846e16f4a2a2b17189703fac6ddb71416cdb8626a714e3"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "35b0067bd362b194fdda69e109fae00638dd68eec147eb864f77403da94b400f"
-    sha256 cellar: :any_skip_relocation, sonoma:         "a3cc764542e6dd3ced7a216ac743645d5748c090a9f8e0dede01e0803bb64088"
-    sha256 cellar: :any_skip_relocation, ventura:        "4ab2fb598abe970ebdb3f3bc2390fc6a598a84da23702eb466e1a15d9689958c"
-    sha256 cellar: :any_skip_relocation, monterey:       "7aa78a19c5e005423e1b03fe96d805f907bdebcb57cbe071da4107b549688cb8"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "db5b1deb606022cd22d511b7524d847fd861e700cc7c82d4010ac2bf1b0e5d1c"
+    rebuild 1
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "ec6c1ee606e93f2a6d69f052926d6646ea9b3d55b818392ce48b60bcbd2b5464"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "7efda3117e78deb37e8131758ebaac2ad7956ee9f874703baa273416d9854763"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "ca4e5eb68eb6190a9121273861c7e54224ad8845854b3e28a57d775fc5ee5f70"
+    sha256 cellar: :any_skip_relocation, sonoma:         "9d09d3f7176d099619dd6f5578c65af77e9e74a0604cc248f879959c204136a8"
+    sha256 cellar: :any_skip_relocation, ventura:        "06dac67a49a44e204415365d22dec09363c2ad4247fc8e787791960ad25da706"
+    sha256 cellar: :any_skip_relocation, monterey:       "3293e792b745857668443f88fdbd7cbb50f599e2c5720da0419a0765e897e049"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "52fd63821ac62400e3c1a1ade593edd328d4f6136d44a21309fd9d188120c115"
   end
 
   depends_on "go" => :build
 
   def install
-    system "go", "build", *std_go_args
+    ldflags = %W[
+      -s -w
+      -X github.com/iawia002/lux/app.version=#{version}
+    ]
+    system "go", "build", *std_go_args(ldflags:)
   end
 
   test do
-    system bin/"lux", "-i", "https://github.githubassets.com/images/modules/site/icons/footer/github-logo.svg"
+    system bin/"lux", "-i", "https://upload.wikimedia.org/wikipedia/commons/c/c2/GitHub_Invertocat_Logo.svg"
   end
 end

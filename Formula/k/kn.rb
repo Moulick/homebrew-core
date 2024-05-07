@@ -2,19 +2,19 @@ class Kn < Formula
   desc "Command-line interface for managing Knative Serving and Eventing resources"
   homepage "https://github.com/knative/client"
   url "https://github.com/knative/client.git",
-      tag:      "knative-v1.12.0",
-      revision: "ae35736892402050eb910d2b43a70f41e1d225c4"
+      tag:      "knative-v1.14.0",
+      revision: "6a1449c2e8a8b5fd667cac65164506ad9632ef4d"
   license "Apache-2.0"
   head "https://github.com/knative/client.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "70cf84af1c41b456369abcff2b9ff096b35aaa2253934a37a3fe04695ba256ef"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "70cf84af1c41b456369abcff2b9ff096b35aaa2253934a37a3fe04695ba256ef"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "70cf84af1c41b456369abcff2b9ff096b35aaa2253934a37a3fe04695ba256ef"
-    sha256 cellar: :any_skip_relocation, sonoma:         "9701f158cdc1d701dbbc7e2238190f21fbd6a30d946e3673a14407eb14e8ed75"
-    sha256 cellar: :any_skip_relocation, ventura:        "9701f158cdc1d701dbbc7e2238190f21fbd6a30d946e3673a14407eb14e8ed75"
-    sha256 cellar: :any_skip_relocation, monterey:       "9701f158cdc1d701dbbc7e2238190f21fbd6a30d946e3673a14407eb14e8ed75"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "6bbfecae1b0b7564ae9a0425decd66151c90b40cdcf0685acfd37aac4ef9a57b"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "676250ff01a46dcb077144490c254d73f26cb000a4c0ba2877bf137af14ec91c"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "676250ff01a46dcb077144490c254d73f26cb000a4c0ba2877bf137af14ec91c"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "676250ff01a46dcb077144490c254d73f26cb000a4c0ba2877bf137af14ec91c"
+    sha256 cellar: :any_skip_relocation, sonoma:         "a5e7c5ed68d72349507aeda24e2412a241177a2557c2dce855dc933b2de9bb1c"
+    sha256 cellar: :any_skip_relocation, ventura:        "a5e7c5ed68d72349507aeda24e2412a241177a2557c2dce855dc933b2de9bb1c"
+    sha256 cellar: :any_skip_relocation, monterey:       "a5e7c5ed68d72349507aeda24e2412a241177a2557c2dce855dc933b2de9bb1c"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "f66782ff5a206c86ab4c0e582c3ee87637560aa6131bb030286da86b2ade7ec6"
   end
 
   depends_on "go" => :build
@@ -28,7 +28,7 @@ class Kn < Formula
       -X knative.dev/client/pkg/kn/commands/version.BuildDate=#{time.iso8601}
     ]
 
-    system "go", "build", "-mod=vendor", *std_go_args(ldflags: ldflags), "./cmd/..."
+    system "go", "build", "-mod=vendor", *std_go_args(ldflags:), "./cmd/..."
 
     generate_completions_from_executable(bin/"kn", "completion", shells: [:bash, :zsh])
   end

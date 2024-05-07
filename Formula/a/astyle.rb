@@ -1,8 +1,8 @@
 class Astyle < Formula
   desc "Source code beautifier for C, C++, C#, and Java"
   homepage "https://astyle.sourceforge.net/"
-  url "https://downloads.sourceforge.net/project/astyle/astyle/astyle%203.4/astyle-3.4.10.tar.bz2"
-  sha256 "6f67ec872b437bd3c51e0f75e112e4dbfdb26d5fb7bd9cf8a480f10af5557063"
+  url "https://downloads.sourceforge.net/project/astyle/astyle/astyle%203.4/astyle-3.4.14.tar.bz2"
+  sha256 "606a83f39146733185f6763059d292433c40f393eb6f52042e163f8df4e16a3e"
   license "MIT"
   head "https://svn.code.sf.net/p/astyle/code/trunk/AStyle"
 
@@ -12,20 +12,22 @@ class Astyle < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "72c106d56e1e56ca5d7c33c53e6b35a4ec08c1d7b25dd148bb12b2917d5e4e5a"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "8b6f7a61794697c110a0c4109f6a19df5ad1a1ec77d53a3e506ab8362832cc34"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "a43cc61de29b31f03ac56383eabd74ea8d7f56e3c3ae6aa65de378dd4ced2faf"
-    sha256 cellar: :any_skip_relocation, sonoma:         "7afd44677067374ed17ca89c4988db9cb586680039fe0ed31a8c297a9f328bdf"
-    sha256 cellar: :any_skip_relocation, ventura:        "86f37e989d10c9b3ee039713d111307ce2be66e941cb421c8ac68955a3e761d3"
-    sha256 cellar: :any_skip_relocation, monterey:       "c99a60fddb983664f8b2e1a9d626f648dee0284c6c434d3ae82ee27b4f060552"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "2cef79268f325bb1a681b73fa79a596afc45349cceb3dd939008517f3eafe4b6"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "e1f6d79cb1cdc6af7c6df8f7aadbe9c6793b61c5b4172817a6c6f58e28bf42ff"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "d9f46ba46d47b9f3534554cda6d07725cab54b65143d632c3608e06649648e54"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "a4850a7e8d0f9894087893153528bcc80258f8cceb4131cb3156030ab9c94d0c"
+    sha256 cellar: :any_skip_relocation, sonoma:         "c8802d27b7a53a488912ea6697bec11931e6b9606b1a508275da4ffbffd5272a"
+    sha256 cellar: :any_skip_relocation, ventura:        "907dfefce040a024533e60f5a3ccb87a8b3d3f648da0692e40ed23ee501ad532"
+    sha256 cellar: :any_skip_relocation, monterey:       "b440b0ae21e0cf7f8a61d8b25594e988f5804be7df60db381f498570959735a5"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "2ba73cbd773ae8bfd0724850a90606efe8f190b09fb75afabacc5abc01388408"
   end
 
+  depends_on "cmake" => :build
+
   def install
-    cd "src" do
-      system "make", "CXX=#{ENV.cxx}", "-f", "../build/gcc/Makefile"
-      bin.install "bin/astyle"
-    end
+    system "cmake", "-S", ".", "-B", "build", *std_cmake_args
+    system "cmake", "--build", "build"
+    system "cmake", "--install", "build"
+    man1.install "man/astyle.1"
   end
 
   test do

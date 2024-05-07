@@ -1,8 +1,8 @@
 class Libksba < Formula
   desc "X.509 and CMS library"
   homepage "https://www.gnupg.org/related_software/libksba/"
-  url "https://gnupg.org/ftp/gcrypt/libksba/libksba-1.6.4.tar.bz2"
-  sha256 "bbb43f032b9164d86c781ffe42213a83bf4f2fee91455edfa4654521b8b03b6b"
+  url "https://gnupg.org/ftp/gcrypt/libksba/libksba-1.6.6.tar.bz2"
+  sha256 "5dec033d211559338838c0c4957c73dfdc3ee86f73977d6279640c9cd08ce6a4"
   license any_of: ["LGPL-3.0-or-later", "GPL-2.0-or-later"]
 
   livecheck do
@@ -11,16 +11,13 @@ class Libksba < Formula
   end
 
   bottle do
-    rebuild 1
-    sha256 cellar: :any,                 arm64_sonoma:   "d3d73bef8c06616d840cebb0f6f043e2390ba4ca13b8feb9f2ebc4c72241a686"
-    sha256 cellar: :any,                 arm64_ventura:  "f83e2fdcb19bbb649615de9a13082c20811602a4d89f4bea8adf604ab235718e"
-    sha256 cellar: :any,                 arm64_monterey: "d216e2f0a59b37e1e32d3434d277ba48416651628fd44c9c2e97ed6633e9d4ea"
-    sha256 cellar: :any,                 arm64_big_sur:  "7a5e34d7d70656bc1ccd283608df4ccdb6229d68b7b67cb0f52bfeda3e962e37"
-    sha256 cellar: :any,                 sonoma:         "fedcae44f9d8b7b215f5001b49e83ecf8dc15cae2f6cbeeb6a6852c06002a5f6"
-    sha256 cellar: :any,                 ventura:        "dc6d96b61291f653a7639b3febeb732cd98c0ed0f7e38c24445d466be79ed451"
-    sha256 cellar: :any,                 monterey:       "7d9bdc88d94a25558e7c4c577090156cc339e644ca074f587a82a89187b579a5"
-    sha256 cellar: :any,                 big_sur:        "b2c80c0ee6dab8eb5562a92e10efa2b538debd5398cd473cbb3e7234b8a4ce57"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "74942c849eae904fee71dc704a301fd3bd9450b3222299e81c166a9aafd716f1"
+    sha256 cellar: :any,                 arm64_sonoma:   "223ba6ee22f623473c1798c5ac6a8cbcfffc13747502762b00c34e530c7146d9"
+    sha256 cellar: :any,                 arm64_ventura:  "eae92d181214aaa7818e24464aafaa3d1d6d29e7be86fcf39adf4496ac78b0f6"
+    sha256 cellar: :any,                 arm64_monterey: "500af23b5feb6dec85eafe558b8e45de5dd1eab07ec041bebbfaf7d930eac3a7"
+    sha256 cellar: :any,                 sonoma:         "4ae96473af326e90d68209abdaa223767c960897ecc31475011a2d7db25f8846"
+    sha256 cellar: :any,                 ventura:        "b9a29b711f1af52d4281aab207abd97f75a5c77311340530f593b145144739b8"
+    sha256 cellar: :any,                 monterey:       "7661850e603693bd72e221ce0ee95b238e8bbbccd11a02917bf4f1af16b235aa"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "b3f1191ff66899afd1cff60fcceb066de15bb7c7d0ffe9b3e79303f01e35c877"
   end
 
   depends_on "libgpg-error"

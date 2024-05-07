@@ -1,10 +1,9 @@
 class PythonAT310 < Formula
   desc "Interpreted, interactive, object-oriented programming language"
   homepage "https://www.python.org/"
-  url "https://www.python.org/ftp/python/3.10.13/Python-3.10.13.tgz"
-  sha256 "698ec55234c1363bd813b460ed53b0f108877c7a133d48bde9a50a1eb57b7e65"
+  url "https://www.python.org/ftp/python/3.10.14/Python-3.10.14.tgz"
+  sha256 "cefea32d3be89c02436711c95a45c7f8e880105514b78680c14fe76f5709a0f6"
   license "Python-2.0"
-  revision 1
 
   livecheck do
     url "https://www.python.org/ftp/python/"
@@ -12,13 +11,13 @@ class PythonAT310 < Formula
   end
 
   bottle do
-    sha256 arm64_sonoma:   "b6e38fb53dfa7923babc0a930d63ac5d30cc94b9b43721b29ec6d23dd3f602be"
-    sha256 arm64_ventura:  "c033ee3f257d4fd2ca1966699245675b943160eacbe37cfd82c228950ae49882"
-    sha256 arm64_monterey: "5511e49795c7f1a7d12abf37e3e81fb6eb9a61d27ca6d78ec76f024afb6f352e"
-    sha256 sonoma:         "786aa2627ae323941082258817a35045463d0ed3777723a7963c95b6094394f4"
-    sha256 ventura:        "f1aa883cec30ef7c9451ae5c4e9654d7102afac1aa53f0693128866707a4ef59"
-    sha256 monterey:       "6d795a2a139345b9bfff39868596671f73782023198d25724910048a468c4f20"
-    sha256 x86_64_linux:   "90a9fb84acaef1634fdac71b5f65fa04557a73ce388fa14f3f7897d5ad6429bf"
+    sha256 arm64_sonoma:   "4068f5e2e1370502de8fcf54e43f7aeaf825fea72d1d69e34c54ba4b7ac714a4"
+    sha256 arm64_ventura:  "8794c74617118d900893131cf49eb695d75063275890e03070252e4fce9c778e"
+    sha256 arm64_monterey: "73fb11a2a2008bb85d82f005e0ee5417a5dff3d6c6b88a12a93ced81d960fc22"
+    sha256 sonoma:         "59d79d661030f9523dfca8262e98a361d019174421ee34a7486734898d29692e"
+    sha256 ventura:        "5210a41b8515b802031c14792d1892a6a9a6c8ca3f35f3e840742a58410710b0"
+    sha256 monterey:       "3c6fb32876dff5afb7deb024d84e0344d4b8d599bb310b470b9cf7d90fad7a1c"
+    sha256 x86_64_linux:   "080fe880a66b737f7131bac5ab4ccaf2e3498e87efefa9e4062424bc8aa5d969"
   end
 
   # setuptools remembers the build flags python is built with and uses them to
@@ -56,18 +55,18 @@ class PythonAT310 < Formula
   end
 
   resource "pip" do
-    url "https://files.pythonhosted.org/packages/1f/7f/4da15e07ccd11c84c1ccc8f6e24288d5e76c99441bf80e315b33542db951/pip-23.3.1.tar.gz"
-    sha256 "1fcaa041308d01f14575f6d0d2ea4b75a3e2871fe4f9c694976f908768e14174"
+    url "https://files.pythonhosted.org/packages/94/59/6638090c25e9bc4ce0c42817b5a234e183872a1129735a9330c472cc2056/pip-24.0.tar.gz"
+    sha256 "ea9bd1a847e8c5774a5777bb398c19e80bcd4e2aa16a4b301b718fe6f593aba2"
   end
 
   resource "setuptools" do
-    url "https://files.pythonhosted.org/packages/ef/cc/93f7213b2ab5ed383f98ce8020e632ef256b406b8569606c3f160ed8e1c9/setuptools-68.2.2.tar.gz"
-    sha256 "4ac1475276d2f1c48684874089fefcd83bd7162ddaafb81fac866ba0db282a87"
+    url "https://files.pythonhosted.org/packages/4d/5b/dc575711b6b8f2f866131a40d053e30e962e633b332acf7cd2c24843d83d/setuptools-69.2.0.tar.gz"
+    sha256 "0ff4183f8f42cd8fa3acea16c45205521a4ef28f73c6391d8a25e92893134f2e"
   end
 
   resource "wheel" do
-    url "https://files.pythonhosted.org/packages/fb/d0/0b4c18a0b85c20233b0c3bc33f792aefd7f12a5832b4da77419949ff6fd9/wheel-0.41.3.tar.gz"
-    sha256 "4d4987ce51a49370ea65c0bfd2234e8ce80a12780820d9dc462597a6e60d0841"
+    url "https://files.pythonhosted.org/packages/b8/d6/ac9cd92ea2ad502ff7c1ab683806a9deb34711a1e2bd8a59814e8fc27e69/wheel-0.43.0.tar.gz"
+    sha256 "465ef92c69fa5c5da2d1cf8ac40559a8c940886afcef87dcf14b9470862f1d85"
   end
 
   # Modify default sysconfig to match the brew install layout.
@@ -137,17 +136,6 @@ class PythonAT310 < Formula
       --with-system-libmpdec
     ]
 
-    if OS.mac?
-      # Enabling LTO on Linux makes libpython3.*.a unusable for anyone whose GCC
-      # install does not match the one in CI _exactly_ (major and minor version).
-      # https://github.com/orgs/Homebrew/discussions/3734
-      args << "--with-lto"
-      args << "--enable-framework=#{frameworks}"
-      args << "--with-dtrace"
-    else
-      args << "--enable-shared"
-    end
-
     # Python re-uses flags when building native modules.
     # Since we don't want native modules prioritizing the brew
     # include path, we move them to [C|LD]FLAGS_NODIST.
@@ -159,14 +147,25 @@ class PythonAT310 < Formula
     ldflags_nodist = ["-L#{HOMEBREW_PREFIX}/lib", "-Wl,-rpath,#{HOMEBREW_PREFIX}/lib"]
     cppflags       = ["-I#{HOMEBREW_PREFIX}/include"]
 
-    if MacOS.sdk_path_if_needed
-      # Help Python's build system (setuptools/pip) to build things on SDK-based systems
-      # The setup.py looks at "-isysroot" to get the sysroot (and not at --sysroot)
-      cflags  << "-isysroot #{MacOS.sdk_path}"
-      ldflags << "-isysroot #{MacOS.sdk_path}"
+    if OS.mac?
+      # Enabling LTO on Linux makes libpython3.*.a unusable for anyone whose GCC
+      # install does not match the one in CI _exactly_ (major and minor version).
+      # https://github.com/orgs/Homebrew/discussions/3734
+      args << "--with-lto"
+      args << "--enable-framework=#{frameworks}"
+      args << "--with-dtrace"
+
+      if MacOS.sdk_path_if_needed
+        # Help Python's build system (setuptools/pip) to build things on SDK-based systems
+        # The setup.py looks at "-isysroot" to get the sysroot (and not at --sysroot)
+        cflags  << "-isysroot #{MacOS.sdk_path}"
+        ldflags << "-isysroot #{MacOS.sdk_path}"
+      end
+      # Avoid linking to libgcc https://mail.python.org/pipermail/python-dev/2012-February/116205.html
+      args << "MACOSX_DEPLOYMENT_TARGET=#{MacOS.version}"
+    else
+      args << "--enable-shared"
     end
-    # Avoid linking to libgcc https://mail.python.org/pipermail/python-dev/2012-February/116205.html
-    args << "MACOSX_DEPLOYMENT_TARGET=#{MacOS.version}"
 
     # Resolve HOMEBREW_PREFIX in our sysconfig modification.
     inreplace "Lib/sysconfig.py", "@@HOMEBREW_PREFIX@@", HOMEBREW_PREFIX

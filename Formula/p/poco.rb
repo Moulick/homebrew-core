@@ -1,24 +1,24 @@
 class Poco < Formula
   desc "C++ class libraries for building network and internet-based applications"
   homepage "https://pocoproject.org/"
-  url "https://pocoproject.org/releases/poco-1.12.5/poco-1.12.5-all.tar.gz"
-  sha256 "2e8f6d03e31cd67ca597f45a77daa797db3760035b445710a1cf4973863c2d0f"
+  url "https://pocoproject.org/releases/poco-1.13.3/poco-1.13.3-all.tar.gz"
+  sha256 "4ddb6a8f8c7a2f190eacb27d886f3913fa945cdbd2acd2d66029a0ec7ff06af0"
   license "BSL-1.0"
   head "https://github.com/pocoproject/poco.git", branch: "master"
 
   livecheck do
     url "https://pocoproject.org/releases/"
-    regex(%r{href=.*?poco[._-]v?(\d+(?:\.\d+)+)/?["' >]}i)
+    regex(%r{href=.*?poco[._-]v?(\d+(?:\.\d+)+\w*)/?["' >]}i)
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_sonoma:   "aaa8968655ea183add0b1553e7182b2fb0d65a0e041ed3e72983543d4103a730"
-    sha256 cellar: :any,                 arm64_ventura:  "fb61c043996963f726e97c85a4a3127a4d8859456a8317022ba454bd04a42402"
-    sha256 cellar: :any,                 arm64_monterey: "9c6e57dc12def2c1b1e51299fd443337ef3c9a203f18d40a26325a13275655e9"
-    sha256 cellar: :any,                 sonoma:         "acfbfb57d66c6b2d4e03e8c19bf1c521e5f96ef38d0342ab40d18997461f8119"
-    sha256 cellar: :any,                 ventura:        "7e0be8c3ba454c8e061f87aff8d18817675ef586951b6a12c288af79e7910e31"
-    sha256 cellar: :any,                 monterey:       "c08fabfd114c7b4f46f4cf6fbf849494981adac6179ae3f5b7cfcb28676746d8"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "eb267e0283362ee4771bd1660355b2efe09af18095f525e3947e877d85ba7774"
+    sha256 cellar: :any,                 arm64_sonoma:   "0157b0a09d116cf06b48a3c72b1881b1fbbb5ed8381b3d33d610e8a52704889a"
+    sha256 cellar: :any,                 arm64_ventura:  "14578602e8263f409f53650f350f1b12604f0b1c5d383a3cbe725bb013d33e70"
+    sha256 cellar: :any,                 arm64_monterey: "0ddac0c410ae4736c2b3f08f573a3469c2c1782f3e0319961ee9ced46243a7ca"
+    sha256 cellar: :any,                 sonoma:         "7780757339153f4bcafbc573136672ccb00919940873637d12ee511a7be6b737"
+    sha256 cellar: :any,                 ventura:        "2af274bec83cfe072d1f5dece0f264547c92d00d7f1eab53f7171b5f3e39f365"
+    sha256 cellar: :any,                 monterey:       "a3186ef99d124cfe0d7eae11982a5fac52bbf822aab99350ab3a43ef6fa9336d"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "c13ac64e439e3d4a95988e224aa85fe8d8d8f22edd989100986022252d4288a5"
   end
 
   depends_on "cmake" => :build
@@ -30,11 +30,14 @@ class Poco < Formula
   uses_from_macos "zlib"
 
   def install
-    system "cmake", "-S", ".", "-B", "build", *std_cmake_args,
-                    "-DENABLE_DATA_MYSQL=OFF",
-                    "-DENABLE_DATA_ODBC=OFF",
-                    "-DCMAKE_INSTALL_RPATH=#{rpath}",
-                    "-DPOCO_UNBUNDLED=ON"
+    args = %W[
+      -DENABLE_DATA_MYSQL=OFF
+      -DENABLE_DATA_ODBC=OFF
+      -DCMAKE_INSTALL_RPATH=#{rpath}
+      -DPOCO_UNBUNDLED=ON
+    ]
+
+    system "cmake", "-S", ".", "-B", "build", *args, *std_cmake_args
     system "cmake", "--build", "build"
     system "cmake", "--install", "build"
   end

@@ -1,19 +1,19 @@
 class GitSync < Formula
   desc "Clones a git repository and keeps it synchronized with the upstream"
-  homepage "https://github.com/kubernetes/git-sync#readme"
-  url "https://github.com/kubernetes/git-sync/archive/refs/tags/v4.1.0.tar.gz"
-  sha256 "4fa8fe2b13bab19e120018378c38992d6ded577e93ec8c82a3a288fc707d8bac"
+  homepage "https://github.com/kubernetes/git-sync"
+  url "https://github.com/kubernetes/git-sync/archive/refs/tags/v4.2.3.tar.gz"
+  sha256 "5f64a9110ffbc4741c8b1f89882bb0a4da95074980871fe9ab00d49b70b8f5d0"
   license "Apache-2.0"
   head "https://github.com/kubernetes/git-sync.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "dd1f73e1be67ef72df4b8364cb4fbc0fda30b3f52d501fc98f18479756c4ddfc"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "99eff64024d4ae0c795669761687558436d19941b05686cef2cd12059bc1d11d"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "7b54908f6c7b30465ef2c131447311d4154284efbe91d51323e3ffc738e8d0ba"
-    sha256 cellar: :any_skip_relocation, sonoma:         "86b77b65033d43409dd4d4072079c5dc211de776ddd4c2b81c0d57d23e26ad6d"
-    sha256 cellar: :any_skip_relocation, ventura:        "d52be99b1d88243ebe44e0911b600c113f24bd11a62add6c1ee3363bde71f65b"
-    sha256 cellar: :any_skip_relocation, monterey:       "d80f2474681f13bb03a7f3e2e88be09b770dc4ff778408c3ba768ad0ab73853e"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "f7297ef07ab357851eccf14b27da316653018c58bd6e4fb5d1c68f10312f8300"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "cd0454861d9e9ca33b6cb16f444eac6814255f0d71c834f9c0b31f7417277b4c"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "240082c5dae135296b4aa5d51ad639295d62e3026ff35a0d52bbb26b649e8b77"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "9689d917fca9c536d7f5d3eeb1e8777458553243a7c4f785c0edd6568b03131b"
+    sha256 cellar: :any_skip_relocation, sonoma:         "365047216b03bba13e1d8045dd0ba902f636b8fee4872ce3ecac73e8298cee61"
+    sha256 cellar: :any_skip_relocation, ventura:        "ba47ce8e4e776851e90d4cf2ba51b56a4bafd63dbc6b6370b529cc75d1e71e0e"
+    sha256 cellar: :any_skip_relocation, monterey:       "593f20f7fffe7987cebd9aab65102c826c30583a1f696df6ada290fd31a77522"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "bc8032be872054b05fdcfe8e7a0e6ffaaf2e40b8b6caa513fd19f52b48bebcb1"
   end
 
   depends_on "go" => :build
@@ -27,7 +27,7 @@ class GitSync < Formula
       -s -w
       -X k8s.io/git-sync/pkg/version.VERSION=v#{version}
     ]
-    system "go", "build", *std_go_args(ldflags: ldflags)
+    system "go", "build", *std_go_args(ldflags:)
   end
 
   test do

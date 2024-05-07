@@ -1,30 +1,34 @@
 class YtDlp < Formula
   include Language::Python::Virtualenv
 
-  desc "Fork of youtube-dl with additional features and fixes"
+  desc "Feature-rich command-line audio/video downloader"
   homepage "https://github.com/yt-dlp/yt-dlp"
-  url "https://files.pythonhosted.org/packages/db/7f/8bdf5c78fc01a71f1babcc813b972996144b46ee88394356f4a188686db5/yt-dlp-2023.10.13.tar.gz"
-  sha256 "e026ea1c435ff36eef1215bc4c5bb8c479938b90054997ba99f63a4541fe63b4"
+  url "https://files.pythonhosted.org/packages/52/85/af44c30f0cc5d94ebbce365f8ee40eea6e9d7a1d26d50f16e3766ca8410c/yt_dlp-2024.4.9.tar.gz"
+  sha256 "7ee90572b4d313b582b99c89e4eccf779b57ff54edc331873c6b3fba77faa8b0"
   license "Unlicense"
+  revision 1
 
   bottle do
-    rebuild 1
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "ea6c873efc1c3d30f6e6fb57b25b285b52b124b95a7264b9073fe6e996c096a6"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "2d7adf91534bf7bbc741e748a75627eda3feb351748b84c9a7ac4eb69ab23c7c"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "85040fce14c698d904168c653154e02ed7215a13a6501f50f41ce7dde92fe990"
-    sha256 cellar: :any_skip_relocation, sonoma:         "193cba5872dbccd6bdac6171b56980a5d31ef7062fbd980fbc82f2f7b49f250f"
-    sha256 cellar: :any_skip_relocation, ventura:        "168c8f475eab8242106c44a0d0b16c5739721f3ecdd5db6ccdaf8b53e44887d1"
-    sha256 cellar: :any_skip_relocation, monterey:       "8f52272b731ca201a55394e470d5fdefb4cc665952832b0a9301795f492ec977"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "bcd68f9bf1783ce87753a1246d0a2cc202bf634e7dc00d6e68ebc1aa9b40d269"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "6a62c50f8b025430a3d24c3e71f578fe0f1621e36e9a3453ef0d8c20a8d38642"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "1119d348452eed057adfb373ec265d5bec0bec1882ad5d8858068d84ea024a09"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "13104118842e21ae42e52030c80d7c25c507b37e1d53b92c3a14f6bb5d009d8f"
+    sha256 cellar: :any_skip_relocation, sonoma:         "aed735dcbc238344e7d19bf28a2c97816cc48cadbf4a899c35cef290a8cc2a84"
+    sha256 cellar: :any_skip_relocation, ventura:        "031811f4256499239512b5a730beb2bbe4a435ff719029ff1a82b228f99c4c0c"
+    sha256 cellar: :any_skip_relocation, monterey:       "a2104dd5337a3eb8ff34833f9fc587a07f40a462d1a9190328048a5901523a08"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "e8b325c9bd2313cdd4a1c47c46eebcfcda82608d0259c2695fb6387d249dd453"
   end
 
   head do
     url "https://github.com/yt-dlp/yt-dlp.git", branch: "master"
+
     depends_on "pandoc" => :build
+
+    on_macos do
+      depends_on "make" => :build
+    end
   end
 
-  depends_on "python-certifi"
-  depends_on "python-mutagen"
+  depends_on "certifi"
   depends_on "python@3.12"
 
   resource "brotli" do
@@ -32,18 +36,43 @@ class YtDlp < Formula
     sha256 "81de08ac11bcb85841e440c13611c00b67d3bf82698314928d0b676362546724"
   end
 
+  resource "charset-normalizer" do
+    url "https://files.pythonhosted.org/packages/63/09/c1bc53dab74b1816a00d8d030de5bf98f724c52c1635e07681d312f20be8/charset-normalizer-3.3.2.tar.gz"
+    sha256 "f30c3cb33b24454a82faecaf01b19c18562b1e89558fb6c56de4d9118a032fd5"
+  end
+
+  resource "idna" do
+    url "https://files.pythonhosted.org/packages/21/ed/f86a79a07470cb07819390452f178b3bef1d375f2ec021ecfc709fc7cf07/idna-3.7.tar.gz"
+    sha256 "028ff3aadf0609c1fd278d8ea3089299412a7a8b9bd005dd08b9f8285bcb5cfc"
+  end
+
+  resource "mutagen" do
+    url "https://files.pythonhosted.org/packages/81/e6/64bc71b74eef4b68e61eb921dcf72dabd9e4ec4af1e11891bbd312ccbb77/mutagen-1.47.0.tar.gz"
+    sha256 "719fadef0a978c31b4cf3c956261b3c58b6948b32023078a2117b1de09f0fc99"
+  end
+
   resource "pycryptodomex" do
-    url "https://files.pythonhosted.org/packages/14/c9/09d5df04c9f29ae1b49d0e34c9934646b53bb2131a55e8ed2a0d447c7c53/pycryptodomex-3.19.0.tar.gz"
-    sha256 "af83a554b3f077564229865c45af0791be008ac6469ef0098152139e6bd4b5b6"
+    url "https://files.pythonhosted.org/packages/31/a4/b03a16637574312c1b54c55aedeed8a4cb7d101d44058d46a0e5706c63e1/pycryptodomex-3.20.0.tar.gz"
+    sha256 "7a710b79baddd65b806402e14766c721aee8fb83381769c27920f26476276c1e"
+  end
+
+  resource "requests" do
+    url "https://files.pythonhosted.org/packages/9d/be/10918a2eac4ae9f02f6cfe6414b7a155ccd8f7f9d4380d62fd5b955065c3/requests-2.31.0.tar.gz"
+    sha256 "942c5a758f98d790eaed1a29cb6eefc7ffb0d1cf7af05c3d2791656dbd6ad1e1"
+  end
+
+  resource "urllib3" do
+    url "https://files.pythonhosted.org/packages/7a/50/7fd50a27caa0652cd4caf224aa87741ea41d3265ad13f010886167cfcc79/urllib3-2.2.1.tar.gz"
+    sha256 "d0570876c61ab9e520d776c38acbbb5b05a776d3f9ff98a5c8fd5162a444cf19"
   end
 
   resource "websockets" do
-    url "https://files.pythonhosted.org/packages/d8/3b/2ed38e52eed4cf277f9df5f0463a99199a04d9e29c9e227cfafa57bd3993/websockets-11.0.3.tar.gz"
-    sha256 "88fc51d9a26b10fc331be344f1781224a375b78488fc343620184e95a4b27016"
+    url "https://files.pythonhosted.org/packages/2e/62/7a7874b7285413c954a4cca3c11fd851f11b2fe5b4ae2d9bee4f6d9bdb10/websockets-12.0.tar.gz"
+    sha256 "81df9cbcbb6c260de1e007e58c011bfebe2dafc8435107b0537f393dd38c8b1b"
   end
 
   def install
-    system "make", "pypi-files" if build.head?
+    system "gmake", "lazy-extractors", "pypi-files" if build.head?
     virtualenv_install_with_resources
     man1.install_symlink libexec/"share/man/man1/yt-dlp.1"
     bash_completion.install libexec/"share/bash-completion/completions/yt-dlp"
@@ -52,9 +81,7 @@ class YtDlp < Formula
   end
 
   test do
-    # "History of homebrew-core", uploaded 3 Feb 2020
     system "#{bin}/yt-dlp", "--simulate", "https://www.youtube.com/watch?v=pOtd1cbOP7k"
-    # "homebrew", playlist last updated 3 Mar 2020
     system "#{bin}/yt-dlp", "--simulate", "--yes-playlist", "https://www.youtube.com/watch?v=pOtd1cbOP7k&list=PLMsZ739TZDoLj9u_nob8jBKSC-mZb0Nhj"
   end
 end

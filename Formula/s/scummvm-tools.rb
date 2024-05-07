@@ -4,7 +4,7 @@ class ScummvmTools < Formula
   url "https://downloads.scummvm.org/frs/scummvm-tools/2.7.0/scummvm-tools-2.7.0.tar.xz"
   sha256 "1d9f1faf8338a2fda64f0e6e14bc25a2dadced156cb28a9c60191b983d72db71"
   license "GPL-3.0-or-later"
-  revision 2
+  revision 4
   head "https://github.com/scummvm/scummvm-tools.git", branch: "master"
 
   livecheck do
@@ -13,13 +13,13 @@ class ScummvmTools < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_sonoma:   "fa453544412c4f4031ffe6512016ace9647d5d979150a07172375f2243372ed1"
-    sha256 cellar: :any,                 arm64_ventura:  "cbe02a0fcff8bfa723c4941e0c74049ad778361280bac5ed70f0d5691306e193"
-    sha256 cellar: :any,                 arm64_monterey: "c5d03ba4d13a840ecf23191477dd4576d3fb0aceb44ffed1a02190b9ff6487f6"
-    sha256 cellar: :any,                 sonoma:         "5841c6df9cb25eac0e918cd08bf5ecfae27c71df38f7018823357b3a20b61321"
-    sha256 cellar: :any,                 ventura:        "f7f1732778a54b07e6fe30e6469bfad8aced68fd2b20b53401d88e0f4e596eb9"
-    sha256 cellar: :any,                 monterey:       "86e1c2ec2958a881336a2f1197ebbdba96e369c064fc2ecce1eda87c1b4ee3e3"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "ff2f01211d0b9fc025bf7cd69c299dd3fc62a2319980045db3b94d6086685e54"
+    sha256 cellar: :any,                 arm64_sonoma:   "4d4497e33f5522d2b6d07b04719494a7989029463a0cd2702c29cad668ba32c1"
+    sha256 cellar: :any,                 arm64_ventura:  "87869fd1161ac9f336a2bbbd6b61a961f285b457c1df8ea1ac3e31fff44f1bbd"
+    sha256 cellar: :any,                 arm64_monterey: "5bd08c05a8b02dbc0788c812abda0d0ddf30003549a3ec693ea3e42704b8ffa6"
+    sha256 cellar: :any,                 sonoma:         "67aa251362dc04b221fd476e2b0e54be019577bba22bb47c841e8867dc7df179"
+    sha256 cellar: :any,                 ventura:        "d1d10bf61acd6dd5e790bd025ee16883e9caa60f1dd65ba4d1c55984b6af9990"
+    sha256 cellar: :any,                 monterey:       "bbe54741dc51d3d47b27b8f740b9eef68475ee4898fc824f81d82516e92167ce"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "48309e0ff39b617745169c9213f3fb3629a022469b8805ba924cf217bfa0a224"
   end
 
   depends_on "boost"

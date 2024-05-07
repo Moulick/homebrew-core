@@ -1,8 +1,8 @@
 class Scummvm < Formula
   desc "Graphic adventure game interpreter"
   homepage "https://www.scummvm.org/"
-  url "https://downloads.scummvm.org/frs/scummvm/2.7.1/scummvm-2.7.1.tar.xz"
-  sha256 "d6bbf62e33154759a609d59f3034d71652ecdb64ed5c800156718ab1f1d5d063"
+  url "https://downloads.scummvm.org/frs/scummvm/2.8.1/scummvm-2.8.1.tar.xz"
+  sha256 "7e97f4a13d22d570b70c9b357c941999be71deb9186039c87d82bbd9c20727b7"
   license "GPL-3.0-or-later"
   head "https://github.com/scummvm/scummvm.git", branch: "master"
 
@@ -12,15 +12,14 @@ class Scummvm < Formula
   end
 
   bottle do
-    sha256 arm64_sonoma:   "3ed9b5e02f861702e7efd6d7bb12f710fed710b4b16c5c27af47e1cd1afdc19d"
-    sha256 arm64_ventura:  "6e72919f378fc00fa734fdcbc032ec9dd6a526d832afcbad2dc2508309e8a0c5"
-    sha256 arm64_monterey: "e0dbf93235c69abcdc74739a86c993a1cda5af2178b9b10e570fc9c39c277738"
-    sha256 arm64_big_sur:  "cfefac96fcf8ea55b34727b1e1246e847c423459eaa06449f1f17068079af7c6"
-    sha256 sonoma:         "197a8e066eabc690161f74ae2b793b3e78c59958d7514c0652ab3dd5423e7e73"
-    sha256 ventura:        "bc4d8eef158398d33c5b69fd4bf74b781414aaf383c1ac318a522716c89c978a"
-    sha256 monterey:       "718314462b5ab77647835511ab5c5c951d96aff71df6dabfd5969c5c826b8c5d"
-    sha256 big_sur:        "217f483d0b009c406c3cf07c917d086214cc6ce818d1215caa4626ede53b074e"
-    sha256 x86_64_linux:   "71f71a1bd138c5b4e97a8db656ec662af5259fd93f49b14617a31d66c18b6135"
+    rebuild 1
+    sha256 arm64_sonoma:   "1f34c784f24a09d9c1e2a33cbbf18dedeff09e0bafd58d01716a4096b9c48b14"
+    sha256 arm64_ventura:  "8baab614c52c858f80f44ba0223f43c92bc3b5ed8997c32362943a7d6cb03d35"
+    sha256 arm64_monterey: "e9709285ca539ccb4afa33b6de2ff5280a59d7ed36bc64f9653aa944d2006e70"
+    sha256 sonoma:         "9bfa4e1c9aa80ad21fed3241d97a933d537b6a5868afb3d955a1e89a563db033"
+    sha256 ventura:        "cd6d4c32e81f40a9c32713ce9b3a936901bfbd3d382ebd33b589bb2f5fc4d57a"
+    sha256 monterey:       "00e9e4d8ceecdbfb5a2b882019b82fec235ff7c36e94d98974e968c59ca10757"
+    sha256 x86_64_linux:   "33ad7a863a3c60bb98e020f9bb38dabff301759ae3f7add00b4a05d95d88a1a0"
   end
 
   depends_on "a52dec"
@@ -28,10 +27,14 @@ class Scummvm < Formula
   depends_on "flac"
   depends_on "fluid-synth"
   depends_on "freetype"
+  depends_on "fribidi"
+  depends_on "giflib"
   depends_on "jpeg-turbo"
+  depends_on "libmikmod"
   depends_on "libmpeg2"
   depends_on "libpng"
   depends_on "libvorbis"
+  depends_on "libvpx"
   depends_on "mad"
   depends_on "sdl2"
   depends_on "theora"

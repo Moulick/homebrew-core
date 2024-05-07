@@ -1,11 +1,10 @@
 class Mysql < Formula
   desc "Open source relational database management system"
-  homepage "https://dev.mysql.com/doc/refman/8.0/en/"
-  # TODO: Check if we can use unversioned `protobuf` at version bump
-  # https://bugs.mysql.com/bug.php?id=111469
-  url "https://cdn.mysql.com/Downloads/MySQL-8.1/mysql-boost-8.1.0.tar.gz"
-  sha256 "cb19648bc8719b9f6979924bfea806b278bd26b8d67740e5742c6f363f142188"
+  homepage "https://dev.mysql.com/doc/refman/8.3/en/"
+  url "https://cdn.mysql.com/Downloads/MySQL-8.3/mysql-boost-8.3.0.tar.gz"
+  sha256 "f0a73556b8a417bc4dc6d2d78909080512beb891930cd93d0740d22207be285b"
   license "GPL-2.0-only" => { with: "Universal-FOSS-exception-1.0" }
+  revision 1
 
   livecheck do
     url "https://dev.mysql.com/downloads/mysql/?tpl=files&os=src"
@@ -13,15 +12,13 @@ class Mysql < Formula
   end
 
   bottle do
-    sha256 arm64_sonoma:   "8c32b652561e2f3efb888d83d7df34ec6b5dc6de5c1509a8d123a8fb7ccc472d"
-    sha256 arm64_ventura:  "2635ebe1066a0dc5c34337fe81d9872833b0f5e9d559a8703ca07b1822ccf0d4"
-    sha256 arm64_monterey: "1b4ef2d450f423881120a6ac35e8b87d012edaff7fd6e5a88ab6cccba1c87ab4"
-    sha256 arm64_big_sur:  "57e60dd46e6787de2d331ae73c0b5f5a7179d2e325560305100f4bb09bef429b"
-    sha256 sonoma:         "2239fec2ec6cedcb46923af7fd52326b7d904a737f67d3a06fa091066dcb778e"
-    sha256 ventura:        "6630ef74b2ec3554edcf4f02428e3a14a155961648bdda7cfcc029e4bc90c2b3"
-    sha256 monterey:       "45d0bc945be3a357f18283cdf39afffb48a9e9b1800ac44b1e07ebec1ee6af1d"
-    sha256 big_sur:        "184d9881c8d6e1fce906cbafca1fedc8edffefea8c892a04cf5ce54cd4d5b08a"
-    sha256 x86_64_linux:   "f9a1199c55cd9583a08fd320ef5df5c80ad6700965f2d5fdbd5b3ca03524089d"
+    sha256 arm64_sonoma:   "33919f057802485d77e2eaa66618d837d73e54a7b1c1953a2709d4e08358c46a"
+    sha256 arm64_ventura:  "325df850a10bcba335ad37ba964f037782cf6b502bb16693d3593b0b954f289f"
+    sha256 arm64_monterey: "2d1c67c9fd7819a680719017793dbc855b5594ce64341e4243e773a350f47e14"
+    sha256 sonoma:         "1fdc5b8989a5f8e8a1543792c8bd5a20ca6bf477280b1d31774af033600d2e3b"
+    sha256 ventura:        "ca686ca38112b46a348d014397a8a279a9a8a4cc3812dc8096b1c6fb72997aa8"
+    sha256 monterey:       "b0f19a04b4a11e8c14e8d6ad387ffe63af7a2e291a739872b455c1604845582d"
+    sha256 x86_64_linux:   "66c4a58b3f7f376bdcdec40dd747ccb544cac7e167cd359392cb3877df36bafe"
   end
 
   depends_on "bison" => :build
@@ -54,13 +51,9 @@ class Mysql < Formula
   # This should not be necessary when building inside `brew`.
   # https://github.com/Homebrew/homebrew-test-bot/pull/820
   patch do
-    url "https://raw.githubusercontent.com/Homebrew/formula-patches/030f7433e89376ffcff836bb68b3903ab90f9cdc/mysql/boost-check.patch"
-    sha256 "af27e4b82c84f958f91404a9661e999ccd1742f57853978d8baec2f993b51153"
+    url "https://raw.githubusercontent.com/Homebrew/formula-patches/bd61f2edc4c551856f894d307140b855edb2b4f5/mysql/boost-check.patch"
+    sha256 "b90c6f78fa347cec6388d2419ee4bc9a5dc9261771eff2800d99610e1c449244"
   end
-
-  # Fix for "Cannot find system zlib libraries" even though they are installed.
-  # https://bugs.mysql.com/bug.php?id=110745
-  patch :DATA
 
   def datadir
     var/"mysql"
@@ -100,17 +93,12 @@ class Mysql < Formula
       -DWITH_ZLIB=system
       -DWITH_ZSTD=system
       -DWITH_UNIT_TESTS=OFF
-      -DENABLED_LOCAL_INFILE=1
       -DWITH_INNODB_MEMCACHED=ON
     ]
 
     system "cmake", "-S", ".", "-B", "build", *args, *std_cmake_args
     system "cmake", "--build", "build"
     system "cmake", "--install", "build"
-
-    # Fix bad linker flags in `mysql_config`.
-    # https://bugs.mysql.com/bug.php?id=111011
-    inreplace bin/"mysql_config", "-lzlib", "-lz"
 
     (prefix/"mysql-test").cd do
       system "./mysql-test-run.pl", "status", "--vardir=#{Dir.mktmpdir}"
@@ -196,27 +184,3 @@ class Mysql < Formula
     system "#{bin}/mysqladmin", "--port=#{port}", "--user=root", "--password=", "shutdown"
   end
 end
-
-__END__
-diff --git a/cmake/zlib.cmake b/cmake/zlib.cmake
-index 460d87a..36fbd60 100644
---- a/cmake/zlib.cmake
-+++ b/cmake/zlib.cmake
-@@ -50,7 +50,7 @@ FUNCTION(FIND_ZLIB_VERSION ZLIB_INCLUDE_DIR)
-   MESSAGE(STATUS "ZLIB_INCLUDE_DIR ${ZLIB_INCLUDE_DIR}")
- ENDFUNCTION(FIND_ZLIB_VERSION)
- 
--FUNCTION(FIND_SYSTEM_ZLIB)
-+MACRO(FIND_SYSTEM_ZLIB)
-   FIND_PACKAGE(ZLIB)
-   IF(ZLIB_FOUND)
-     ADD_LIBRARY(zlib_interface INTERFACE)
-@@ -61,7 +61,7 @@ FUNCTION(FIND_SYSTEM_ZLIB)
-         ${ZLIB_INCLUDE_DIR})
-     ENDIF()
-   ENDIF()
--ENDFUNCTION(FIND_SYSTEM_ZLIB)
-+ENDMACRO(FIND_SYSTEM_ZLIB)
- 
- MACRO (RESET_ZLIB_VARIABLES)
-   # Reset whatever FIND_PACKAGE may have left behind.

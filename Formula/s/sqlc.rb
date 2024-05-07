@@ -1,19 +1,19 @@
 class Sqlc < Formula
   desc "Generate type safe Go from SQL"
   homepage "https://sqlc.dev/"
-  url "https://github.com/sqlc-dev/sqlc/archive/refs/tags/v1.23.0.tar.gz"
-  sha256 "29171425b68bf5ca99c0fd7fd2107e087fec17778f56493d952c03b3b84d2913"
+  url "https://github.com/sqlc-dev/sqlc/archive/refs/tags/v1.26.0.tar.gz"
+  sha256 "8e730d4e145ac90c32f1c06eac9b831f425aacc616a898bc9d2d174dc8f39359"
   license "MIT"
   head "https://github.com/sqlc-dev/sqlc.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "b8703d9aaad5bb01ea5753ba2056dad918d1621871c9074b8ca2b15613765c30"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "742c83b3218adb7cca7d56be8758d9a6c130020d2592cffe508a82408edda99d"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "e5f58eb33b64cbc0ed8836324be9b00030e09f0c862cfcc139d4bad63b4ebf28"
-    sha256 cellar: :any_skip_relocation, sonoma:         "9725688a254d0804a104eb226cff7662216966e5ca8bfb60377297af0177a39c"
-    sha256 cellar: :any_skip_relocation, ventura:        "79e58390b92c8937ab8fd110681690a700ad7a7b905382fe114f7ed582345d7f"
-    sha256 cellar: :any_skip_relocation, monterey:       "8dcef7c94fdaa121e11b2bb4e3a6d23b00b718e343faff3a0f79279485cbfaf6"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "7a1d2409c3078a1b36826fb14a11fe044b4cc5d0e1652a97b31083eb2c228eaf"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "5572a0e7b33f890bb42a981b6b448467b4c00701687c26237b9b46e328e21bee"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "5eddc1f5497ae7f6ad4174e6f6b874ed85a27c0d3e9fe49838fbf56aaa7972e8"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "96c9cbf6e6f6d0daf5747c07f16fcdc636aa12c3c9af5bd3ea87f0bf941b7656"
+    sha256 cellar: :any_skip_relocation, sonoma:         "66e3eee3d5f95131470af94a524b3f15d41678ab551a37c43063f5b449589387"
+    sha256 cellar: :any_skip_relocation, ventura:        "f871928b226f1488f655cfd4b8b4243032614d38dfbe59ff9ef965171573d829"
+    sha256 cellar: :any_skip_relocation, monterey:       "c1f5995d992f4d2ac891c77dca9b675a741750c50b2c3ffbd4c845e8c59f643e"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "5c8e1d6ad0fb85cf2d584eeb8c382e655c9274ca6c11f2edf2d723f0e44e2645"
   end
 
   depends_on "go" => :build

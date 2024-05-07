@@ -4,16 +4,16 @@ class Gource < Formula
   url "https://github.com/acaudwell/Gource/releases/download/gource-0.54/gource-0.54.tar.gz"
   sha256 "1dcbcedf65d2cf4d69fe0b633e54c202926c08b829bcad0b73eaf9e29cd6fae5"
   license "GPL-3.0-or-later"
-  revision 2
+  revision 4
 
   bottle do
-    sha256 arm64_sonoma:   "4c4e8cbc4ec6ec1be0f7cca3e71fcd357e6b13e2f4ce2c701d5acb4e01e7ef69"
-    sha256 arm64_ventura:  "e765237f0f2874f0bcd9f5a6417dc564481cc7a44ae3876b757db9ed6b071aee"
-    sha256 arm64_monterey: "a0a40ea6d27b50f6ad9e7eb3174d3cbb8e321714d51e8d3ecb32bc85bd86e334"
-    sha256 sonoma:         "f5a066d6662537c0b73d11dbdca02c55805cceaa07c9b1d21175da06a6ed6385"
-    sha256 ventura:        "b93f2564ca0aec57255d50919b84af39b7f1f898528c2bde137502f87957685f"
-    sha256 monterey:       "a643b32220e047cfad841a9d5a8a1c2b0b0d6e84d7fb98d997f85eac17cb6559"
-    sha256 x86_64_linux:   "57c547803a9d396d1b5bc3e304d1ba8725eaecfcb5900bbf0a90ed6ffd74bb48"
+    sha256 arm64_sonoma:   "0a22e1eeb613eeeb43e82650c78058db8f9be241ca52588f235267f0137aff8e"
+    sha256 arm64_ventura:  "bfb3df79badebd7b21308e65225c1ca9026c40cf75faf1d5b924149195766004"
+    sha256 arm64_monterey: "6d038b9f738420539f7cc32362a9c1074afa26a0f46880dfb6e623f27d51998f"
+    sha256 sonoma:         "e5c26a4251e5975fd8301c01299b6a8a5a4d2a848843086e2c8f415ee5d6ccac"
+    sha256 ventura:        "af0c1dae247b7069be63625b50fb95e1aa598855a344da4aeac5060a3f156d82"
+    sha256 monterey:       "c1012016e7b681774b17458008744399dcb61b551b3b6c5876b6ad54db22c03f"
+    sha256 x86_64_linux:   "54663e308e0755e3e7b992985d36b91f859d2bfb2b0dbc82a2690d836569c851"
   end
 
   head do
@@ -34,18 +34,27 @@ class Gource < Formula
   depends_on "sdl2"
   depends_on "sdl2_image"
 
+  # Fix build with `boost` 1.85.0 using open PR.
+  # PR ref: https://github.com/acaudwell/Gource/pull/326
+  patch do
+    url "https://github.com/acaudwell/Gource/commit/4357df0e3cf3a5f2c8bcff74bf562e5f346c930a.patch?full_index=1"
+    sha256 "8c566c312e18ee293eb1cf14864b6c3658cfcc971eaf887ee0d308b67572c3e6"
+  end
+
   def install
+    ENV.cxx11
+
     # clang on Mt. Lion will try to build against libstdc++,
     # despite -std=gnu++0x
     ENV.libcxx
     ENV.append "LDFLAGS", "-pthread" if OS.linux?
 
-    system "autoreconf", "-f", "-i" if build.head?
+    system "autoreconf", "--force", "--install", "--verbose" if build.head?
 
-    system "./configure", "--disable-dependency-tracking",
-                          "--prefix=#{prefix}",
+    system "./configure", "--disable-silent-rules",
                           "--with-boost=#{Formula["boost"].opt_prefix}",
-                          "--without-x"
+                          "--without-x",
+                          *std_configure_args
     system "make", "install"
   end
 

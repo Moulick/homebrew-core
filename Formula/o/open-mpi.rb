@@ -1,8 +1,8 @@
 class OpenMpi < Formula
   desc "High performance message passing library"
   homepage "https://www.open-mpi.org/"
-  url "https://download.open-mpi.org/release/open-mpi/v4.1/openmpi-4.1.6.tar.bz2"
-  sha256 "f740994485516deb63b5311af122c265179f5328a0d857a567b85db00b11e415"
+  url "https://download.open-mpi.org/release/open-mpi/v5.0/openmpi-5.0.3.tar.bz2"
+  sha256 "990582f206b3ab32e938aa31bbf07c639368e4405dca196fabe7f0f76eeda90b"
   license "BSD-3-Clause"
 
   livecheck do
@@ -11,13 +11,13 @@ class OpenMpi < Formula
   end
 
   bottle do
-    sha256 arm64_sonoma:   "3ca19067c481dab3a6bde6188538b04dacd260fd5964cc860e329d7454248fd1"
-    sha256 arm64_ventura:  "1fa61c44514902b4ae2bd80f7e7cbd1031398ab73e3ddaacceffb6aeb5ac609c"
-    sha256 arm64_monterey: "49d9e6ad8c084027e14bf5a20aca55e6389b418d0a736e4aea74b8f3c491a9c6"
-    sha256 sonoma:         "964f31c111fb9b7d2009f98ac609874dd64dd4d1732ee5bffaef861140029ae9"
-    sha256 ventura:        "572ebd4fa62b6e4e07d55e357805808da8e4f5c79a3a754852e72f507a7c6d87"
-    sha256 monterey:       "a1c4c8d7d78be674e02e9732f74dd3c362c980ee2aa64a50f6a6757cc4cd2d3e"
-    sha256 x86_64_linux:   "d26acff6ab14a30003aa6eff1c92e75bff3b29c07bbf9ddecc89514bf5e2b33d"
+    sha256 arm64_sonoma:   "14f9d433b601aa9cb6c072a18fe585214c5684b08711cfbf422ca2ab469ea7e3"
+    sha256 arm64_ventura:  "37c3628954f736dccf41af3110ccfeb9fd8c0191b5b3949f72d512c17a98aa05"
+    sha256 arm64_monterey: "349c1be9e22da58c890fab40e1ebe85bb0fd059ae8e910ffd359bf4cf8c29448"
+    sha256 sonoma:         "d1c7d15b340c353c56809246c9ea834da5ea0cf65967bad5d23f32a278e607e7"
+    sha256 ventura:        "3d92d622b3b68cace6bf91d451c49d887a11c37c7319e456aa6fc63d10298c90"
+    sha256 monterey:       "750b582c5f009fcf737426b1387ab3432425ebc07c15f14fc3e9dc6f7336596d"
+    sha256 x86_64_linux:   "b99d9e2602eeb49ec33c21c6792b921be5ddca9cbbde248924b1bc5e2e6b8d07"
   end
 
   head do
@@ -30,6 +30,7 @@ class OpenMpi < Formula
   depends_on "gcc" # for gfortran
   depends_on "hwloc"
   depends_on "libevent"
+  depends_on "pmix"
 
   conflicts_with "mpich", because: "both install MPI compiler wrappers"
 
@@ -37,26 +38,28 @@ class OpenMpi < Formula
     if OS.mac?
       # Otherwise libmpi_usempi_ignore_tkr gets built as a static library
       ENV["MACOSX_DEPLOYMENT_TARGET"] = MacOS.version
-    end
 
-    # Work around asm incompatibility with new linker (FB13194320)
-    # https://github.com/open-mpi/ompi/issues/11935
-    ENV.append "LDFLAGS", "-Wl,-ld_classic" if DevelopmentTools.clang_build_version >= 1500
+      # Work around asm incompatibility with new linker (FB13194320)
+      # https://github.com/open-mpi/ompi/issues/12427
+      ENV.append "LDFLAGS", "-Wl,-ld_classic" if DevelopmentTools.clang_build_version >= 1500
+    end
 
     # Avoid references to the Homebrew shims directory
     inreplace_files = %w[
       ompi/tools/ompi_info/param.c
       oshmem/tools/oshmem_info/param.c
     ]
+    inreplace_files_cc = %w[
+      3rd-party/openpmix/src/tools/pmix_info/support.c
+      3rd-party/prrte/src/tools/prte_info/param.c
+    ]
 
     cxx = OS.linux? ? "g++" : ENV.cxx
     inreplace inreplace_files, "OMPI_CXX_ABSOLUTE", "\"#{cxx}\""
 
-    inreplace_files << "orte/tools/orte-info/param.c" unless build.head?
-    inreplace_files << "opal/mca/pmix/pmix3x/pmix/src/tools/pmix_info/support.c" unless build.head?
-
     cc = OS.linux? ? "gcc" : ENV.cc
     inreplace inreplace_files, /(OPAL|PMIX)_CC_ABSOLUTE/, "\"#{cc}\""
+    inreplace inreplace_files_cc, /(PMIX|PRTE)_CC_ABSOLUTE/, "\"#{cc}\""
 
     ENV.cxx11
     ENV.runtime_cpu_detection
@@ -68,9 +71,14 @@ class OpenMpi < Formula
       --sysconfdir=#{etc}
       --with-hwloc=#{Formula["hwloc"].opt_prefix}
       --with-libevent=#{Formula["libevent"].opt_prefix}
+      --with-pmix=#{Formula["pmix"].opt_prefix}
       --with-sge
     ]
     args << "--with-platform-optimized" if build.head?
+
+    # Work around asm incompatibility with new linker (FB13194320)
+    # https://github.com/open-mpi/ompi/issues/11935
+    args << "--with-wrapper-ldflags=-Wl,-ld_classic" if DevelopmentTools.clang_build_version >= 1500
 
     system "./autogen.pl", "--force" if build.head?
     system "./configure", *std_configure_args, *args

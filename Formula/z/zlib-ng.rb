@@ -1,18 +1,18 @@
 class ZlibNg < Formula
   desc "Zlib replacement with optimizations for next generation systems"
   homepage "https://github.com/zlib-ng/zlib-ng"
-  url "https://github.com/zlib-ng/zlib-ng/archive/refs/tags/2.1.4.tar.gz"
-  sha256 "a0293475e6a44a3f6c045229fe50f69dc0eebc62a42405a51f19d46a5541e77a"
+  url "https://github.com/zlib-ng/zlib-ng/archive/refs/tags/2.1.6.tar.gz"
+  sha256 "a5d504c0d52e2e2721e7e7d86988dec2e290d723ced2307145dedd06aeb6fef2"
   license "Zlib"
 
   bottle do
-    sha256 cellar: :any,                 arm64_sonoma:   "0f4bf43f0dc661fa7ee3fbc78bc16ecfb9013cb74d1a6d291cac197b05de50da"
-    sha256 cellar: :any,                 arm64_ventura:  "91dc965141b58e54b99f9a3da22d79cf9ddee628564778daf20e940e6533c5d0"
-    sha256 cellar: :any,                 arm64_monterey: "7f3612cf2f17b43a88eacaeb2d24ed61320eda2c94a3f182dd825369d33473ce"
-    sha256 cellar: :any,                 sonoma:         "3271ef7cb31b8774444fd2cf028624bd22059d9dd6a9fa0050e85c3a354422ff"
-    sha256 cellar: :any,                 ventura:        "7c93a0f306b23b7d241f5928b3e15d6e4a4a1c77a0ce13448b6bf3cc388fa332"
-    sha256 cellar: :any,                 monterey:       "c5e850c8cbad665e2c99841d64a5c42d7e75e038d176368e1bb5b01b39f39400"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "5969bec95b8d6854d073add20d820b4e7069bff1ffd8a27f3dae95f0866722b5"
+    sha256 cellar: :any,                 arm64_sonoma:   "bec24ea3f719139dbd06cc28874257b69bbb921ac9d7b405db416a0ac004ad7f"
+    sha256 cellar: :any,                 arm64_ventura:  "d0a07260a51bd3d13e2a92c0d3f59153d349e805728ef7450cbf9769af770319"
+    sha256 cellar: :any,                 arm64_monterey: "61b6f04ca4f1870d6dba8d8062fb2d2ac3710958b9c343ad287962a354eeb8aa"
+    sha256 cellar: :any,                 sonoma:         "b13e667f51e3a68104985c5305d741bd6d989d548b6d944dd9f7d4a715c8c793"
+    sha256 cellar: :any,                 ventura:        "e8fe49b1be8cbaaa27f201882776c5bdfa46a6dc20a8a99089a37fb779ed105a"
+    sha256 cellar: :any,                 monterey:       "915d8b23591e4e7581930d3b36102b2396a168a39d8ccccbff17bbaf0478e43e"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "d57997eda0dd7a5e7e4003465002ff957009de1489f6ff72d9297e157aefb9f0"
   end
 
   # https://zlib.net/zlib_how.html

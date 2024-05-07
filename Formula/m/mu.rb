@@ -4,8 +4,8 @@
 class Mu < Formula
   desc "Tool for searching e-mail messages stored in the maildir-format"
   homepage "https://www.djcbsoftware.nl/code/mu/"
-  url "https://github.com/djcb/mu/releases/download/v1.10.7/mu-1.10.7.tar.xz"
-  sha256 "eaaac9ba515da232295b03f2797eed13552fdd29a30122134dd382a64d0d3c21"
+  url "https://github.com/djcb/mu/releases/download/v1.12.4/mu-1.12.4.tar.xz"
+  sha256 "bd41136c5177c1645b878b9d55f384bed629e02e790881fe965f8493725a44c9"
   license "GPL-3.0-or-later"
   head "https://github.com/djcb/mu.git", branch: "master"
 
@@ -18,15 +18,13 @@ class Mu < Formula
   end
 
   bottle do
-    sha256 arm64_sonoma:   "c97506909d083544aecf575289b5b38f5911c60eca4121fed4959a86d7da3a28"
-    sha256 arm64_ventura:  "bc90dc1e9f62e2acf71ceb7094417b25683a399d4fe7e26a69097c6bdc95f16a"
-    sha256 arm64_monterey: "e4ac32f4f8a9bddc3f2bfc52a23d186371fa270af83b4f90412fd8a63587af11"
-    sha256 arm64_big_sur:  "7181dbc47760b649d561e9c6093810177df8d07877ac7e739150dd24ea1c49cf"
-    sha256 sonoma:         "032f874677bdbf478900b2665d12fb97dabe9d62302e57332afae8dfa3f83e68"
-    sha256 ventura:        "d0b69037da3168e252d43659af5af418bcfe87a305d4fc9edc83d456b481f9aa"
-    sha256 monterey:       "c7308c82ae928c4f2c5e9385c671318edd1a77b3d2ee7530fd7f6e7b93bda635"
-    sha256 big_sur:        "58ee12b5f75b81f23a0f29f8f4c44bd81e9b151fb3968ff4cd44cfdd5bd473f7"
-    sha256 x86_64_linux:   "2511719b6f1ac7b9e7fce329afe712c074ead932b1b3ad058e1ad02291ade7c5"
+    sha256 cellar: :any, arm64_sonoma:   "a324bb7cd770ad2a15063523bf86ffc85ae2fbc60ad32092d36d6b92f09a96b5"
+    sha256 cellar: :any, arm64_ventura:  "bb886b0d39c39c13ec14a35248087efa95d23bcf97bb6c7c167eeac9e508235d"
+    sha256 cellar: :any, arm64_monterey: "3e79c1618a5dfa23f591ee35114e5b572b434162e5e3a9be5bf0273b05006bb0"
+    sha256 cellar: :any, sonoma:         "d106c19d8ca0c3efa9172e8c963be90db229457790e39ec2fdab860ddb1f619a"
+    sha256 cellar: :any, ventura:        "874113f841f9acd8631fa073bfef6705b704b71aa040915d75dd79122feef1c4"
+    sha256 cellar: :any, monterey:       "3b726b2bd0c52ad7738a5f113f27c1a748a2f3ab72d8edba88f67b98f29f3454"
+    sha256               x86_64_linux:   "4d6ed2784a670bac3e3042bdebf1b77d1ffe13806a6b114b51e4172c51bb4aa2"
   end
 
   depends_on "emacs" => :build
@@ -35,23 +33,15 @@ class Mu < Formula
   depends_on "meson" => :build
   depends_on "ninja" => :build
   depends_on "pkg-config" => :build
+  depends_on "texinfo" => :build
   depends_on "gettext"
   depends_on "glib"
   depends_on "gmime"
-  depends_on "guile" # Possible opportunistic linkage. TODO: Check if this can be removed.
   depends_on "xapian"
-
-  on_system :linux, macos: :ventura_or_newer do
-    depends_on "texinfo" => :build
-  end
 
   conflicts_with "mu-repo", because: "both install `mu` binaries"
 
   fails_with gcc: "5"
-
-  # upstream bug report, https://github.com/djcb/mu/issues/2531
-  # reverts https://github.com/djcb/mu/pull/2522
-  patch :DATA
 
   def install
     system "meson", "setup", "build", "-Dlispdir=#{elisp}", *std_meson_args
@@ -99,20 +89,3 @@ class Mu < Formula
     EOS
   end
 end
-
-__END__
-diff --git a/guile/meson.build b/guile/meson.build
-index 933553c..ca051d1 100644
---- a/guile/meson.build
-+++ b/guile/meson.build
-@@ -73,9 +73,7 @@ lib_guile_mu = shared_module(
-   [ 'mu-guile.cc',
-     'mu-guile-message.cc' ],
-   dependencies: [guile_dep, glib_dep, lib_mu_dep, config_h_dep, thread_dep ],
--  install: true,
--  install_dir: guile_extension_dir
--)
-+  install: true)
-
- if makeinfo.found()
-   custom_target('mu_guile_info',

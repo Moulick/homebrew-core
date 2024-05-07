@@ -1,8 +1,8 @@
 class PostgresqlAT16 < Formula
   desc "Object-relational database system"
   homepage "https://www.postgresql.org/"
-  url "https://ftp.postgresql.org/pub/source/v16.0/postgresql-16.0.tar.bz2"
-  sha256 "df9e823eb22330444e1d48e52cc65135a652a6fdb3ce325e3f08549339f51b99"
+  url "https://ftp.postgresql.org/pub/source/v16.2/postgresql-16.2.tar.bz2"
+  sha256 "446e88294dbc2c9085ab4b7061a646fa604b4bec03521d5ea671c2e5ad9b2952"
   license "PostgreSQL"
   revision 1
 
@@ -12,13 +12,13 @@ class PostgresqlAT16 < Formula
   end
 
   bottle do
-    sha256 arm64_sonoma:   "b15bd71cc99d51de03a471298e60c31b4a46807539ca00645c2764d0c8419b28"
-    sha256 arm64_ventura:  "e0ceee6e31d3ed58d76f614a29e57ea40fe6c0b3fe390eda451d7198bf8826b6"
-    sha256 arm64_monterey: "b8274a1ef56ae8827d81e6a5a02a5b2c64f1bbcc08c3d5ddf7d903a9329fa3ff"
-    sha256 sonoma:         "6867ccb4bade2322c0588cd4b8cf21000bf4b8ab3a039fb50cc68f353a9d64a3"
-    sha256 ventura:        "15c1e0aa7fa68865722621ecd256094cb30c60542a9302c88bcd982bae0bd630"
-    sha256 monterey:       "43efba791e00b1db8477cbc3cedfcee0e6b736ff6e8e0358aaf910cd3c4041df"
-    sha256 x86_64_linux:   "158277ebdfbedfb86f6da8b97a72960ef21d8f29688c57ad4ec9016e7be02234"
+    sha256 arm64_sonoma:   "40d2efe6bbcf70078f6fbe80ca8e72eafc16d6003d3903d475856f53514624a1"
+    sha256 arm64_ventura:  "656a32a5ed4e7f8505f39d1e9e3b2b25ae2f153d7f25d774a87eb2b5fe8371d0"
+    sha256 arm64_monterey: "c9d66495302339354a77a85caae0ab1cd579e4c218f3697c3dde2d438fe2edf4"
+    sha256 sonoma:         "82f8aa9bb1711ab710664f8b90d681c954a4b5b255203fab54db51a65fcd3715"
+    sha256 ventura:        "d9a631c87687f289b61e6066808eb97a38dde76e61d97b51ed9f99fdae9d4538"
+    sha256 monterey:       "d57943164297ec488d94b5cacdbca72dc3f82048734185a127b7f609245f231a"
+    sha256 x86_64_linux:   "4655a82d8c2e9503f55bb453d71b28e313f81e78908670b19b8e741060ed02f4"
   end
 
   keg_only :versioned_formula
@@ -37,6 +37,7 @@ class PostgresqlAT16 < Formula
   depends_on "lz4"
   depends_on "openssl@3"
   depends_on "readline"
+  depends_on "zstd"
 
   uses_from_macos "libxml2"
   uses_from_macos "libxslt"
@@ -71,6 +72,7 @@ class PostgresqlAT16 < Formula
       --with-libxml
       --with-libxslt
       --with-lz4
+      --with-zstd
       --with-openssl
       --with-pam
       --with-perl
@@ -86,7 +88,7 @@ class PostgresqlAT16 < Formula
 
     # PostgreSQL by default uses xcodebuild internally to determine this,
     # which does not work on CLT-only installs.
-    args << "PG_SYSROOT=#{MacOS.sdk_path}" if MacOS.sdk_root_needed?
+    args << "PG_SYSROOT=#{MacOS.sdk_path}" if OS.mac? && MacOS.sdk_root_needed?
 
     system "./configure", *args
 

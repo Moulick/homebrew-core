@@ -1,24 +1,24 @@
 class Mlt < Formula
   desc "Author, manage, and run multitrack audio/video compositions"
   homepage "https://www.mltframework.org/"
-  url "https://github.com/mltframework/mlt/releases/download/v7.20.0/mlt-7.20.0.tar.gz"
-  sha256 "7472372b31f76b2eb0ac66c756391be7cb859a3a779c97ccb7dcf7086ac9d816"
+  url "https://github.com/mltframework/mlt/releases/download/v7.24.0/mlt-7.24.0.tar.gz"
+  sha256 "8cde7c22a1a5395abe913976c2edafb498f81ed81a5f49dd0e6e2d86d68bcec0"
   license "LGPL-2.1-only"
   head "https://github.com/mltframework/mlt.git", branch: "master"
 
   bottle do
-    sha256 arm64_sonoma:   "9670b42ea7651685b0c031583bc5c667346d4f4fe6e1d831063e1f2611129349"
-    sha256 arm64_ventura:  "00b18c247272bc344ae719dc86546930bbbd406f3877d4556f0609ef588086cd"
-    sha256 arm64_monterey: "14f9ba4644bb93f548b57bcfcec89c6d20c1e69ac803cb0765aba2f3b49c3780"
-    sha256 sonoma:         "f487696f45a50fb33d05ad34202f42aeb2b9a40e2d19194167bec071070d2068"
-    sha256 ventura:        "a5598fa8ba7af371b1f26f9094cf4425558dcaadd842fd8af710b40fa10e9ba0"
-    sha256 monterey:       "f5b5c8927074069b39f3e557e32d183c3659687380e87c390f01e19630463535"
-    sha256 x86_64_linux:   "febb8a904cff64ced7eea55369d1721d0a5a54ab019c548cf98ab2e6c52377b3"
+    sha256 arm64_sonoma:   "3485b8a1722356ee8d3793d8af6a811b206d5aae8a08643b1b9fd4e65e1abf1a"
+    sha256 arm64_ventura:  "c942d5f913b82087da5eccf1452543c1a9c608af92572f50e54f12590fa0a927"
+    sha256 arm64_monterey: "7a98f0c4a9078c2fef892d4277055e01c48c40130cbcb540e44d5c3a92a14bca"
+    sha256 sonoma:         "fa96023d1218e33b038a561781e6bbc4db1cc97428b46fb02d614c9b21698e6e"
+    sha256 ventura:        "902f2db879ce420f63b623eecdfa702677c16e24ce67ed2d85b5aaba3b79fa43"
+    sha256 monterey:       "3ad62a1fe23b950cfabca2075c6676e437e0ab60fadb03e93265223e3f825414"
+    sha256 x86_64_linux:   "ecaa345a86798a5a5a4600807481decf70f2904502ca4ef98f41144fb373ee9c"
   end
 
   depends_on "cmake" => :build
   depends_on "pkg-config" => :build
-  depends_on "ffmpeg"
+  depends_on "ffmpeg@6"
   depends_on "fftw"
   depends_on "frei0r"
   depends_on "gdk-pixbuf"

@@ -1,21 +1,19 @@
 class Vhs < Formula
   desc "Your CLI home video recorder"
   homepage "https://github.com/charmbracelet/vhs"
-  url "https://github.com/charmbracelet/vhs/archive/refs/tags/v0.6.0.tar.gz"
-  sha256 "bf41f264730f18b5146c2269d82b5b69757470799a2cce6099e420b5f3ec7fa3"
+  url "https://github.com/charmbracelet/vhs/archive/refs/tags/v0.7.2.tar.gz"
+  sha256 "9be4b88a638336f6bba913f391b0300549280246e08d26cbd5053b63c60ee40c"
   license "MIT"
   head "https://github.com/charmbracelet/vhs.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "718b068230a2d931af6100d01f9220ea8dcdb10cd13bd80b333cc383003add30"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "87adc926741c2cede54d4b6a453862407cd3cde38d93648832090a8a11a963c2"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "87adc926741c2cede54d4b6a453862407cd3cde38d93648832090a8a11a963c2"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "87adc926741c2cede54d4b6a453862407cd3cde38d93648832090a8a11a963c2"
-    sha256 cellar: :any_skip_relocation, sonoma:         "972499b2fddfae943e6b1d1b2de027dac16941a73646cb09f37622a5d75ec14b"
-    sha256 cellar: :any_skip_relocation, ventura:        "191b7b279c041b06d8367b16da08aba9640080dbf6b2c0f0cf0a8838bb179b8e"
-    sha256 cellar: :any_skip_relocation, monterey:       "191b7b279c041b06d8367b16da08aba9640080dbf6b2c0f0cf0a8838bb179b8e"
-    sha256 cellar: :any_skip_relocation, big_sur:        "191b7b279c041b06d8367b16da08aba9640080dbf6b2c0f0cf0a8838bb179b8e"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "c032bb97af62d82f7103e8aee68e6d5cc9e7a9f0c13b89dd7021498342fdf52b"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "adcae502f9388192760fefc485cd56218a269c33e5c68833d3252bed2f8d87aa"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "e971bf876422eaa6eb34d16eadeeabb2b1929ad7d346b30a94959ec2a6a7c148"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "d18878730922dacb972e4e99a3539e3d43c822b8b4b26a758487ef68453f6411"
+    sha256 cellar: :any_skip_relocation, sonoma:         "14a3c3f898d9e70a3f2c8d878ec82304981f60239b241cfa51b80d4f360f2ff4"
+    sha256 cellar: :any_skip_relocation, ventura:        "4079a5d4f18fe792aecce391e74a5d495ca3e43b94184d48e64c26c226e8d2cb"
+    sha256 cellar: :any_skip_relocation, monterey:       "9d5dacb36da25dbbc729a72f03aa43fc482771bb5b772b4b748a8bab79392841"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "2a31de78626c1fb21ee622e1a3fb658af4f161312af5da25313d126fba59ef83"
   end
 
   depends_on "go" => :build

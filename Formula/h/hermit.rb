@@ -1,20 +1,18 @@
 class Hermit < Formula
   desc "Manages isolated, self-bootstrapping sets of tools in software projects"
   homepage "https://cashapp.github.io/hermit"
-  url "https://github.com/cashapp/hermit/archive/refs/tags/v0.37.0.tar.gz"
-  sha256 "b04358caa1f6c33cb8d6f2b53541537057ce249489b5349f327323e8f46ae443"
+  url "https://github.com/cashapp/hermit/archive/refs/tags/v0.39.1.tar.gz"
+  sha256 "8be54680fb0965ed8fa45ea567fa860ccaf3e48f53b04fc82563ffc68def62e6"
   license "Apache-2.0"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "56af6896578dab347ea1c9900a1e5bf05ebb43e1e7a96451824afb8dab97a291"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "0bbb7e20d6f44b14fa8779a73968e4e71acf7da5b59680d609a4c5655ce8e11a"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "4ac577b3aa211d420e01ab6f99315d1e8c3c37954f4bdae031a21d37a5bafc92"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "5df2f4cde90e3348cb0e717d49cd49dbe859e47ac257a35f352f1f3b1f5c1648"
-    sha256 cellar: :any_skip_relocation, sonoma:         "7aaf6ce5deae23f8d24e806fddac51259a5663da946f42cf4c3ef3dc7469c86e"
-    sha256 cellar: :any_skip_relocation, ventura:        "c05532c6f0116035c0cfc0c32cd6548e288285e5a4e25d6c24275fcdf6ad1946"
-    sha256 cellar: :any_skip_relocation, monterey:       "ca5902d555e74350bf82f0599a03510cd65ccc1c7f47e3cda9ab38050aaf04dc"
-    sha256 cellar: :any_skip_relocation, big_sur:        "1d49b6cdb38f7e83a69d5dc730822e8649bd5736e967eeb8d73f1049978fee26"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "381f36b84ddaa6b2a7c42cc8adeea632e8ea208c1f31a2f34fbaeae1e1a394f8"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "6e5da70a372a1118eb3d0114c32ed03914d7a63c9f0667a74b95787c92243d4b"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "a92243a9dcdd123092ae4e30909b8ce47e5b110393c7b50d3d4613b9d4a329c6"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "efde78dca5c28a3535babc9717a9bc784d32e83c917dfadb3e803068e4a13ba7"
+    sha256 cellar: :any_skip_relocation, sonoma:         "330e68f237086d0d4b284579bbb8e14c003a191e974cc6dad4e2643cffe6b93f"
+    sha256 cellar: :any_skip_relocation, ventura:        "f743dc441713fe9900fd37c364084e8d1d0c498d5ce0fbb228d6a3aa40e13000"
+    sha256 cellar: :any_skip_relocation, monterey:       "cae01aed3465851aea3e0fce87027701bd3445aa1b4aca962c3a0992ebc1af6b"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "3797c2d4ba34392e6dcbcdde6ab701ca94b31a0c5a881b04d3dde7bbea345a4e"
   end
 
   depends_on "go" => :build
@@ -25,7 +23,7 @@ class Hermit < Formula
       -X main.version=#{version}
       -X main.channel=stable
     ]
-    system "go", "build", *std_go_args(ldflags: ldflags), "./cmd/hermit"
+    system "go", "build", *std_go_args(ldflags:), "./cmd/hermit"
   end
 
   def caveats

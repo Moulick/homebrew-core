@@ -1,13 +1,13 @@
 class ApacheOpennlp < Formula
   desc "Machine learning toolkit for processing natural language text"
   homepage "https://opennlp.apache.org/"
-  url "https://www.apache.org/dyn/closer.lua?path=opennlp/opennlp-2.3.0/apache-opennlp-2.3.0-bin.tar.gz"
-  mirror "https://archive.apache.org/dist/opennlp/opennlp-2.3.0/apache-opennlp-2.3.0-bin.tar.gz"
-  sha256 "d506207db0fe9d23864f36dd6f7b31a42d35028d29fa3c9f89883228eb8522a1"
+  url "https://www.apache.org/dyn/closer.lua?path=opennlp/opennlp-2.3.3/apache-opennlp-2.3.3-bin.tar.gz"
+  mirror "https://archive.apache.org/dist/opennlp/opennlp-2.3.3/apache-opennlp-2.3.3-bin.tar.gz"
+  sha256 "63dacde27ee052aa6866d01fbe88adce8c13c0c207975d98569bdbc80b33697d"
   license "Apache-2.0"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, all: "6b36dffdb371955cc8d6ba3abd326142fdbfe5e47aac62bd588f4220d88802ae"
+    sha256 cellar: :any_skip_relocation, all: "a53cded7fd7d79ba964e4ec272e05cdb39f16d23af7a8b2eda0d74ec71ce3a5c"
   end
 
   depends_on "openjdk"

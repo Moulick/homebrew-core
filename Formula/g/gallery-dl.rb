@@ -3,32 +3,34 @@ class GalleryDl < Formula
 
   desc "Command-line downloader for image-hosting site galleries and collections"
   homepage "https://github.com/mikf/gallery-dl"
-  url "https://files.pythonhosted.org/packages/31/3c/606a043bff19bc726bf98d0bfdae7006f3dcc1797666b2fc6e33470fe432/gallery_dl-1.26.1.tar.gz"
-  sha256 "489b2111dbe63c3419e66aa241f26959c438dd61975313ef30c26263fe02c6c7"
+  url "https://files.pythonhosted.org/packages/12/30/9afa8353dca40bf1fd98f83deb36f52d12619b786ad028b8603da2819d0b/gallery_dl-1.26.9.tar.gz"
+  sha256 "3e06dfa69c890a9805ba90509e0f0c50f8a16c39a2b780bec569d2cc2272bb99"
   license "GPL-2.0-only"
+  revision 1
   head "https://github.com/mikf/gallery-dl.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "69ab99f65de839623f0615ab874dbf27d128a8ace0e6f251b53dfab92179288f"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "345d691759ed17efc9aa460273b6e274a03bfe0e8edab03980d40bd4a6ff4f36"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "191f6e1d47827c1e6ce9c020c3928576f847f1073ceaf764f9aa1481a83dd5c1"
-    sha256 cellar: :any_skip_relocation, sonoma:         "3a30f572d59291efdc3d81b5328ce8f7bcb3f10d8a372841db27fd4e552b1fe4"
-    sha256 cellar: :any_skip_relocation, ventura:        "c022c6c8493d75f4283c29808062144ef15aa3444bdc06c16f0d94d22ae69b5e"
-    sha256 cellar: :any_skip_relocation, monterey:       "13e4301b6fd7330489d6bf79ea98d7a78c10ec06892202252fb02bd4e818c211"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "74d73d011866e9c444fa135654d983f50f7533346f72eacad0939fa2d4f602be"
+    rebuild 1
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "3501bb45a8f8140b9faff7fb5ae39fea345c6366e4f2e3bc1438909644f291c0"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "3501bb45a8f8140b9faff7fb5ae39fea345c6366e4f2e3bc1438909644f291c0"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "3501bb45a8f8140b9faff7fb5ae39fea345c6366e4f2e3bc1438909644f291c0"
+    sha256 cellar: :any_skip_relocation, sonoma:         "3501bb45a8f8140b9faff7fb5ae39fea345c6366e4f2e3bc1438909644f291c0"
+    sha256 cellar: :any_skip_relocation, ventura:        "3501bb45a8f8140b9faff7fb5ae39fea345c6366e4f2e3bc1438909644f291c0"
+    sha256 cellar: :any_skip_relocation, monterey:       "3501bb45a8f8140b9faff7fb5ae39fea345c6366e4f2e3bc1438909644f291c0"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "3b3acf956e22ef351155b486a686ba26a9be7ba7aa1a12021f6910bbe41fe690"
   end
 
-  depends_on "python-certifi"
+  depends_on "certifi"
   depends_on "python@3.12"
 
   resource "charset-normalizer" do
-    url "https://files.pythonhosted.org/packages/cf/ac/e89b2f2f75f51e9859979b56d2ec162f7f893221975d244d8d5277aa9489/charset-normalizer-3.3.0.tar.gz"
-    sha256 "63563193aec44bce707e0c5ca64ff69fa72ed7cf34ce6e11d5127555756fd2f6"
+    url "https://files.pythonhosted.org/packages/63/09/c1bc53dab74b1816a00d8d030de5bf98f724c52c1635e07681d312f20be8/charset-normalizer-3.3.2.tar.gz"
+    sha256 "f30c3cb33b24454a82faecaf01b19c18562b1e89558fb6c56de4d9118a032fd5"
   end
 
   resource "idna" do
-    url "https://files.pythonhosted.org/packages/8b/e1/43beb3d38dba6cb420cefa297822eac205a277ab43e5ba5d5c46faf96438/idna-3.4.tar.gz"
-    sha256 "814f528e8dead7d329833b91c5faa87d60bf71824cd12a7530b5526063d02cb4"
+    url "https://files.pythonhosted.org/packages/21/ed/f86a79a07470cb07819390452f178b3bef1d375f2ec021ecfc709fc7cf07/idna-3.7.tar.gz"
+    sha256 "028ff3aadf0609c1fd278d8ea3089299412a7a8b9bd005dd08b9f8285bcb5cfc"
   end
 
   resource "requests" do
@@ -37,12 +39,18 @@ class GalleryDl < Formula
   end
 
   resource "urllib3" do
-    url "https://files.pythonhosted.org/packages/af/47/b215df9f71b4fdba1025fc05a77db2ad243fa0926755a52c5e71659f4e3c/urllib3-2.0.7.tar.gz"
-    sha256 "c97dfde1f7bd43a71c8d2a58e369e9b2bf692d1334ea9f9cae55add7d0dd0f84"
+    url "https://files.pythonhosted.org/packages/7a/50/7fd50a27caa0652cd4caf224aa87741ea41d3265ad13f010886167cfcc79/urllib3-2.2.1.tar.gz"
+    sha256 "d0570876c61ab9e520d776c38acbbb5b05a776d3f9ff98a5c8fd5162a444cf19"
   end
 
   def install
+    system "make" if build.head?
     virtualenv_install_with_resources
+    man1.install_symlink libexec/"share/man/man1/gallery-dl.1"
+    man5.install_symlink libexec/"share/man/man5/gallery-dl.conf.5"
+    bash_completion.install libexec/"share/bash-completion/completions/gallery-dl"
+    zsh_completion.install libexec/"share/zsh/site-functions/_gallery-dl"
+    fish_completion.install libexec/"share/fish/vendor_completions.d/gallery-dl.fish"
   end
 
   test do

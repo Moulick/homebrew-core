@@ -3,31 +3,25 @@ class Mvt < Formula
 
   desc "Mobile device forensic toolkit"
   homepage "https://docs.mvt.re/en/latest/"
-  url "https://files.pythonhosted.org/packages/50/50/e405c534c489801620762c1358ba40ef11bee3bb35d6cdf1245189d3f3c9/mvt-2.4.2.tar.gz"
-  sha256 "b97e4f4732d61da4a2b69b7029c37e4d5442353a3e109855fe77c782e9c4cc7f"
+  url "https://files.pythonhosted.org/packages/0b/a7/e12932647247b7cd253698e6aa0d5f831700d3dd7688c366af85eb255b62/mvt-2.5.3.tar.gz"
+  sha256 "5727877815b3d5a2a98e21a6be9da51c3629eb548e424457e9e78ae183344264"
   license :cannot_represent # Adaptation of MPL-2.0
   head "https://github.com/mvt-project/mvt.git", branch: "main"
 
   bottle do
-    rebuild 2
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "9a68dadea290107ad3594294594f2f69ac100dcbc794a5df55415b4ea64b5a59"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "5a8ffbf9c90edf8dff047244c35362eb4bd71d25ea5faf9f8d0aa37ca159d85b"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "11cb3cac207dff5b8604da271485c7267541bd1b9f11f2039a81412213ab904c"
-    sha256 cellar: :any_skip_relocation, sonoma:         "20a2bce5d582e38cfaf6058804ae9571d46c7dac90090d99e22fa85c0bb3253a"
-    sha256 cellar: :any_skip_relocation, ventura:        "d77e36762f51a7432dcbb240faa2a2091e0d9fc396c9bb9240ceed4a06745bf8"
-    sha256 cellar: :any_skip_relocation, monterey:       "cfdaae2c42177c37b9b8bdb60fe73b7724f2c4c57e1ccf3d876e6d3db9e4d1c3"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "49a2dda86c11cb4ada01551a6849b917e0778e67c1c035c25f370872a517c7b2"
+    sha256 cellar: :any,                 arm64_sonoma:   "bb6112b3fdab872902bae9299ea016dcba55ae7d8bfad0638c83ca7d9cae2e6d"
+    sha256 cellar: :any,                 arm64_ventura:  "9e72428eecf447a69aee4f74c51c8e3122fc1de1b10ea845ff0891266e347ffd"
+    sha256 cellar: :any,                 arm64_monterey: "e77e732d2cd130fdc5fa8974c143d9dfe46cd182b8a379205ba483328df6f0cb"
+    sha256 cellar: :any,                 sonoma:         "f2bed1b23a51aa4036daf61f32310852b0baee68f1caf40f592be7886112d00b"
+    sha256 cellar: :any,                 ventura:        "c3d7b45622b2c8bb3d0dff41578a04c976a4e293a683ca461d7a5ec3252ceac3"
+    sha256 cellar: :any,                 monterey:       "3e53745e417e7ad9ca3f95e28d9ac3e5f82fca73c71d322f39dfa2a08520102b"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "0538ad91630242f39bc57e2b58fa219b23e6d4db6a40b4b788f4a2a8e3a099ef"
   end
 
-  depends_on "cffi"
-  depends_on "pycparser"
-  depends_on "pygments"
-  depends_on "python-certifi"
-  depends_on "python-click"
-  depends_on "python-cryptography"
-  depends_on "python-packaging"
+  depends_on "certifi"
+  depends_on "cryptography"
+  depends_on "libyaml"
   depends_on "python@3.12"
-  depends_on "pyyaml"
 
   resource "adb-shell" do
     url "https://files.pythonhosted.org/packages/8f/73/d246034db6f3e374dad9a35ee3f61345a6b239d4febd2a41ab69df9936fe/adb_shell-0.4.4.tar.gz"
@@ -40,18 +34,28 @@ class Mvt < Formula
   end
 
   resource "charset-normalizer" do
-    url "https://files.pythonhosted.org/packages/cf/ac/e89b2f2f75f51e9859979b56d2ec162f7f893221975d244d8d5277aa9489/charset-normalizer-3.3.0.tar.gz"
-    sha256 "63563193aec44bce707e0c5ca64ff69fa72ed7cf34ce6e11d5127555756fd2f6"
+    url "https://files.pythonhosted.org/packages/63/09/c1bc53dab74b1816a00d8d030de5bf98f724c52c1635e07681d312f20be8/charset-normalizer-3.3.2.tar.gz"
+    sha256 "f30c3cb33b24454a82faecaf01b19c18562b1e89558fb6c56de4d9118a032fd5"
+  end
+
+  resource "click" do
+    url "https://files.pythonhosted.org/packages/96/d3/f04c7bfcf5c1862a2a5b845c6b2b360488cf47af55dfa79c98f6a6bf98b5/click-8.1.7.tar.gz"
+    sha256 "ca9853ad459e787e2192211578cc907e7594e294c7ccc834310722b41b9ca6de"
   end
 
   resource "idna" do
-    url "https://files.pythonhosted.org/packages/8b/e1/43beb3d38dba6cb420cefa297822eac205a277ab43e5ba5d5c46faf96438/idna-3.4.tar.gz"
-    sha256 "814f528e8dead7d329833b91c5faa87d60bf71824cd12a7530b5526063d02cb4"
+    url "https://files.pythonhosted.org/packages/21/ed/f86a79a07470cb07819390452f178b3bef1d375f2ec021ecfc709fc7cf07/idna-3.7.tar.gz"
+    sha256 "028ff3aadf0609c1fd278d8ea3089299412a7a8b9bd005dd08b9f8285bcb5cfc"
+  end
+
+  resource "iosbackup" do
+    url "https://files.pythonhosted.org/packages/db/b8/4cd52322deceb942b9e18b127d45d112c2f7a3ec7821ab528659d4f04275/iOSbackup-0.9.925.tar.gz"
+    sha256 "33545a9249e5b3faaadf1ee782fe6bdfcdb70fae0defba1acee336a65f93d1ca"
   end
 
   resource "libusb1" do
-    url "https://files.pythonhosted.org/packages/f4/83/59bf75e74e0c4859ea63eae0c7da660c1dcb78b31667d4a5f735d52f5974/libusb1-3.0.0.tar.gz"
-    sha256 "5792a9defee40f15d330a40d9b1800545c32e47ba7fc66b6f28f133c9fcc8538"
+    url "https://files.pythonhosted.org/packages/af/19/53ecbfb96d6832f2272d13b84658c360802fcfff7c0c497ab8f6bf15ac40/libusb1-3.1.0.tar.gz"
+    sha256 "4ee9b0a55f8bd0b3ea7017ae919a6c1f439af742c4a4b04543c5fd7af89b828c"
   end
 
   resource "markdown-it-py" do
@@ -69,19 +73,34 @@ class Mvt < Formula
     sha256 "eeda0480021817336e0ffeaca80377c1a8f08ecc5fc06be483b48c44bad414f4"
   end
 
+  resource "packaging" do
+    url "https://files.pythonhosted.org/packages/ee/b5/b43a27ac7472e1818c4bafd44430e69605baefe1f34440593e0332ec8b4d/packaging-24.0.tar.gz"
+    sha256 "eb82c5e3e56209074766e6885bb04b8c38a0c015d0a30036ebe7ece34c9989e9"
+  end
+
   resource "pyahocorasick" do
-    url "https://files.pythonhosted.org/packages/28/0a/9cf574f8aed5a38f945944481ea297953dfed065aacdd045c9a0c5df0458/pyahocorasick-2.0.0.tar.gz"
-    sha256 "2985cac6d99c0e9165617fe154b4db0b50c4c2819791c2ad5f0aac0c6a6e58c5"
+    url "https://files.pythonhosted.org/packages/06/2e/075c667c27ecf2c3ed6bf3c62649625cf1e7de7fd349f63b49b794460b71/pyahocorasick-2.1.0.tar.gz"
+    sha256 "4df4845c1149e9fa4aa33f0f0aa35f5a42957a43a3d6e447c9b44e679e2672ea"
   end
 
   resource "pyasn1" do
-    url "https://files.pythonhosted.org/packages/61/ef/945a8bcda7895717c8ba4688c08a11ef6454f32b8e5cb6e352a9004ee89d/pyasn1-0.5.0.tar.gz"
-    sha256 "97b7290ca68e62a832558ec3976f15cbf911bf5d7c7039d8b861c2a0ece69fde"
+    url "https://files.pythonhosted.org/packages/4a/a3/d2157f333900747f20984553aca98008b6dc843eb62f3a36030140ccec0d/pyasn1-0.6.0.tar.gz"
+    sha256 "3a35ab2c4b5ef98e17dfdec8ab074046fbda76e281c5a706ccd82328cfc8f64c"
   end
 
   resource "pycryptodome" do
-    url "https://files.pythonhosted.org/packages/1a/72/acc37a491b95849b51a2cced64df62aaff6a5c82d26aca10bc99dbda025b/pycryptodome-3.19.0.tar.gz"
-    sha256 "bc35d463222cdb4dbebd35e0784155c81e161b9284e567e7e933d722e533331e"
+    url "https://files.pythonhosted.org/packages/b9/ed/19223a0a0186b8a91ebbdd2852865839237a21c74f1fbc4b8d5b62965239/pycryptodome-3.20.0.tar.gz"
+    sha256 "09609209ed7de61c2b560cc5c8c4fbf892f8b15b1faf7e4cbffac97db1fffda7"
+  end
+
+  resource "pygments" do
+    url "https://files.pythonhosted.org/packages/55/59/8bccf4157baf25e4aa5a0bb7fa3ba8600907de105ebc22b0c78cfbf6f565/pygments-2.17.2.tar.gz"
+    sha256 "da46cec9fd2de5be3a8a784f434e4c4ab670b4ff54d605c4c2717e9d49c4c367"
+  end
+
+  resource "pyyaml" do
+    url "https://files.pythonhosted.org/packages/cd/e5/af35f7ea75cf72f2cd079c95ee16797de7cd71f29ea7c68ae5ce7be1eda0/PyYAML-6.0.1.tar.gz"
+    sha256 "bfdf460b1736c775f2ba9f6a92bca30bc2095067b8a9d77876d1fad6cc3b4a43"
   end
 
   resource "requests" do
@@ -90,8 +109,8 @@ class Mvt < Formula
   end
 
   resource "rich" do
-    url "https://files.pythonhosted.org/packages/b1/0e/e5aa3ab6857a16dadac7a970b2e1af21ddf23f03c99248db2c01082090a3/rich-13.6.0.tar.gz"
-    sha256 "5c14d22737e6d5084ef4771b62d5d4363165b403455a30a1c8ca39dc7b644bef"
+    url "https://files.pythonhosted.org/packages/b3/01/c954e134dc440ab5f96952fe52b4fdc64225530320a910473c1fe270d9aa/rich-13.7.1.tar.gz"
+    sha256 "9be308cb1fe2f1f57d67ce99e95af38a1e2bc71ad9813b0e247cf7ffbcc3a432"
   end
 
   resource "rsa" do
@@ -110,18 +129,21 @@ class Mvt < Formula
   end
 
   resource "urllib3" do
-    url "https://files.pythonhosted.org/packages/8b/00/db794bb94bf09cadb4ecd031c4295dd4e3536db4da958e20331d95f1edb7/urllib3-2.0.6.tar.gz"
-    sha256 "b19e1a85d206b56d7df1d5e683df4a7725252a964e3993648dd0fb5a1c157564"
-  end
-
-  # This resource depends on `nskeyedunarchiver`, so we place it last
-  resource "iosbackup" do
-    url "https://files.pythonhosted.org/packages/db/b8/4cd52322deceb942b9e18b127d45d112c2f7a3ec7821ab528659d4f04275/iOSbackup-0.9.925.tar.gz"
-    sha256 "33545a9249e5b3faaadf1ee782fe6bdfcdb70fae0defba1acee336a65f93d1ca"
+    url "https://files.pythonhosted.org/packages/7a/50/7fd50a27caa0652cd4caf224aa87741ea41d3265ad13f010886167cfcc79/urllib3-2.2.1.tar.gz"
+    sha256 "d0570876c61ab9e520d776c38acbbb5b05a776d3f9ff98a5c8fd5162a444cf19"
   end
 
   def install
-    virtualenv_install_with_resources
+    venv = virtualenv_create(libexec, "python3.12")
+    venv.pip_install resources.reject { |r| r.name == "iosbackup" }
+
+    # iosbackup is incompatible with build isolation: https://github.com/avibrazil/iOSbackup/pull/32
+    resource("iosbackup").stage do
+      inreplace "setup.py", "from iOSbackup import __version__", "__version__ = '#{resource("iosbackup").version}'"
+      venv.pip_install Pathname.pwd
+    end
+
+    venv.pip_install_and_link buildpath
 
     %w[mvt-android mvt-ios].each do |script|
       generate_completions_from_executable(bin/script, shells: [:fish, :zsh], shell_parameter_format: :click)

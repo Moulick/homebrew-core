@@ -1,8 +1,8 @@
 class Jruby < Formula
   desc "Ruby implementation in pure Java"
   homepage "https://www.jruby.org/"
-  url "https://search.maven.org/remotecontent?filepath=org/jruby/jruby-dist/9.4.4.0/jruby-dist-9.4.4.0-bin.tar.gz"
-  sha256 "6ab12670afd8e5c8ac9305fabe42055795c5ddf9f8e8f1a1e60e260f2d724cc0"
+  url "https://search.maven.org/remotecontent?filepath=org/jruby/jruby-dist/9.4.7.0/jruby-dist-9.4.7.0-bin.tar.gz"
+  sha256 "f1c39f8257505300a528ff83fe4721fbe61a855abb25e3d27d52d43ac97a4d80"
   license any_of: ["EPL-2.0", "GPL-2.0-only", "LGPL-2.1-only"]
 
   livecheck do
@@ -11,13 +11,13 @@ class Jruby < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_sonoma:   "99797e2ae27d5c77c4097b1e02412384cfc3c7306c208eb5ff62ca0b48fed832"
-    sha256 cellar: :any,                 arm64_ventura:  "99797e2ae27d5c77c4097b1e02412384cfc3c7306c208eb5ff62ca0b48fed832"
-    sha256 cellar: :any,                 arm64_monterey: "99797e2ae27d5c77c4097b1e02412384cfc3c7306c208eb5ff62ca0b48fed832"
-    sha256 cellar: :any,                 sonoma:         "207ec7daca3a7e1f3dcefbde02d7293787a9dde9cce43581e730a15be8d88feb"
-    sha256 cellar: :any,                 ventura:        "207ec7daca3a7e1f3dcefbde02d7293787a9dde9cce43581e730a15be8d88feb"
-    sha256 cellar: :any,                 monterey:       "207ec7daca3a7e1f3dcefbde02d7293787a9dde9cce43581e730a15be8d88feb"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "c59f9242a92b618a210e45cb9e5e92a8123804c64710dbc2794a8131489e2384"
+    sha256 cellar: :any,                 arm64_sonoma:   "f34ca4e7ba7326936b58013d111d284f87ed4e50dc36c8be4845bd63fcc07139"
+    sha256 cellar: :any,                 arm64_ventura:  "f34ca4e7ba7326936b58013d111d284f87ed4e50dc36c8be4845bd63fcc07139"
+    sha256 cellar: :any,                 arm64_monterey: "f34ca4e7ba7326936b58013d111d284f87ed4e50dc36c8be4845bd63fcc07139"
+    sha256 cellar: :any,                 sonoma:         "5d493e13310e0d62cbd06080fb833e032df3c57d59d3b5eb55942552108dbc8e"
+    sha256 cellar: :any,                 ventura:        "5d493e13310e0d62cbd06080fb833e032df3c57d59d3b5eb55942552108dbc8e"
+    sha256 cellar: :any,                 monterey:       "5d493e13310e0d62cbd06080fb833e032df3c57d59d3b5eb55942552108dbc8e"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "c067ecb9bde882fd2ed52125bc977a498827137672dc5456dfb3c3f2ccaaf6e3"
   end
 
   depends_on "openjdk"

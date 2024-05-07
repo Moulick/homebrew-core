@@ -2,8 +2,8 @@ class Ghcup < Formula
   desc "Installer for the general purpose language Haskell"
   homepage "https://www.haskell.org/ghcup/"
   # There is a tarball at Hackage, but that doesn't include the shell completions.
-  url "https://github.com/haskell/ghcup-hs/archive/refs/tags/v0.1.19.4.tar.gz"
-  sha256 "72f9014c3f723365c04422bc2ff9ac1b1c60cd6f25792fa289ea2078b407aab5"
+  url "https://github.com/haskell/ghcup-hs/archive/refs/tags/v0.1.22.0.tar.gz"
+  sha256 "73e1644731ebe9b4782c5dc080ce2b2c3022449c92bcec9cda15fc06300568df"
   license "LGPL-3.0-only"
   head "https://github.com/haskell/ghcup-hs.git", branch: "master"
 
@@ -14,18 +14,19 @@ class Ghcup < Formula
   end
 
   bottle do
-    rebuild 1
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "265c89bb4b86c2ccb2dddf505b3f42aac8d74966a7c33c0fa02df638696aa107"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "bb5654fc951a2c3b7ee3b230b3e0897e72ff159bad98aa8cb47e2246f0a54b2c"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "60694c05d2030567b88d72cb3c277ba56c440f4168750be4eef63283a167929b"
-    sha256 cellar: :any_skip_relocation, sonoma:         "84f74f0e21b9013514d1684019e5fa54c676e7c52165cad4eb7e6aab70ec16f9"
-    sha256 cellar: :any_skip_relocation, ventura:        "99e059dfa9fdec6e023b50d3556b818d8d6fc65b1a25419d8e86cd9ce4a92cb8"
-    sha256 cellar: :any_skip_relocation, monterey:       "2b9745f11343dc686d5bdf5806274f13bd27a952be67b4d8c0d8abd8ba21032f"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "a2b715d10279d9d6cb7d03935b6de7a6d9dc74d56357244cee04360ac4e22d6e"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "42ade76db70a776050120860ff93699c3aea29033b1f409b1bcfd3d4357515d5"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "eb6fcf558e4075c0f118218b0370b5c8c25cd6454098205c9b30a32b274c1284"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "10ffa68e887981f4a1dd857a8c049ee8660ea42ab01c80c7dec345206c1e705b"
+    sha256 cellar: :any_skip_relocation, sonoma:         "9241ef68c71ad68977dc3816f8b7c00c09fc718e4e831cb4a7cf478b2c1d271d"
+    sha256 cellar: :any_skip_relocation, ventura:        "6fc49198466290116e20dcf5fa18a3c769b7a596a25e4cbe3f24ecbfe7991013"
+    sha256 cellar: :any_skip_relocation, monterey:       "17892b43dabe9cd9264e48541de4e1e2239786891bccae722ab52838ef6580ff"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "816ed6721a32b7a8a3fe14dca949cf6383a54544ef9bcf5dab4cd0e2f32867ba"
   end
 
   depends_on "cabal-install" => :build
-  depends_on "ghc@9.4" => :build
+  depends_on "ghc@9.4" => :build # ghc 9.6 support issue, https://github.com/haskell/ghcup-hs/issues/979
+
+  uses_from_macos "bzip2"
   uses_from_macos "ncurses"
   uses_from_macos "zlib"
 

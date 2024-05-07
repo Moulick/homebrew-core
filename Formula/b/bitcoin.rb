@@ -1,8 +1,8 @@
 class Bitcoin < Formula
   desc "Decentralized, peer to peer payment network"
   homepage "https://bitcoincore.org/"
-  url "https://bitcoincore.org/bin/bitcoin-core-25.1/bitcoin-25.1.tar.gz"
-  sha256 "bec2a598d8dfa8c2365b77f13012a733ec84b8c30386343b7ac1996e901198c9"
+  url "https://bitcoincore.org/bin/bitcoin-core-26.1/bitcoin-26.1.tar.gz"
+  sha256 "9164ee5d717b4a20cb09f0496544d9d32f365734814fe399f5cdb4552a9b35ee"
   license "MIT"
   head "https://github.com/bitcoin/bitcoin.git", branch: "master"
 
@@ -12,13 +12,13 @@ class Bitcoin < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_sonoma:   "8e1553d204b4dacc3d4ca9d47bc22f767f204eed2101394c598515b0959d5d2b"
-    sha256 cellar: :any,                 arm64_ventura:  "b84735f2deea9d76f0baf7e3e431c1946453774329d1d38e0e5d95ad89e5235d"
-    sha256 cellar: :any,                 arm64_monterey: "1be587ef78942cd1631d7fc56ca75bc9f6a4f04f88423cd6a7672f9d334b8f0d"
-    sha256 cellar: :any,                 sonoma:         "87a46850cfe4942d3f564bb01be5d48c911d0c25921bd4f75e0f4b1842f45c00"
-    sha256 cellar: :any,                 ventura:        "754d5abddf7fb242e9316e5fb68fec66b7e614b83101e6e8c7777bee33996dc8"
-    sha256 cellar: :any,                 monterey:       "a4eb426b91914aabe88449a369d9e6447241095e2e5cf89b5b9aae2cef5a4fb8"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "f9a3f3f799e84c2fe9176dad970298b8760934b911a2e0266528418f8c8028ff"
+    sha256 cellar: :any,                 arm64_sonoma:   "9f31e1e345f50e5fa63a3fdca07115d53e556bea31b8370dcae48b23b4aabdbf"
+    sha256 cellar: :any,                 arm64_ventura:  "ec9cb37c32dddd4a7cd438349a478148b3c580c0eaa732dbe9940880dfea7dcc"
+    sha256 cellar: :any,                 arm64_monterey: "da3f1b6089c6e8e16c2a613f65615433c29a35287a810436a67da682e327f7b0"
+    sha256 cellar: :any,                 sonoma:         "13e9e5b60b4388260104808a8fbc55181b9aa0924821963ee7170e02902c0f30"
+    sha256 cellar: :any,                 ventura:        "9f542bd0ae8fe8755ca3de730b43abd5fecf49441bbd696532625c56e8cbe52a"
+    sha256 cellar: :any,                 monterey:       "7bcce40dccc2940a0c9996378f1395e9b76a342575e8897b71434e8995b53639"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "6694e26f630f53bc2ed624fb17bc1f5f0ede7aa99920c56f57c6e994115d95ab"
   end
 
   depends_on "autoconf" => :build
@@ -31,7 +31,7 @@ class Bitcoin < Formula
   depends_on "berkeley-db@4"
   depends_on "boost"
   depends_on "libevent"
-  depends_on macos: :catalina
+  depends_on macos: :big_sur
   depends_on "miniupnpc"
   depends_on "zeromq"
 
@@ -44,6 +44,16 @@ class Bitcoin < Formula
   fails_with :gcc do
     version "7" # fails with GCC 7.x and earlier
     cause "Requires std::filesystem support"
+  end
+
+  patch do
+    url "https://github.com/bitcoin/bitcoin/commit/e1e3396b890b79d6115dd325b68f456a0deda57f.patch?full_index=1"
+    sha256 "b9bb2d6d2ae302bc1bd3956c7e7e66a25e782df5dc154b9d2b17d28b23fda1ad"
+  end
+
+  patch do
+    url "https://github.com/bitcoin/bitcoin/commit/9c144154bd755e3765a51faa42b8849316cfdeb9.patch?full_index=1"
+    sha256 "caeb3c04eda55b260272bfbdb4f512c99dbf2df06b950b51b162eaeb5a98507a"
   end
 
   def install
@@ -64,7 +74,8 @@ class Bitcoin < Formula
 
     # Test that we're using the right version of `berkeley-db`.
     port = free_port
-    bitcoind = spawn bin/"bitcoind", "-regtest", "-rpcport=#{port}", "-listen=0", "-datadir=#{testpath}"
+    bitcoind = spawn bin/"bitcoind", "-regtest", "-rpcport=#{port}", "-listen=0", "-datadir=#{testpath}",
+                                     "-deprecatedrpc=create_bdb"
     sleep 15
     # This command will fail if we have too new a version.
     system bin/"bitcoin-cli", "-regtest", "-datadir=#{testpath}", "-rpcport=#{port}",

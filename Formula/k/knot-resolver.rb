@@ -1,10 +1,9 @@
 class KnotResolver < Formula
   desc "Minimalistic, caching, DNSSEC-validating DNS resolver"
   homepage "https://www.knot-resolver.cz"
-  url "https://secure.nic.cz/files/knot-resolver/knot-resolver-5.7.0.tar.xz"
-  sha256 "383ef6db1cccabd2dd788ea9385f05e98a2bafdfeb7f0eda57ff9d572f4fad71"
+  url "https://secure.nic.cz/files/knot-resolver/knot-resolver-5.7.2.tar.xz"
+  sha256 "5f6a227390fcd4c2d0a8028a652b55a9d863ec7be01298fe038df1d273fb9a0f"
   license all_of: ["CC0-1.0", "GPL-3.0-or-later", "LGPL-2.1-or-later", "MIT"]
-  revision 1
   head "https://gitlab.labs.nic.cz/knot/knot-resolver.git", branch: "master"
 
   livecheck do
@@ -13,15 +12,13 @@ class KnotResolver < Formula
   end
 
   bottle do
-    sha256 arm64_sonoma:   "9db269775fc6ce2266790e19280a3330e781ec5afa3119bc4081e174a1c82a4c"
-    sha256 arm64_ventura:  "b129c87a2134aa0ae49e0df544714fa17f0b66053cde08067e4ae29441201d80"
-    sha256 arm64_monterey: "521d2e624647b10d9af77dae70f38e1c53201f107e4fea1a978a18198d01f478"
-    sha256 arm64_big_sur:  "1de3b05f43d3b6087fceaf189fd78e2c384505af6715632be3c632b23fc22964"
-    sha256 sonoma:         "7ab4f5f95f5e174d1cbe7ee9a29475188d0883e4c8a1e6da2ded5b95bc6b74d0"
-    sha256 ventura:        "58dec4665c73538d7ea34b9e6f237374994818ac80391454994cb6338a8ab391"
-    sha256 monterey:       "b5fa46c74e301df115e00cc638df6cad41d2c8b38911f9f24373e05c2780738c"
-    sha256 big_sur:        "40776a6aa32b7fd5e43c47c836200e417c02ea99bda9bcc5416aa8bf597b314c"
-    sha256 x86_64_linux:   "6a90e05c7193d7849a00dc4cf96cde98cb0b4f9060500ad037a4931585948a79"
+    sha256 arm64_sonoma:   "ca3e061098bf62a05472b8848b9878323507158825dc5eba3859aec145eef2c0"
+    sha256 arm64_ventura:  "92d971d8ea1a7869f3137997f0d57eb7979f22a17c979005341b5d4b0926c9de"
+    sha256 arm64_monterey: "2331dbb17923e62fea433d75e7df52571d25afc2554d594f66a4b64ab4b1fc40"
+    sha256 sonoma:         "5baee71ea5371ab075c20a4bec31ce979151d5ea280b3879fcd554d6f7dd0c9d"
+    sha256 ventura:        "59c31aa06e7e22f558cb68e77abb32bb21ee2c5ec17c7f4a7d995685a13a66b6"
+    sha256 monterey:       "0a2a9f882b02b45fd1f579f4fbbd8c07ad435ad3c3d8b0f1016044c17d78a2bc"
+    sha256 x86_64_linux:   "a77943712ac31be3dc450e80958b4d89cb591e94c5c7d7437cdfa9de82249e5d"
   end
 
   depends_on "meson" => :build
@@ -40,14 +37,12 @@ class KnotResolver < Formula
   end
 
   def install
-    args = std_meson_args + ["--default-library=static"]
+    args = ["--default-library=static"]
     args << "-Dsystemd_files=enabled" if OS.linux?
 
-    mkdir "build" do
-      system "meson", *args, ".."
-      system "ninja", "-v"
-      system "ninja", "install", "-v"
-    end
+    system "meson", "setup", "build", *args, *std_meson_args
+    system "meson", "compile", "-C", "build", "--verbose"
+    system "meson", "install", "-C", "build"
   end
 
   def post_install

@@ -1,23 +1,21 @@
 class Pan < Formula
   desc "Usenet newsreader that's good at both text and binaries"
-  homepage "https://pan.rebelbase.com"
-  url "https://gitlab.gnome.org/GNOME/pan/-/archive/v0.154/pan-v0.154.tar.bz2"
-  sha256 "440317954df7217689100df3dfb68865770f5aed1b8ed2b45432d771bb80a8c9"
+  homepage "https://gitlab.gnome.org/GNOME/pan"
+  url "https://gitlab.gnome.org/GNOME/pan/-/archive/v0.158/pan-v0.158.tar.bz2"
+  sha256 "fb3673ef34fb3fb1008af7ed22fe6c82cfb603b16df9d1edba4259595cb9d303"
   license "GPL-2.0-only"
 
   bottle do
-    sha256 arm64_sonoma:   "e4fcb1f5c2789fcceec936f1b5c02912ddae3f25c83352fbf07ebeb4736fc624"
-    sha256 arm64_ventura:  "30f5b64944c582e5270b3c4d3410317cc531198b3fc6732278f0bcad59ba14dd"
-    sha256 arm64_monterey: "c7f0b331a69759c3caaa49daeb52bbbdf08715cb8b666eaaba19f567a980e90d"
-    sha256 sonoma:         "23e2a06deabd0b066ed75763aa6e5ee683d9ebd751b424ffb63cdcd63efd61c1"
-    sha256 ventura:        "8dfdf0bcc1f5f1e22db31dcfdc33172b44d7fca653ed0a19eae9c36b0af7ac1d"
-    sha256 monterey:       "180f252594529865e2aea62980dae9eb7dcc93b64883b3992c76e4921890ee97"
-    sha256 x86_64_linux:   "7dcaa54b1e8306a5318357449e1022ef21684efddab8417490bd566c59ae60a2"
+    sha256 arm64_sonoma:   "89f06d595c6eb77742628c0033548344218de3c2656ffa39ad1198ab2202897f"
+    sha256 arm64_ventura:  "1dd8b88602d5a43b10a3efe90d14aa7222908834c2867b9c1db21b676248e251"
+    sha256 arm64_monterey: "6a2697c9055f1507948b595c02c9bb89e001c5e0123d29c9c95a53ca77f80e04"
+    sha256 sonoma:         "66270b958f281c5f4b13cb96d228fc0415a3acbd96c38de3bc917ed443b67b2d"
+    sha256 ventura:        "83311358c94d27d3e1e4e8ca77c293a459b11678f7b5f2559a19609f57e39173"
+    sha256 monterey:       "1c39a380c4bb4333cffea6a48a27e66e7ce33f236a1cf3fd7deb7ab70bfea6d0"
+    sha256 x86_64_linux:   "186ae8e0a3d60c00cc0bf8aa35f8dda9247bd0644d7a6e887a8e0da721288063"
   end
 
-  depends_on "autoconf" => :build
-  depends_on "automake" => :build
-  depends_on "itstool" => :build
+  depends_on "cmake" => :build
   depends_on "pkg-config" => :build
   depends_on "adwaita-icon-theme"
   depends_on "cairo"
@@ -32,20 +30,17 @@ class Pan < Formula
   depends_on "harfbuzz"
   depends_on "pango"
 
+  # Specify C++11 standard to fix the build on macOS
+  # upstream build patch, https://gitlab.gnome.org/GNOME/pan/-/merge_requests/51
+  patch do
+    url "https://gitlab.gnome.org/GNOME/pan/-/commit/bd9e8fbcbda40c8c8c4cc6d77f2776382c82ae15.diff"
+    sha256 "ab31b1cc25638b0eab18ec0f387c38f30d197570aa6741559d25e8044fa7cedf"
+  end
+
   def install
-    # use brew name for gtk3 version of tool update-icon-cache
-    inreplace "pan/icons/Makefile.am", "gtk-update-icon-cache", "gtk3-update-icon-cache"
-
-    # fix libiconv linking https://gitlab.gnome.org/GNOME/pan/-/issues/171
-    ENV.append "LDFLAGS", "-liconv" if OS.mac?
-    ENV.append "CXXFLAGS", "-std=c++11"
-
-    system "NOCONFIGURE=1 ./autogen.sh"
-    system "./configure", *std_configure_args,
-                          "--disable-silent-rules",
-                          "--with-gnutls"
-    system "make"
-    system "make", "install"
+    system "cmake", "-S", ".", "-B", "build", *std_cmake_args
+    system "cmake", "--build", "build"
+    system "cmake", "--install", "build"
   end
 
   test do

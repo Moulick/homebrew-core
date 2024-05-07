@@ -1,8 +1,8 @@
 class MariadbAT106 < Formula
   desc "Drop-in replacement for MySQL"
   homepage "https://mariadb.org/"
-  url "https://archive.mariadb.org/mariadb-10.6.15/source/mariadb-10.6.15.tar.gz"
-  sha256 "b2f6bdba17ead4d91c4d254fafc34a728ac6b027dd1d7178bc26758dce694335"
+  url "https://archive.mariadb.org/mariadb-10.6.17/source/mariadb-10.6.17.tar.gz"
+  sha256 "fb41b0702059c046832d60138733acb73e4c0e5a1a0681061709d25591e4b086"
   license "GPL-2.0-only"
 
   livecheck do
@@ -18,15 +18,13 @@ class MariadbAT106 < Formula
   end
 
   bottle do
-    sha256 arm64_sonoma:   "fc08339c424612ac31095b558e8e9183b7ae96002978697ff73bd7b4ff32e2c8"
-    sha256 arm64_ventura:  "22ec94bbc067f0d7e73b48f753ce7956eb6319fcceeb6c501e6f9f9a1cc924e2"
-    sha256 arm64_monterey: "c506cba757b65545f6abe0fca3ffe55af36641f22a5cb60bdd7f1fe22c29b8e6"
-    sha256 arm64_big_sur:  "4cc0367b7fd5c0d19ded36a75175c43673ee654167a142bc5c1eced86b89c135"
-    sha256 sonoma:         "c4609b76091ba2b29e244bb51ebc88fc49cd056e43a895c7884027e4491e36af"
-    sha256 ventura:        "5988ea3e711d350123e412d3c81776527bfc070cc60c17cc20d1540b01e66be5"
-    sha256 monterey:       "68fda77447d84bf7c4d31405a07fb5387b97f606bfe53a43fa230eedafa0326e"
-    sha256 big_sur:        "f10268b56a2c11ad6b117ffddedddf5658ae8731a354cf2173476aa48c0e2f0a"
-    sha256 x86_64_linux:   "c7be61391584ff6864ddf7e7b01a69e044705fa6cf7c8321ce7797e994fb3866"
+    sha256 arm64_sonoma:   "58bb92d7a3fc3a9a6f7d12a2ad6524f49616ad0a91a7bc152f951b40c5078a46"
+    sha256 arm64_ventura:  "710b772bfb5dedd610aa0992babe615d6993846725f51fd074450964b30d7b06"
+    sha256 arm64_monterey: "2abcdb914fe29f38c32a6584cc0b5d364ab36593cf21e279e0aa8bd2ca9c7356"
+    sha256 sonoma:         "3b47f68b0874a680b2e0d869815faac8c5e48e99e0d92c5555358f23ebd066bc"
+    sha256 ventura:        "07bd66c2968e4457cd78b9af6272bfee9aa369856ad8377f8234af769a4bcdf6"
+    sha256 monterey:       "8af07bc7d5c281b0ec834fe2748a9d29a7e06f1beffab16baeed87f6496c74c0"
+    sha256 x86_64_linux:   "faf4f00b3c6974e2d20fb6102c25caa1ab5694de8c0f59eb07f78fc7d3ec7e89"
   end
 
   keg_only :versioned_formula

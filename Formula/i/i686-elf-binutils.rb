@@ -1,9 +1,9 @@
 class I686ElfBinutils < Formula
   desc "GNU Binutils for i686-elf cross development"
   homepage "https://www.gnu.org/software/binutils/"
-  url "https://ftp.gnu.org/gnu/binutils/binutils-2.41.tar.bz2"
-  mirror "https://ftpmirror.gnu.org/binutils/binutils-2.41.tar.bz2"
-  sha256 "a4c4bec052f7b8370024e60389e194377f3f48b56618418ea51067f67aaab30b"
+  url "https://ftp.gnu.org/gnu/binutils/binutils-2.42.tar.bz2"
+  mirror "https://ftpmirror.gnu.org/binutils/binutils-2.42.tar.bz2"
+  sha256 "aa54850ebda5064c72cd4ec2d9b056c294252991486350d9a97ab2a6dfdfaf12"
   license "GPL-3.0-or-later"
 
   livecheck do
@@ -11,16 +11,19 @@ class I686ElfBinutils < Formula
   end
 
   bottle do
-    sha256 arm64_sonoma:   "69f08ea80f0135d861d956f15e720e80574373c366e9643b8663642bdc311726"
-    sha256 arm64_ventura:  "0969645b1766aa7280cb23392da79248549b302b90c3d983826746f6e8a44e35"
-    sha256 arm64_monterey: "6c9636d966ea3d95e9147056ab2e14e1c203023fa11be042bbb1fabf183f085a"
-    sha256 arm64_big_sur:  "11afb15debb99ef8a1475e90551be8baafd10e14a9507753d9fbcab378abea77"
-    sha256 sonoma:         "dae563b292cdb79867ef0d693288a57a5039854db78fc357664d406f3484348b"
-    sha256 ventura:        "7f753b8c8264e707452a60793fbee38b4e11d93630b2637f2fc49364e1b08fe9"
-    sha256 monterey:       "aac1095204267bd257b9d90219dcfd278fbc438f9cbc7418b1d137f6e8701f2d"
-    sha256 big_sur:        "42629840da2048dd49447f356b4152ca8dd948a7f4b7ad8cc2e4ed527d241ca5"
-    sha256 x86_64_linux:   "36f833ce6e67de8d5049e965e6e6e23e904f4f2c539c02636cf71b6c30eec3d8"
+    sha256 arm64_sonoma:   "804d849a27e5ee2b822f58b5877a6b2529bc9e1292106232e9e8efa2f2231621"
+    sha256 arm64_ventura:  "4ba5070c9e8a3df848ad7e47b8e8451dab3b32394a25d92026386ee715b330b6"
+    sha256 arm64_monterey: "af17c2346c5270ca02124d957e1e0f62e4c7a40669ecc37e12578649b3852352"
+    sha256 sonoma:         "85defe4d17e25e359c03e408ec91ddd512579fe8d41c02c71221381adecfa510"
+    sha256 ventura:        "a5e8ec4c681084eb9b931d87553655ce2673d17adb1846968a32ea17f1609e65"
+    sha256 monterey:       "df47d8f2feef198edfca99bf9477fbe3d0d22019a8a620de050ef0b8f68984d0"
+    sha256 x86_64_linux:   "a52dd1e22aece73ec60f665ee1748ae63b6cb408672646c6ad5268f0260179a4"
   end
+
+  depends_on "pkg-config" => :build
+  depends_on "zstd"
+
+  uses_from_macos "zlib"
 
   on_system :linux, macos: :ventura_or_newer do
     depends_on "texinfo" => :build
@@ -32,6 +35,8 @@ class I686ElfBinutils < Formula
                           "--prefix=#{prefix}",
                           "--libdir=#{lib}/#{target}",
                           "--infodir=#{info}/#{target}",
+                          "--with-system-zlib",
+                          "--with-zstd",
                           "--disable-nls"
     system "make"
     system "make", "install"

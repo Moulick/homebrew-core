@@ -3,28 +3,27 @@ class Internetarchive < Formula
 
   desc "Python wrapper for the various Internet Archive APIs"
   homepage "https://github.com/jjjake/internetarchive"
-  url "https://files.pythonhosted.org/packages/7a/6a/ce5deecc9a65709e48367bf949874551fee5f4f595141b7fd0d4426b0d95/internetarchive-3.5.0.tar.gz"
-  sha256 "2a9625e1dcbe431e5b898402273a4345bf5cb46012599cbe92e664ffdc36e881"
+  url "https://files.pythonhosted.org/packages/81/dc/4d0e4e099068774627b88472881ccd3cc7458b0f20e15b9decb8f327fcd0/internetarchive-4.0.1.tar.gz"
+  sha256 "8e897ee1c054edff40744e65e16d697dbfae26b0645a5fc7762cbaf88aff87b7"
   license "AGPL-3.0-or-later"
-  revision 3
+  revision 1
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "b63ea2dc2e3833bcbc2cdff29707455af4a10d0a97ce20a099d161a587d32a0a"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "a96eed814b3ac1b04f2af5bdfc1bee92317ed3b849482ff2197102777b23da07"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "50c37b13dbacb7d499299f983ddff6e54eb8339d5a2ee528ddf4880dd61aeb50"
-    sha256 cellar: :any_skip_relocation, sonoma:         "58029b191bb4b4260680d624d52dba6eae9ae9afa7e925e437ba41189e0babbf"
-    sha256 cellar: :any_skip_relocation, ventura:        "30bdb5f7cdb6fa269923fb4df46eb61c2b8efa49ee4a4d606bbef67a00175c94"
-    sha256 cellar: :any_skip_relocation, monterey:       "acadb0ed0d4dbaa4914d66fd3f4b84bddf75b022bf8aaa5f70be70835edf20a9"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "23a5d702aab58e696f355d143d1df051cc43dd20b95d257ede56c0776036d87f"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "f41d1e42998cc5a55815205e3415361b997f9d8ae5f64993e58f1d5a31bd44ab"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "f41d1e42998cc5a55815205e3415361b997f9d8ae5f64993e58f1d5a31bd44ab"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "f41d1e42998cc5a55815205e3415361b997f9d8ae5f64993e58f1d5a31bd44ab"
+    sha256 cellar: :any_skip_relocation, sonoma:         "f41d1e42998cc5a55815205e3415361b997f9d8ae5f64993e58f1d5a31bd44ab"
+    sha256 cellar: :any_skip_relocation, ventura:        "f41d1e42998cc5a55815205e3415361b997f9d8ae5f64993e58f1d5a31bd44ab"
+    sha256 cellar: :any_skip_relocation, monterey:       "f41d1e42998cc5a55815205e3415361b997f9d8ae5f64993e58f1d5a31bd44ab"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "886f5074457587cda4af340ece302cecde34c63376763926b5a4307ffa8e4b98"
   end
 
-  depends_on "python-certifi"
-  depends_on "python-setuptools"
+  depends_on "certifi"
   depends_on "python@3.12"
 
   resource "charset-normalizer" do
-    url "https://files.pythonhosted.org/packages/cf/ac/e89b2f2f75f51e9859979b56d2ec162f7f893221975d244d8d5277aa9489/charset-normalizer-3.3.0.tar.gz"
-    sha256 "63563193aec44bce707e0c5ca64ff69fa72ed7cf34ce6e11d5127555756fd2f6"
+    url "https://files.pythonhosted.org/packages/63/09/c1bc53dab74b1816a00d8d030de5bf98f724c52c1635e07681d312f20be8/charset-normalizer-3.3.2.tar.gz"
+    sha256 "f30c3cb33b24454a82faecaf01b19c18562b1e89558fb6c56de4d9118a032fd5"
   end
 
   resource "contextlib2" do
@@ -38,8 +37,8 @@ class Internetarchive < Formula
   end
 
   resource "idna" do
-    url "https://files.pythonhosted.org/packages/8b/e1/43beb3d38dba6cb420cefa297822eac205a277ab43e5ba5d5c46faf96438/idna-3.4.tar.gz"
-    sha256 "814f528e8dead7d329833b91c5faa87d60bf71824cd12a7530b5526063d02cb4"
+    url "https://files.pythonhosted.org/packages/21/ed/f86a79a07470cb07819390452f178b3bef1d375f2ec021ecfc709fc7cf07/idna-3.7.tar.gz"
+    sha256 "028ff3aadf0609c1fd278d8ea3089299412a7a8b9bd005dd08b9f8285bcb5cfc"
   end
 
   resource "jsonpatch" do
@@ -63,18 +62,18 @@ class Internetarchive < Formula
   end
 
   resource "tqdm" do
-    url "https://files.pythonhosted.org/packages/62/06/d5604a70d160f6a6ca5fd2ba25597c24abd5c5ca5f437263d177ac242308/tqdm-4.66.1.tar.gz"
-    sha256 "d88e651f9db8d8551a62556d3cff9e3034274ca5d66e93197cf2490e2dcb69c7"
+    url "https://files.pythonhosted.org/packages/5a/c0/b7599d6e13fe0844b0cda01b9aaef9a0e87dbb10b06e4ee255d3fa1c79a2/tqdm-4.66.4.tar.gz"
+    sha256 "e4d936c9de8727928f3be6079590e97d9abfe8d39a590be678eb5919ffc186bb"
   end
 
   resource "urllib3" do
-    url "https://files.pythonhosted.org/packages/af/47/b215df9f71b4fdba1025fc05a77db2ad243fa0926755a52c5e71659f4e3c/urllib3-2.0.7.tar.gz"
-    sha256 "c97dfde1f7bd43a71c8d2a58e369e9b2bf692d1334ea9f9cae55add7d0dd0f84"
+    url "https://files.pythonhosted.org/packages/7a/50/7fd50a27caa0652cd4caf224aa87741ea41d3265ad13f010886167cfcc79/urllib3-2.2.1.tar.gz"
+    sha256 "d0570876c61ab9e520d776c38acbbb5b05a776d3f9ff98a5c8fd5162a444cf19"
   end
 
   def install
+    ENV["PIP_USE_PEP517"] = "1"
     virtualenv_install_with_resources
-    bin.install_symlink libexec/"bin/ia"
   end
 
   test do

@@ -1,11 +1,25 @@
 class Ledger < Formula
   desc "Command-line, double-entry accounting tool"
   homepage "https://ledger-cli.org/"
-  url "https://github.com/ledger/ledger/archive/refs/tags/v3.3.2.tar.gz"
-  sha256 "555296ee1e870ff04e2356676977dcf55ebab5ad79126667bc56464cb1142035"
   license "BSD-3-Clause"
-  revision 2
+  revision 4
   head "https://github.com/ledger/ledger.git", branch: "master"
+
+  stable do
+    url "https://github.com/ledger/ledger/archive/refs/tags/v3.3.2.tar.gz"
+    sha256 "555296ee1e870ff04e2356676977dcf55ebab5ad79126667bc56464cb1142035"
+
+    # Support building with mandoc
+    # Remove with v3.4.x
+    patch do
+      url "https://github.com/ledger/ledger/commit/f40cee6c3af4c9cec05adf520fc7077a45060434.patch?full_index=1"
+      sha256 "d5be89dbadff7e564a750c10cdb04b83e875452071a2115dd70aae6e7a8ee76c"
+    end
+    patch do
+      url "https://github.com/ledger/ledger/commit/14b90d8d952b40e0a474223e7f74a1e6505d5450.patch?full_index=1"
+      sha256 "d250557e385163e3ad3002117ebe985af040d915aab49ae1ea342db82398aeda"
+    end
+  end
 
   livecheck do
     url :stable
@@ -13,13 +27,13 @@ class Ledger < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_sonoma:   "b0dc74b62b52e5d980aedf03a7f35155450d928cb0bfcfbadeeb1402236bf868"
-    sha256 cellar: :any,                 arm64_ventura:  "70313b14bf52c7721fbcaccf2d3ad81be89faec6230f69632842362f52227cf7"
-    sha256 cellar: :any,                 arm64_monterey: "0b9c0c3b030ff2d1e90f12bcda638cd991fe0a2454d20ee8c466c468910161d3"
-    sha256 cellar: :any,                 sonoma:         "93309f297cb3a9931db80633b66e575282104699f46d683afa29775e190d278b"
-    sha256 cellar: :any,                 ventura:        "1615ec32941999e6596e2455ddc12043e9ac1fcd4b385bd161820e3fa72ee076"
-    sha256 cellar: :any,                 monterey:       "23322a8bda67c6fd6bac3ff2603a61df5eaebe376c4767095cb5c29d6e6938e0"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "4c2527a7f03514d652d5b7f68483fb048b1fe1c451e23441e1c46031f2802de5"
+    sha256 cellar: :any,                 arm64_sonoma:   "bb9834ceed45016edd34db30241a5474f8fe6cf55b75f9c8a63e1d8c6268ac2b"
+    sha256 cellar: :any,                 arm64_ventura:  "ca8de31777a7dd2afc9735b178e415e5e8034e34585193f3c68b31b39f2fe64b"
+    sha256 cellar: :any,                 arm64_monterey: "820af38e740ca052be182d4922ccc25cb5f9b15dd2ab83bea550dd8b275ffde8"
+    sha256 cellar: :any,                 sonoma:         "3f41fb3d90e6b5844ac30fa76a0facdb185ffaa78d711e64f887e5e8b147943c"
+    sha256 cellar: :any,                 ventura:        "2555b42ce1063b39910f906f7250080776884ebd1555e51a35dce1eabb88a48d"
+    sha256 cellar: :any,                 monterey:       "c20b917ab8d18494aa0bdb2fb8d8e6bba5c4c2909ae0fc5eb3c8ccc4b2b4e699"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "7d960afd65dcd0c32dd4699883907b7a444e1f32753a03082b07826f6e7b7f09"
   end
 
   depends_on "cmake" => :build
@@ -28,17 +42,21 @@ class Ledger < Formula
   depends_on "gmp"
   depends_on "gpgme"
   depends_on "mpfr"
-  depends_on "python@3.11"
+  depends_on "python@3.12"
 
+  uses_from_macos "mandoc" => :build
   uses_from_macos "libedit"
 
-  on_system :linux, macos: :ventura_or_newer do
-    depends_on "groff" => :build
+  # Fix build with `boost` 1.85.0 using open PR.
+  # PR ref: https://github.com/ledger/ledger/pull/2337
+  patch do
+    url "https://github.com/ledger/ledger/commit/1da89f6ffb44a44257b9774c4ceb71e7b495d677.patch?full_index=1"
+    sha256 "8aaf8daf4748f359946c64488c96345f4a4bdf928f6ec7a1003610174428599f"
   end
 
   def install
     ENV.cxx11
-    ENV.prepend_path "PATH", Formula["python@3.11"].opt_libexec/"bin"
+    ENV.prepend_path "PATH", Formula["python@3.12"].opt_libexec/"bin"
 
     args = %W[
       --jobs=#{ENV.make_jobs}

@@ -4,16 +4,16 @@ class Freeling < Formula
   url "https://github.com/TALP-UPC/FreeLing/releases/download/4.2/FreeLing-src-4.2.1.tar.gz"
   sha256 "c672a6379142ac2e872741e7662f17eccd8230bffc680564d2843d87480f1600"
   license "AGPL-3.0-only"
-  revision 1
+  revision 4
 
   bottle do
-    sha256 cellar: :any,                 arm64_sonoma:   "e2a3b653258df8b0dfb17a96c18dc243398d24a2e77663ad77ca1a80cfb38a49"
-    sha256 cellar: :any,                 arm64_ventura:  "3cc71b269904e9904814b0d6e4439ca7bf5897fbf8f87f69e9d844aa03c15c49"
-    sha256 cellar: :any,                 arm64_monterey: "71df3f25d9c05a12919ba1d9b6f6d0d43f2e22a894024d773cfb9c8a9e559b2d"
-    sha256 cellar: :any,                 sonoma:         "a9f0ec13426454ca2e7bb03da72f5749248c04846cdf1ea08a1957af76a6d84b"
-    sha256 cellar: :any,                 ventura:        "7e2524a5bf4b3eefb5e4bb4e48b4df5dc76eb03abc1f001f6d0d61ce19805d32"
-    sha256 cellar: :any,                 monterey:       "54b5c15f867edfcf83192ede672ca653bca1cb42fa7bcc253d0636d0397f241b"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "b6f75250f361ab01ea9b316294e8d4933274f41299ac5e8be185a195f3418629"
+    sha256 cellar: :any,                 arm64_sonoma:   "e471c2d79859e1f8d856013abc79686966d9e4e0c7ef6f6a7136466574078fed"
+    sha256 cellar: :any,                 arm64_ventura:  "b9aa7ab26bf730c3df6eeae83bdc61beea1340b544f525ad3d2884c971d91efb"
+    sha256 cellar: :any,                 arm64_monterey: "63617b4fa7d506c842a902e1fe320fa6f683b9b308755f557c96c9d4f53074af"
+    sha256 cellar: :any,                 sonoma:         "8529fb52ff2c52de1c6f85530b404c5682cc89ac2d92b1556c7ab6ecdac185b6"
+    sha256 cellar: :any,                 ventura:        "95b5feff0cc251a693c95eeb6a94c3fb589977a8c57ba7a3fe904edea3bf42ee"
+    sha256 cellar: :any,                 monterey:       "3994465596aa9bb62307f9dca37bed9fafe67d9c1e379666ec3fda6c742038f1"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "f9d22cf033e91e1dbce5faa57e0d52b2297795f77aecb162805dd6ff42cef85f"
   end
 
   depends_on "cmake" => :build

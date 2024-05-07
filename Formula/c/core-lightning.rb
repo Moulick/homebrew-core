@@ -1,8 +1,8 @@
 class CoreLightning < Formula
   desc "Lightning Network implementation focusing on spec compliance and performance"
   homepage "https://github.com/ElementsProject/lightning"
-  url "https://github.com/ElementsProject/lightning/releases/download/v23.08.1/clightning-v23.08.1.zip"
-  sha256 "3e89e0ce0afe54cae9f27ae99d1d1009aacc59404f3e34dda1e6efa56ad2cbac"
+  url "https://github.com/ElementsProject/lightning/releases/download/v24.02.2/clightning-v24.02.2.zip"
+  sha256 "2904bfe15994c4990da6f3dcc4be54a7d7f6e657a23f3be2d8088abb3450983a"
   license "MIT"
 
   livecheck do
@@ -11,22 +11,19 @@ class CoreLightning < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_sonoma:   "baab62ca3b976bfde8093407a7e47d5880c93b35c9e6a87b81ad916bb630d9c9"
-    sha256 cellar: :any,                 arm64_ventura:  "6add9c773848aa7a474dd4ae47776e4bb830fc9430166b9886b3d4bb10c1f83c"
-    sha256 cellar: :any,                 arm64_monterey: "f464696331e5515091210b9e860a5f9b1ea4de67d7c9d0d4892fe0895c7ce687"
-    sha256 cellar: :any,                 arm64_big_sur:  "4fcf88bc7d95b0172dea7e67a017d4aa9d5e7092bf1bccd5b848b2029722288e"
-    sha256 cellar: :any,                 sonoma:         "27b0f096d527b87a4fcf242e5d9d07c1a60ebe8d3181e6dc4929b753bfa7cbf5"
-    sha256 cellar: :any,                 ventura:        "da47826e047c559ce53bb80d3abab89e454111e417435d1b8d2d2a07046141bb"
-    sha256 cellar: :any,                 monterey:       "f374b23408ba296f9a33e1c9c9b4403143ba5b188e48695b8c7a867c029ec09d"
-    sha256 cellar: :any,                 big_sur:        "5f0fbd03d05d6cd8b38803f0480f154923051c5a1053da4ddff1a5770437d796"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "0950b6bee363da4f8f10095e177ba39f2014c09066918fcdc5f23554be6cc704"
+    sha256 cellar: :any,                 arm64_sonoma:   "e3f9c9eb2534fae692ab851943190a2fe9c55a4d6f4d61026a858803e8a12dc3"
+    sha256 cellar: :any,                 arm64_ventura:  "7713f1576f99bc28175a0227ae341f0e4059c9b6395cc28c1b12302aae84de25"
+    sha256 cellar: :any,                 arm64_monterey: "9202d9f4bb88a3c2800d0a386227bf9300f09dc34be60d6a55027156770bcb45"
+    sha256 cellar: :any,                 sonoma:         "7492e5c508a7d2ab4d804e7b46343f55fe9fd47ea2ee3b5cae86f59081bf04a0"
+    sha256 cellar: :any,                 ventura:        "24f52b19c49e51404abb65cfcacb1332b69c507608f381e5efaeb7999f1b6d43"
+    sha256 cellar: :any,                 monterey:       "89029cd9010a8f584b1bcf6839e83c72d4a5fe70bb53216a057d2abc7e5b7370"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "c8840c1fd1868c0ae1e4a1b25c3dacd8e74d5230cb873bf91508a80ea85f866a"
   end
 
   depends_on "autoconf" => :build
   depends_on "automake" => :build
   depends_on "gettext" => :build
   depends_on "gnu-sed" => :build
-  depends_on "libsodium" => :build
   depends_on "libtool" => :build
   depends_on "lowdown" => :build
   depends_on "pkg-config" => :build
@@ -35,12 +32,12 @@ class CoreLightning < Formula
 
   depends_on "bitcoin"
   depends_on "gmp"
-  depends_on "python@3.11"
+  depends_on "libsodium"
+  uses_from_macos "python"
   uses_from_macos "sqlite"
 
   def install
     (buildpath/"external/lowdown").rmtree
-    system "poetry", "env", "use", "3.11"
     system "poetry", "install", "--only=main"
     system "./configure", "--prefix=#{prefix}"
     system "poetry", "run", "make", "install"

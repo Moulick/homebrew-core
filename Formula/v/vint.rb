@@ -10,19 +10,18 @@ class Vint < Formula
   head "https://github.com/Vimjas/vint.git", branch: "master"
 
   bottle do
-    rebuild 3
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "1319077794aae2570266011f32f314e0bce928260c3483fc3e8028cfd5b0cf67"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "da095f3c3d7bf27d006250c11af9146b99e2be722b042c85b86cd233ac5ded12"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "0d3589692befc631c2ea8d474df1df078748a5993c9a5ff21d8800d00f34ad49"
-    sha256 cellar: :any_skip_relocation, sonoma:         "d41e154871646df72a558e72d6e9d0d385e3a304faee61e275f843d22c35c243"
-    sha256 cellar: :any_skip_relocation, ventura:        "748682bc4aa982f38f04302e83a1e9e17ecd640dceb5ab8f4cb59d5b21f37902"
-    sha256 cellar: :any_skip_relocation, monterey:       "5128d9f27ec3a1c69f3b0bfc0d09e41c7e755824066da0e2b88d98969dadfc02"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "5c0c1dc2caf33492d3808738a46aa2fe536b0b8b712f17e5b7e8749bff2de117"
+    rebuild 5
+    sha256 cellar: :any,                 arm64_sonoma:   "e2b4843f23ddcae97ec2eec6912274d2863faffb3e6f33f262f3f4814fec94fb"
+    sha256 cellar: :any,                 arm64_ventura:  "f0cd321fba48f328e3c13dab7aecf72ad8c7461b52cf007220d3b24fbf986edb"
+    sha256 cellar: :any,                 arm64_monterey: "81fbb3743b862c733415a7487a2c94d94efd047adbcac284c71e1f151b04cd95"
+    sha256 cellar: :any,                 sonoma:         "96a23e4d02eabbfc64e0085e078a1249095c675ab9129e6f8f913c874649e8d1"
+    sha256 cellar: :any,                 ventura:        "0dd3fe045ce35748872c0d023d58cff039f7637485a68a4500d419b90b298637"
+    sha256 cellar: :any,                 monterey:       "6f214063ba0784a2adb96138a19003def055f2a9b99cad00c6f5947a847238f1"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "933837ebcda670e4b4a7ca57e3352212f75d5152565e482cd4e37577e8eb4013"
   end
 
-  depends_on "python-setuptools"
+  depends_on "libyaml"
   depends_on "python@3.12"
-  depends_on "pyyaml"
 
   resource "ansicolor" do
     url "https://files.pythonhosted.org/packages/79/74/630817c7eb1289a1412fcc4faeca74a69760d9c9b0db94fc09c91978a6ac/ansicolor-0.3.2.tar.gz"
@@ -30,9 +29,19 @@ class Vint < Formula
   end
 
   resource "chardet" do
-    url "https://files.pythonhosted.org/packages/31/a2/12c090713b3d0e141f367236d3a8bdc3e5fca0d83ff3647af4892c16c205/chardet-5.0.0.tar.gz"
-    sha256 "0368df2bfd78b5fc20572bb4e9bb7fb53e2c094f60ae9993339e8671d0afb8aa"
+    url "https://files.pythonhosted.org/packages/f3/0d/f7b6ab21ec75897ed80c17d79b15951a719226b9fababf1e40ea74d69079/chardet-5.2.0.tar.gz"
+    sha256 "1b3b6ff479a8c414bc3fa2c0852995695c4a026dcd6d0633b2dd092ca39c1cf7"
   end
+
+  resource "pyyaml" do
+    url "https://files.pythonhosted.org/packages/cd/e5/af35f7ea75cf72f2cd079c95ee16797de7cd71f29ea7c68ae5ce7be1eda0/PyYAML-6.0.1.tar.gz"
+    sha256 "bfdf460b1736c775f2ba9f6a92bca30bc2095067b8a9d77876d1fad6cc3b4a43"
+  end
+
+  # Drop setuptools dep. Next release will switch to setuptools_scm,
+  # this patch uses importlib for a smaller self-contained diff
+  # https://github.com/Vimjas/vint/commit/997677ae688fbaf47da426500cc56aae7305d243
+  patch :DATA
 
   def install
     virtualenv_install_with_resources
@@ -54,3 +63,33 @@ class Vint < Formula
     assert_equal "", shell_output("#{bin}/vint good.vim")
   end
 end
+
+__END__
+diff --git a/vint/linting/cli.py b/vint/linting/cli.py
+index 55db52e..c347f23 100644
+--- a/vint/linting/cli.py
++++ b/vint/linting/cli.py
+@@ -1,7 +1,6 @@
+ import sys
+ from argparse import ArgumentParser
+ from pathlib import PosixPath
+-import pkg_resources
+ import logging
+
+ from vint.linting.linter import Linter
+@@ -150,11 +149,11 @@ class CLI(object):
+
+
+     def _get_version(self):
+-        # In unit tests, pkg_resources cannot find vim-vint.
+-        # So, I decided to return dummy version
++        from importlib import metadata
++
+         try:
+-            version = pkg_resources.require('vim-vint')[0].version
+-        except pkg_resources.DistributionNotFound:
++            version = metadata.version('vim-vint')
++        except metadata.PackageNotFoundError:
+             version = 'test_mode'
+
+         return version

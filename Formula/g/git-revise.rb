@@ -9,21 +9,20 @@ class GitRevise < Formula
   head "https://github.com/mystor/git-revise.git", branch: "main"
 
   bottle do
-    rebuild 2
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "f24bc3d536e9aa3ee38043d2d7f42169234474b6bff0d6f6dbdbf497c776f5e1"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "938a6cfb9895ec730d162419eed3a0f0df43d0810c9599809ca25484d7355adf"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "d460d4fc56c643947602a3e171891d9b4d79679c49d982860fbb5039a725b5f5"
-    sha256 cellar: :any_skip_relocation, sonoma:         "9d526b3ee9ec7ac180a06861fe45f0dfd56d87c2d2f2a31603e99e04450b6e63"
-    sha256 cellar: :any_skip_relocation, ventura:        "8df48a5acf737f4910de8a4a9e0d2b8e451811897801fd5c64635dbf02462e4b"
-    sha256 cellar: :any_skip_relocation, monterey:       "b332573f0ea2df96b297f348d1097407fc03d0dd1233b98b1e6d80f735638453"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "e820a84ec1cfd1c0f6fd708b00ad52f8029c88c0f0147fa23f88542ae7756029"
+    rebuild 4
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "11dee0e25565318d45ab229acba72ad2c6d361e189cd2705640108f785bd9ea6"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "588a6d0106afa9238ff313c2912587509d6edc4742dcee636cbd5c734abd4a17"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "5edfb6441cfd0d7398e3258a8f84a837ef11425e6b161be2bf58d1da255a7e29"
+    sha256 cellar: :any_skip_relocation, sonoma:         "ffb5825703b89a7e69d3448f7052bfea2f88204cfe995ff9e4fb4938728dfdeb"
+    sha256 cellar: :any_skip_relocation, ventura:        "5aa4462e2e945c8c6d52318617a3a098261b4e22adaefb637b400e25c4865eee"
+    sha256 cellar: :any_skip_relocation, monterey:       "3aa713d6b837d9d0201e9efe402f2e367c06fbe8a3033a8e861c749d3ba1f748"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "8cc6240886847417ae649ca83c00b2872942e3ccf7f545bdde1cf9d22dc52471"
   end
 
   depends_on "python@3.12"
 
   def install
     virtualenv_install_with_resources
-    man1.install "git-revise.1"
   end
 
   test do

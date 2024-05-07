@@ -1,18 +1,18 @@
 class PhraseCli < Formula
   desc "Tool to interact with the Phrase API"
   homepage "https://phrase.com/"
-  url "https://github.com/phrase/phrase-cli/archive/refs/tags/2.14.0.tar.gz"
-  sha256 "0674ea0f188f7e65983beb782c947fd6719b9300dc4fa43ddef6186d7000bf54"
+  url "https://github.com/phrase/phrase-cli/archive/refs/tags/2.27.0.tar.gz"
+  sha256 "512733207f1ee1cb5adc8b325cdd7a6a64e4111594e23d03d65cdaaeb5487f0a"
   license "MIT"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "0a8ee00b76e100af921d35782e2da0821a410cd70a988fd13804dc6de176d992"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "b6dfe8cbbeebfb213da439885a2bb75c30c85e99f7d4ebb0dce248c2fb4c6143"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "fe5684545990548d68e34647752022041ffa94c52dd58a0a4aa977ce4c09c650"
-    sha256 cellar: :any_skip_relocation, sonoma:         "0914549ef8a7643b92ce661d7ce0fc29ab5e22dae490d108ab06b825912c80e1"
-    sha256 cellar: :any_skip_relocation, ventura:        "8e87a2913a7fbb07f4699c300b3935f914b5b28d9c1d84ef48f515c07005aa52"
-    sha256 cellar: :any_skip_relocation, monterey:       "2da79131ff7989393caf7cac1da383f6ea2223b550a98074932ca2e52aa57bbe"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "2840f475ec4eb8a9e2884ee2522314bce6a71b4a2b73ed7d789d9a8d24c45602"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "4def6e403d1de8494858779b534c0dd09befe19f4d896bbc1436009883b13e20"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "743136db56db1049e0ebd002dabb96a80555cb9988c9171ffe21dd3e5634f79d"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "8e2492e9630502b35d05c16d2ab2df3255e2cb4bb0e0bd80de0ab1b81392686d"
+    sha256 cellar: :any_skip_relocation, sonoma:         "48e7fa0c94fc6cddeb29c0f44def6108ad5606d310a24bd897128eb8362f0345"
+    sha256 cellar: :any_skip_relocation, ventura:        "6f952e52a89521fdb09f91b47f77c9bdb3de7f26f4bf505fdbaa29c0e6d6d7e1"
+    sha256 cellar: :any_skip_relocation, monterey:       "8488c8cc1eb4f0b2348a905795a692dd911fac697fa8bbf36ce66ea0e6247cb4"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "2ad9574660305afb0f25d2eb7c1beaf1ad4df9aa595efd368f47a7c07fad79bc"
   end
 
   depends_on "go" => :build
@@ -22,7 +22,7 @@ class PhraseCli < Formula
       -s -w
       -X github.com/phrase/phrase-cli/cmd.PHRASE_CLIENT_VERSION=#{version}
     ]
-    system "go", "build", *std_go_args(ldflags: ldflags)
+    system "go", "build", *std_go_args(ldflags:)
     bin.install_symlink "phrase-cli" => "phrase"
 
     generate_completions_from_executable(bin/"phrase", "completion", base_name: "phrase", shells: [:bash])

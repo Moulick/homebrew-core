@@ -3,7 +3,7 @@ class Standardese < Formula
   homepage "https://standardese.github.io"
   # TODO: use resource blocks for vendored deps
   license "MIT"
-  revision 16
+  revision 18
   head "https://github.com/standardese/standardese.git", branch: "master"
 
   # Remove stable block when patch is no longer needed.
@@ -21,13 +21,13 @@ class Standardese < Formula
   end
 
   bottle do
-    sha256                               arm64_sonoma:   "6166cdd409393c81b194cadd60222e3ea5b9e31b480428e5a38c2da7fd71bf3f"
-    sha256                               arm64_ventura:  "3d60eee3619b6f879efd2255556c983f28f04d56c6e1a3507af8958829f2adbd"
-    sha256                               arm64_monterey: "2a95f4e9a7968eeaf74614c2048f5dab0a61d25ae6048f1e36b42c208f96fe3e"
-    sha256                               sonoma:         "1ed661bac7ee3f4baccc2593a99b1f5f93eb244d6e590cee905724b6e536dfba"
-    sha256                               ventura:        "9da6db645e8be2b636dc6a5402c5e20d444443cb05740a8c3f28f2cbbe7495aa"
-    sha256                               monterey:       "ec417af3efb5cb2c9273609b9e616b44c2b23a9bdc919f4933177c6ab0b27c47"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "08c91ec9ce61b49137b60c619d6dc4349912e572a54ce4a146a79886a3b13616"
+    sha256                               arm64_sonoma:   "362272beec22bc9b8ffe1cf3d1e139fb2f7b2b5216c53fc047bf02abff981dc5"
+    sha256                               arm64_ventura:  "4602636a4276f940a0151df62e52d3e7cf0f5b8b58ae338109095820d51d30d2"
+    sha256                               arm64_monterey: "d8c9a2a0650c729c836a36f6922a7c8bda0439aac982853932df0f0235e55a3c"
+    sha256                               sonoma:         "06d53bdd40fb8a90a51fcc340d3073d6ac845fb1c9ce550eff9f4cbda9508e83"
+    sha256                               ventura:        "3f5d2991596e83b23235378510c02a2e8b7b7f17819ab763b501c3979ca88da5"
+    sha256                               monterey:       "5d0c9a7d4defee7b0edddc12fed4d356155f6bb0d735023f9e80fbb72dd18583"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "a179ebb256a5d21a95cc52a0de2d87528ccef9e139d4f3790a0f6714481c5511"
   end
 
   depends_on "cmake" => :build
@@ -37,7 +37,22 @@ class Standardese < Formula
 
   fails_with gcc: "5" # LLVM is built with Homebrew GCC
 
+  # https://github.com/standardese/cppast/blob/main/external/external.cmake#L12
+  resource "type_safe" do
+    url "https://github.com/foonathan/type_safe/archive/refs/tags/v0.2.4.tar.gz"
+    sha256 "a631d03c18c65726b3d1b7d41ac5806e9121367afe10dd2f408a2d75e144b734"
+  end
+
+  # Fix build with `boost` 1.85.0 using open PR.
+  # PR ref: https://github.com/standardese/standardese/pull/247
+  patch do
+    url "https://github.com/standardese/standardese/commit/0593c8fbaee48ffac022e2ea95865d808cc149ce.patch?full_index=1"
+    sha256 "4b204256b97a4058b88c7b2350941d2c59a6c38aeb91e4112e1d267fdd092d03"
+  end
+
   def install
+    (buildpath/"type_safe").install resource("type_safe")
+
     # Don't build shared libraries to avoid having to manually install and relocate
     # libstandardese, libtiny-process-library, and libcppast. These libraries belong
     # to no install targets and are not used elsewhere.
@@ -46,6 +61,7 @@ class Standardese < Formula
                     "-DBUILD_SHARED_LIBS=OFF",
                     "-DCMARK_LIBRARY=#{Formula["cmark-gfm"].opt_lib/shared_library("libcmark-gfm")}",
                     "-DCMARK_INCLUDE_DIR=#{Formula["cmark-gfm"].opt_include}",
+                    "-DFETCHCONTENT_SOURCE_DIR_TYPE_SAFE=#{buildpath}/type_safe",
                     "-DSTANDARDESE_BUILD_TEST=OFF",
                     *std_cmake_args
     system "cmake", "--build", "build"

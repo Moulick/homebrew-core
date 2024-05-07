@@ -1,20 +1,18 @@
 class ManifestTool < Formula
   desc "Command-line tool to create and query container image manifest list/indexes"
   homepage "https://github.com/estesp/manifest-tool/"
-  url "https://github.com/estesp/manifest-tool/archive/refs/tags/v2.0.8.tar.gz"
-  sha256 "c493f15cf3770aa2873fabe47baf2bbc33622f27b7b5c8dfcaa2cd91ee7369dd"
+  url "https://github.com/estesp/manifest-tool/archive/refs/tags/v2.1.6.tar.gz"
+  sha256 "b92801e032d0c0ce5714dfd120551939a4e0db16be3d3315d3e1d6dd03bb9be6"
   license "Apache-2.0"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "35172d15d982b904e526bf354c970c614ef6406635801bb5f2a87b515889d1a4"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "cc4ea6d13e82b626ed17165cc0c009a8d3fe06dffeb6e4c5e15eca53ad9ce76c"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "ebf54bd973a897d656bbde4c683ddc172dccaa4af8a05a67890778ebca5b479d"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "414754127e200161b8b2f00d723216f118a1f12f4964d2410c1fe027681f8d05"
-    sha256 cellar: :any_skip_relocation, sonoma:         "f6348c41a30d32e77c95fec20ccb3dcc72150eb124b6547cf15ac1c3642050a3"
-    sha256 cellar: :any_skip_relocation, ventura:        "57b127352c3b9380459d52ec0702dbf33f9c50ea38859662837cc95718237903"
-    sha256 cellar: :any_skip_relocation, monterey:       "9449be36a5e3a9ce57e5914602875afd87e8b554a1ff302e214c34d600240a27"
-    sha256 cellar: :any_skip_relocation, big_sur:        "a62793822e75153020ef4594f534db870445d16825f2fae61441536b753eb1d8"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "218360f98e9b659a2f636860c0de8507a72fd5ac7ce26f1671be09d1cd0ad11f"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "972c6533ac4e024b66809212bcb7744d4aa16de7fbc45f0787eeb926b118dd89"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "96ed3800f775332ea1c655d832de37d88eb715b2d5c10cce0c9e6fc6758a5555"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "e46c37a2e774c5fd61c37525ec2462871a94a2a87f59921d18938278a4122c4d"
+    sha256 cellar: :any_skip_relocation, sonoma:         "bf46e7aeeda1e772dd3d8229c78ed8c0fc28a99c070799a8c0b39c022ce423b7"
+    sha256 cellar: :any_skip_relocation, ventura:        "b902934a3dce529d0a91927e9d55a92ce16717b68b1b7bb32236d818d3003f99"
+    sha256 cellar: :any_skip_relocation, monterey:       "8a66126c030352fdc96c5fdf1d6882386271b74b908b9dc0139671d97821614d"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "30afd13173de3932bfede02d0166fa0d1345cb506eef16eb2c1d4c0df8a98900"
   end
 
   depends_on "go" => :build

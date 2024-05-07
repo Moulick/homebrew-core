@@ -4,18 +4,16 @@ class Osmcoastline < Formula
   url "https://github.com/osmcode/osmcoastline/archive/refs/tags/v2.4.0.tar.gz"
   sha256 "2c1a28313ed19d6e2fb1cb01cde8f4f44ece378393993b0059f447c5fce11f50"
   license "GPL-3.0-or-later"
-  revision 3
+  revision 5
 
   bottle do
-    sha256 cellar: :any,                 arm64_sonoma:   "31a08f6bb0527fe27aaa4d25d7a92a203d66170b9359ded44e6ec8648de04960"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "bbd332274b375390b84ade56b4fb44cd7a5c0896ebafbf6ef5764944114fd3c9"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "87a0953864bc90e8971ccc8ff258255cebb77d677ddb946d1f4806529573ea1c"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "495472ea1b183dfc23f49e2b78d75c77a5afa9a5d45277dac595da44c43c2157"
-    sha256 cellar: :any,                 sonoma:         "606f5e56e84c5605ccbe4ce96b65418ea0e683c43f3bc04cb9002856830d0c20"
-    sha256 cellar: :any_skip_relocation, ventura:        "6360a644a0079631b9e6da6540f12973b973c7de6f85f1633f502e122e7fef92"
-    sha256 cellar: :any_skip_relocation, monterey:       "4b616a360a35c5c6dcaa25ec8e9a56b8d95cfdc570f3c3fd30e031e2fbc753db"
-    sha256 cellar: :any_skip_relocation, big_sur:        "8099f8d01ff005e1a43d5f67afcac3f9e2474d4a1d7c56bb8e61110ed7cd4d23"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "44531dd7f1c5cc978fd5b6c5b27871fff3de9106acd525fbf7818556892d1092"
+    sha256 cellar: :any,                 arm64_sonoma:   "3a8714bd1c046892845fcc7e23132a410a62ba3d2711a287ff935f325b9be22c"
+    sha256 cellar: :any,                 arm64_ventura:  "aa812c840dedd1852e9495b2b5fdef634650a021e29e18b4e8bc504bdf84d390"
+    sha256 cellar: :any,                 arm64_monterey: "0e8e45406f3ea1bd87bf94916c1b3ea29c1df0f22bff0ea90e6934aee64c9ba9"
+    sha256 cellar: :any,                 sonoma:         "0e88f9baa066992d9878096ab482c3d92517e74b4e0723de02423032fa2dc8db"
+    sha256 cellar: :any,                 ventura:        "ffd6b9829025cf157cd7b3aacb02a1b8d63a3555277e4be8076fb09137fb4d70"
+    sha256 cellar: :any,                 monterey:       "7f66ca2905681f4316e86eca8dfa094651243d18873a51c441e477d20bd71035"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "631d33bc0667ae43c76ff4ee00d4296d7bea115d831b990e65949b4341bab83f"
   end
 
   depends_on "cmake" => :build
@@ -37,9 +35,22 @@ class Osmcoastline < Formula
   end
 
   def install
+    # Work around an Xcode 15 linker issue which causes linkage against LLVM's
+    # libunwind due to it being present in a library search path.
+    if DevelopmentTools.clang_build_version >= 1500
+      recursive_dependencies
+        .select { |d| d.name.match?(/^llvm(@\d+)?$/) }
+        .map { |llvm_dep| llvm_dep.to_formula.opt_lib }
+        .each { |llvm_lib| ENV.remove "HOMEBREW_LIBRARY_PATHS", llvm_lib }
+    end
+
     protozero = Formula["libosmium"].opt_libexec/"include"
-    system "cmake", ".", "-DPROTOZERO_INCLUDE_DIR=#{protozero}", *std_cmake_args
-    system "make", "install"
+    args = %W[
+      -DPROTOZERO_INCLUDE_DIR=#{protozero}
+    ]
+    system "cmake", "-S", ".", "-B", "build", *std_cmake_args, *args
+    system "cmake", "--build", "build"
+    system "cmake", "--install", "build"
   end
 
   test do

@@ -1,31 +1,23 @@
 class CargoUdeps < Formula
   desc "Find unused dependencies in Cargo.toml"
   homepage "https://github.com/est31/cargo-udeps"
-  # TODO: check if we can use unversioned `libgit2` at version bump.
-  # See comments below for details.
-  url "https://github.com/est31/cargo-udeps/archive/refs/tags/v0.1.43.tar.gz"
-  sha256 "d2c286f696f1d1314fcbef03ffa3c1a365992021529ead1caf533cbe92c3deb9"
+  url "https://github.com/est31/cargo-udeps/archive/refs/tags/v0.1.47.tar.gz"
+  sha256 "8794b480ab6dd166617711345116be5958def42679c1a5948d41850ecb9cb806"
   license any_of: ["Apache-2.0", "MIT"]
 
   bottle do
-    sha256 cellar: :any,                 arm64_sonoma:   "6ca5496ce19b0329b03d7274b377af1da73b2fe5b0d201c96fc65daa1d662943"
-    sha256 cellar: :any,                 arm64_ventura:  "b864fe0420a9792bc5bee52698c4dac705cd5b1ca3d2d4baea3a9b334f585822"
-    sha256 cellar: :any,                 arm64_monterey: "7e2896fbc47a15d4a9cd5fd8cdca154a865fc2674d544c0ebf4211e021fc24c3"
-    sha256 cellar: :any,                 sonoma:         "ef710e4a9173c3be562d9c0b6175b50a43c83783aed681e30338d6d3733e4610"
-    sha256 cellar: :any,                 ventura:        "cd2f80e3a72d3043f48f54c77cb59f390b62a348d4db9a5aef244103349e8301"
-    sha256 cellar: :any,                 monterey:       "5cb709be845c9c28dfff0c4fb98a783c9e64e02158c7033c6846bc39112673a2"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "e2e0ea3df0a9988e6870fb112d880c0f2e56f3ac3d9837f079c041ebd4caf58c"
+    sha256 cellar: :any,                 arm64_sonoma:   "b00bdb45cf491c545641ec5f5b0ea3ebf72827cb05619071b3b4ebd930b2894f"
+    sha256 cellar: :any,                 arm64_ventura:  "55eb71de7dc712e5b9f6392fee924890fb8de957b31acb12ca012875947312cd"
+    sha256 cellar: :any,                 arm64_monterey: "a650e624f353e9a555e373001422f9a412404db753a4d407a548f792c5b89ae1"
+    sha256 cellar: :any,                 sonoma:         "d62863728dacaa6f8ca039a70c4c65a318829170fb56f707cbf5ad6a0c722fad"
+    sha256 cellar: :any,                 ventura:        "452b6ee1631ca2555b39a4cfe66a674a9ae61058e03afe7df0de90ac5def7980"
+    sha256 cellar: :any,                 monterey:       "30ab935ed8e8bc4a4892b42a2465363d53014b63e495cfaeec7949746a54dfca"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "285966a31c6a1a441bf1696b00a172ce64f87301d1708517f0afb16ad396a6f8"
   end
 
   depends_on "rust" => :build
   depends_on "rustup-init" => :test
-  # To check for `libgit2` version:
-  # 1. Search for `libgit2-sys` version at https://github.com/est31/cargo-udeps/blob/v#{version}/Cargo.lock
-  # 2. If the version suffix of `libgit2-sys` is newer than +1.6.*, then:
-  #    - Migrate to the corresponding `libgit2` formula.
-  #    - Change the `LIBGIT2_SYS_USE_PKG_CONFIG` env var below to `LIBGIT2_NO_VENDOR`.
-  #      See: https://github.com/rust-lang/git2-rs/commit/59a81cac9ada22b5ea6ca2841f5bd1229f1dd659.
-  depends_on "libgit2@1.6"
+  depends_on "libgit2"
   depends_on "libssh2"
   depends_on "openssl@3"
 
@@ -36,7 +28,7 @@ class CargoUdeps < Formula
   end
 
   def install
-    ENV["LIBGIT2_SYS_USE_PKG_CONFIG"] = "1"
+    ENV["LIBGIT2_NO_VENDOR"] = "1"
     ENV["LIBSSH2_SYS_USE_PKG_CONFIG"] = "1"
     ENV["OPENSSL_DIR"] = Formula["openssl@3"].opt_prefix
     ENV["OPENSSL_NO_VENDOR"] = "1"
@@ -77,7 +69,7 @@ class CargoUdeps < Formula
     end
 
     [
-      Formula["libgit2@1.6"].opt_lib/shared_library("libgit2"),
+      Formula["libgit2"].opt_lib/shared_library("libgit2"),
       Formula["libssh2"].opt_lib/shared_library("libssh2"),
       Formula["openssl@3"].opt_lib/shared_library("libssl"),
       Formula["openssl@3"].opt_lib/shared_library("libcrypto"),

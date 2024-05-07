@@ -1,24 +1,24 @@
 class PostgresqlAT14 < Formula
   desc "Object-relational database system"
   homepage "https://www.postgresql.org/"
-  url "https://ftp.postgresql.org/pub/source/v14.9/postgresql-14.9.tar.bz2"
-  sha256 "b1fe3ba9b1a7f3a9637dd1656dfdad2889016073fd4d35f13b50143cbbb6a8ef"
+  url "https://ftp.postgresql.org/pub/source/v14.11/postgresql-14.11.tar.bz2"
+  sha256 "a670bd7dce22dcad4297b261136b3b1d4a09a6f541719562aa14ca63bf2968a8"
   license "PostgreSQL"
   revision 1
 
   livecheck do
     url "https://ftp.postgresql.org/pub/source/"
-    regex(%r{href=["']?v?(14+(?:\.\d+)+)/?["' >]}i)
+    regex(%r{href=["']?v?(14(?:\.\d+)+)/?["' >]}i)
   end
 
   bottle do
-    sha256 arm64_sonoma:   "e62f1929914a1137aa4ad38c662b08ec8163bf58fc203e5dd6d391d4904d12a8"
-    sha256 arm64_ventura:  "dd2c8b4302c9d11bfc9894f9a5fcc7af6f48d0a419d13d7acf1cc7ae9befa49e"
-    sha256 arm64_monterey: "2312658a9603b61d078e0674d71c30cb8a7b56a2428d65a7db9a3e1011319c3b"
-    sha256 sonoma:         "d0f098ab4f38baa334c8548d64ce1a4c64b27cf321004f65a7555916fd7de4c0"
-    sha256 ventura:        "8936d185da6890d6bc62195ab427e3ed7407fd4ff6a73a6cdad769b6bb7de6f7"
-    sha256 monterey:       "ab8215c8820351dc640d55938ca0cc2c844f7d0298ed3121a6e4213563500da9"
-    sha256 x86_64_linux:   "1e8b893f3cd3c546a550fed2f31dae39f9dd22a2f0981e6486cf0753bad4283f"
+    sha256 arm64_sonoma:   "d49e8b487d6b7e696e74ebf7d0bddbb9b8c343d7861d760a39f0a37cf22a9554"
+    sha256 arm64_ventura:  "c676df20e5bdb6f4d37f8c7f4af0bf330669fc45baca90b55dadb83314430c20"
+    sha256 arm64_monterey: "d6f9955bcbcbf7c522cdf540c51b25198fad93a08d2e7315110fa875350afc67"
+    sha256 sonoma:         "8215acbfa15734c5f1742ec0d9a3fd415e0e082fc59186607b2ca5153af8f2bf"
+    sha256 ventura:        "e66cb34dafefb5e3250156325330ed5420e2fd2ac1d16fa46cd08cb5ed8551b4"
+    sha256 monterey:       "e3c300390188842367196f5b0502697cddb8e2da579adc8fe22331711dcead25"
+    sha256 x86_64_linux:   "9298be8e141b22173e5e1892a7b370ca09238656dabece13dd57575ae0dfd26a"
   end
 
   # https://www.postgresql.org/support/versioning/
@@ -77,7 +77,7 @@ class PostgresqlAT14 < Formula
 
     # PostgreSQL by default uses xcodebuild internally to determine this,
     # which does not work on CLT-only installs.
-    args << "PG_SYSROOT=#{MacOS.sdk_path}" if MacOS.sdk_root_needed?
+    args << "PG_SYSROOT=#{MacOS.sdk_path}" if OS.mac? && MacOS.sdk_root_needed?
 
     system "./configure", *args
     system "make"

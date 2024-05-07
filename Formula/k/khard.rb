@@ -3,23 +3,22 @@ class Khard < Formula
 
   desc "Console carddav client"
   homepage "https://github.com/scheibler/khard/"
-  url "https://files.pythonhosted.org/packages/fd/d6/3172fc469cc09decfb502e5428f6a44b0fec48952ae5afe4d657d9e74ea0/khard-0.18.0.tar.gz"
-  sha256 "fe88d4b47fdd948610ac573c01fa13d1b7996265cbc44391085761af9a030615"
-  license "GPL-3.0"
+  url "https://files.pythonhosted.org/packages/0d/00/215a69d2ae96cac511a6594116958bf13e210dd24f78c48f5ffaf039edec/khard-0.19.1.tar.gz"
+  sha256 "59f30a0da3c3da3eb04f4dbe18ee4763913b685d99ec8418fd574a88c491c490"
+  license "GPL-3.0-only"
 
   bottle do
     rebuild 2
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "fa6f96e3c862e1106626a92ab49259c6727c6022572765740453f22df063f516"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "b1d700154a7cfc77a5689e3423a6d5a7b67cf47fc41ca2fd102f19da4565df5c"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "ca8f586f030fb1d4f5fc8c676c4b2bfb3eb3659560d3056f93c9fe3713d06f76"
-    sha256 cellar: :any_skip_relocation, sonoma:         "73dc7c3b7dfe4fe4818c2d4f2ed2f67eaa8528d4322dd8181c6d04adc218df8e"
-    sha256 cellar: :any_skip_relocation, ventura:        "20c4a1423f75e6aa7fcf86b398dad7eee5a2a43550f733d8dab15793a5d8d253"
-    sha256 cellar: :any_skip_relocation, monterey:       "ab7365a892568d193c6480b5534704977e5889f46eff0f7d8845f84f908c9ec2"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "7b34d8d8bec612e7991794858cf4e23ad465e6f91735fd847c17301b06bd1f7a"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "12c493c9abf94b3f10b017495a3b449c4cc39157d9fb0011e8883f5ad74e3dc1"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "c5b035c1c64cb832d196d05d31e19e560e634563911a24e27bdc6b7cfe5bcdc3"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "be118a4d08c2218ca87117c9736e19d022c62e610d511853eb6c28df2234f805"
+    sha256 cellar: :any_skip_relocation, sonoma:         "1036b2f525fdd11fa8403a8df63cfa70564c732b4e229759bc8469da1f4c6c32"
+    sha256 cellar: :any_skip_relocation, ventura:        "da152b6cbeb428e9f78d5441f4a1634008058400a4d179e7faf5456843300b4c"
+    sha256 cellar: :any_skip_relocation, monterey:       "07e0937662235e3fd83a9003ee0b429f605657d1ad7870cf431178fc1d46ab35"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "3424b22114f87f72ce97b058b29852a940af162d93695c1905ad5522a6580b0d"
   end
 
   depends_on "python@3.12"
-  depends_on "six"
 
   resource "atomicwrites" do
     url "https://files.pythonhosted.org/packages/87/c6/53da25344e3e3a9c01095a89f16dbcda021c609ddb42dd6d7c0528236fb2/atomicwrites-1.4.1.tar.gz"
@@ -37,8 +36,8 @@ class Khard < Formula
   end
 
   resource "ruamel-yaml" do
-    url "https://files.pythonhosted.org/packages/de/7d/4f70a93fb0bdc3fb2e1cbd859702d70021ab6962b7d07bd854ac3313cb54/ruamel.yaml-0.17.35.tar.gz"
-    sha256 "801046a9caacb1b43acc118969b49b96b65e8847f29029563b29ac61d02db61b"
+    url "https://files.pythonhosted.org/packages/29/81/4dfc17eb6ebb1aac314a3eb863c1325b907863a1b8b1382cdffcb6ac0ed9/ruamel.yaml-0.18.6.tar.gz"
+    sha256 "8b27e6a217e786c6fbe5634d8f3f11bc63e0f80f6a5890f28863d9c45aac311b"
   end
 
   resource "ruamel-yaml-clib" do
@@ -46,9 +45,14 @@ class Khard < Formula
     sha256 "beb2e0404003de9a4cab9753a8805a8fe9320ee6673136ed7f04255fe60bb512"
   end
 
+  resource "six" do
+    url "https://files.pythonhosted.org/packages/71/39/171f1c67cd00715f190ba0b100d606d440a28c93c7714febeca8b79af85e/six-1.16.0.tar.gz"
+    sha256 "1e61c37477a1626458e36f7b1d82aa5c9b094fa4802892072e49de9c60c4c926"
+  end
+
   resource "unidecode" do
-    url "https://files.pythonhosted.org/packages/80/5d/f156f6a7254ecc0549de0eb75f786d2df724c0310b97c825383517d2c98d/Unidecode-1.3.7.tar.gz"
-    sha256 "3c90b4662aa0de0cb591884b934ead8d2225f1800d8da675a7750cbc3bd94610"
+    url "https://files.pythonhosted.org/packages/f7/89/19151076a006b9ac0dd37b1354e031f5297891ee507eb624755e58e10d3e/Unidecode-1.3.8.tar.gz"
+    sha256 "cfdb349d46ed3873ece4586b96aa75258726e2fa8ec21d6f00a591d98806c2f4"
   end
 
   resource "vobject" do
@@ -57,6 +61,10 @@ class Khard < Formula
   end
 
   def install
+    # Work around ruamel.yaml.clib not building on Xcode 15.3, remove after a new release
+    # has resolved: https://sourceforge.net/p/ruamel-yaml-clib/tickets/32/
+    ENV.append_to_cflags "-Wno-incompatible-function-pointer-types" if DevelopmentTools.clang_build_version >= 1500
+
     virtualenv_install_with_resources
     (etc/"khard").install "doc/source/examples/khard.conf.example"
     zsh_completion.install "misc/zsh/_khard"

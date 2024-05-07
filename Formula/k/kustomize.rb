@@ -1,9 +1,8 @@
 class Kustomize < Formula
   desc "Template-free customization of Kubernetes YAML manifests"
   homepage "https://github.com/kubernetes-sigs/kustomize"
-  url "https://github.com/kubernetes-sigs/kustomize.git",
-      tag:      "kustomize/v5.2.1",
-      revision: "e71072b90b0ecf9eef2f2980765fc0b7427ab7d2"
+  url "https://github.com/kubernetes-sigs/kustomize/archive/refs/tags/kustomize/v5.4.1.tar.gz"
+  sha256 "dfdab5d0a22cfb5825ecfeee8ca96816d55a2989f015354b970ada743956a023"
   license "Apache-2.0"
   head "https://github.com/kubernetes-sigs/kustomize.git", branch: "master"
 
@@ -13,27 +12,25 @@ class Kustomize < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "a3bc78b7eadd70ba181d4b3301141d8e0fffd946f94168958dc9637db577fba5"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "1ffd8771fdae311bb369808ef10cb22a17e6da2563aacc843485bb5cae699d8c"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "38a72aacbd5b61176fcc34b6bdda9d846e774bf8d6dff117a8bc4d8eb7be6ce2"
-    sha256 cellar: :any_skip_relocation, sonoma:         "4d1a60fba77ed962343e32a3a4674902b850ac2e1c9c6e1cbedc5db8af584850"
-    sha256 cellar: :any_skip_relocation, ventura:        "334c1c43e847826f5de756ed3ed74b6dcfb86ed5b37d7384e99dffbd26b6861e"
-    sha256 cellar: :any_skip_relocation, monterey:       "652393a36637627412bf0b3e60305c885c7d29150e4d00b55794ac7c4d1ec363"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "721a423c7f71c03e050148f7aafcbee936b6c3ecaf642974cbeb8349f20b360c"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "652879953496fac4c135191b94e5dae5bcbffd88fcd61901785f2b7ec702295e"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "90222aa38bc81c54e4282c440a522a3207206f75df04efb30ea196a5c0f907ef"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "e7b65d8f5b7be0bd60cba0fa8dce52f0f15f75f0d16a66a06917bb302de9ca95"
+    sha256 cellar: :any_skip_relocation, sonoma:         "14bc86fbb4538c6eca77c98c301b8eeacc13b1de72a1ab2d8cbd3f705805363b"
+    sha256 cellar: :any_skip_relocation, ventura:        "b434e99b6cc2552d1292689501aa8ba15f0911e020bb65cef8c930c85e03ee15"
+    sha256 cellar: :any_skip_relocation, monterey:       "e60675b52c947ed499f6de4c2a67be82f3fed62cb9aa6b2185669f2e2bc37e9f"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "6a8309251bc9b8b77c79f896d2e155544a4ac2902b10e5532fc5a7f1b2424558"
   end
 
   depends_on "go" => :build
 
   def install
-    cd "kustomize" do
-      ldflags = %W[
-        -s -w
-        -X sigs.k8s.io/kustomize/api/provenance.version=#{name}/v#{version}
-        -X sigs.k8s.io/kustomize/api/provenance.buildDate=#{time.iso8601}
-      ]
+    ldflags = %W[
+      -s -w
+      -X sigs.k8s.io/kustomize/api/provenance.version=#{name}/v#{version}
+      -X sigs.k8s.io/kustomize/api/provenance.buildDate=#{time.iso8601}
+    ]
 
-      system "go", "build", *std_go_args(ldflags: ldflags)
-    end
+    system "go", "build", *std_go_args(ldflags:), "./kustomize"
 
     generate_completions_from_executable(bin/"kustomize", "completion")
   end

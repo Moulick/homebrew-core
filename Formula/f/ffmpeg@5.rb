@@ -1,11 +1,12 @@
 class FfmpegAT5 < Formula
   desc "Play, record, convert, and stream audio and video"
   homepage "https://ffmpeg.org/"
-  url "https://ffmpeg.org/releases/ffmpeg-5.1.3.tar.xz"
-  sha256 "1b113593ff907293be7aed95acdda5e785dd73616d7d4ec90a0f6adbc5a0312e"
+  url "https://ffmpeg.org/releases/ffmpeg-5.1.4.tar.xz"
+  sha256 "54383bb890a1cd62580e9f1eaa8081203196ed53bde9e98fb6b0004423f49063"
   # None of these parts are used by default, you have to explicitly pass `--enable-gpl`
   # to configure to activate them. In this case, FFmpeg's license changes to GPL v2+.
   license "GPL-2.0-or-later"
+  revision 6
 
   livecheck do
     url "https://ffmpeg.org/download.html"
@@ -13,14 +14,13 @@ class FfmpegAT5 < Formula
   end
 
   bottle do
-    rebuild 1
-    sha256 arm64_sonoma:   "9c2f2fd629fc3253f6f63509f1f30ba18ed2901cff2b7151d3b8f45b6c8a3523"
-    sha256 arm64_ventura:  "d35bb65a3507dea5b31ab8f5cfd8986c033936677b4ed5866dafd448cc9baefd"
-    sha256 arm64_monterey: "e983392a535c5f0d8c0864095991eadfec9ee253108fea379e501b2890731c43"
-    sha256 sonoma:         "7ee58d604e6f8b689480cb57d40daf66c4af2bf71723641f8b29e6d8c4f0b984"
-    sha256 ventura:        "80542a31d0037553279f66b7bad42c0503d5d3513520227f4194c7e06297fe20"
-    sha256 monterey:       "dadd70293274942a49d1b6821d9ac12ea97ee61380443bc989723d07b28a255d"
-    sha256 x86_64_linux:   "fd60f1b7d5db9a6bd73a5ce698c53e51f716aaba6d4498b299949c1ede20cfd1"
+    sha256 arm64_sonoma:   "1b6da7b962f04eede13df34e0339b192d254be510d4ec6e03073c60f2adc21fa"
+    sha256 arm64_ventura:  "971ed70aad1d8858aa48fc4e9e6e9f7e15ddd8bd9d64ac5a844bf067aaa88eb8"
+    sha256 arm64_monterey: "1f149b78150ea5bf07a8fcfeabd13459ce47a92def7bd6157dd9f77fde28acbb"
+    sha256 sonoma:         "9a63b95ea3b80d76ecc528be12dc310fbdbc910f2ddf9a034c5699be62e5c699"
+    sha256 ventura:        "8d2648c8d57fd4709e256ca0804f86aaa37996bbbb896774fd054f127c0b628e"
+    sha256 monterey:       "8fb5cc3b03c7d1be287f537da993bccc8e88fca31346813cadb8182bfeed213a"
+    sha256 x86_64_linux:   "4c5d62459eba686525d82105a7976a79eb3ea62276beb816d6541203ef061b81"
   end
 
   keg_only :versioned_formula
@@ -76,25 +76,6 @@ class FfmpegAT5 < Formula
   end
 
   fails_with gcc: "5"
-
-  # Two upstream patches, fixing compilation with recent svt-av1 versions
-  # Remove in next version
-  patch do
-    url "https://git.ffmpeg.org/gitweb/ffmpeg.git/commitdiff_plain/bea695d54372b66a6b9b136982fc92adb63e4745?hp=33ed503e590c252ac5e191503ff45e67dc34c214"
-    sha256 "76b1916d710e01b79e20342de7fb0aa5b32bfcdc903d16bd3c1eafa10a555d60"
-  end
-
-  patch do
-    url "https://git.ffmpeg.org/gitweb/ffmpeg.git/commitdiff_plain/3344d47a88506aba060b5fd2a214cf7785b11483?hp=bea695d54372b66a6b9b136982fc92adb63e4745"
-    sha256 "1d46c3ba395710ba8ba440fa1e6a176dd063a74539d67365389cba6d015abaf3"
-  end
-
-  # Fix for binutils on Linux, remove on next release
-  # https://www.linuxquestions.org/questions/slackware-14/regression-on-current-with-ffmpeg-4175727691/
-  patch do
-    url "https://github.com/FFmpeg/FFmpeg/commit/effadce6c756247ea8bae32dc13bb3e6f464f0eb.patch?full_index=1"
-    sha256 "9800c708313da78d537b61cfb750762bb8ad006ca9335b1724dbbca5669f5b24"
-  end
 
   def install
     # The new linker leads to duplicate symbol issue https://github.com/homebrew-ffmpeg/homebrew-ffmpeg/issues/140

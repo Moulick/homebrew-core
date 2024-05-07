@@ -1,28 +1,26 @@
 class DockerGen < Formula
   desc "Generate files from docker container metadata"
   homepage "https://github.com/nginx-proxy/docker-gen"
-  url "https://github.com/nginx-proxy/docker-gen/archive/refs/tags/0.10.6.tar.gz"
-  sha256 "bb8207cf194bfeba0a92ba7f2215fd039ebc0d5d3730d3d2403f47419d67c957"
+  url "https://github.com/nginx-proxy/docker-gen/archive/refs/tags/0.13.0.tar.gz"
+  sha256 "f6b2852371d02faa2e8b6f3e7c71e0c536ab994eac19f669515f2502220cd46d"
   license "MIT"
   head "https://github.com/nginx-proxy/docker-gen.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "7e72ae2ba917473a330f88ab2b62ae10404b14c609b9d4102200d7085eabf9ce"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "846dacd97e7d5e3cc9a6fe3ee82ffa4ef03561bd222c9afff19cae51aece4725"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "846dacd97e7d5e3cc9a6fe3ee82ffa4ef03561bd222c9afff19cae51aece4725"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "846dacd97e7d5e3cc9a6fe3ee82ffa4ef03561bd222c9afff19cae51aece4725"
-    sha256 cellar: :any_skip_relocation, sonoma:         "81fcf49b958cf47a91d3daed4e78a7a75e39628870880586166ecd166585c150"
-    sha256 cellar: :any_skip_relocation, ventura:        "3633fff4ff83cdf232b6f9018cb6f3fd237a83a333a970766b08d4b8ef539402"
-    sha256 cellar: :any_skip_relocation, monterey:       "3633fff4ff83cdf232b6f9018cb6f3fd237a83a333a970766b08d4b8ef539402"
-    sha256 cellar: :any_skip_relocation, big_sur:        "3633fff4ff83cdf232b6f9018cb6f3fd237a83a333a970766b08d4b8ef539402"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "22fa57371ee73306de9f77e993d3430fb786630844b3f150b04525935b420b3e"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "069003c17186aede9d553148c24361907fd5a7148f667198d8604aa5bb1a88b3"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "20016736a8a6e4f3bcff5c979942aca142b853f6d34ae60fd29846a1f69ac80a"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "50cb67cdfaf24976eed42c8f2a0edd8c027b383d0e29ba37fb03d8001047a114"
+    sha256 cellar: :any_skip_relocation, sonoma:         "9a7c79f1e4da30fa49e24f26a76c28ec102e0df57005a3351e6c20786b888504"
+    sha256 cellar: :any_skip_relocation, ventura:        "d8b4007381c7d2480a6c3a662ce4309d95201cc1e2bac76142c3f1a3128f8d56"
+    sha256 cellar: :any_skip_relocation, monterey:       "ebc595cf800c0da7cb6c25bad4e1bd760546c253e0d45a3ba46bc82e776d53ac"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "159f026ed2c10a85eae1a50822a94eada08e3e11297a15f61b9780c482cca03b"
   end
 
   depends_on "go" => :build
 
   def install
     ldflags = "-s -w -X main.buildVersion=#{version}"
-    system "go", "build", *std_go_args(ldflags: ldflags), "./cmd/docker-gen"
+    system "go", "build", *std_go_args(ldflags:), "./cmd/docker-gen"
   end
 
   test do

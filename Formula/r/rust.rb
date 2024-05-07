@@ -4,30 +4,24 @@ class Rust < Formula
   license any_of: ["Apache-2.0", "MIT"]
 
   stable do
-    # TODO: try switching to `llvm` 17 at 1.73.0.
-    # See: https://github.com/rust-lang/rust/issues/116020
-    url "https://static.rust-lang.org/dist/rustc-1.72.1-src.tar.gz"
-    sha256 "7f48845f6a52cdbb5d63fb0528fd5f520eb443275b55f98e328159f86568f895"
+    url "https://static.rust-lang.org/dist/rustc-1.78.0-src.tar.gz"
+    sha256 "ff544823a5cb27f2738128577f1e7e00ee8f4c83f2a348781ae4fc355e91d5a9"
 
     # From https://github.com/rust-lang/rust/tree/#{version}/src/tools
-    # When bumping to a new version, check if we can use unversioned `libgit2`.
-    # See comments below for details.
     resource "cargo" do
-      url "https://github.com/rust-lang/cargo/archive/refs/tags/0.73.1.tar.gz"
-      sha256 "976fb6f3e773319e60875772478645297d9eacc852857e288e8cec65399d2c88"
+      url "https://github.com/rust-lang/cargo/archive/refs/tags/0.79.0.tar.gz"
+      sha256 "b9de52bc7452fd74ab344b636f054de3e9a67cf167567cc4ce948e9219e81d98"
     end
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_sonoma:   "40687edb42b50bdf778643803a21a98fca07d86b6a138edfdd73a282c1e18ad8"
-    sha256 cellar: :any,                 arm64_ventura:  "be9922a4b56016f18d209067f5a4d148d2aad4db3061092f848744aff41e337d"
-    sha256 cellar: :any,                 arm64_monterey: "a9ada0e355a336a55545a16e615daa051c5a675dc05c63793a77b8bac98ba04e"
-    sha256 cellar: :any,                 arm64_big_sur:  "9bfc9baf003134053944ad145cc48155a23607ff73fecd6d45d1e4d3b429d6fd"
-    sha256 cellar: :any,                 sonoma:         "fbc3c8c3894f64dc121541cc9a50fb22a38ccff82d4dba9c370d70a6785f614e"
-    sha256 cellar: :any,                 ventura:        "4cd3be4492eae97232dd1d868fb40f849882724688c4bd792f1e720d8710803d"
-    sha256 cellar: :any,                 monterey:       "f7b8d6dc15d845f4ad715706542237386f97cf045e9168b34876bccb060e0e26"
-    sha256 cellar: :any,                 big_sur:        "20214e26fbc77ef51e3be59c970ed9a109f3c13cfa7331a973d60d06b907760a"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "36b6bb23066fccd7b3c9311d5c671768133bbe5c27cce132376c4c0ec30abf9c"
+    sha256 cellar: :any,                 arm64_sonoma:   "7d53d776e817dc07006a87ee524c2fa81678237d527a8a1447240d4299fbabc0"
+    sha256 cellar: :any,                 arm64_ventura:  "1d40affdb3c24fd9c84aacc45b04099e7b30e96114e28e6bc305130cc3067a97"
+    sha256 cellar: :any,                 arm64_monterey: "58a7e592076b94981fa9551caa9d9e698f02daf952c070d3611a31c2432cfd85"
+    sha256 cellar: :any,                 sonoma:         "5217801123b3e52d8d0ceeb37f78208a184060b3c079f3b600bf7399408af3d2"
+    sha256 cellar: :any,                 ventura:        "dc0ee2861b1c1429811257c237d7746393db220f10e701a29c4ac78600ec1a8f"
+    sha256 cellar: :any,                 monterey:       "56a5a84d9b8573e6768a08e9de13a38c419b046e3fe8bd72ee1b11adc57cf61f"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "d73e76c6709d31530906725c69d67e7a3988c7ffd7635353e418d7b9dcddc14f"
   end
 
   head do
@@ -38,15 +32,10 @@ class Rust < Formula
     end
   end
 
-  # To check for `libgit2` version:
-  # 1. Search for `libgit2-sys` version at https://github.com/rust-lang/cargo/blob/#{cargo_version}/Cargo.lock
-  # 2. If the version suffix of `libgit2-sys` is newer than +1.6.*, then:
-  #    - Use the corresponding `libgit2` formula.
-  #    - Change the `LIBGIT2_SYS_USE_PKG_CONFIG` env var below to `LIBGIT2_NO_VENDOR`.
-  #      See: https://github.com/rust-lang/git2-rs/commit/59a81cac9ada22b5ea6ca2841f5bd1229f1dd659.
-  depends_on "libgit2@1.6"
+  depends_on "libgit2"
   depends_on "libssh2"
-  depends_on "llvm@16"
+  depends_on "llvm"
+  depends_on macos: :sierra
   depends_on "openssl@3"
   depends_on "pkg-config"
 
@@ -58,23 +47,23 @@ class Rust < Formula
   resource "cargobootstrap" do
     on_macos do
       on_arm do
-        url "https://static.rust-lang.org/dist/2023-07-13/cargo-1.71.0-aarch64-apple-darwin.tar.xz"
-        sha256 "7637bc54d15cec656d7abb32417316546c7a784eded8677753b5dad7f05b5b09"
+        url "https://static.rust-lang.org/dist/2024-03-21/cargo-1.77.0-aarch64-apple-darwin.tar.xz"
+        sha256 "30f0b45863da00856d29ff851a25dcaa73cc5a5e9ca2aa9e16529ab13777ba66"
       end
       on_intel do
-        url "https://static.rust-lang.org/dist/2023-07-13/cargo-1.71.0-x86_64-apple-darwin.tar.xz"
-        sha256 "d83fe33cabf20394168f056ead44d243bd37dc96165d87867ea5114cfb52e739"
+        url "https://static.rust-lang.org/dist/2024-03-21/cargo-1.77.0-x86_64-apple-darwin.tar.xz"
+        sha256 "c95b98a306b26bf5f4f43d4d212c4535f3a09bbeda569ea0431bc54824a267b4"
       end
     end
 
     on_linux do
       on_arm do
-        url "https://static.rust-lang.org/dist/2023-07-13/cargo-1.71.0-aarch64-unknown-linux-gnu.tar.xz"
-        sha256 "13e8ff23d6af976a45f3ab451bf698e318a8d1823d588ff8a989555096f894a8"
+        url "https://static.rust-lang.org/dist/2024-03-21/cargo-1.77.0-aarch64-unknown-linux-gnu.tar.xz"
+        sha256 "0833e133e2b98d840c5180a3dabc49c0de9895c54055dfee92fa94d2a12196d5"
       end
       on_intel do
-        url "https://static.rust-lang.org/dist/2023-07-13/cargo-1.71.0-x86_64-unknown-linux-gnu.tar.xz"
-        sha256 "fe6fb520f59966300ee661d18b37c36cb3e614877c4c01dfedf987b8a9c577e9"
+        url "https://static.rust-lang.org/dist/2024-03-21/cargo-1.77.0-x86_64-unknown-linux-gnu.tar.xz"
+        sha256 "0af971f126e0307d4e4d974f0e9c33fd1c2923274b14a0861823b5a019e8faf5"
       end
     end
   end
@@ -84,7 +73,7 @@ class Rust < Formula
     # https://docs.rs/openssl/latest/openssl/#manual
     ENV["OPENSSL_DIR"] = Formula["openssl@3"].opt_prefix
 
-    ENV["LIBGIT2_SYS_USE_PKG_CONFIG"] = "1"
+    ENV["LIBGIT2_NO_VENDOR"] = "1"
     ENV["LIBSSH2_SYS_USE_PKG_CONFIG"] = "1"
 
     if OS.mac?
@@ -115,6 +104,7 @@ class Rust < Formula
       cargo
       clippy
       rustdoc
+      rust-analyzer-proc-macro-srv
       rust-demangler
       src
     ]
@@ -122,10 +112,11 @@ class Rust < Formula
       --prefix=#{prefix}
       --sysconfdir=#{etc}
       --tools=#{tools.join(",")}
-      --llvm-root=#{Formula["llvm@16"].opt_prefix}
+      --llvm-root=#{Formula["llvm"].opt_prefix}
       --enable-llvm-link-shared
       --enable-vendor
       --disable-cargo-native-static
+      --enable-profiler
       --set=rust.jemalloc
       --release-description=#{tap.user}
     ]
@@ -181,7 +172,7 @@ class Rust < Formula
     # We only check the tools' linkage here. No need to check rustc.
     expected_linkage = {
       bin/"cargo" => [
-        Formula["libgit2@1.6"].opt_lib/shared_library("libgit2"),
+        Formula["libgit2"].opt_lib/shared_library("libgit2"),
         Formula["libssh2"].opt_lib/shared_library("libssh2"),
         Formula["openssl@3"].opt_lib/shared_library("libcrypto"),
         Formula["openssl@3"].opt_lib/shared_library("libssl"),

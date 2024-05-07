@@ -1,18 +1,18 @@
 class Gucharmap < Formula
   desc "GNOME Character Map, based on the Unicode Character Database"
   homepage "https://wiki.gnome.org/Apps/Gucharmap"
-  url "https://gitlab.gnome.org/GNOME/gucharmap/-/archive/15.1.2/gucharmap-15.1.2.tar.bz2"
-  sha256 "f8580cb191d0a430513d0384b1f619a5eb8ad40dbd609d0c0f8370afa756c1fe"
+  url "https://gitlab.gnome.org/GNOME/gucharmap/-/archive/15.1.4/gucharmap-15.1.4.tar.bz2"
+  sha256 "305a911a5bb4cc470fb1e4f40cf838748797cee39c742fc0f754c874e6f5d4ab"
   license "GPL-3.0-or-later"
 
   bottle do
-    sha256 arm64_sonoma:   "c22f7ead176bde24d19ee63dca996c0805d2b8b8a3eed4086605315673d3a9fa"
-    sha256 arm64_ventura:  "36bddb28a682d518b6d931f8329c833129a484f138fc18df8ce435348e93c2c0"
-    sha256 arm64_monterey: "693ab829817863ac15880d67920ad502c81672c693ff91166d4433a56171b035"
-    sha256 sonoma:         "9c8c8e7df3d2376d9fa860fd78c5c0d5e4bdfa69238eb08aa925cce2e1cb2217"
-    sha256 ventura:        "a112495d47384cc0bfca2f7be8515951292dbc3a8a01da73bc67b1b8a2217cbb"
-    sha256 monterey:       "259e7121667d30b0e3ecd0615a92b1d2039796ee34a9087dbad965fadb9dd766"
-    sha256 x86_64_linux:   "5983b9f46d861e8d71c69c7874d0b4438b14d4213081a194e12e94bda2c58be2"
+    sha256 arm64_sonoma:   "429f1a90413aed4023917ddba7234d9e58f5a44884a467c4e9384b68af91b4d1"
+    sha256 arm64_ventura:  "7ec4f04354ad5af4c6676a2d8cfb798c61f557c7f6728f2accc137af67a577f1"
+    sha256 arm64_monterey: "642ef8dfcf4d6d8af82bd87e4d8a17b2ae1cfd4472fd9f5da62ccdae05e0d2c9"
+    sha256 sonoma:         "0d3c46122c2ebd6d842999e1bfb7c9adaaace89d6bc814411e5e9756dcb62e26"
+    sha256 ventura:        "d3f196b9c90ab48bad085eebac8f4ba06e0e050db2de0513b65cb215c2b57b65"
+    sha256 monterey:       "dd81bffcf297e2443b2c86275d563047c6198df13cb6171e01207587228de5e9"
+    sha256 x86_64_linux:   "bdf5f9a6612c4248a875314a1667d2022ea829f092de34b64bc703f6c3bca782"
   end
 
   depends_on "desktop-file-utils" => :build
@@ -35,8 +35,8 @@ class Gucharmap < Formula
   end
 
   resource "unihan" do
-    url "https://www.unicode.org/Public/15.1.0/ucd/Unihan.zip", using: :nounzip
-    sha256 "a0226610e324bcf784ac380e11f4cbf533ee1e6b3d028b0991bf8c0dc3f85853"
+    url "https://www.unicode.org/Public/16.0.0/ucd/Unihan.zip", using: :nounzip
+    sha256 "254d040ceee449c8aa0c1959046f14fdc90999aca6d28695902f0d0e53b9d891"
   end
 
   def install
@@ -49,7 +49,7 @@ class Gucharmap < Formula
     # ERROR: Assert failed: -Wl,-Bsymbolic-functions is required but not supported
     inreplace "meson.build", "'-Wl,-Bsymbolic-functions'", "" if OS.mac?
 
-    system "meson", *std_meson_args, "build", "-Ducd_path=#{buildpath}/unicode"
+    system "meson", "setup", "build", "-Ducd_path=#{buildpath}/unicode", *std_meson_args
     system "meson", "compile", "-C", "build", "--verbose"
     system "meson", "install", "-C", "build"
   end

@@ -1,21 +1,18 @@
 class Libmaxminddb < Formula
   desc "C library for the MaxMind DB file format"
   homepage "https://github.com/maxmind/libmaxminddb"
-  url "https://github.com/maxmind/libmaxminddb/releases/download/1.7.1/libmaxminddb-1.7.1.tar.gz"
-  sha256 "e8414f0dedcecbc1f6c31cb65cd81650952ab0677a4d8c49cab603b3b8fb083e"
+  url "https://github.com/maxmind/libmaxminddb/releases/download/1.9.1/libmaxminddb-1.9.1.tar.gz"
+  sha256 "a80682a89d915fdf60b35d316232fb04ebf36fff27fda9bd39fe8a38d3cd3f12"
   license "Apache-2.0"
 
   bottle do
-    sha256 cellar: :any,                 arm64_sonoma:   "258d1f10792b85b966ce57084f9ae60d35ca919776a0987c50d5cdcbbae27e76"
-    sha256 cellar: :any,                 arm64_ventura:  "7a8bdefbc6e7b19c6704286c71a3f616c98e2d7cb00c0e704083c58216020c6f"
-    sha256 cellar: :any,                 arm64_monterey: "f43032f9d2a53d6ab4969fdf90ab9db14ac2d2ea10c4e8b594060ad1d7f01b95"
-    sha256 cellar: :any,                 arm64_big_sur:  "d7fdc2b82f0c5af1ec537354b0ef8404edd1d067db901463cfa75a1731fa5839"
-    sha256 cellar: :any,                 sonoma:         "89a9f2c24a20c9088168b7a96457e9690ff49c7cff47630210bbb04c76e0b771"
-    sha256 cellar: :any,                 ventura:        "1987cff883cf2c1b5a683b533800cb384454590b17c657019a58add6b451fa4d"
-    sha256 cellar: :any,                 monterey:       "ddda0e691d8e86dded50880d64ebf8ddec4a6d4cd55b1be7f64ac0e3e6fe3c27"
-    sha256 cellar: :any,                 big_sur:        "1bae95c9b92e0268300874e89f184a086af2a780a0f3cd7ba8ef968316000d9e"
-    sha256 cellar: :any,                 catalina:       "0c75698174bf89cb29156bb974768f46beb57fc773f810ff568d76cab90273c4"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "926d363ac4bf963d9db9c81fbf7b420fb2aa84d92aae8f83b74d958c0e9f7b5a"
+    sha256 cellar: :any,                 arm64_sonoma:   "a68c2e3ca963ae2c2be7096905185cd6af3c8be66fd6deb97b6bd6897005846e"
+    sha256 cellar: :any,                 arm64_ventura:  "5bf964040dd9d21ac34f5b5e1ff7b7677aab0171819ea3d7104fe9ed0d76cb9c"
+    sha256 cellar: :any,                 arm64_monterey: "9839e29df83bfe1756f79dbbc33ed42fb35fac4770fb57b5b29851bafbff3b93"
+    sha256 cellar: :any,                 sonoma:         "7e6d1878c0776ef7ebee5abd47c5a6ba818ad6b69d8e52a928a6acb9b3e73ffe"
+    sha256 cellar: :any,                 ventura:        "d81a6413f69afd1273ad0edd17f0438d2c282de48f4081044476290418055340"
+    sha256 cellar: :any,                 monterey:       "07f7fefb623fdb591636dd1579606c247ff0bfd63ea4c228a713c6d3413b75a5"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "64324c33587d79e18deed69aeb0ffb4cd7c6b2503ce03aa572c3a7ed1ca8a0fc"
   end
 
   head do

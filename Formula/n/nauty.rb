@@ -1,10 +1,10 @@
 class Nauty < Formula
   desc "Automorphism groups of graphs and digraphs"
   homepage "https://pallini.di.uniroma1.it/"
-  url "https://pallini.di.uniroma1.it/nauty2_8_6.tar.gz"
-  sha256 "f2ce98225ca8330f5bce35f7d707b629247e09dda15fc479dc00e726fee5e6fa"
+  url "https://pallini.di.uniroma1.it/nauty2_8_8.tar.gz"
+  mirror "https://users.cecs.anu.edu.au/~bdm/nauty/nauty2_8_8.tar.gz"
+  sha256 "159d2156810a6bb240410cd61eb641add85088d9f15c888cdaa37b8681f929ce"
   license "Apache-2.0"
-  revision 1
   version_scheme 1
 
   livecheck do
@@ -16,41 +16,24 @@ class Nauty < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "5422873434e0b55456afcbb4bc0f65d8b1d0586b24b057bf1aa773d58f6f1994"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "bd9fd017b2becaafc0e2951e3b881007cdb265c7afa3c4dde115278452ac8094"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "75ed13b3638b9ad0f79d0acdfe3c1153556ee52bef69f3627e1b24486967e556"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "1b0b84e739762349ce679448d604299ba0ca5bd755eb5473365cfbfd88a714e5"
-    sha256 cellar: :any_skip_relocation, sonoma:         "3ac4626dcf4336d660c01ca622d75981dc5412df6c60dc98d1a330f5c4a7cd11"
-    sha256 cellar: :any_skip_relocation, ventura:        "f6fae228f689c1b914e68e77b480a13e1578ce33d209119b14e8a8abd1ae138d"
-    sha256 cellar: :any_skip_relocation, monterey:       "afd16a1cb7af80145eec65bc2a0458b1e5c011b46fb13424c704972651dc554e"
-    sha256 cellar: :any_skip_relocation, big_sur:        "674ff752456a99d44ddd63bf906d1f9cebf2517022f502fbc85c14fdb2d3de64"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "712e4cfba548cf16a9f95d108737fe818e1e4429ce7890a24f6bc0fcc4d9d0f3"
+    rebuild 2
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "2998663bc5f33dc6ec3aafc7484c3dcecba0ff1d4276408b384179b82cef2433"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "b5ac9c4a7c6bc9c2092b24aa1f08122a5ee54c72869a1a2dc6fed71348f8b3f3"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "2a4688fe963d913e35b14ad3078c1cf2d1dd054976b432acbc32e4badac51448"
+    sha256 cellar: :any_skip_relocation, sonoma:         "46690024133ff0fab6226a4d1473d9f7f987475fa65f6835272600e718f1a4d5"
+    sha256 cellar: :any_skip_relocation, ventura:        "6722de8d71b05629eb75ea96c79aa1e169bc2d0f6dac8a93b37219b41dfd682d"
+    sha256 cellar: :any_skip_relocation, monterey:       "fa21ab2f8e0df03513b17a7e0ecc1961ea1efc8a36fc44a050e462fed8d8e1d6"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "ee528b994774bc9a28632f211973cd65078b06aee0d63726fb356867587c6d31"
   end
 
-  # Apply upstream fixes. See:
-  #   https://mailman.anu.edu.au/pipermail/nauty/2023-January.txt
-  #   https://github.com/Homebrew/homebrew-core/issues/125101
-  patch do
-    url "https://gitweb.gentoo.org/repo/gentoo.git/plain/sci-mathematics/nauty/files/nauty-2.8.6-gentreeg-gentourng.patch"
-    sha256 "2a6ae62a3064d24513442a094fe6db41c6733cb5259172350791819be7bf3c11"
-  end
+  # patch to correct the location of nauty*.pc files
+  # upstream informed and responded that it will be worked on
+  patch :DATA
 
   def install
-    system "./configure", "--prefix=#{prefix}"
-    system "make", "all"
-
-    bin.install %w[
-      NRswitchg addedgeg addptg amtog ancestorg assembleg biplabg catg complg
-      converseg copyg countg cubhamg deledgeg delptg dimacs2g directg dreadnaut
-      dretodot dretog edgetransg genbg genbgL geng gengL genposetg genquarticg
-      genrang genspecialg gentourng gentreeg hamheuristic labelg linegraphg
-      listg multig nbrhoodg newedgeg pickg planarg productg ranlabg shortg
-      showg subdivideg twohamg underlyingg vcolg watercluster2
-    ]
-
-    (include/"nauty").install Dir["*.h"]
-
-    lib.install "nauty.a" => "libnauty.a"
+    system "./configure", "--includedir=#{include}/nauty", *std_configure_args
+    system "make", "all", "TLSlibs"
+    system "make", "install", "TLSinstall"
 
     doc.install "nug#{version.major_minor.to_s.tr(".", "")}.pdf", "README", Dir["*.txt"]
 
@@ -69,7 +52,7 @@ class Nauty < Formula
     # test that the library is installed and linkable-against
     (testpath/"test.c").write <<~EOS
       #define MAXN 1000
-      #include <nauty.h>
+      #include <nauty/nauty.h>
 
       int main()
       {
@@ -83,3 +66,18 @@ class Nauty < Formula
     system "./test"
   end
 end
+
+__END__
+diff --git a/makefile.in b/makefile.in
+index 422ff69..572448f 100644
+--- a/makefile.in
++++ b/makefile.in
+@@ -17,7 +17,7 @@ exec_prefix=@exec_prefix@
+ bindir=@bindir@
+ libdir=@libdir@
+ includedir=@includedir@
+-pkgconfigexecdir=${prefix}/libdata/pkgconfig
++pkgconfigexecdir=${libdir}/pkgconfig
+
+ INSTALL=@INSTALL@
+ INSTALL_DATA=@INSTALL_DATA@

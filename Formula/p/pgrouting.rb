@@ -1,9 +1,10 @@
 class Pgrouting < Formula
   desc "Provides geospatial routing for PostGIS/PostgreSQL database"
   homepage "https://pgrouting.org/"
-  url "https://github.com/pgRouting/pgrouting/releases/download/v3.5.1/pgrouting-3.5.1.tar.gz"
-  sha256 "fb0d9ef3247a95166e172412734fda9746233912601a4891cbcf02fe87764140"
+  url "https://github.com/pgRouting/pgrouting/releases/download/v3.6.2/pgrouting-3.6.2.tar.gz"
+  sha256 "f4a1ed79d6f714e52548eca3bb8e5593c6745f1bde92eb5fb858efd8984dffa2"
   license "GPL-2.0-or-later"
+  revision 1
   head "https://github.com/pgRouting/pgrouting.git", branch: "main"
 
   livecheck do
@@ -12,13 +13,13 @@ class Pgrouting < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "ef3cb20c9c0b654bc9c7f96c4664e7bdc040cbd8e098eb9e48cc7a598d1bb530"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "26ae5aeb6db94e9da691ed81a4be05994398730a800909d3fd3ae236295ded24"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "b26288f9833c98cfe48ae40f991b8c08f01ce1e820e506f2e3c99f0a70f29ebf"
-    sha256 cellar: :any_skip_relocation, sonoma:         "060a8154f509bd913706a97e348fd686325f684772cc43058428c344219b4266"
-    sha256 cellar: :any_skip_relocation, ventura:        "5bf098ea7aa1dd85a73b218b1929700b9736939807cd9b17fbb647ca1eb3d594"
-    sha256 cellar: :any_skip_relocation, monterey:       "b4a4fd2dddcd4703752f44a6ab9c2bae75dafa4ba57e2505f48019323c374a7f"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "f148f8d642b78601414d57a203e09cef54286431bd7f66db47fb705aed951abe"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "b52b48a48c4b3a31d1d2108ab218e7c64642d5dfe8fe2e5542110379f206b452"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "bdd74845f8712c27dde09e677efc5f61185286c5d4dcaffd2957e1f2f43cb078"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "3d6781d06872f26d8d8241b440bdd0dc1df1e652c9c84778e37ca6aaf3f27a9d"
+    sha256 cellar: :any_skip_relocation, sonoma:         "b4a7d141b8df468e8d66852f2d1639c07a319734cc898b829b2740780bfce578"
+    sha256 cellar: :any_skip_relocation, ventura:        "be72ca847766199f95fb99e58c2f25f101a86aeac1116a6ab8ec00d68eef28eb"
+    sha256 cellar: :any_skip_relocation, monterey:       "bb08d1c14eae4b92a51433d5becb5f8c074e87513d10429d29a88f9e0299bad8"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "c9d83c063ea735b32fb4e1abdab9d567003c42c3fe8144bbf648e3147167d6f7"
   end
 
   depends_on "cmake" => :build
@@ -33,6 +34,15 @@ class Pgrouting < Formula
   end
 
   def install
+    # Work around an Xcode 15 linker issue which causes linkage against LLVM's
+    # libunwind due to it being present in a library search path.
+    if DevelopmentTools.clang_build_version >= 1500
+      recursive_dependencies
+        .select { |d| d.name.match?(/^llvm(@\d+)?$/) }
+        .map { |llvm_dep| llvm_dep.to_formula.opt_lib }
+        .each { |llvm_lib| ENV.remove "HOMEBREW_LIBRARY_PATHS", llvm_lib }
+    end
+
     mkdir "stage"
     mkdir "build" do
       system "cmake", "-DPOSTGRESQL_PG_CONFIG=#{postgresql.opt_bin}/pg_config", "..", *std_cmake_args

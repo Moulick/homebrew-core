@@ -1,19 +1,19 @@
 class Fblog < Formula
   desc "Small command-line JSON log viewer"
   homepage "https://github.com/brocode/fblog"
-  url "https://github.com/brocode/fblog/archive/refs/tags/v4.5.0.tar.gz"
-  sha256 "b374f6f624eae664a53374c14879b1ffde7daa32ca37ae7f2c05dc3a114a5131"
+  url "https://github.com/brocode/fblog/archive/refs/tags/v4.9.0.tar.gz"
+  sha256 "74f6a51ddff9b2dbaa86eb03e4cc1c4958cdbad45561fa89a92fcf2a99e50e3d"
   license "WTFPL"
   head "https://github.com/brocode/fblog.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "50be5eec191f853c99733ace088b8564188c75e4ebde7503b9821a8d129cbbd1"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "5056bae531f54a93f579be9d90c80bcdd881c2a94205bf6287a8b0dde3c8ba2c"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "eedcf911f628144deab9bfb8e24d3957c1bb05965924f95792def57327e6deaa"
-    sha256 cellar: :any_skip_relocation, sonoma:         "d8ed1a2d41b1aa5528a89cdf3ab63f5c63fab502f0ba546eb0a26e191244c378"
-    sha256 cellar: :any_skip_relocation, ventura:        "e6b355c7ec4329dad0ede14ba2037a0e6e59ca08c1573a1a669be9d22f8523e6"
-    sha256 cellar: :any_skip_relocation, monterey:       "8c14f92858bc4531d88938d54bfa9a8b73ad1857b24392040dce3f22b0b1ba15"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "a0c4755fd7431e7e4df69bfc88d47bcd2383dc5703cbe863bb58176a827b4f0c"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "bc3da3d58dd7c60ea4e7e2ac8128636dc8a431d64770408b6c97e9e299c6763b"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "be8c886dd0d26ef59b5c74af4609e72edc6214ed36b89b10f393753cf70ec087"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "d1167773c7a1153d1334a0150bce47088f49f343b14a452d9d737562015689a5"
+    sha256 cellar: :any_skip_relocation, sonoma:         "b1af52bad3f1a5e08237ad78e57f740c780fc5e3396c0a2312d201bb3aeb4960"
+    sha256 cellar: :any_skip_relocation, ventura:        "00470719d822e6aa3c6117d256a1f6bbf95029d29f01fc179edb2966234b54ac"
+    sha256 cellar: :any_skip_relocation, monterey:       "2f0889db155239a6f17886902b9676f21137a18888966b04b1f75a2fb5fcc3d0"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "f36f6618767aa70bae7f396f661d4993c606464d72fd32e73a2716ac94011dc4"
   end
 
   depends_on "rust" => :build

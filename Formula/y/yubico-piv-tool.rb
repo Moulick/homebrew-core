@@ -1,8 +1,8 @@
 class YubicoPivTool < Formula
   desc "Command-line tool for the YubiKey PIV application"
   homepage "https://developers.yubico.com/yubico-piv-tool/"
-  url "https://developers.yubico.com/yubico-piv-tool/Releases/yubico-piv-tool-2.3.1.tar.gz"
-  sha256 "da89dafd8b6185aa635346753f9ddb29af29bc4abd92dd81f37d9d6560b5d64e"
+  url "https://developers.yubico.com/yubico-piv-tool/Releases/yubico-piv-tool-2.5.2.tar.gz"
+  sha256 "918e76bad99463dc0a858a4771ec674a579fad284d99d90c57fb9cf44fb059b8"
   license "BSD-2-Clause"
 
   livecheck do
@@ -11,15 +11,13 @@ class YubicoPivTool < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_sonoma:   "4dcb1c9bebd59510ee7f601671dc77e37aae9f25eda352102162de7f0ab2c1e6"
-    sha256 cellar: :any,                 arm64_ventura:  "f4bcaee48a934e59a22a29021a5dcaa857417651fcd9cd274c2476b5c6cbcc1f"
-    sha256 cellar: :any,                 arm64_monterey: "883cf669ce25204e04a81c1df515ea02f848a7d907bd82fdbc394543d1375097"
-    sha256 cellar: :any,                 arm64_big_sur:  "4b6849717fab3c4f870d3a619f202bf9fc1a90ad86c87a63c119aa88e79d8d8f"
-    sha256 cellar: :any,                 sonoma:         "32720a4652ed9c3c26cd4383339606773ed404cefc1f746ea9a756dfbce13b37"
-    sha256 cellar: :any,                 ventura:        "7e27d4943fa7280709765beb41ff01272cf208e53a0c5405074df14dafd6170d"
-    sha256 cellar: :any,                 monterey:       "55fd2c1dfdbc687e30ffe5d527030a4c8100e85d447b5094b2621e125668285b"
-    sha256 cellar: :any,                 big_sur:        "97a1f11168ba2107003b5f9346289cf639cb5922c11d6995272e1ec45610d434"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "16aad2f1a7e9e78c05fc1b3c87435033cb854f3683e6be062096d2e27a9532bf"
+    sha256 cellar: :any,                 arm64_sonoma:   "8820544ef87de8223558a920d256f599f96ce34345539aaf92bd306047c786ab"
+    sha256 cellar: :any,                 arm64_ventura:  "2edf06269841a82731ebaf0c12e21a8104de4ccc2ca5343d4cd4f1b9e7398fc9"
+    sha256 cellar: :any,                 arm64_monterey: "3734da6bb92f5e07eae7aa4c993074bdb707ffe52cbc5c9996408b1344656dbb"
+    sha256 cellar: :any,                 sonoma:         "68fb25543cdbc53ca1570751caba3219adab1d5fe6a3e89e8f914c6c5ae35d06"
+    sha256 cellar: :any,                 ventura:        "a200ed2f9995a807509d59896dc8fa937ca1964ff0a6921951643faee3e4c514"
+    sha256 cellar: :any,                 monterey:       "2d54e9bf8093ab0237086c81368832f7dedb3581c0937fe9bc31b8f7f6c8acbb"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "837442ffcf1748789709744e97492bdc5e84d9743cae3596a75f23622d6ed4c6"
   end
 
   depends_on "check" => :build
@@ -30,11 +28,13 @@ class YubicoPivTool < Formula
   depends_on "pkg-config" => :build
   depends_on "check"
   depends_on "openssl@3"
-  depends_on "pcsc-lite"
+  uses_from_macos "pcsc-lite"
 
   def install
     mkdir "build" do
-      system "cmake", "..", *std_cmake_args, "-DCMAKE_C_FLAGS=-I#{Formula["pcsc-lite"].opt_include}/PCSC"
+      args = []
+      args << "-DCMAKE_C_FLAGS=-I#{Formula["pcsc-lite"].opt_include}/PCSC" unless OS.mac?
+      system "cmake", "..", *std_cmake_args, *args
       system "make", "install"
     end
   end

@@ -1,8 +1,8 @@
 class Poppler < Formula
   desc "PDF rendering library (based on the xpdf-3.0 code base)"
   homepage "https://poppler.freedesktop.org/"
-  url "https://poppler.freedesktop.org/poppler-23.10.0.tar.xz"
-  sha256 "31a3dfdea79f4922402d313737415a44d44dc14d6b317f959a77c5bba0647dd9"
+  url "https://poppler.freedesktop.org/poppler-24.04.0.tar.xz"
+  sha256 "1e804ec565acf7126eb2e9bb3b56422ab2039f7e05863a5dfabdd1ffd1bb77a7"
   license "GPL-2.0-only"
   head "https://gitlab.freedesktop.org/poppler/poppler.git", branch: "master"
 
@@ -12,13 +12,13 @@ class Poppler < Formula
   end
 
   bottle do
-    sha256 arm64_sonoma:   "d4cd081ff74d8fa0eb9aef28e4b2a4b821a782aa3147c8d2ec20d7ab30770678"
-    sha256 arm64_ventura:  "09c83d97c4c1adeb1a7da0af2edf7f197578f4af617327dd0c24adc78235458f"
-    sha256 arm64_monterey: "0a4082a646815f4d35646563f400e8d5916d82bcb2240aed80ee144b64bf6233"
-    sha256 sonoma:         "e39cd00d86229a23d76264f6435b97aebd38e925714211fa5b74def42969f32b"
-    sha256 ventura:        "6630a2787c2e47a6248ec787083ec3c67db4f44d9a87d4f84f0af7862d10f3ae"
-    sha256 monterey:       "a6dbc35d00aca8d182f4a51c02b34a74e3d88bd3b326e3adb842f3656f9df84a"
-    sha256 x86_64_linux:   "5af100603bcc85fbd69f0566a750d01f5521b6404582a2d07ea166f3a6d459d8"
+    sha256 arm64_sonoma:   "aa7bda4be692e44cca3c64027e7c450b820a1ba38b008189e113e25515f219bc"
+    sha256 arm64_ventura:  "a6b18dd221b9839984ff09140697c86d250ff37062c5131c8f41d3325612aa75"
+    sha256 arm64_monterey: "3666b25a52db207b67522970e66f45f31f20080eb60f9be4a4e1e70aa1a595f0"
+    sha256 sonoma:         "9b386b3b3acabb456f1dcde5b77b90728cf1006da1def09f68f210fa7177c46b"
+    sha256 ventura:        "49473f6dc827212d179893c2df87310f4d9730c322639e312dcf53b07baa98aa"
+    sha256 monterey:       "a2fcc6470fcd7eae07e98c07da9a4bce47ee7de41af28def80dcfdd51122e5b5"
+    sha256 x86_64_linux:   "56f96d53236f10f3302617d3eca2d0a60abc031c1d4e976c391820df367fd1c6"
   end
 
   depends_on "cmake" => :build
@@ -56,7 +56,7 @@ class Poppler < Formula
     ENV.cxx11
 
     # removes /usr/include from CFLAGS (not clear why)
-    ENV["PKG_CONFIG_SYSTEM_INCLUDE_PATH"] = "/usr/include" if MacOS.version < :mojave
+    ENV["PKG_CONFIG_SYSTEM_INCLUDE_PATH"] = "/usr/include" if OS.mac? && MacOS.version < :mojave
 
     args = std_cmake_args + %W[
       -DBUILD_GTK_TESTS=OFF

@@ -3,10 +3,9 @@ class Isort < Formula
 
   desc "Sort Python imports automatically"
   homepage "https://pycqa.github.io/isort/"
-  url "https://files.pythonhosted.org/packages/a9/c4/dc00e42c158fc4dda2afebe57d2e948805c06d5169007f1724f0683010a9/isort-5.12.0.tar.gz"
-  sha256 "8bef7dde241278824a6d83f44a544709b065191b95b6e50894bdc722fcba0504"
+  url "https://files.pythonhosted.org/packages/87/f9/c1eb8635a24e87ade2efce21e3ce8cd6b8630bb685ddc9cdaca1349b2eb5/isort-5.13.2.tar.gz"
+  sha256 "48fdfcb9face5d58a4f6dde2e72a1fb8dcaf8ab26f95ab49fab84c2ddefb0109"
   license "MIT"
-  revision 1
   head "https://github.com/PyCQA/isort.git", branch: "main"
 
   livecheck do
@@ -15,13 +14,14 @@ class Isort < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "1a6fe0fa7fff82ad3f77066d49102cac7ced09f0431fe7c34ef4db390c2de8b0"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "766a9c948c66313d18af5adeb24c2c55a7cd5f8419490e65846457535451c26a"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "abf6cbbe5fee719854f6438726a39f358fdd623889948903fead3222f363e37f"
-    sha256 cellar: :any_skip_relocation, sonoma:         "c77093fe5ec5a3bf45df36a6eb761a304fef472adf4bab0c0d43d34b17bca813"
-    sha256 cellar: :any_skip_relocation, ventura:        "fdb28d5ebec41304551a8eaa70c69a21e5fe6099303d84d9ad96614c9b561f7b"
-    sha256 cellar: :any_skip_relocation, monterey:       "1d076d14e42b27fd509c01555439c83e3ae59d24ba4a5c20aeeb66781925a300"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "be81f88db2b0136b2dd8803a5b6bd4c23b04b6f2f77337b22bb5fb50eb662d7d"
+    rebuild 1
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "2190b1a4860ba5e7ad437a5c0c37a6ba8ad54f19cb4fef15f914a9710356d636"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "2190b1a4860ba5e7ad437a5c0c37a6ba8ad54f19cb4fef15f914a9710356d636"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "2190b1a4860ba5e7ad437a5c0c37a6ba8ad54f19cb4fef15f914a9710356d636"
+    sha256 cellar: :any_skip_relocation, sonoma:         "2190b1a4860ba5e7ad437a5c0c37a6ba8ad54f19cb4fef15f914a9710356d636"
+    sha256 cellar: :any_skip_relocation, ventura:        "2190b1a4860ba5e7ad437a5c0c37a6ba8ad54f19cb4fef15f914a9710356d636"
+    sha256 cellar: :any_skip_relocation, monterey:       "2190b1a4860ba5e7ad437a5c0c37a6ba8ad54f19cb4fef15f914a9710356d636"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "af37731a0ce2a0eca9cfad575039cf7a300ca79e0b705628d91de2130d92e03c"
   end
 
   depends_on "python@3.12"

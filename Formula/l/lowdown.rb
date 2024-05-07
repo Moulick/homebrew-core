@@ -1,20 +1,19 @@
 class Lowdown < Formula
   desc "Simple markdown translator"
   homepage "https://kristaps.bsd.lv/lowdown"
-  url "https://github.com/kristapsdz/lowdown/archive/refs/tags/VERSION_1_0_2.tar.gz"
-  sha256 "049b7883874f8a8e528dc7c4ed7b27cf7ceeb9ecf8fe71c3a8d51d574fddf84b"
+  url "https://github.com/kristapsdz/lowdown/archive/refs/tags/VERSION_1_1_0.tar.gz"
+  sha256 "5cc997f742fd9e3268a2bf15cb9c58bfa173b303bc13f5c61f67dedfff3bccce"
   license "ISC"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "13d7f9a0d20b89394eb33c9590eaaa4655bcbacd51206af96e43fd6a124920ef"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "8fb0c7d57f545fd6ed5902049ec23eaa7f54a3bde10c0e6808cc54adb76e6abb"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "2bc8fd2653eab9542d2afe9d6aad18481ed647dec62228d1b2e2f5a2cb03d141"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "da6b18b0d4734244f9e5d677298f4a0874d87326f269656e76120d4fb867d8de"
-    sha256 cellar: :any_skip_relocation, sonoma:         "36031659a27a0ea01f41c8593e901783b9742e41d1db2c2abe95cd9be18c25ff"
-    sha256 cellar: :any_skip_relocation, ventura:        "05886e27d8b52b8755130af5e4741f0920908d9742781975aa3cdf398ca613c3"
-    sha256 cellar: :any_skip_relocation, monterey:       "a4a41ff54df94cafab6b52b1ce062cf5dbf3a99c6ad22b494c59e99bf95088b3"
-    sha256 cellar: :any_skip_relocation, big_sur:        "fb19bded8bdfe9220682b03c8c9aeaf7c24c86bd20d8cc294ad5cc35fba5e87b"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "7b3aae261818590324f0ed233f8f104541d5adddc0da9abe36f035919c480657"
+    rebuild 1
+    sha256 cellar: :any,                 arm64_sonoma:   "9064bbd0e8bdcd10df4f8a1d3f8bdcd27a6224b82731e847983039ca51d3e499"
+    sha256 cellar: :any,                 arm64_ventura:  "dd24024c11c3428f24dd59166bd50fc789f3772bdd6bf9240f2fdf78b06a8ba2"
+    sha256 cellar: :any,                 arm64_monterey: "a4bce83c1f08f75c32fcf579793df1a50394d864b33021ecf70db2e4411a2efe"
+    sha256 cellar: :any,                 sonoma:         "2f0b741ea7d64e05661184e180eed830debd898f51ec19a64b566476c8267743"
+    sha256 cellar: :any,                 ventura:        "d31e6f38b70f15eac77f125317f07ec82d77130093e6519d651bfd37bf4a9293"
+    sha256 cellar: :any,                 monterey:       "dae8c835158aed0264c27acc70ce419adfa26854b997700335ce89444d47c58b"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "c31000c8f9ff4b60b2ba703ea57231d11bfe0ad774eba558aac98c2a7aaee474"
   end
 
   def install
@@ -28,7 +27,7 @@ class Lowdown < Formula
 
     system "./configure", *configure_args
     system "make"
-    system "make", "install"
+    system "make", "install", "install_libs"
   end
 
   test do

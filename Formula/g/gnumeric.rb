@@ -1,19 +1,18 @@
 class Gnumeric < Formula
   desc "GNOME Spreadsheet Application"
   homepage "https://projects.gnome.org/gnumeric/"
-  url "https://download.gnome.org/sources/gnumeric/1.12/gnumeric-1.12.55.tar.xz"
-  sha256 "c69a09cd190b622acca476bbc3d4c03d68d7ccf59bba61bf036ce60885f9fb65"
+  url "https://download.gnome.org/sources/gnumeric/1.12/gnumeric-1.12.57.tar.xz"
+  sha256 "aff50b1b62340c24fccf453d5fad3e7fb73f4bc4b34f7e34b6c3d2d9af6a1e4f"
   license any_of: ["GPL-3.0-only", "GPL-2.0-only"]
-  revision 1
 
   bottle do
-    sha256                               arm64_sonoma:   "dd42aa96ff8b79898c9f90647b7747529d2a67396c12d01a2d94a8d4200b340e"
-    sha256                               arm64_ventura:  "83ab915e64347ea4c3b3cf55bc82f48b5c23c504dd5b844c55013b87d1f249dc"
-    sha256                               arm64_monterey: "88cfead4de113e54b1c24834df19440088cd7453cd435bd75f43c5dcc772490d"
-    sha256                               sonoma:         "6f1ed50227be68a9af440d39c3d7ec2758ce18664e9c47d8e9f3c986b86ba3fe"
-    sha256                               ventura:        "ff12af5b542cd23f0fc62a3cd07090ee289d229abb83ace465485e0f84ee2655"
-    sha256                               monterey:       "6a5163689240a62d309898b16d7b1c4755af057aa5aa93c7db51cf7e7da78d41"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "120582c44f3d7c75a37124a87ab8521600157c5cebd1e0eba4f2d428b49d5ead"
+    sha256                               arm64_sonoma:   "9ac4b6038db349fcb894b3f16b2b5450e8b97e130609e8b509e117346eb3edf6"
+    sha256                               arm64_ventura:  "d0cb4f9530d15cd61556bc16915e80d0496805fa3a5555d543543ed918de3ec0"
+    sha256                               arm64_monterey: "a94bc870862a5c7d92ea8b1baaf3c7cb84e189b17cb1fdc66130e8e080738f48"
+    sha256                               sonoma:         "61fe8907d180ec8d1fbc1e810b8f276566822fb916d582bb1e4264c0f3a6fd2e"
+    sha256                               ventura:        "046dd2fbc0294941ae45432b97715fb80d4b5159edc05fd83d256a0b08c91422"
+    sha256                               monterey:       "640060260af9ef39b76959b827f81c511351aaf6b70b31a43f958c47a95855f5"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "22083c21842d8e41c7a37d5af2bb683d6fb1fb52347db917785fd02024a6a341"
   end
 
   depends_on "gettext" => :build
@@ -29,6 +28,7 @@ class Gnumeric < Formula
   depends_on "pango"
 
   uses_from_macos "bison" => :build
+  uses_from_macos "python" => :build
   uses_from_macos "perl"
 
   on_macos do

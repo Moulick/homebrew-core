@@ -1,21 +1,19 @@
 class Libfido2 < Formula
   desc "Provides library functionality for FIDO U2F & FIDO 2.0, including USB"
   homepage "https://developers.yubico.com/libfido2/"
-  url "https://github.com/Yubico/libfido2/archive/refs/tags/1.13.0.tar.gz"
-  sha256 "51d43727e2a1c4544c7fd0ee47786f443e39f1388ada735a509ad4af0a2459ca"
+  url "https://github.com/Yubico/libfido2/archive/refs/tags/1.14.0.tar.gz"
+  sha256 "3601792e320032d428002c4cce8499a4c7b803319051a25a0c9f1f138ffee45a"
   license "BSD-2-Clause"
   revision 1
 
   bottle do
-    sha256 cellar: :any,                 arm64_sonoma:   "c100334468bce64470a1bca586752453787ab2c45d38909dca80ffbd4943ccc4"
-    sha256 cellar: :any,                 arm64_ventura:  "92ec60d842d0f283bf1d5f3e063aee439cbe1bfdb3b458556caa0dabeed3d0e1"
-    sha256 cellar: :any,                 arm64_monterey: "ad03ed8928436cf37260a365287c0f5fc0b82379a31ebf59b2500e7ef04aa0ec"
-    sha256 cellar: :any,                 arm64_big_sur:  "62bc2844dfe47bd9c5a05b61b4e8e6d4ca765c5ae15679406fa21f1c17aae031"
-    sha256 cellar: :any,                 sonoma:         "8d6d367e54291b4b2d4f0eae9b86dacbcc1be3741f6cd41600a1bf6149028068"
-    sha256 cellar: :any,                 ventura:        "e3f26a2f2a3ed809d521960ab19f6cd7165a6c8ef634dafec625f4574f692365"
-    sha256 cellar: :any,                 monterey:       "965c77b9c1fa018c00421affc54cf9e291733a7f945044977c1118e7f984c060"
-    sha256 cellar: :any,                 big_sur:        "fbc2977a46a8a2cd67003d6481c124407eb154f477f5b1bd558a71673319739f"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "54a0268ea3f24f5d9f0c4bfbe997d425d7f2f133c4df6f8ebe8c87bf7e76372f"
+    sha256 cellar: :any,                 arm64_sonoma:   "124c6acd3f42b69035cdf61dc1a03b3fdf86c1290a3c9ad3144c4732d25b798c"
+    sha256 cellar: :any,                 arm64_ventura:  "42504c5bc3a7895b31365222687510f4ff386f129072b2e73b365e1e1d69f2f8"
+    sha256 cellar: :any,                 arm64_monterey: "c9f675b9b835f8b391bda4c63c20d24fda863649b5154537da2373b6835ca9ea"
+    sha256 cellar: :any,                 sonoma:         "3dee804ca54bc15d99e4a47cbecec62e7ffe64323afa476811bf1b2c7f8326bd"
+    sha256 cellar: :any,                 ventura:        "6e06c97e6d5231ac270ea458d2d528826fbef7438cc3973ce2a10ed09a9896d9"
+    sha256 cellar: :any,                 monterey:       "0fcdef5244969f2f450415daa7a51aafac325f0ed0cf63215306ca6017c17094"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "b9a9fe328eb53484cda674637c633c9cd0030593f2efc6bcb249ee7cb19c6bd6"
   end
 
   depends_on "cmake" => :build

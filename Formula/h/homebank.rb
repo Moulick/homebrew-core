@@ -2,24 +2,24 @@ class Homebank < Formula
   desc "Manage your personal accounts at home"
   homepage "http://homebank.free.fr"
   # A mirror is used as primary URL because the official one is unstable.
-  url "https://deb.debian.org/debian/pool/main/h/homebank/homebank_5.7.1.orig.tar.gz"
-  mirror "http://homebank.free.fr/public/sources/homebank-5.7.1.tar.gz"
-  sha256 "7f0a929d775eef26a5a9f29fa3c013f3eefadbf6982cc086a7c75dddb9b4f429"
+  url "https://deb.debian.org/debian/pool/main/h/homebank/homebank_5.7.4.orig.tar.gz"
+  mirror "http://homebank.free.fr/public/sources/homebank-5.7.4.tar.gz"
+  sha256 "42ce7146c875ea0ca3c93391b6a9bf4714db4621c63f4a094dcc6f8985bb54e4"
   license "GPL-2.0-or-later"
 
   livecheck do
-    url "http://homebank.free.fr/public/sources/"
-    regex(/href=.*?homebank[._-]v?(\d+(?:\.\d+)+)\.t/i)
+    url "https://deb.debian.org/debian/pool/main/h/homebank/"
+    regex(/href=.*?homebank[._-]v?(\d+(?:\.\d+)+)\.orig\.t/i)
   end
 
   bottle do
-    sha256 arm64_sonoma:   "f8f69b7528397655cec90fbb26c905c0f458302d8fcc62737e16e53ef85d0fe1"
-    sha256 arm64_ventura:  "6ec975c1c1f50c19e2d59ca183da7b6abe7d75445f939248b3aa6fd3e791a37b"
-    sha256 arm64_monterey: "6eac90b943e9b6e1156a0e2d6f0bc2b9cac3f7e34a8d78a88de20a824a2185b9"
-    sha256 sonoma:         "a59d2eeda8f39496f47312132780b160fd70806941b8acae6759b50afbdbdd55"
-    sha256 ventura:        "08078b68ce17ff2e41dd013a6e3ad13b4c061fcb4b8816744c2b110362330c10"
-    sha256 monterey:       "9d45eb8e77de3b14f94788466e5fccf3212901ad434f9cd53743755a90db30a0"
-    sha256 x86_64_linux:   "0f06ac514054a4d11c10dbc03e56d92cb04ca415823ccf4ea3658c53a57b12af"
+    sha256 arm64_sonoma:   "a455ffc6c89184905ef95e86ad64f47c116d180c84403a76f3d3500c718e471e"
+    sha256 arm64_ventura:  "a87b644ca8699ef4066056c4dd69249fd683b5640d8a5ba9845a520634fcd8e8"
+    sha256 arm64_monterey: "bf68a6601ec1121d9819b36287ce21a14d60a4707989a1d57b9f85c6bde2c4ce"
+    sha256 sonoma:         "86d67b8c23582998b26e6e2650e8f5ef126411786eb7166d784d94569702c8b3"
+    sha256 ventura:        "c8ddf2d9b781aa06334e444a694f4b497cd12ebdc8a85b5e75c1b6c998c66939"
+    sha256 monterey:       "43ecddb5048909cf26d9c51b8b1383d54bede58fbe582ef5ae0c548c1e1505dd"
+    sha256 x86_64_linux:   "00ea39896f9ff78d82d92f7019aea04faa8a2d0575e66e76f711fd95831da772"
   end
 
   depends_on "intltool" => :build

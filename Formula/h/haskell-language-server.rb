@@ -1,8 +1,8 @@
 class HaskellLanguageServer < Formula
   desc "Integration point for ghcide and haskell-ide-engine. One IDE to rule them all"
   homepage "https://github.com/haskell/haskell-language-server"
-  url "https://github.com/haskell/haskell-language-server/archive/refs/tags/2.4.0.0.tar.gz"
-  sha256 "67bbfae1275aabbfdb26869bc6df91feb58e03427cb76df89f74b864dbb5d57b"
+  url "https://github.com/haskell/haskell-language-server/archive/refs/tags/2.7.0.0.tar.gz"
+  sha256 "f84394954ed29ff5f99a3710e4581809d0a0641ba726a41bf031e7bc7e9d3455"
   license "Apache-2.0"
   head "https://github.com/haskell/haskell-language-server.git", branch: "master"
 
@@ -14,19 +14,19 @@ class HaskellLanguageServer < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "b0c4afe14bc78ccee8865ab32baec658d786080ea3fbaabdb82b78ea6c95dda4"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "d428be5d261a58d0c50017290478a150ea4508412dd31f35da4ca81bbe6e8581"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "db7b3d8c2f0b5f5de1a7d7d43bf622afe6ac465de70bd42ed79022a4cdf42728"
-    sha256 cellar: :any_skip_relocation, sonoma:         "38a68d6c518792d2ee6c1c40a837a931b9abda201cf2c8339377c693ec89efe2"
-    sha256 cellar: :any_skip_relocation, ventura:        "c10b30a7a8a7d7524c31d2bd5e1fac56bfd06f3110ca73b95bbba990c4dc6e23"
-    sha256 cellar: :any_skip_relocation, monterey:       "a618bfc394a815db8f881568fdfed20f568360fe9deb6366ca18ddfead10704e"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "e0caecce009a1e206f68145f0598382a8b6878c7f0a2aa5eb91897161a27bc95"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "71be80dde9873b435968527063c8b26d836bf9e25b8c00cb9217328803b5bd1b"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "62c8fc0ebe628433433e64176be242cd8453c898ef359480a4cc8e62a45f26c0"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "f80249dc475059ba769c6b731af820849d924a3a463debeb1effc0af128b840d"
+    sha256 cellar: :any_skip_relocation, sonoma:         "204d45443fb901de7904647e46a4d35cb92220b149fddf48cf618842a1e535e7"
+    sha256 cellar: :any_skip_relocation, ventura:        "bd056dc1ec1567ffb371bac41c06e2edbaf6395d576e12965fe8a9eefc147e0b"
+    sha256 cellar: :any_skip_relocation, monterey:       "7e400696ce651ec615a56f547db8014110aa3989b8b1927df4ed0c1d54be3b62"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "d93d0c6b2540feeb68a2143a660d2b2d1b3ead71e16e6015ed247c02e447f885"
   end
 
   depends_on "cabal-install" => [:build, :test]
   depends_on "ghc" => [:build, :test]
-  depends_on "ghc@9.2" => [:build, :test]
   depends_on "ghc@9.4" => [:build, :test]
+  depends_on "ghc@9.6" => [:build, :test]
 
   uses_from_macos "ncurses"
   uses_from_macos "zlib"
@@ -51,7 +51,7 @@ class HaskellLanguageServer < Formula
   end
 
   def caveats
-    ghc_versions = ghcs.map(&:version).map(&:to_s).join(", ")
+    ghc_versions = ghcs.map { |ghc| ghc.version.to_s }.join(", ")
 
     <<~EOS
       #{name} is built for GHC versions #{ghc_versions}.

@@ -6,27 +6,29 @@ class Twarc < Formula
   url "https://files.pythonhosted.org/packages/8a/ed/ac80b24ece6ee552f6deb39be34f01491cff4018cca8c5602c901dc08ecf/twarc-2.14.0.tar.gz"
   sha256 "fa8ee3052d8b9678231bea95d1bdcbabb3968d35c56a8d1fcedc8982e8c66a66"
   license "MIT"
-  revision 3
+  revision 6
 
   bottle do
-    rebuild 1
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "fb7506c0cc625e7334abf33aa0ea75585a4b9159ee9b4a3b74093e3ac7e453c8"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "e4994712d195261523e538a00bc0e23370e3b9488b1651f28bdad0dcfdba80a3"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "f3f9469f4632f81f4295772fd54cfc2daf92df27059fb02d0f6b9430a4edadd8"
-    sha256 cellar: :any_skip_relocation, sonoma:         "928dc144e38ab4fda89acee5dc6f6e9af595e0969eb8e44442d6f42588ade67d"
-    sha256 cellar: :any_skip_relocation, ventura:        "e5c9c9cc1937ed80034a1f75a69ef8ba58c5b3678f88c8ae9bbd374351035ff7"
-    sha256 cellar: :any_skip_relocation, monterey:       "93b14f6fb25584adfe4e596a93a8a209bf9cd1c77a606ccc80c8955202c599af"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "d030a541921d513dec68a26d26a6dc9b9899642ba3f9e1cc261229a79fa3f7a4"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "a3830630bb2ba043cb8dd200c5eed72b723f7bccb7ee35846ee44d0781c88f7b"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "a3830630bb2ba043cb8dd200c5eed72b723f7bccb7ee35846ee44d0781c88f7b"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "a3830630bb2ba043cb8dd200c5eed72b723f7bccb7ee35846ee44d0781c88f7b"
+    sha256 cellar: :any_skip_relocation, sonoma:         "a3830630bb2ba043cb8dd200c5eed72b723f7bccb7ee35846ee44d0781c88f7b"
+    sha256 cellar: :any_skip_relocation, ventura:        "a3830630bb2ba043cb8dd200c5eed72b723f7bccb7ee35846ee44d0781c88f7b"
+    sha256 cellar: :any_skip_relocation, monterey:       "a3830630bb2ba043cb8dd200c5eed72b723f7bccb7ee35846ee44d0781c88f7b"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "a4340e200561f3ba8792b6a1bad9e8245479331ea3a43c646f9e264c58fa1120"
   end
 
-  depends_on "python-certifi"
-  depends_on "python-click"
+  depends_on "certifi"
   depends_on "python@3.12"
-  depends_on "six"
 
   resource "charset-normalizer" do
-    url "https://files.pythonhosted.org/packages/cf/ac/e89b2f2f75f51e9859979b56d2ec162f7f893221975d244d8d5277aa9489/charset-normalizer-3.3.0.tar.gz"
-    sha256 "63563193aec44bce707e0c5ca64ff69fa72ed7cf34ce6e11d5127555756fd2f6"
+    url "https://files.pythonhosted.org/packages/63/09/c1bc53dab74b1816a00d8d030de5bf98f724c52c1635e07681d312f20be8/charset-normalizer-3.3.2.tar.gz"
+    sha256 "f30c3cb33b24454a82faecaf01b19c18562b1e89558fb6c56de4d9118a032fd5"
+  end
+
+  resource "click" do
+    url "https://files.pythonhosted.org/packages/96/d3/f04c7bfcf5c1862a2a5b845c6b2b360488cf47af55dfa79c98f6a6bf98b5/click-8.1.7.tar.gz"
+    sha256 "ca9853ad459e787e2192211578cc907e7594e294c7ccc834310722b41b9ca6de"
   end
 
   resource "click-config-file" do
@@ -45,13 +47,13 @@ class Twarc < Formula
   end
 
   resource "humanize" do
-    url "https://files.pythonhosted.org/packages/0c/84/e58c665f4ebb03d2fbeb28b51afb0743f846db18a5b594ed8b8973676ddf/humanize-4.8.0.tar.gz"
-    sha256 "9783373bf1eec713a770ecaa7c2d7a7902c98398009dfa3d8a2df91eec9311e8"
+    url "https://files.pythonhosted.org/packages/76/21/7a0b24fae849562397efd79da58e62437243ae0fd0f6c09c6bc26225b75c/humanize-4.9.0.tar.gz"
+    sha256 "582a265c931c683a7e9b8ed9559089dea7edcf6cc95be39a3cbc2c5d5ac2bcfa"
   end
 
   resource "idna" do
-    url "https://files.pythonhosted.org/packages/8b/e1/43beb3d38dba6cb420cefa297822eac205a277ab43e5ba5d5c46faf96438/idna-3.4.tar.gz"
-    sha256 "814f528e8dead7d329833b91c5faa87d60bf71824cd12a7530b5526063d02cb4"
+    url "https://files.pythonhosted.org/packages/21/ed/f86a79a07470cb07819390452f178b3bef1d375f2ec021ecfc709fc7cf07/idna-3.7.tar.gz"
+    sha256 "028ff3aadf0609c1fd278d8ea3089299412a7a8b9bd005dd08b9f8285bcb5cfc"
   end
 
   resource "oauthlib" do
@@ -60,8 +62,8 @@ class Twarc < Formula
   end
 
   resource "python-dateutil" do
-    url "https://files.pythonhosted.org/packages/4c/c4/13b4776ea2d76c115c1d1b84579f3764ee6d57204f6be27119f13a61d0a9/python-dateutil-2.8.2.tar.gz"
-    sha256 "0123cacc1627ae19ddf3c27a5de5bd67ee4586fbdd6440d9748f8abb483d3e86"
+    url "https://files.pythonhosted.org/packages/66/c0/0c8b6ad9f17a802ee498c46e004a0eb49bc148f2fd230864601a86dcf6db/python-dateutil-2.9.0.post0.tar.gz"
+    sha256 "37dd54208da7e1cd875388217d5e00ebd4179249f90fb72437e91a35459a0ad3"
   end
 
   resource "requests" do
@@ -70,18 +72,23 @@ class Twarc < Formula
   end
 
   resource "requests-oauthlib" do
-    url "https://files.pythonhosted.org/packages/95/52/531ef197b426646f26b53815a7d2a67cb7a331ef098bb276db26a68ac49f/requests-oauthlib-1.3.1.tar.gz"
-    sha256 "75beac4a47881eeb94d5ea5d6ad31ef88856affe2332b9aafb52c6452ccf0d7a"
+    url "https://files.pythonhosted.org/packages/42/f2/05f29bc3913aea15eb670be136045bf5c5bbf4b99ecb839da9b422bb2c85/requests-oauthlib-2.0.0.tar.gz"
+    sha256 "b3dffaebd884d8cd778494369603a9e7b58d29111bf6b41bdc2dcd87203af4e9"
+  end
+
+  resource "six" do
+    url "https://files.pythonhosted.org/packages/71/39/171f1c67cd00715f190ba0b100d606d440a28c93c7714febeca8b79af85e/six-1.16.0.tar.gz"
+    sha256 "1e61c37477a1626458e36f7b1d82aa5c9b094fa4802892072e49de9c60c4c926"
   end
 
   resource "tqdm" do
-    url "https://files.pythonhosted.org/packages/62/06/d5604a70d160f6a6ca5fd2ba25597c24abd5c5ca5f437263d177ac242308/tqdm-4.66.1.tar.gz"
-    sha256 "d88e651f9db8d8551a62556d3cff9e3034274ca5d66e93197cf2490e2dcb69c7"
+    url "https://files.pythonhosted.org/packages/5a/c0/b7599d6e13fe0844b0cda01b9aaef9a0e87dbb10b06e4ee255d3fa1c79a2/tqdm-4.66.4.tar.gz"
+    sha256 "e4d936c9de8727928f3be6079590e97d9abfe8d39a590be678eb5919ffc186bb"
   end
 
   resource "urllib3" do
-    url "https://files.pythonhosted.org/packages/af/47/b215df9f71b4fdba1025fc05a77db2ad243fa0926755a52c5e71659f4e3c/urllib3-2.0.7.tar.gz"
-    sha256 "c97dfde1f7bd43a71c8d2a58e369e9b2bf692d1334ea9f9cae55add7d0dd0f84"
+    url "https://files.pythonhosted.org/packages/7a/50/7fd50a27caa0652cd4caf224aa87741ea41d3265ad13f010886167cfcc79/urllib3-2.2.1.tar.gz"
+    sha256 "d0570876c61ab9e520d776c38acbbb5b05a776d3f9ff98a5c8fd5162a444cf19"
   end
 
   def install

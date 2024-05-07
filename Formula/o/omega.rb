@@ -1,8 +1,8 @@
 class Omega < Formula
   desc "Packaged search engine for websites, built on top of Xapian"
   homepage "https://xapian.org/"
-  url "https://oligarchy.co.uk/xapian/1.4.23/xapian-omega-1.4.23.tar.xz"
-  sha256 "7ba460eba70004d1f44299de4e62dcc84009927e6d52604ae67a3e30165e220f"
+  url "https://oligarchy.co.uk/xapian/1.4.25/xapian-omega-1.4.25.tar.xz"
+  sha256 "2fc0b505e606d5e1dcde1f22362b6f0237d9e847fc9b6af538f99bc9abd1fccb"
   license "GPL-2.0-or-later"
 
   livecheck do
@@ -11,15 +11,13 @@ class Omega < Formula
   end
 
   bottle do
-    sha256 arm64_sonoma:   "b0d03c4025529011ef6ea5cd02075e75e6e3ec893065f7cf7ade2b95caaf6340"
-    sha256 arm64_ventura:  "0a13623db696c4db8d4c065c03e17f5823051efb2a856b77fb77bc8815dc669b"
-    sha256 arm64_monterey: "6d3beb88a06c75243dc6a93f792f9ca5b87692c7bcf5e4c788cb9257d107dff9"
-    sha256 arm64_big_sur:  "d0afcd8dd26c10291fb79d2d13b6fc0b5e9c0d5da1353a454178cb64284f46d9"
-    sha256 sonoma:         "5482f9e05ba313aca8e15423ca0914f6582aad18248c9aa4e00feeaa7611ec5a"
-    sha256 ventura:        "4e3cae57c971d47cd3db6ce26bd48bba790e0917de97aad48d9876cbdab17be6"
-    sha256 monterey:       "cac82638593943c7b633d261f5ff598a715cfcca6dd86a887e774c5985e92a43"
-    sha256 big_sur:        "f10ec494d78a3e0cae7ba7107ae4bd9016b08e7c647a1baa6d98b7693993a044"
-    sha256 x86_64_linux:   "cbe07c89f37a2045ec9ba8e15498e8f8b1a05e0f9b5d0249d01dc77b56fcf874"
+    sha256 arm64_sonoma:   "6c382c25807c5c7988be7cfa0b805611917fcf5422fdd1b030313b235597af57"
+    sha256 arm64_ventura:  "6812f64288e8adf48cdce414cbc0ad884d6b2cf4dd1039a25ea1768ea3f7c863"
+    sha256 arm64_monterey: "53ddd62ae301bb2bbdb7bf398213362438ceed13879841d2183ec44149e4fc62"
+    sha256 sonoma:         "9f590bba4f0b97f7c433a51eb0562054f841c226fe71cc0c1f1ffcf68df25e95"
+    sha256 ventura:        "431f55d7584b994e16ae4c25610fc9274597381c1ac1ef9bdb3e5ef422a4e13a"
+    sha256 monterey:       "c45a4ed18d50c4592e6229c34b7de6d95eaaf277ed4b42a451038b12c3d6aa20"
+    sha256 x86_64_linux:   "40803f181f1f6c429aaec0f7d80057a061a692bba40c34c18c045ba9f9194e73"
   end
 
   depends_on "pkg-config" => :build

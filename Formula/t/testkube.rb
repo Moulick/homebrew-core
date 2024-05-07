@@ -1,8 +1,8 @@
 class Testkube < Formula
   desc "Kubernetes-native framework for test definition and execution"
   homepage "https://testkube.io"
-  url "https://github.com/kubeshop/testkube/archive/refs/tags/v1.15.10.tar.gz"
-  sha256 "7ce3b62812434d25612f6a0b189c8c8ca4df3d16fcbb7c97e0123d5369a6d3d5"
+  url "https://github.com/kubeshop/testkube/archive/refs/tags/v1.17.24.tar.gz"
+  sha256 "936e8cb965fcad7fb0467aec1acc4da1870652116b0784e4a3a12841a9ea0113"
   license "MIT"
   head "https://github.com/kubeshop/testkube.git", branch: "main"
 
@@ -12,13 +12,13 @@ class Testkube < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "045e6a0873979775f10757882ec608a7d908ab18b5ac122ad06b24b55f0d2148"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "c567343ac516a5706eef78197f41bf0368f8dbfde2ac1c7fd397a4ce6c9e0adf"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "dec0de5fa754aa1726b76f54c28c692305c0f8c4fb13d35bc228699268bbda56"
-    sha256 cellar: :any_skip_relocation, sonoma:         "180b9a0de783150370f5b4413ee65b8cbec2584b159a11c3a02efbe5656b4549"
-    sha256 cellar: :any_skip_relocation, ventura:        "6255dca2d7cfc5143a41a75a7c0e3057a372a0408833b7e416d13113cd03a76e"
-    sha256 cellar: :any_skip_relocation, monterey:       "99b91192411169a7bd8d0f03283560a5a669c3b3284a368c87df0eadf76cbbbf"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "16b0ce978e6786b60ee714bae632e26c401b011b5b44b0e008d69a29060a1c76"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "a578ee72078835ce39df1f3db8cf0faddb468376ad432b4a10a588f4562b0e52"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "b1d8e4c4f113405bdf435d4bce5f9b14e18506b2a063525654bcece5653dea8e"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "a062931236a706dd36ad410a0ca004471e7919138c340fbfee699a2ab6825eec"
+    sha256 cellar: :any_skip_relocation, sonoma:         "a1c79cebad5333b707b4b684d117bf7301d2f51c2228ee16dcc080d612bd2031"
+    sha256 cellar: :any_skip_relocation, ventura:        "7ac671a82a3f3975e4190735f896646eaad1dafac2dd07acb028a767c405b33f"
+    sha256 cellar: :any_skip_relocation, monterey:       "6a9c73a4681fb59aae2849a7bc85eec1826968e6c1b58a75c71f78f815d1e58b"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "65c61af5e659a72834749ba687c588bb5a6852dad10b3bb2a626a84425235ce8"
   end
 
   depends_on "go" => :build
@@ -32,7 +32,7 @@ class Testkube < Formula
       -X main.builtBy=#{tap.user}
     ]
 
-    system "go", "build", *std_go_args(output: bin/"kubectl-testkube", ldflags: ldflags),
+    system "go", "build", *std_go_args(output: bin/"kubectl-testkube", ldflags:),
       "cmd/kubectl-testkube/main.go"
 
     bin.install_symlink "kubectl-testkube" => "testkube"

@@ -3,19 +3,18 @@ class SphinxDoc < Formula
 
   desc "Tool to create intelligent and beautiful documentation"
   homepage "https://www.sphinx-doc.org/"
-  url "https://files.pythonhosted.org/packages/73/8e/6e51da4b26665b4b92b1944ea18b2d9c825e753e19180cc5bdc818d0ed3b/sphinx-7.2.6.tar.gz"
-  sha256 "9a5160e1ea90688d5963ba09a2dcd8bdd526620edbb65c328728f1b2228d5ab5"
+  url "https://files.pythonhosted.org/packages/b7/0a/b88033900b1582f5ed8f880263363daef968d1cd064175e32abfd9714410/sphinx-7.3.7.tar.gz"
+  sha256 "a4a7db75ed37531c05002d56ed6948d4c42f473a36f46e1382b0bd76ca9627bc"
   license "BSD-2-Clause"
-  revision 2
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "5ed46836d8bd431e857260ab63e908287b0b3808052d163dd71d31abe6e150b2"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "6b3922dc6db12ae2a90bb73e9c3fd5811d82e57b29ac2c828d0910140e5349b8"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "ea26b16679d758a275ab77d832703180e9265ad2f588f8bb52683a9cd80e1ca8"
-    sha256 cellar: :any_skip_relocation, sonoma:         "e0dd50069087500229793885b7c4a32a7f9fb6aff83813a08d0f5fb96682cc33"
-    sha256 cellar: :any_skip_relocation, ventura:        "4aa5c96d631f58736fb8ea5f1689629cc216fbcbd21fc0a838ba4a2269ff7b88"
-    sha256 cellar: :any_skip_relocation, monterey:       "7de450cd16c32fbf85724cb1deba30b44f887539f49e497f4a5a21cdafff1da9"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "041966d36261bde513a9cbd4661c347c31265a97d87c45b67de2aa12bae300a1"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "7b7bcf45774a2488adf59947844afa57a00b18bd91188964de5ef6f0cc391963"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "88e7f44f61711444b143d2fd4d942b6dd00be6ef5414254c649343f7b942c949"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "6753b93b832ca78aec4757b484431ae8fed1fcb3945e8f51ebbe95bccf151133"
+    sha256 cellar: :any_skip_relocation, sonoma:         "0084c0936db0a00d16db5081d4db087cd3df6ce018fb9f86ca5c0fd50323bb05"
+    sha256 cellar: :any_skip_relocation, ventura:        "46775c91af86deb004010ef551b5885f6cbe7ae743cb97875aa6e77a88f78725"
+    sha256 cellar: :any_skip_relocation, monterey:       "17fdd15c8e0f309f9cbef23d959e11fab574596da54e77e48fda16bdaeb5b165"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "ed7bbc312895db3acce57b004c366b47671d68460fd71adbb22171ed348dc67c"
   end
 
   keg_only <<~EOS
@@ -23,32 +22,32 @@ class SphinxDoc < Formula
     Users are advised to use `pip` to install sphinx-doc
   EOS
 
-  depends_on "docutils"
-  depends_on "pygments"
-  depends_on "python-certifi"
-  depends_on "python-markupsafe"
-  depends_on "python-packaging"
-  depends_on "python-tabulate"
+  depends_on "certifi"
   depends_on "python@3.12"
 
   resource "alabaster" do
-    url "https://files.pythonhosted.org/packages/94/71/a8ee96d1fd95ca04a0d2e2d9c4081dac4c2d2b12f7ddb899c8cb9bfd1532/alabaster-0.7.13.tar.gz"
-    sha256 "a27a4a084d5e690e16e01e03ad2b2e552c61a65469419b907243193de1a84ae2"
+    url "https://files.pythonhosted.org/packages/c9/3e/13dd8e5ed9094e734ac430b5d0eb4f2bb001708a8b7856cbf8e084e001ba/alabaster-0.7.16.tar.gz"
+    sha256 "75a8b99c28a5dad50dd7f8ccdd447a121ddb3892da9e53d1ca5cca3106d58d65"
   end
 
   resource "babel" do
-    url "https://files.pythonhosted.org/packages/d5/7d/08e7b8b1ab446121ace3de332f144be41a52049a23303375a0126d515cb7/Babel-2.13.0.tar.gz"
-    sha256 "04c3e2d28d2b7681644508f836be388ae49e0cfe91465095340395b60d00f210"
+    url "https://files.pythonhosted.org/packages/e2/80/cfbe44a9085d112e983282ee7ca4c00429bc4d1ce86ee5f4e60259ddff7f/Babel-2.14.0.tar.gz"
+    sha256 "6919867db036398ba21eb5c7a0f6b28ab8cbc3ae7a73a44ebe34ae74a4e7d363"
   end
 
   resource "charset-normalizer" do
-    url "https://files.pythonhosted.org/packages/cf/ac/e89b2f2f75f51e9859979b56d2ec162f7f893221975d244d8d5277aa9489/charset-normalizer-3.3.0.tar.gz"
-    sha256 "63563193aec44bce707e0c5ca64ff69fa72ed7cf34ce6e11d5127555756fd2f6"
+    url "https://files.pythonhosted.org/packages/63/09/c1bc53dab74b1816a00d8d030de5bf98f724c52c1635e07681d312f20be8/charset-normalizer-3.3.2.tar.gz"
+    sha256 "f30c3cb33b24454a82faecaf01b19c18562b1e89558fb6c56de4d9118a032fd5"
+  end
+
+  resource "docutils" do
+    url "https://files.pythonhosted.org/packages/21/ff/c495b797462434f0befcb598b51cde31c3ebdf8577c3fd9d9a8f5eeb844c/docutils-0.21.1.tar.gz"
+    sha256 "65249d8a5345bc95e0f40f280ba63c98eb24de35c6c8f5b662e3e8948adea83f"
   end
 
   resource "idna" do
-    url "https://files.pythonhosted.org/packages/8b/e1/43beb3d38dba6cb420cefa297822eac205a277ab43e5ba5d5c46faf96438/idna-3.4.tar.gz"
-    sha256 "814f528e8dead7d329833b91c5faa87d60bf71824cd12a7530b5526063d02cb4"
+    url "https://files.pythonhosted.org/packages/21/ed/f86a79a07470cb07819390452f178b3bef1d375f2ec021ecfc709fc7cf07/idna-3.7.tar.gz"
+    sha256 "028ff3aadf0609c1fd278d8ea3089299412a7a8b9bd005dd08b9f8285bcb5cfc"
   end
 
   resource "imagesize" do
@@ -57,13 +56,28 @@ class SphinxDoc < Formula
   end
 
   resource "jinja2" do
-    url "https://files.pythonhosted.org/packages/7a/ff/75c28576a1d900e87eb6335b063fab47a8ef3c8b4d88524c4bf78f670cce/Jinja2-3.1.2.tar.gz"
-    sha256 "31351a702a408a9e7595a8fc6150fc3f43bb6bf7e319770cbc0db9df9437e852"
+    url "https://files.pythonhosted.org/packages/b2/5e/3a21abf3cd467d7876045335e681d276ac32492febe6d98ad89562d1a7e1/Jinja2-3.1.3.tar.gz"
+    sha256 "ac8bd6544d4bb2c9792bf3a159e80bba8fda7f07e81bc3aed565432d5925ba90"
+  end
+
+  resource "markupsafe" do
+    url "https://files.pythonhosted.org/packages/87/5b/aae44c6655f3801e81aa3eef09dbbf012431987ba564d7231722f68df02d/MarkupSafe-2.1.5.tar.gz"
+    sha256 "d283d37a890ba4c1ae73ffadf8046435c76e7bc2247bbb63c00bd1a709c6544b"
   end
 
   resource "numpydoc" do
-    url "https://files.pythonhosted.org/packages/5f/ed/5ca4b2e90f4b0781f5fac49cdb2947cf719b6d289eedb67e8b1a63d019e3/numpydoc-1.6.0.tar.gz"
-    sha256 "ae7a5380f0a06373c3afe16ccd15bd79bc6b07f2704cbc6f1e7ecc94b4f5fc0d"
+    url "https://files.pythonhosted.org/packages/76/69/d745d43617a476a5b5fb7f71555eceaca32e23296773c35decefa1da5463/numpydoc-1.7.0.tar.gz"
+    sha256 "866e5ae5b6509dcf873fc6381120f5c31acf13b135636c1a81d68c166a95f921"
+  end
+
+  resource "packaging" do
+    url "https://files.pythonhosted.org/packages/ee/b5/b43a27ac7472e1818c4bafd44430e69605baefe1f34440593e0332ec8b4d/packaging-24.0.tar.gz"
+    sha256 "eb82c5e3e56209074766e6885bb04b8c38a0c015d0a30036ebe7ece34c9989e9"
+  end
+
+  resource "pygments" do
+    url "https://files.pythonhosted.org/packages/55/59/8bccf4157baf25e4aa5a0bb7fa3ba8600907de105ebc22b0c78cfbf6f565/pygments-2.17.2.tar.gz"
+    sha256 "da46cec9fd2de5be3a8a784f434e4c4ab670b4ff54d605c4c2717e9d49c4c367"
   end
 
   resource "requests" do
@@ -77,18 +91,18 @@ class SphinxDoc < Formula
   end
 
   resource "sphinxcontrib-applehelp" do
-    url "https://files.pythonhosted.org/packages/1c/5a/fce19be5d4db26edc853a0c34832b39db7b769b7689da027529767b0aa98/sphinxcontrib_applehelp-1.0.7.tar.gz"
-    sha256 "39fdc8d762d33b01a7d8f026a3b7d71563ea3b72787d5f00ad8465bd9d6dfbfa"
+    url "https://files.pythonhosted.org/packages/26/6b/68f470fc337ed24043fec987b101f25b35010970bd958970c2ae5990859f/sphinxcontrib_applehelp-1.0.8.tar.gz"
+    sha256 "c40a4f96f3776c4393d933412053962fac2b84f4c99a7982ba42e09576a70619"
   end
 
   resource "sphinxcontrib-devhelp" do
-    url "https://files.pythonhosted.org/packages/2e/f2/6425b6db37e7c2254ad661c90a871061a078beaddaf9f15a00ba9c3a1529/sphinxcontrib_devhelp-1.0.5.tar.gz"
-    sha256 "63b41e0d38207ca40ebbeabcf4d8e51f76c03e78cd61abe118cf4435c73d4212"
+    url "https://files.pythonhosted.org/packages/c7/a1/80b7e9f677abc673cb9320bf255ad4e08931ccbc2e66bde4b59bad3809ad/sphinxcontrib_devhelp-1.0.6.tar.gz"
+    sha256 "9893fd3f90506bc4b97bdb977ceb8fbd823989f4316b28c3841ec128544372d3"
   end
 
   resource "sphinxcontrib-htmlhelp" do
-    url "https://files.pythonhosted.org/packages/fd/2d/abf5cd4cc1d5cd9842748b15a28295e4c4a927facfa8a0e173bd3f151bc5/sphinxcontrib_htmlhelp-2.0.4.tar.gz"
-    sha256 "6c26a118a05b76000738429b724a0568dbde5b72391a688577da08f11891092a"
+    url "https://files.pythonhosted.org/packages/8a/03/2f9d699fbfdf03ecb3b6d0e2a268a8998d009f2a9f699c2dcc936899257d/sphinxcontrib_htmlhelp-2.0.5.tar.gz"
+    sha256 "0dc87637d5de53dd5eec3a6a01753b1ccf99494bd756aafecd74b4fa9e729015"
   end
 
   resource "sphinxcontrib-jsmath" do
@@ -97,18 +111,23 @@ class SphinxDoc < Formula
   end
 
   resource "sphinxcontrib-qthelp" do
-    url "https://files.pythonhosted.org/packages/4f/a2/53129fc967ac8402d5e4e83e23c959c3f7a07362ec154bdb2e197d8cc270/sphinxcontrib_qthelp-1.0.6.tar.gz"
-    sha256 "62b9d1a186ab7f5ee3356d906f648cacb7a6bdb94d201ee7adf26db55092982d"
+    url "https://files.pythonhosted.org/packages/ac/29/705cd4e93e98a8473d62b5c32288e6de3f0c9660d3c97d4e80d3dbbad82b/sphinxcontrib_qthelp-1.0.7.tar.gz"
+    sha256 "053dedc38823a80a7209a80860b16b722e9e0209e32fea98c90e4e6624588ed6"
   end
 
   resource "sphinxcontrib-serializinghtml" do
-    url "https://files.pythonhosted.org/packages/5c/41/df4cd017e8234ded544228f60f74fac1fe1c75bdb1e87b33a83c91a10530/sphinxcontrib_serializinghtml-1.1.9.tar.gz"
-    sha256 "0c64ff898339e1fac29abd2bf5f11078f3ec413cfe9c046d3120d7ca65530b54"
+    url "https://files.pythonhosted.org/packages/54/13/8dd7a7ed9c58e16e20c7f4ce8e4cb6943eb580955236d0c0d00079a73c49/sphinxcontrib_serializinghtml-1.1.10.tar.gz"
+    sha256 "93f3f5dc458b91b192fe10c397e324f262cf163d79f3282c158e8436a2c4511f"
+  end
+
+  resource "tabulate" do
+    url "https://files.pythonhosted.org/packages/ec/fe/802052aecb21e3797b8f7902564ab6ea0d60ff8ca23952079064155d1ae1/tabulate-0.9.0.tar.gz"
+    sha256 "0095b12bf5966de529c0feb1fa08671671b3368eec77d7ef7ab114be2c068b3c"
   end
 
   resource "urllib3" do
-    url "https://files.pythonhosted.org/packages/af/47/b215df9f71b4fdba1025fc05a77db2ad243fa0926755a52c5e71659f4e3c/urllib3-2.0.7.tar.gz"
-    sha256 "c97dfde1f7bd43a71c8d2a58e369e9b2bf692d1334ea9f9cae55add7d0dd0f84"
+    url "https://files.pythonhosted.org/packages/7a/50/7fd50a27caa0652cd4caf224aa87741ea41d3265ad13f010886167cfcc79/urllib3-2.2.1.tar.gz"
+    sha256 "d0570876c61ab9e520d776c38acbbb5b05a776d3f9ff98a5c8fd5162a444cf19"
   end
 
   def install
@@ -116,7 +135,7 @@ class SphinxDoc < Formula
   end
 
   test do
-    system bin/"sphinx-quickstart", "-pPorject", "-aAuthor", "-v1.0", "-q", testpath
+    system bin/"sphinx-quickstart", "-pProject", "-aAuthor", "-v1.0", "-q", testpath
     system bin/"sphinx-build", testpath, testpath/"build"
     assert_predicate testpath/"build/index.html", :exist?
   end

@@ -3,26 +3,23 @@ require "language/node"
 class Tailwindcss < Formula
   desc "Utility-first CSS framework"
   homepage "https://tailwindcss.com"
-  url "https://github.com/tailwindlabs/tailwindcss/archive/refs/tags/v3.3.5.tar.gz"
-  sha256 "919da6a36e35774c247f807faef4ad4d972e7459e05d34b81d61e2861c83e00b"
+  url "https://github.com/tailwindlabs/tailwindcss/archive/refs/tags/v3.4.3.tar.gz"
+  sha256 "1ce3e9a1c9eab518e2739b7fdb5cba5fca64ebc68159b0ba50cfd94b80a79ed3"
   license "MIT"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "9a110f6f7e549153d0545880bc6d04122e9485f05ff5eee81fd67c406032366f"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "10fcaaeafd3296b4906e45c14e99442136f1d4f4cfb2a775b8a8198605864813"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "10fcaaeafd3296b4906e45c14e99442136f1d4f4cfb2a775b8a8198605864813"
-    sha256 cellar: :any_skip_relocation, sonoma:         "509ebbdc4edda73ed34eaaf03f3ffcbecbe47a5154320efecfa2c1b8cabf5401"
-    sha256 cellar: :any_skip_relocation, ventura:        "fe25dc140558046c15dde8eff511bd12001cd8026614d9ade5c96ff05d42eebb"
-    sha256 cellar: :any_skip_relocation, monterey:       "fe25dc140558046c15dde8eff511bd12001cd8026614d9ade5c96ff05d42eebb"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "d430caa57163d007caba42f02f5675fb691bdae4f982483c83ac59dd827c1501"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "dd880d54f8e6ee096ac228a88f704cb9216b4b54f3deb8b51f81e831dfe1c3da"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "8f6350cadbcf20c3deac1c71c323b6204a3e8702ea1827bed40e9810684b8969"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "8f6350cadbcf20c3deac1c71c323b6204a3e8702ea1827bed40e9810684b8969"
+    sha256 cellar: :any_skip_relocation, sonoma:         "2bd95adaf8e306063b66323cea1dd3310caf266ad11164154795a73b81b7179c"
+    sha256 cellar: :any_skip_relocation, ventura:        "2717802d66d24bb409f880d5df82c15c62a5adf592bb2c9d962cbabd900264a6"
+    sha256 cellar: :any_skip_relocation, monterey:       "2717802d66d24bb409f880d5df82c15c62a5adf592bb2c9d962cbabd900264a6"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "4ad500bf2338aecdf7c3c822302dc562d93a5759685c77f6c7146b87003b2eaf"
   end
 
   depends_on "node" => :build
 
   def install
-    node = Formula["node"].opt_bin/"node"
-    system node, "./scripts/swap-engines.js"
-
     system "npm", "install", *Language::Node.local_npm_install_args
     system "npm", "run", "build"
 

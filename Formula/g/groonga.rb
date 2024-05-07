@@ -1,8 +1,8 @@
 class Groonga < Formula
   desc "Fulltext search engine and column store"
   homepage "https://groonga.org/"
-  url "https://github.com/groonga/groonga/releases/download/v13.0.8/groonga-13.0.8.tar.gz"
-  sha256 "8caf9cbb3411200f52b388fb9f47b63af0b205e4a1bcd773fe5d21cfde76c566"
+  url "https://github.com/groonga/groonga/releases/download/v14.0.2/groonga-14.0.2.tar.gz"
+  sha256 "a3d0ba94f38f91bd8a09b1780aa2f22ad5c77ce741de3008bf93fa4a34c90097"
   license "LGPL-2.1-or-later"
 
   livecheck do
@@ -11,17 +11,17 @@ class Groonga < Formula
   end
 
   bottle do
-    sha256 arm64_sonoma:   "3bd1854e661964993c35b7a19b994092cb9e2ff66ce90ba94ff8986bac0f02e2"
-    sha256 arm64_ventura:  "88da1468d15a01f6bdc8a38b54c06900a3f7c43afd7243c11a7a601f0ab7971f"
-    sha256 arm64_monterey: "d594a6ac13d1ec271ac90e07a5e0ba0d6227bf10dc6cc75ab67d258b7e5f03e5"
-    sha256 sonoma:         "2e1f46728f598f4008bfe2e6a8f6cbb24a0ce49e737eeb1c358ac43962af13c5"
-    sha256 ventura:        "3df0122f64866d494708b34f23f024e068b2016e7abaa18a712d308cdcd12f94"
-    sha256 monterey:       "3065b30f77f8e9b086392073ac96192d0e5034eafc2841656135cf2e30c50ef7"
-    sha256 x86_64_linux:   "a374956d04d8ea2283a6b1aeebcc85bc1d74ff21342530ac901041ae122c869e"
+    sha256 arm64_sonoma:   "d0ec626d99d16195167ce4300553913c06e880b3be01eeb13c7ba6775ebfa039"
+    sha256 arm64_ventura:  "462ed9ac89447742d4d4d75cd21f91a62f5679dc6f2c3842732ca08a23f5a379"
+    sha256 arm64_monterey: "fd9d5430b932f251ad4ddc5b67f7c4583a71e570b1e3a14e77972ea224530263"
+    sha256 sonoma:         "bca241abf271a3fa48a6517289e27259672e14a3e1731b3a467a7706f6ba02f3"
+    sha256 ventura:        "99d94ddcb431032c5e8048d8540decba356380056198c23346ce28dce4f8e8d4"
+    sha256 monterey:       "0c480905b3abb0c05fce8ca6bbead6c6abf5faf20ee414a301d9a3ec99415104"
+    sha256 x86_64_linux:   "2e2206a222c279b82e08db192a9fb069099a28ab1bd357351007c194b09c8ffe"
   end
 
   head do
-    url "https://github.com/groonga/groonga.git", branch: "master"
+    url "https://github.com/groonga/groonga.git", branch: "main"
     depends_on "autoconf" => :build
     depends_on "automake" => :build
     depends_on "libtool" => :build
@@ -32,7 +32,6 @@ class Groonga < Formula
   depends_on "mecab-ipadic"
   depends_on "msgpack"
   depends_on "openssl@3"
-  depends_on "pcre"
 
   uses_from_macos "libxcrypt"
 

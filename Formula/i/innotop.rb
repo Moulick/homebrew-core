@@ -4,15 +4,15 @@ class Innotop < Formula
   url "https://github.com/innotop/innotop/archive/refs/tags/v1.13.0.tar.gz"
   sha256 "6ec91568e32bda3126661523d9917c7fbbd4b9f85db79224c01b2a740727a65c"
   license any_of: ["GPL-2.0-only", "Artistic-1.0-Perl"]
-  revision 6
+  revision 8
   head "https://github.com/innotop/innotop.git"
 
   bottle do
-    sha256 cellar: :any,                 arm64_ventura:  "6ebac90fa631d9aaf0e8f388db5c7f2b5199884822792d1e8b4426e27544e969"
-    sha256 cellar: :any,                 arm64_monterey: "64e15253d62337db2f0ec1be9c7d33f9a67325df905d4a6490f24e41465b401f"
-    sha256 cellar: :any,                 ventura:        "0c8ff89b827aa1925b6aa607ea4ae518fc8c5b253742e33f801066b04432acac"
-    sha256 cellar: :any,                 monterey:       "a0a0f1e3750a70f93fca1e3b99bd0eca0893f2dc767acf0cb0e0f96733897e1c"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "a5331cfdb419c2669ad272183abccd8e622e182b863e156b2bf5a8634d84a28d"
+    sha256 cellar: :any,                 arm64_ventura:  "19a5d996ec45c87b8639c2641121742dbf9383d47b61aeac79d0bcf64b5390b6"
+    sha256 cellar: :any,                 arm64_monterey: "a1bde73682665ff3331799993f7bee539efca85e79ade7804d1a37ad8696d407"
+    sha256 cellar: :any,                 ventura:        "d3c191fd2250b1d1e07610c8d4a3ebc2dba3328ca815fb47718eaa345cb31d0a"
+    sha256 cellar: :any,                 monterey:       "c883c153c280fff10b19abcb897ae12abff6bee5c150fe338ff4ed66f8b461bf"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "41891fbf349f6e699ecdd8e18139303f9f80918df350f0d27c4fb9ea90972e95"
   end
 
   depends_on "mysql-client"
@@ -31,8 +31,8 @@ class Innotop < Formula
   end
 
   resource "DBD::mysql" do
-    url "https://cpan.metacpan.org/authors/id/D/DV/DVEEDEN/DBD-mysql-5.002.tar.gz"
-    sha256 "8dbf87c2b5b8eaf79cd16507cc07597caaf4af49bc521ec51c0ea275e8332e25"
+    url "https://cpan.metacpan.org/authors/id/D/DV/DVEEDEN/DBD-mysql-5.004.tar.gz"
+    sha256 "33a6bf1b685cc50c46eb1187a3eb259ae240917bc189d26b81418790aa6da5df"
   end
 
   resource "TermReadKey" do

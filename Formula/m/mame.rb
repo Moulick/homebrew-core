@@ -1,9 +1,9 @@
 class Mame < Formula
   desc "Multiple Arcade Machine Emulator"
   homepage "https://mamedev.org/"
-  url "https://github.com/mamedev/mame/archive/refs/tags/mame0260.tar.gz"
-  version "0.260"
-  sha256 "104ca8daab3ce7bb9637e19f1dc60a08ac6856db730ab544275567addb9541cd"
+  url "https://github.com/mamedev/mame/archive/refs/tags/mame0265.tar.gz"
+  version "0.265"
+  sha256 "3de68db66efb783eb5c5d7ccad1f4a4f5eadc6c7a29c1a9c2097e532c3e0b8b1"
   license "GPL-2.0-or-later"
   head "https://github.com/mamedev/mame.git", branch: "master"
 
@@ -19,19 +19,18 @@ class Mame < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_sonoma:   "3d9f1e405f69fd2a90954c27317e267d8a7bcbb01435b1a1d6ade7d9c2a104e9"
-    sha256 cellar: :any,                 arm64_ventura:  "6360ca377f1d86e7051440820edd9b11242af2798a51804eeb34d04d6c8c90af"
-    sha256 cellar: :any,                 arm64_monterey: "d955043eccf9d58ac5e9eb00612599c2683d83ca342db3e89d4eb51f0d4e7ab3"
-    sha256 cellar: :any,                 sonoma:         "64fb85d72a2da8f574d90c871b7cd6f78048ec4d60f869536517d00451480e46"
-    sha256 cellar: :any,                 ventura:        "9e06fa5063ad611c1cea98ff082df25c7b78ba82b1b932ffc197c296becde39c"
-    sha256 cellar: :any,                 monterey:       "1dd989907d12574a45562cde870fd4e09ad719312230703951e459f3b22d44c6"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "bac462e41e65f4c914f9d97799cc11cce23f1bb1408d7674dbfbc975fa5afa0a"
+    sha256 cellar: :any,                 arm64_sonoma:   "35ddf1f14d2329fa9d442ac23bbfccca2c61df705a69d381bd046c54f97ecec4"
+    sha256 cellar: :any,                 arm64_ventura:  "00a743c92b1f1c07edb9f7d9a5018577539035b55648ebcb6aebd3e30e8da76a"
+    sha256 cellar: :any,                 arm64_monterey: "9eec42e1062acdab927bf7ef9c861e0882eba10ed198590988a76c4cb50088c3"
+    sha256 cellar: :any,                 sonoma:         "56f1f2351d6882ba0a1ca0bf4cc10fa2c76989d594a2a5e963c53bb3cb639e12"
+    sha256 cellar: :any,                 ventura:        "3e46a46dc8ea42ce8d660d1367ff0e670791eb8ff8e1e534424d5c6290fe0b05"
+    sha256 cellar: :any,                 monterey:       "25c72324548352f15e9436aa22c2a09376ea1e189f17a585765f820bc9200ece"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "2e2c64ede0a995e7715afe0e653c515775cfe701875d116b5a417900dc5671ce"
   end
 
   depends_on "asio" => :build
   depends_on "glm" => :build
   depends_on "pkg-config" => :build
-  depends_on "python@3.11" => :build
   depends_on "rapidjson" => :build
   depends_on "sphinx-doc" => :build
   depends_on "flac"
@@ -44,7 +43,9 @@ class Mame < Formula
   depends_on "sdl2"
   depends_on "sqlite"
   depends_on "utf8proc"
+  depends_on "zstd"
 
+  uses_from_macos "python" => :build
   uses_from_macos "expat"
   uses_from_macos "zlib"
 
@@ -63,12 +64,11 @@ class Mame < Formula
 
     # Use bundled lua instead of latest version.
     # https://github.com/mamedev/mame/issues/5349
-    system "make", "PYTHON_EXECUTABLE=#{Formula["python@3.11"].opt_bin}/python3.11",
+    system "make", "PYTHON_EXECUTABLE=#{which("python3")}",
                    "USE_LIBSDL=1",
                    "USE_SYSTEM_LIB_EXPAT=1",
                    "USE_SYSTEM_LIB_ZLIB=1",
                    "USE_SYSTEM_LIB_ASIO=1",
-                   "USE_SYSTEM_LIB_LUA=",
                    "USE_SYSTEM_LIB_FLAC=1",
                    "USE_SYSTEM_LIB_GLM=1",
                    "USE_SYSTEM_LIB_JPEG=1",
@@ -77,7 +77,9 @@ class Mame < Formula
                    "USE_SYSTEM_LIB_PUGIXML=1",
                    "USE_SYSTEM_LIB_RAPIDJSON=1",
                    "USE_SYSTEM_LIB_SQLITE3=1",
-                   "USE_SYSTEM_LIB_UTF8PROC=1"
+                   "USE_SYSTEM_LIB_UTF8PROC=1",
+                   "USE_SYSTEM_LIB_ZSTD=1",
+                   "VERBOSE=1"
     bin.install "mame"
     cd "docs" do
       # We don't convert SVG files into PDF files, don't load the related extensions.
@@ -92,6 +94,6 @@ class Mame < Formula
 
   test do
     assert shell_output("#{bin}/mame -help").start_with? "MAME v#{version}"
-    system "#{bin}/mame", "-validate"
+    system bin/"mame", "-validate"
   end
 end

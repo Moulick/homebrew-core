@@ -1,19 +1,17 @@
 class Dafny < Formula
   desc "Verification-aware programming language"
   homepage "https://github.com/dafny-lang/dafny/blob/master/README.md"
-  url "https://github.com/dafny-lang/dafny/archive/refs/tags/v4.3.0.tar.gz"
-  sha256 "f5cb71b3ea0ee0008291cf48540797f62d336f01330e8e519329dcdd1e78ce92"
+  url "https://github.com/dafny-lang/dafny/archive/refs/tags/v4.6.0.tar.gz"
+  sha256 "b1da85f4be48179a7131ad32a6b904e7f0c671fd9467cb12cb9959e273c4fc6e"
   license "MIT"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "94e5c99f96e61b34bd0fbf4ae0911ed51494331cfeb0a371ac7d72a003798173"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "b144d10a4b6d837d95935d61542ce099144b6ef04862f2d37daf9f7074095e5c"
-    sha256 cellar: :any_skip_relocation, ventura:        "b5c1248f3838792406c6eb24c80af33adf91a37da832bddd5b672650e0da062e"
-    sha256 cellar: :any_skip_relocation, monterey:       "8b7ad20eca0adc568b453dbdc8e6c34e512c0d630953c8bd48013a5d1853658d"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "f36f301181e63c313fe4d805c8fd5524e6eccfd2086f2c50c9571f0e7134c1f3"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "ec74acf0b9418e771378c3fdc3f8cff827e2c56b98af165d6120d124d26b41e8"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "d1fddb32fb09a9661fc019dd65e84f3a03f8f55c571c58e7d2c48488f85d835a"
+    sha256 cellar: :any_skip_relocation, ventura:        "280ca13e956a198e697625bfdcca6398c07aa6a1f84d1424059970e0e175d7ac"
+    sha256 cellar: :any_skip_relocation, monterey:       "5bb6f97cd2c12223ac79e3c6426c76a0dafc4e00d2e4c711d580d963416acc56"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "89f943ade7b3a204f2cd7b0247b0ac2f93ef82aeb782bb71fb676874612cc122"
   end
-
-  deprecate! date: "2023-10-24", because: "uses deprecated `dotnet@6`"
 
   depends_on "dotnet@6"
   # We use the latest Java version that is compatible with gradlew version in `dafny`.

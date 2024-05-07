@@ -16,11 +16,11 @@
   "glibmm@2.66",
   "gnupg@1.4",
   "libsigc++@2",
+  "libxml++@3",
   "libxml++@4",
   "libxml++@5",
   "linux-headers@5.15",
   "lua@5.1",
-  "numpy@1.16",
   "openssl@1.1",
   "openssl@3.0",
   "openssl@3",
@@ -40,5 +40,6 @@
   "python-tk@3.11",
   "python-tk@3.12",
   "spidermonkey@78",
+  "spidermonkey@91",
   "wxwidgets@3.0"
 ]

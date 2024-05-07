@@ -3,30 +3,49 @@ class Gcovr < Formula
 
   desc "Reports from gcov test coverage program"
   homepage "https://gcovr.com/"
-  url "https://files.pythonhosted.org/packages/19/6d/2942ab8c693f2b9f97052d6a6de4c27323a3bd85af7d062dc5bd3a2a9604/gcovr-6.0.tar.gz"
-  sha256 "8638d5f44def10e38e3166c8a33bef6643ec204687e0ac7d345ce41a98c5750b"
+  url "https://files.pythonhosted.org/packages/ed/9b/119d9b9501a9d0bc91be6b163be98125a9345e37871f4f3243b112d456e6/gcovr-7.2.tar.gz"
+  sha256 "e3e95cb56ca88dbbe741cb5d69aa2be494eb2fc2a09ee4f651644a670ee5aeb3"
   license "BSD-3-Clause"
   head "https://github.com/gcovr/gcovr.git", branch: "master"
 
   bottle do
-    rebuild 2
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "482b954d85f2feeb72f7699c7f6b8e70d9cbbcc904bcdcaec9b276507da8a32b"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "38d423544896f5fffddd5e6514006461ef219c47979ef08ea60b8fa068c734d9"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "46904919249f4e477db9336fd27db5a5b9a9b196a9abbdacfd4aaa7bd5413a3c"
-    sha256 cellar: :any_skip_relocation, sonoma:         "3bb194f19ae25d53cc0a701ddb84e3c9417b73271d385af4323fc449e64602fd"
-    sha256 cellar: :any_skip_relocation, ventura:        "bf1d15c9c92373761a37a2d8ceb1fc363b329e7ded3ba755da0f323d6733492c"
-    sha256 cellar: :any_skip_relocation, monterey:       "c45809d5f29dbb35fed915a894e483cf4de4f739bb75cade7431c3a12d7af654"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "541a7704b5fd30a5d311846d71c39a188278bba4be4fcb5455dc2bd953af0dd4"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "a2e8e56803500d490cdae9a7432b35e59f3d2dacdcab6c78bfcfb19fbb2c9354"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "ed19a515f8e44706eb7661ce5c0a385f77746b9d027522cee7ff158c88de1ca3"
+    sha256 cellar: :any,                 arm64_monterey: "6f993463057ac80e8d7d02cbfbba217ef87a8963496f13fe665091cf60df97b8"
+    sha256 cellar: :any_skip_relocation, sonoma:         "dc88fb7fecdb8b3c34b7d79c232e4b308447e055ebe92ee30e3b65712e6ae859"
+    sha256 cellar: :any_skip_relocation, ventura:        "ce0a70ccb0a96f7aec1609441a4ff0fcdcf78b1b199e4586c4d59b86af964c10"
+    sha256 cellar: :any,                 monterey:       "b9973ee5a8773a6cf4c9c57d70fb4962fd700d49027ffd047a07c61799d3c439"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "f6be24c6c49b5ed519c4c246ab30d856f6c00372c1d9e3ba15cd7276034445e8"
   end
 
-  depends_on "pygments"
-  depends_on "python-lxml"
-  depends_on "python-markupsafe"
   depends_on "python@3.12"
 
-  resource "Jinja2" do
-    url "https://files.pythonhosted.org/packages/7a/ff/75c28576a1d900e87eb6335b063fab47a8ef3c8b4d88524c4bf78f670cce/Jinja2-3.1.2.tar.gz"
-    sha256 "31351a702a408a9e7595a8fc6150fc3f43bb6bf7e319770cbc0db9df9437e852"
+  uses_from_macos "libxml2", since: :ventura
+  uses_from_macos "libxslt"
+
+  resource "colorlog" do
+    url "https://files.pythonhosted.org/packages/db/38/2992ff192eaa7dd5a793f8b6570d6bbe887c4fbbf7e72702eb0a693a01c8/colorlog-6.8.2.tar.gz"
+    sha256 "3e3e079a41feb5a1b64f978b5ea4f46040a94f11f0e8bbb8261e3dbbeca64d44"
+  end
+
+  resource "jinja2" do
+    url "https://files.pythonhosted.org/packages/b2/5e/3a21abf3cd467d7876045335e681d276ac32492febe6d98ad89562d1a7e1/Jinja2-3.1.3.tar.gz"
+    sha256 "ac8bd6544d4bb2c9792bf3a159e80bba8fda7f07e81bc3aed565432d5925ba90"
+  end
+
+  resource "lxml" do
+    url "https://files.pythonhosted.org/packages/2b/b4/bbccb250adbee490553b6a52712c46c20ea1ba533a643f1424b27ffc6845/lxml-5.1.0.tar.gz"
+    sha256 "3eea6ed6e6c918e468e693c41ef07f3c3acc310b70ddd9cc72d9ef84bc9564ca"
+  end
+
+  resource "markupsafe" do
+    url "https://files.pythonhosted.org/packages/87/5b/aae44c6655f3801e81aa3eef09dbbf012431987ba564d7231722f68df02d/MarkupSafe-2.1.5.tar.gz"
+    sha256 "d283d37a890ba4c1ae73ffadf8046435c76e7bc2247bbb63c00bd1a709c6544b"
+  end
+
+  resource "pygments" do
+    url "https://files.pythonhosted.org/packages/55/59/8bccf4157baf25e4aa5a0bb7fa3ba8600907de105ebc22b0c78cfbf6f565/pygments-2.17.2.tar.gz"
+    sha256 "da46cec9fd2de5be3a8a784f434e4c4ab670b4ff54d605c4c2717e9d49c4c367"
   end
 
   def install

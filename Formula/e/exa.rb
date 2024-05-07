@@ -7,11 +7,6 @@ class Exa < Formula
   revision 2
   head "https://github.com/ogham/exa.git", branch: "master"
 
-  livecheck do
-    url :stable
-    strategy :github_latest
-  end
-
   bottle do
     rebuild 1
     sha256 cellar: :any,                 arm64_sonoma:   "d99ebf95ff1080b152f3ea15631987f6203cbffb9766f5585cf3ca5695626936"
@@ -26,7 +21,7 @@ class Exa < Formula
   end
 
   # https://github.com/ogham/exa/commit/fb05c421ae98e076989eb6e8b1bcf42c07c1d0fe
-  deprecate! date: "2023-09-05", because: :unmaintained
+  disable! date: "2024-01-24", because: :unmaintained
 
   depends_on "pandoc" => :build
   depends_on "pkg-config" => :build

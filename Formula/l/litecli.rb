@@ -3,33 +3,32 @@ class Litecli < Formula
 
   desc "CLI for SQLite Databases with auto-completion and syntax highlighting"
   homepage "https://github.com/dbcli/litecli"
-  url "https://files.pythonhosted.org/packages/c1/92/b2eb5f098446a05b9a92e548bd83442f2169f87f3e1b37ffed7a5315c264/litecli-1.9.0.tar.gz"
-  sha256 "21af2cfa083dd4df1e3ccaa2a2117129b5f17212756f596ea090e296776c27a1"
+  url "https://files.pythonhosted.org/packages/2e/9e/016649bac18c4a41fb903e936d51f3077c3ff56363ef9da49573df74117e/litecli-1.11.0.tar.gz"
+  sha256 "616de68d87d2bb18bf5e669eb6b5a68d5b937ea81a8ad439c1f51a25d1c81f56"
   license "BSD-3-Clause"
-  revision 2
 
   bottle do
-    rebuild 2
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "b9d8120a0c223ed04fc592f39991e1b0b4077b7a7f2e642ed2b41ad9a10b5acd"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "df4cd8db25541f000d2494b4c80ed9bc6c9ea4c7ca7703adfeed0052c04e1c80"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "539beb394d90813f46c276d3a6f6bb5823c81abd2667d04914b25685fd4ba75c"
-    sha256 cellar: :any_skip_relocation, sonoma:         "adead673456887368c5bae8ae51c891cdcf160121a4f1f39b5aedbf5b58bdf6e"
-    sha256 cellar: :any_skip_relocation, ventura:        "c5c2e6be60117017aaef78a11b8f1019d3ebcadbcfe828738c8adee9fac34e38"
-    sha256 cellar: :any_skip_relocation, monterey:       "5602bf3f603fe7eac404de507cc43fbc7992e1d820f63dbb974dfbaa3f747b15"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "09d5d857309e176624bc7f82b211b0529c13c26fac792d6cfec91ec2cf8c9fdc"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "6a572d0d5957d894cd5839fe7e99c1f0d9fe01d921acac1fc11bd4aaeb32e7b7"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "6a572d0d5957d894cd5839fe7e99c1f0d9fe01d921acac1fc11bd4aaeb32e7b7"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "6a572d0d5957d894cd5839fe7e99c1f0d9fe01d921acac1fc11bd4aaeb32e7b7"
+    sha256 cellar: :any_skip_relocation, sonoma:         "6a572d0d5957d894cd5839fe7e99c1f0d9fe01d921acac1fc11bd4aaeb32e7b7"
+    sha256 cellar: :any_skip_relocation, ventura:        "6a572d0d5957d894cd5839fe7e99c1f0d9fe01d921acac1fc11bd4aaeb32e7b7"
+    sha256 cellar: :any_skip_relocation, monterey:       "6a572d0d5957d894cd5839fe7e99c1f0d9fe01d921acac1fc11bd4aaeb32e7b7"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "bc74bf1829660c97ee4bd8a30b4314de9e11dd1db5ae176b5449c694609a929f"
   end
 
-  depends_on "pygments"
-  depends_on "python-click"
-  depends_on "python-tabulate"
   depends_on "python@3.12"
-  depends_on "six"
 
   uses_from_macos "sqlite"
 
   resource "cli-helpers" do
-    url "https://files.pythonhosted.org/packages/27/01/6aaa4fc415274ac77372b4d259c234b9f5bfc8d78144c3fda1f3019d4690/cli_helpers-2.3.0.tar.gz"
-    sha256 "e7174d003a2b58fd3e31a73fbbc45d5aa513de62cbd42d437f78b9658bd5f967"
+    url "https://files.pythonhosted.org/packages/ab/de/79529bd31c1664415d9554c0c5029f2137afe9808f35637bbcca977d9022/cli_helpers-2.3.1.tar.gz"
+    sha256 "b82a8983ceee21f180e6fd0ddb7ca8dae43c40e920951e3817f996ab204dae6a"
+  end
+
+  resource "click" do
+    url "https://files.pythonhosted.org/packages/96/d3/f04c7bfcf5c1862a2a5b845c6b2b360488cf47af55dfa79c98f6a6bf98b5/click-8.1.7.tar.gz"
+    sha256 "ca9853ad459e787e2192211578cc907e7594e294c7ccc834310722b41b9ca6de"
   end
 
   resource "configobj" do
@@ -38,18 +37,33 @@ class Litecli < Formula
   end
 
   resource "prompt-toolkit" do
-    url "https://files.pythonhosted.org/packages/4b/bb/75cdcd356f57d17b295aba121494c2333d26bfff1a837e6199b8b83c415a/prompt_toolkit-3.0.38.tar.gz"
-    sha256 "23ac5d50538a9a38c8bde05fecb47d0b403ecd0662857a86f886f798563d5b9b"
+    url "https://files.pythonhosted.org/packages/cc/c6/25b6a3d5cd295304de1e32c9edbcf319a52e965b339629d37d42bb7126ca/prompt_toolkit-3.0.43.tar.gz"
+    sha256 "3527b7af26106cbc65a040bcc84839a3566ec1b051bb0bfe953631e704b0ff7d"
+  end
+
+  resource "pygments" do
+    url "https://files.pythonhosted.org/packages/55/59/8bccf4157baf25e4aa5a0bb7fa3ba8600907de105ebc22b0c78cfbf6f565/pygments-2.17.2.tar.gz"
+    sha256 "da46cec9fd2de5be3a8a784f434e4c4ab670b4ff54d605c4c2717e9d49c4c367"
+  end
+
+  resource "six" do
+    url "https://files.pythonhosted.org/packages/71/39/171f1c67cd00715f190ba0b100d606d440a28c93c7714febeca8b79af85e/six-1.16.0.tar.gz"
+    sha256 "1e61c37477a1626458e36f7b1d82aa5c9b094fa4802892072e49de9c60c4c926"
   end
 
   resource "sqlparse" do
-    url "https://files.pythonhosted.org/packages/65/16/10f170ec641ed852611b6c9441b23d10b5702ab5288371feab3d36de2574/sqlparse-0.4.4.tar.gz"
-    sha256 "d446183e84b8349fa3061f0fe7f06ca94ba65b426946ffebe6e3e8295332420c"
+    url "https://files.pythonhosted.org/packages/50/26/5da251cd090ccd580f5cfaa7d36cdd8b2471e49fffce60ed520afc27f4bc/sqlparse-0.5.0.tar.gz"
+    sha256 "714d0a4932c059d16189f58ef5411ec2287a4360f17cdd0edd2d09d4c5087c93"
+  end
+
+  resource "tabulate" do
+    url "https://files.pythonhosted.org/packages/ec/fe/802052aecb21e3797b8f7902564ab6ea0d60ff8ca23952079064155d1ae1/tabulate-0.9.0.tar.gz"
+    sha256 "0095b12bf5966de529c0feb1fa08671671b3368eec77d7ef7ab114be2c068b3c"
   end
 
   resource "wcwidth" do
-    url "https://files.pythonhosted.org/packages/5e/5f/1e4bd82a9cc1f17b2c2361a2d876d4c38973a997003ba5eb400e8a932b6c/wcwidth-0.2.6.tar.gz"
-    sha256 "a5220780a404dbe3353789870978e472cfe477761f06ee55077256e509b156d0"
+    url "https://files.pythonhosted.org/packages/6c/63/53559446a878410fc5a5974feb13d31d78d752eb18aeba59c7fef1af7598/wcwidth-0.2.13.tar.gz"
+    sha256 "72ea0c06399eb286d978fdedb6923a9eb47e1c486ce63e9b4e64fc18303972b5"
   end
 
   def install
@@ -92,7 +106,7 @@ class Litecli < Formula
     # remove ANSI colors
     output.gsub!(/\e\[([;\d]+)?m/, "")
     # normalize line endings
-    output.gsub!(/\r\n/, "\n")
+    output.gsub!("\r\n", "\n")
 
     expected = <<~EOS
       name

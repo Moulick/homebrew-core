@@ -4,16 +4,16 @@ class AzureStorageCpp < Formula
   url "https://github.com/Azure/azure-storage-cpp/archive/refs/tags/v7.5.0.tar.gz"
   sha256 "446a821d115949f6511b7eb01e6a0e4f014b17bfeba0f3dc33a51750a9d5eca5"
   license "Apache-2.0"
-  revision 7
+  revision 9
 
   bottle do
-    sha256 cellar: :any,                 arm64_sonoma:   "4bc4cb251618870f0a409a992d721bb2ee42931a220fa2e4c845a1973b71764a"
-    sha256 cellar: :any,                 arm64_ventura:  "dba71aa9c5484a25ef89187163979735d645eba1f88d7d424fe994502ea7df27"
-    sha256 cellar: :any,                 arm64_monterey: "034dcfbb9f56c28eba5d07d74f76ae6c091c9e9480138b7d1e810f89d83d6334"
-    sha256 cellar: :any,                 sonoma:         "cd544f7d3b75c30b84b1279c5d7fe0fa8e7e1cd76dbea530eb172785e6862a98"
-    sha256 cellar: :any,                 ventura:        "1779aa8d72752a5134f3782b042ef647fba38b78e866e3ca4ae169018673adf0"
-    sha256 cellar: :any,                 monterey:       "6a3781a788553d7fa7e115544aea8967caff24a503a2b601b640dcec8566b50d"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "ba7e2306012855a6e9c341f710b07580132b8b5c5bb8d35b21309643f9891c85"
+    sha256 cellar: :any,                 arm64_sonoma:   "aaceb62409cbe62a5035b82c154995156cef409179489d6a99ee86ab5888b179"
+    sha256 cellar: :any,                 arm64_ventura:  "e77c4f6c284c3efe0dc582370b5898f457f66d0a9820d3eb8593503041b2989e"
+    sha256 cellar: :any,                 arm64_monterey: "4cddb051be494abd045720d99b472bb9870ef510d2c9705674f729df389ca16e"
+    sha256 cellar: :any,                 sonoma:         "c67db0a3935d909fa31566170c206c0f24928f4f1a96c3a8c41c95fa7a8d6907"
+    sha256 cellar: :any,                 ventura:        "9728d2912cc06f7a79b2597086c1473733954d47d8e0f639ba72c1be8f4e7ecd"
+    sha256 cellar: :any,                 monterey:       "d336db4b98c57839cf799e1eb00ddb76066827a1f8417780b14ef62a2dc9c8c6"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "16c6e5f28c8d2817eda356744457b1704f71ea07a2514cef0079a655cde717d5"
   end
 
   depends_on "cmake" => :build

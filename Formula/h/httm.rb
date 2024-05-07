@@ -1,26 +1,35 @@
 class Httm < Formula
   desc "Interactive, file-level Time Machine-like tool for ZFS/btrfs"
   homepage "https://github.com/kimono-koans/httm"
-  url "https://github.com/kimono-koans/httm/archive/refs/tags/0.30.2.tar.gz"
-  sha256 "0f9595b83ab01dcc4c579a81f267eb759e93d65fd98cdd443b2d16b7da39b744"
+  url "https://github.com/kimono-koans/httm/archive/refs/tags/0.38.1.tar.gz"
+  sha256 "5fe067b3a77f448f168a3b02f0490ff3bc52215cd09af9d15df7d34bfac622aa"
   license "MPL-2.0"
   head "https://github.com/kimono-koans/httm.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "e25a1e3bb600fbf40a20abbbb094a906c0cc03ae1160ff07dc586f0d148f7031"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "09628422bc3c0b1c458f5f416944abf196e102254ab622b8d57b50423dc9da0e"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "dede129153366eafbbe06f531089c34454ea8fb6ecfddb38a7abd0322157ecd3"
-    sha256 cellar: :any_skip_relocation, sonoma:         "fd3dfdb1f24633eb87276cd523e62d275bc195ecd260a45de52f5c4fb665657f"
-    sha256 cellar: :any_skip_relocation, ventura:        "0557f2df75a01a516a0d0a6c1e406edddbf17f48e497629f1be14f5057e1ead1"
-    sha256 cellar: :any_skip_relocation, monterey:       "3c3a3862e88d0c6639f0bd4e9c48565fa477ce6583a203555288a1d2e4103286"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "07ff4dcc4fbfe811e5cc9048fb0909ea2c5c7a7a7b85b16a8a0e228a438dd7d4"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "c2ff1004a3fb3cf71d833fdaff0ef0e98286ead3e09ce683bd862b08aec6baeb"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "483cb93cf8b10e2f7e248f4a2fa4865d2ba25b4fadecb9018bfab79ac413a861"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "2836576878035dc94577415e9d1758c93981e06caf32a93e3d4f8b3efdb8e2a0"
+    sha256 cellar: :any_skip_relocation, sonoma:         "a88cdf3e37e2130b5049404f998fa1637b41701f26c3aac43271b670f204d9b2"
+    sha256 cellar: :any_skip_relocation, ventura:        "3ce1d0324b1b97a837a7756e1195fd44e6d15ac9249080fbe2615d9af8b52547"
+    sha256 cellar: :any_skip_relocation, monterey:       "0e04ee51565deb0e03a0215b3bfd8cffea7bb9d26e02cc3b9afefa32fcdb1243"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "6ad2e30cd16fb49120adf4fc2df04c23942722dddcd477578c74cd0d27116922"
   end
 
   depends_on "rust" => :build
 
+  on_linux do
+    depends_on "acl"
+  end
+
   def install
-    system "cargo", "install", *std_cargo_args
+    system "cargo", "install", "--features", "xattrs,acls", *std_cargo_args
     man1.install "httm.1"
+
+    bin.install "scripts/ounce.bash" => "ounce"
+    bin.install "scripts/bowie.bash" => "bowie"
+    bin.install "scripts/nicotine.bash" => "nicotine"
+    bin.install "scripts/equine.bash" => "equine"
   end
 
   test do

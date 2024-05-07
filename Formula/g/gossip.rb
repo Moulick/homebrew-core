@@ -2,19 +2,19 @@ class Gossip < Formula
   desc "Desktop client for Nostr written in Rust"
   homepage "https://github.com/mikedilger/gossip"
   url "https://github.com/mikedilger/gossip.git",
-      tag:      "v0.8.2",
-      revision: "32eecc4c465660be149148f8940ae4ec4a5f94da"
+      tag:      "v0.10.1",
+      revision: "622ff8c0ddaefe40830199571f5f76229ba7be5a"
   license "MIT"
   head "https://github.com/mikedilger/gossip.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "061e378f584dc7ede34bedf729c33f5e27184e712d22dd7566c7507b2610db0a"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "fc79bf4e8e16aec4b3962cc4cfaab2a612c75ff34a1b822b5702f77a7cf5ffc3"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "29cc8e926859a9f6c12375cd57654d5a088d66d6edc819eb8d421210ce425d04"
-    sha256 cellar: :any_skip_relocation, sonoma:         "a4fe8cd421ef8b21c8ea00d2913a45bcc1d03148fc36d33d2d76fda90f51dac8"
-    sha256 cellar: :any_skip_relocation, ventura:        "ea263e57409621b974dbbe3963bb5261dc6310ee11a0535ad2259ad31fa78b8f"
-    sha256 cellar: :any_skip_relocation, monterey:       "c0340f56d321d4f09dbe17a6acec823bbd369a5d8e2ac1155a81e4d20e34d070"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "6cf7f84da749fec10aa8c255d5d0ad10e17c8640c1ead13ff7f9522efbff646f"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "03efddd1f62122fec07ba65707fd541c415472d2e5e472422fa42691eaf14db8"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "c4848a064459571acbb84c4fc4191f79832dc8f346e720585d3c39721e00173e"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "8e90ae3a95a863df7377dbfb7446f7d05fc8f44e3910be60f9ec45234a510f83"
+    sha256 cellar: :any_skip_relocation, sonoma:         "f493a55f877324339385b97602efa23f57651b371dba14aa15a76946303307e0"
+    sha256 cellar: :any_skip_relocation, ventura:        "4a0537fed33a059b68fac3487478645c0534e7476cc144e9e6c18d28ae9d9e80"
+    sha256 cellar: :any_skip_relocation, monterey:       "151eef7d61a43b8587f4af5cd4a35edda842909e553e068d89189e65f917abff"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "466c776144591aebcb68617bb655f25624d1431f2b44459a30d3ab712ca4e4ca"
   end
 
   depends_on "rust" => :build
@@ -26,7 +26,7 @@ class Gossip < Formula
 
   def install
     ENV["RUSTFLAGS"] = "--cfg tokio_unstable"
-    system "cargo", "install", *std_cargo_args, "--features", "lang-cjk"
+    system "cargo", "install", *std_cargo_args(path: "gossip-bin"), "--features", "lang-cjk"
   end
 
   test do

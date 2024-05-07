@@ -1,37 +1,24 @@
 class JpegTurbo < Formula
   desc "JPEG image codec that aids compression and decompression"
   homepage "https://www.libjpeg-turbo.org/"
+  url "https://github.com/libjpeg-turbo/libjpeg-turbo/releases/download/3.0.2/libjpeg-turbo-3.0.2.tar.gz"
+  sha256 "c2ce515a78d91b09023773ef2770d6b0df77d674e144de80d63e0389b3a15ca6"
   license "IJG"
   head "https://github.com/libjpeg-turbo/libjpeg-turbo.git", branch: "main"
 
-  stable do
-    url "https://downloads.sourceforge.net/project/libjpeg-turbo/3.0.0/libjpeg-turbo-3.0.0.tar.gz"
-    sha256 "c77c65fcce3d33417b2e90432e7a0eb05f59a7fff884022a9d931775d583bfaa"
-
-    # Patch to fix regression test concurrency issue. Remove in next release.
-    patch do
-      url "https://github.com/libjpeg-turbo/libjpeg-turbo/commit/035ea386d1b6a99a8a1e2ab57cc1fc903569136c.patch?full_index=1"
-      sha256 "7389d29c16be16ae23e40f6ac31e78ca366550644ab96810f1e21bece71919bb"
-    end
-  end
-
-  # Versions with a 90+ patch are unstable (e.g., 2.1.90 corresponds to
-  # 3.0 beta1) and this regex should only match the stable versions.
   livecheck do
     url :stable
-    regex(%r{url=.*?/libjpeg-turbo[._-]v?(\d+\.\d+\.(?:\d|[1-8]\d+)(?:\.\d+)*)\.t}i)
+    strategy :github_latest
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_sonoma:   "af4d480aafde3db4a5029a8a991e91a9f615b1707f3f5e1797475c66beb982d7"
-    sha256 cellar: :any,                 arm64_ventura:  "1971c1fa66c2580fa0bfafe5350c6170bfe7395a4e503e7bfe0c69ec2e353010"
-    sha256 cellar: :any,                 arm64_monterey: "89da2a33e1e0e66c1fa10acb40e7c632716a79aa1f82c9175f4cd270cd88bc77"
-    sha256 cellar: :any,                 arm64_big_sur:  "8365422894438d22ff64db9387c6445ca5c9cbdecda15da0ef018c7fe355eda1"
-    sha256 cellar: :any,                 sonoma:         "9615c984a48c42d6bc214c6c9ca272f88f42c8236396b69eb3f838d64abcc2e6"
-    sha256 cellar: :any,                 ventura:        "07d7b63893cbdf50c91ec9f3ca7568c774e03c50a8a98d003ee49665b7af0a8f"
-    sha256 cellar: :any,                 monterey:       "468dc920dff06894e1a9097a3d522472e0f59218523585ae78abee561eafc5dd"
-    sha256 cellar: :any,                 big_sur:        "4ced360a9d7c567dc49ae6dc6370ed92edbeb0ed6917c40bc56aa3ba73e51ce5"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "44943f311f5999c84a5f6d3695b0fa96f6f336eb0f50a5a0174df7febf596174"
+    sha256 cellar: :any,                 arm64_sonoma:   "898ba61a84a444ef98b577162e49a0b06d65e8bdc48ad039d364fef4b4c00b05"
+    sha256 cellar: :any,                 arm64_ventura:  "0a007662b26322a0985f31cc7546124f53caa8334f5d2f1e8356e9d7321fe420"
+    sha256 cellar: :any,                 arm64_monterey: "5c179a6035798dab056356c288284ed695dc9505e4df4aa9868341fb9971a008"
+    sha256 cellar: :any,                 sonoma:         "4e2af273b76b2f4845b08d0f249630212e41a76b113e7d633d319cc6cfb43bef"
+    sha256 cellar: :any,                 ventura:        "91d8bf0169ff83cdccddd64e88fb7ebdcc2df2d799c93ffb2a6fddd3980b631d"
+    sha256 cellar: :any,                 monterey:       "6f004f77f070e05df1c7303e90b4befb100dd831fe68f998996a2a5de60b59d0"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "b16eab4c9fc8814b11ce6e43dd7d599587ec34ebbba7e1359e15bcff42ae672e"
   end
 
   depends_on "cmake" => :build
@@ -48,10 +35,20 @@ class JpegTurbo < Formula
   link_overwrite "share/man/man1/cjpeg.1", "share/man/man1/djpeg.1", "share/man/man1/jpegtran.1",
                  "share/man/man1/rdjpgcom.1", "share/man/man1/wrjpgcom.1"
 
+  # Fix cmake build configuration for AppleClang, remove in next release
+  # Relates to https://github.com/libjpeg-turbo/libjpeg-turbo/pull/755
+  # Using an inline patch because upstream's patch doesn't apply cleanly on top of 3.0.2
+  patch :DATA
+
   def install
     args = ["-DWITH_JPEG8=1", "-DCMAKE_EXE_LINKER_FLAGS=-Wl,-rpath,#{rpath}"]
     # https://github.com/libjpeg-turbo/libjpeg-turbo/issues/709
-    args << "-DFLOATTEST12=" if Hardware::CPU.arm? && MacOS.version >= :ventura
+    if Hardware::CPU.arm? && MacOS.version >= :ventura
+      args += ["-DFLOATTEST8=fp-contract",
+               "-DFLOATTEST12=fp-contract"]
+    end
+    # https://github.com/libjpeg-turbo/libjpeg-turbo/issues/734
+    args << "-DFLOATTEST12=no-fp-contract" if Hardware::CPU.arm? && MacOS.version == :monterey
     args += std_cmake_args.reject { |arg| arg["CMAKE_INSTALL_LIBDIR"].present? }
 
     system "cmake", "-S", ".", "-B", "build", *args
@@ -69,3 +66,62 @@ class JpegTurbo < Formula
     assert_predicate testpath/"out.jpg", :exist?
   end
 end
+__END__
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index adb0ca45..f6980471 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -395,7 +395,7 @@ if(MSVC)
+   add_definitions(-D_CRT_NONSTDC_NO_WARNINGS)
+ endif()
+ 
+-if(CMAKE_COMPILER_IS_GNUCC OR CMAKE_C_COMPILER_ID STREQUAL "Clang")
++if(CMAKE_COMPILER_IS_GNUCC OR CMAKE_C_COMPILER_ID MATCHES "Clang")
+   # Use the maximum optimization level for release builds
+   foreach(var CMAKE_C_FLAGS_RELEASE CMAKE_C_FLAGS_RELWITHDEBINFO)
+     if(${var} MATCHES "-O2")
+@@ -468,7 +468,7 @@ if(UNIX)
+   endif()
+ endif()
+ 
+-if(NOT MSVC OR CMAKE_C_COMPILER_ID STREQUAL "Clang")
++if(NOT MSVC OR CMAKE_C_COMPILER_ID MATCHES "Clang")
+   check_c_source_compiles("const int __attribute__((visibility(\"hidden\"))) table[1] = { 0 }; int main(void) { return table[0]; }"
+     HIDDEN_WORKS)
+   if(HIDDEN_WORKS)
+@@ -907,7 +907,7 @@ if(CPU_TYPE STREQUAL "x86_64" OR CPU_TYPE STREQUAL "i386")
+     set(DEFAULT_FLOATTEST8 no-fp-contract)
+   endif()
+ elseif(CPU_TYPE STREQUAL "powerpc" OR CPU_TYPE STREQUAL "arm64")
+-  if(CMAKE_C_COMPILER_ID STREQUAL "Clang")
++  if(CMAKE_C_COMPILER_ID MATCHES "Clang")
+     if(CMAKE_C_COMPILER_VERSION VERSION_EQUAL 14.0.0 OR
+       CMAKE_C_COMPILER_VERSION VERSION_GREATER 14.0.0)
+       set(DEFAULT_FLOATTEST8 fp-contract)
+@@ -949,7 +949,7 @@ endif()
+ if(CPU_TYPE STREQUAL "x86_64")
+   set(DEFAULT_FLOATTEST12 no-fp-contract)
+ elseif(CPU_TYPE STREQUAL "powerpc" OR CPU_TYPE STREQUAL "arm64")
+-  if(CMAKE_C_COMPILER_ID STREQUAL "Clang")
++  if(CMAKE_C_COMPILER_ID MATCHES "Clang")
+     if(CMAKE_C_COMPILER_VERSION VERSION_EQUAL 14.0.0 OR
+       CMAKE_C_COMPILER_VERSION VERSION_GREATER 14.0.0)
+       set(DEFAULT_FLOATTEST12 fp-contract)
+@@ -1210,7 +1210,7 @@ foreach(libtype ${TEST_LIBTYPES})
+       set(MD5_PPM_3x2_FLOAT_NO_FP_CONTRACT ${MD5_PPM_3x2_FLOAT_SSE})
+       set(MD5_JPEG_3x2_FLOAT_PROG_FP_CONTRACT
+         ${MD5_JPEG_3x2_FLOAT_PROG_NO_FP_CONTRACT})
+-      if(CMAKE_C_COMPILER_ID STREQUAL "Clang")
++      if(CMAKE_C_COMPILER_ID MATCHES "Clang")
+         set(MD5_PPM_3x2_FLOAT_FP_CONTRACT 2da9de6ae869e88b8372de815d366b03)
+       else()
+         set(MD5_PPM_3x2_FLOAT_FP_CONTRACT ${MD5_PPM_3x2_FLOAT_SSE})
+@@ -1282,7 +1282,7 @@ foreach(libtype ${TEST_LIBTYPES})
+       set(MD5_PPM_3x2_FLOAT_NO_FP_CONTRACT f6bfab038438ed8f5522fbd33595dcdc)
+       set(MD5_JPEG_3x2_FLOAT_PROG_FP_CONTRACT
+         ${MD5_JPEG_3x2_FLOAT_PROG_NO_FP_CONTRACT})
+-      if(CMAKE_C_COMPILER_ID STREQUAL "Clang")
++      if(CMAKE_C_COMPILER_ID MATCHES "Clang")
+         set(MD5_PPM_3x2_FLOAT_FP_CONTRACT ${MD5_PPM_3x2_FLOAT_NO_FP_CONTRACT})
+       else()
+         set(MD5_PPM_3x2_FLOAT_FP_CONTRACT 0e917a34193ef976b679a6b069b1be26)

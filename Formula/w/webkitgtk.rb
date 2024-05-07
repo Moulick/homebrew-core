@@ -1,10 +1,9 @@
 class Webkitgtk < Formula
   desc "GTK interface to WebKit"
   homepage "https://webkitgtk.org"
-  url "https://webkitgtk.org/releases/webkitgtk-2.40.5.tar.xz"
-  sha256 "7de051a263668621d91a61a5eb1c3771d1a7cec900043d4afef06c326c16037f"
+  url "https://webkitgtk.org/releases/webkitgtk-2.44.1.tar.xz"
+  sha256 "425b1459b0f04d0600c78d1abb5e7edfa3c060a420f8b231e9a6a2d5d29c5561"
   license "GPL-3.0-or-later"
-  revision 1
 
   livecheck do
     url "https://webkitgtk.org/releases/"
@@ -12,13 +11,17 @@ class Webkitgtk < Formula
   end
 
   bottle do
-    sha256 x86_64_linux: "d7e8771594613b642675a3e11b17162bb12c8b16b17ccae0531fcdf5f415f862"
+    sha256 x86_64_linux: "12f27454bf4206e515b0768fba6a12f8369396f2cc5460c5928e87d8f83986ff"
   end
 
   depends_on "cmake" => :build
   depends_on "gobject-introspection" => :build
+  depends_on "gperf" => :build
+  depends_on "perl" => :build
   depends_on "pkg-config" => [:build, :test]
-  depends_on "python@3.11" => :build
+  depends_on "python@3.12" => :build
+  depends_on "ruby" => :build
+  depends_on "unifdef" => :build
   depends_on "cairo"
   depends_on "enchant"
   depends_on "fontconfig"
@@ -38,38 +41,35 @@ class Webkitgtk < Formula
   depends_on "libsoup"
   depends_on "libwpe"
   depends_on "libxcomposite"
+  depends_on "libxml2"
+  depends_on "libxslt"
   depends_on "libxt"
   depends_on :linux # Use JavaScriptCore.Framework on macOS.
   depends_on "little-cms2"
   depends_on "mesa"
   depends_on "openjpeg"
+  depends_on "sqlite"
   depends_on "systemd"
   depends_on "webp"
   depends_on "woff2"
   depends_on "wpebackend-fdo"
-
-  uses_from_macos "gperf" => :build
-  uses_from_macos "perl" => :build
-  uses_from_macos "ruby" => :build
-  uses_from_macos "unifdef" => :build
-  uses_from_macos "libxml2"
-  uses_from_macos "libxslt"
-  uses_from_macos "sqlite"
-  uses_from_macos "zlib"
+  depends_on "zlib"
 
   fails_with gcc: "5"
 
   def install
-    args = %w[
+    args = %W[
       -DPORT=GTK
       -DENABLE_BUBBLEWRAP_SANDBOX=OFF
       -DENABLE_DOCUMENTATION=OFF
       -DENABLE_GAMEPAD=OFF
       -DENABLE_MINIBROWSER=ON
       -DUSE_AVIF=ON
-      -DUSE_GSTREAMER_GL=OFF
+      -DUSE_GTK4=OFF
       -DUSE_JPEGXL=ON
+      -DUSE_LIBBACKTRACE=OFF
       -DUSE_LIBHYPHEN=OFF
+      -DPython_EXECUTABLE=#{which("python3.12")}
     ]
 
     system "cmake", "-S", ".", "-B", "build", *args, *std_cmake_args

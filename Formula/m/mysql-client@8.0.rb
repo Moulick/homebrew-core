@@ -1,8 +1,8 @@
 class MysqlClientAT80 < Formula
   desc "Open source relational database management system"
   homepage "https://dev.mysql.com/doc/refman/8.0/en/"
-  url "https://cdn.mysql.com/Downloads/MySQL-8.0/mysql-boost-8.0.35.tar.gz"
-  sha256 "41253c3a99cefcf6d806040c6687692eb0c37b4c7aae5882417dfb9c5d3ce4ce"
+  url "https://cdn.mysql.com/Downloads/MySQL-8.0/mysql-boost-8.0.37.tar.gz"
+  sha256 "fe0c7986f6a2d6a2ddf65e00aadb90fa6cb73da38c4172dc2b930dd1c2dc4af6"
   license "GPL-2.0-only" => { with: "Universal-FOSS-exception-1.0" }
 
   livecheck do
@@ -10,13 +10,13 @@ class MysqlClientAT80 < Formula
   end
 
   bottle do
-    sha256 arm64_sonoma:   "9ca9c15264dc26a5ff5d9c4330faaf9b4ebc148850eac839840d15fdf81c71ae"
-    sha256 arm64_ventura:  "02a319f726afb9d098b80b2eba2f63b75ad6794e45e990f0d166a386576c95ce"
-    sha256 arm64_monterey: "77cde582494a9c3bdac3d9e45d911028e119e18669ec14d7c50c51d86431674f"
-    sha256 sonoma:         "ae5e759db96d47ba1f9d2d7bd8d5a8c398896ad630035cd9b1f4af210c5174b8"
-    sha256 ventura:        "e0485988d5ef7b5d1d92e4837b272dab74c3d418ff062e68a4a2004f5fdd88b2"
-    sha256 monterey:       "3b1f4c6d84a2c7b85d4649c52c6b2d806bc732d08c7aa0b87f1adbab0c54c916"
-    sha256 x86_64_linux:   "64e607b5a2a77ec443b76754a91b89109d5db17b238ba2e41953a8655fa08cce"
+    sha256 arm64_sonoma:   "875df46acc422a4c28201686a441fa50e131f480e4942c92e4b79ab8aa6740b7"
+    sha256 arm64_ventura:  "c9f0638e3c6425a8fbfab8e741a75ce3103fcea9ebd291c57ca6d36e07e9ce74"
+    sha256 arm64_monterey: "a122923981421ebecbfd246b4eab6f9eb06d3f6245b9c40771f31b05711fad72"
+    sha256 sonoma:         "2408588d839a1aac79269bfeabf7ddefd81abfcea7d8f33aac4a5c76da6eec3e"
+    sha256 ventura:        "acc2ae429e53d3081403f889cf893c618146cdf7f2986ddbdd1492bdf923eeb2"
+    sha256 monterey:       "4ed8d9a2f0772d938c91cce4efe5b23fc12397be5c341e255fa438539cb04d59"
+    sha256 x86_64_linux:   "885456ca30a98b84060f6ac82e2fac3a34e53f03f499f79ed4b7f3e607130ec0"
   end
 
   keg_only :versioned_formula
@@ -35,10 +35,6 @@ class MysqlClientAT80 < Formula
   uses_from_macos "libedit"
 
   fails_with gcc: "5"
-
-  # Fix for "Cannot find system zlib libraries" even though they are installed.
-  # https://bugs.mysql.com/bug.php?id=110745
-  patch :DATA
 
   def install
     # -DINSTALL_* are relative to `CMAKE_INSTALL_PREFIX` (`prefix`)
@@ -65,37 +61,9 @@ class MysqlClientAT80 < Formula
 
     system "cmake", ".", *std_cmake_args, *args
     system "make", "install"
-
-    # Fix bad linker flags in `mysql_config`.
-    # https://bugs.mysql.com/bug.php?id=111011
-    inreplace bin/"mysql_config", "-lzlib", "-lz"
   end
 
   test do
     assert_match version.to_s, shell_output("#{bin}/mysql --version")
   end
 end
-
-__END__
-diff --git a/cmake/zlib.cmake b/cmake/zlib.cmake
-index 460d87a..36fbd60 100644
---- a/cmake/zlib.cmake
-+++ b/cmake/zlib.cmake
-@@ -50,7 +50,7 @@ FUNCTION(FIND_ZLIB_VERSION ZLIB_INCLUDE_DIR)
-   MESSAGE(STATUS "ZLIB_INCLUDE_DIR ${ZLIB_INCLUDE_DIR}")
- ENDFUNCTION(FIND_ZLIB_VERSION)
-
--FUNCTION(FIND_SYSTEM_ZLIB)
-+MACRO(FIND_SYSTEM_ZLIB)
-   FIND_PACKAGE(ZLIB)
-   IF(ZLIB_FOUND)
-     ADD_LIBRARY(zlib_interface INTERFACE)
-@@ -61,7 +61,7 @@ FUNCTION(FIND_SYSTEM_ZLIB)
-         ${ZLIB_INCLUDE_DIR})
-     ENDIF()
-   ENDIF()
--ENDFUNCTION(FIND_SYSTEM_ZLIB)
-+ENDMACRO(FIND_SYSTEM_ZLIB)
-
- MACRO (RESET_ZLIB_VARIABLES)
-   # Reset whatever FIND_PACKAGE may have left behind.

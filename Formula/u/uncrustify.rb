@@ -1,21 +1,19 @@
 class Uncrustify < Formula
   desc "Source code beautifier"
   homepage "https://uncrustify.sourceforge.net/"
-  url "https://github.com/uncrustify/uncrustify/archive/refs/tags/uncrustify-0.77.1.tar.gz"
-  sha256 "414bbc9f7860eb18a53074f9af14ed04638a633b2216a73f2629291300d37c1b"
+  url "https://github.com/uncrustify/uncrustify/archive/refs/tags/uncrustify-0.78.1.tar.gz"
+  sha256 "ecaf4c0adca14c36dfffa30bc28e69865115ecd602c90eb16a8cddccb41caad2"
   license "GPL-2.0-or-later"
   head "https://github.com/uncrustify/uncrustify.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "d3bd6a61d021417a13253e241706de3c56d291c3456aa3f4be59dc0a8e3a4e56"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "a6a60728012c42571964e51a3cc4cb04a887e89368fcb8cf7e910cac81a3cfe6"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "27a67f8a91b6281144ea19ba3da33d02c17d4ff901b0a20ec95f86a2d5076cdf"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "afd522877248c5ce7c20718aa662a45da10d1efce0c1c276e904cf83957216b0"
-    sha256 cellar: :any_skip_relocation, sonoma:         "3b734376b7e21964d488916cf53aa2fd612bf847497cebedd66cbb6e25983a48"
-    sha256 cellar: :any_skip_relocation, ventura:        "dd3bb8e3ac1e6b9dccc027c92ba497896b28b1bbbe066bfbddc97aaed32bb307"
-    sha256 cellar: :any_skip_relocation, monterey:       "90581bb3e2dce969a539afc186f4130e104b892a902972eccbb2330e8f3d2d3d"
-    sha256 cellar: :any_skip_relocation, big_sur:        "f73c1607cc1c4cf15e28339dc36d9ed59338dfd34e1c910e9ebbd556de578eb9"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "13707a10791840a3cf9b43c650caaf7265b3409dbc4bd56bbd8433f7c22fd4b0"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "988940baed6f80db45a495d387cfab38a75496ca60daf7f301adf34b1b445a57"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "88a407115693464ee05a99d035d1d13e437b30b0f99d79aaca5ecc7e5ee30d9d"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "d043b7e256a5fe4b858a34cd8f07f01c3fee3497010b1b97ee130968cc6a2b79"
+    sha256 cellar: :any_skip_relocation, sonoma:         "1abf1020168856899d6c5f676c6162f90e4b3fc0e4ab6d89aa9e24bc7f52c9ca"
+    sha256 cellar: :any_skip_relocation, ventura:        "b6b8b48c4c6f8b9b3c858fd75ef8558adb99ca143329d6b41b224908f9201965"
+    sha256 cellar: :any_skip_relocation, monterey:       "f569a67342595fb813c61ee035622788e6a6df3a346dba3c4e4bcbc3afd8c952"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "8bd176735277b4f2b2a23c17e5e044a900a2aedca1b16a357c8a13416b9a9cf2"
   end
 
   depends_on "cmake" => :build

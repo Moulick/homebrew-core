@@ -1,8 +1,8 @@
 class Wcslib < Formula
   desc "Library and utilities for the FITS World Coordinate System"
   homepage "https://www.atnf.csiro.au/people/mcalabre/WCS/"
-  url "https://www.atnf.csiro.au/pub/software/wcslib/wcslib-8.1.tar.bz2"
-  sha256 "2bf23e6fabd10b8aecffa54431bf25aa224ff019c60a9e676aa56561f9b4129e"
+  url "https://www.atnf.csiro.au/people/mcalabre/WCS/wcslib-8.2.2.tar.bz2"
+  sha256 "6298220ae817f4e5522643ac4c3da2623be70a3484b1a4f37060bee3e4bd7833"
   license "GPL-3.0-or-later"
 
   livecheck do
@@ -11,15 +11,13 @@ class Wcslib < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_sonoma:   "46972261ac3e5f8877a024d46117870a164e05b32873d9ad9bbaa8f2acab2f54"
-    sha256 cellar: :any,                 arm64_ventura:  "a10bdeef5a7a5707d0081de192bbb04ed185e14fa42004df792de7fe0fdc6e60"
-    sha256 cellar: :any,                 arm64_monterey: "09f007e42a1ffb66b20af6878c7599a0e316a9eb708057d228173da2db076a10"
-    sha256 cellar: :any,                 arm64_big_sur:  "7077b55049ed6e5f1e872a8feec72237f00c722fce347c8ff8e47cb82b916926"
-    sha256 cellar: :any,                 sonoma:         "422408eee61706a43732a4cab217af8112cfaea56667b8233459d916bdc8987b"
-    sha256 cellar: :any,                 ventura:        "23ed804a33bcb7cb354d4c46eae0cf522a003fe7ea132c22b619566dd4c99735"
-    sha256 cellar: :any,                 monterey:       "688c5f712f7826711e1dbc83d7b21bf095822031afa90f291722c013652e5ad2"
-    sha256 cellar: :any,                 big_sur:        "2bd1c58921f2cc3a3dc54057d6877e32c1780de2ec5c1edf214d2d640486dc3c"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "8ebbc048e32766835b474675cba45664aa4c827f0c09dab9690d8933a3b5af4d"
+    sha256 cellar: :any,                 arm64_sonoma:   "2857bd84c076a018a1f0e67c6b5d5a581cfb7bc41181286f70bd3d76bf611efa"
+    sha256 cellar: :any,                 arm64_ventura:  "0a9273876cb5fc1be0e558bc831861250c047fe090430f759f3942059f8cbe30"
+    sha256 cellar: :any,                 arm64_monterey: "36e9f26e57a04edf21666eb0d3d50051048b375af13a5dc23cf50d8e4d0d1c7a"
+    sha256 cellar: :any,                 sonoma:         "c9097a8fd99d6c709a39a9b02eb194c49f2177112c977d1acc09623eb5e5723a"
+    sha256 cellar: :any,                 ventura:        "5c50086dec7068ed77665b94fd069d442b5a37964504079cad4b447a5f789ef9"
+    sha256 cellar: :any,                 monterey:       "e2988f3c63a643f9d2d1bd1a69cfe279084f22228fdecd725cda2022d4754496"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "ed4de50b36ab18e862f52c91aa0ab5c6087094d29d1cdea65bda3c6027eca854"
   end
 
   depends_on "cfitsio"

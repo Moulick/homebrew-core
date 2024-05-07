@@ -1,8 +1,8 @@
 class Tarantool < Formula
   desc "In-memory database and Lua application server"
   homepage "https://tarantool.org/"
-  url "https://download.tarantool.org/tarantool/src/tarantool-2.11.1.tar.gz"
-  sha256 "246f5835270db614dc22f72232db2cb74e11d6e60be832019670a99d8f7c7e5e"
+  url "https://download.tarantool.org/tarantool/src/tarantool-3.1.0.tar.gz"
+  sha256 "6df4383566a8bf3dcb417f798bd46c790dc96bf3b39bc9604acaba45288cc342"
   license "BSD-2-Clause"
   version_scheme 1
   head "https://github.com/tarantool/tarantool.git", branch: "master"
@@ -13,25 +13,23 @@ class Tarantool < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_sonoma:   "a16d33440eefc4a94d38b7f0e8622d99370549d54bfa8e25aa5e3aa6ee5d8436"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "1c223efcf5587c70703ccfc95e11ab3c863a24ce7eb93fc1b1c6d6467ae95a66"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "f94996a2259418dd71e5f6e7be722fbadfd85d6a6f0e7285b257401f68e1da2d"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "7d8873b0f47fcd8986c9db418e909faa241970dcd7ff82d03554f620865522c0"
-    sha256 cellar: :any,                 sonoma:         "1bf3d80210621f85f6d8b765a061c289b36f3c802345794addcd1e80767d7169"
-    sha256 cellar: :any_skip_relocation, ventura:        "68d1967d680933858b05a7af7bb913017255739c5eca43d4316feace46f98915"
-    sha256 cellar: :any_skip_relocation, monterey:       "3c5bf4852c0c7e69104c079eac495969b9110d397ae96c818b706522709b15de"
-    sha256 cellar: :any_skip_relocation, big_sur:        "dc2045f59e5e3a4efcca156a2cdb07fbe2429c341e959cc016083f98545f6f0d"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "e437ff56194edc627df68e2e628cffb3ddea46a05b64afb0ad9b144c4ce67e85"
+    sha256 cellar: :any,                 arm64_sonoma:   "8cfa0e21313a437204301b4b8a0962c03e1a24e638e4774c50183e9c0fad3fcc"
+    sha256 cellar: :any,                 arm64_ventura:  "e7dbeb6e687dc6ae7525f87af52161a5dec0b2cdc0b1dfeb716794039b915412"
+    sha256 cellar: :any,                 arm64_monterey: "360308ed989b3a1e94cba4c825a69b808c45a7e111221cbab4c9d02b091e1dcc"
+    sha256 cellar: :any,                 sonoma:         "0810ab6811a55e499975f136e23b7b7eec8114591486da1f0f563cacab69caee"
+    sha256 cellar: :any,                 ventura:        "a4251a66c93d633d9f9376007652b20b859f13f6c45d65581c18672896c6356d"
+    sha256 cellar: :any,                 monterey:       "d87b02511c78237fca446709761b4d25d3b29a3cac9799312cc8ec02ef54e763"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "91dd35c80872ae199de6b43b98db8d66be56b87c76fe41665e7e77d431cbd9bb"
   end
 
   depends_on "cmake" => :build
+  depends_on "curl" # curl 8.4.0+
   depends_on "icu4c"
   depends_on "libyaml"
   depends_on "openssl@3"
   depends_on "readline"
   depends_on "zstd"
 
-  uses_from_macos "curl"
   uses_from_macos "ncurses"
 
   on_linux do
@@ -64,8 +62,7 @@ class Tarantool < Formula
         lib_suffix = "dylib"
       end
 
-      args << "-DCURL_INCLUDE_DIR=#{sdk}/usr/include"
-      args << "-DCURL_LIBRARY=#{sdk}/usr/lib/libcurl.#{lib_suffix}"
+      args << "-DCURL_ROOT=#{Formula["curl"].opt_prefix}"
       args << "-DCURSES_NEED_NCURSES=ON"
       args << "-DCURSES_NCURSES_INCLUDE_PATH=#{sdk}/usr/include"
       args << "-DCURSES_NCURSES_LIBRARY=#{sdk}/usr/lib/libncurses.#{lib_suffix}"
@@ -81,9 +78,6 @@ class Tarantool < Formula
   end
 
   def post_install
-    local_user = ENV["USER"]
-    inreplace etc/"default/tarantool", /(username\s*=).*/, "\\1 '#{local_user}'"
-
     (var/"lib/tarantool").mkpath
     (var/"log/tarantool").mkpath
     (var/"run/tarantool").mkpath

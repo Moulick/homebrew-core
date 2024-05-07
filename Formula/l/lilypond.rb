@@ -1,8 +1,8 @@
 class Lilypond < Formula
   desc "Music engraving system"
   homepage "https://lilypond.org"
-  url "https://lilypond.org/download/sources/v2.24/lilypond-2.24.2.tar.gz"
-  sha256 "7944e610d7b4f1de4c71ccfe1fbdd3201f54fac54561bdcd048914f8dbb60a48"
+  url "https://lilypond.org/download/sources/v2.24/lilypond-2.24.3.tar.gz"
+  sha256 "df005f76ef7af5a4cd74a10f8e7115278b7fa79f14018937b65c109498ec44be"
   license all_of: [
     "GPL-3.0-or-later",
     "GPL-3.0-only",
@@ -20,15 +20,13 @@ class Lilypond < Formula
   end
 
   bottle do
-    sha256 arm64_sonoma:   "d698ecf03bc15380ee769dd8a96e68c373a1d53419ab842b1997c107e33db42a"
-    sha256 arm64_ventura:  "b973ba76a36b81950caa232b10148e2c0d43e62f0def6677e6b19aa40da15552"
-    sha256 arm64_monterey: "5732abb8072a696dda9cbfb272f7d8c5ad6f332ebfb7a7eaa70ef1936b0fe5b7"
-    sha256 arm64_big_sur:  "b95ab74431437c46a3f382c4811feb154071f2959dd19dcde23329c51f8fbb54"
-    sha256 sonoma:         "03f73e78be237b1dcc9ce76a43f08c94fb5549b81de90e41e00168c66f7be548"
-    sha256 ventura:        "6849dd72a19388dd6df520c49ffc340b0fdccecea03bf8157ff41c59be8e0ce1"
-    sha256 monterey:       "408f15cc55d732483e7ed346914689557ca38a9190b1815b8ee6da3ef65a32a1"
-    sha256 big_sur:        "a5412b0836cbcce70f3dcfd6cf0923f65d10e215ce98fc4db20a70028b257ea4"
-    sha256 x86_64_linux:   "4e9a9887ae7ee6205a6c5b85a2e2ab69b46b75676781228910bb3ad780a7d794"
+    sha256 arm64_sonoma:   "44d553b7f3a2a15a96609a572058e8e78048405d9e29d0b2f07f169d96091baa"
+    sha256 arm64_ventura:  "d4a18876c4f0782f255c04f06f46296080ed03303fb07241fe262ff017b9188d"
+    sha256 arm64_monterey: "d36e0de0d3dac922f10f91b8125f7515fc5653c9c3ca9eb07ee478e2d7e479c5"
+    sha256 sonoma:         "9c691bcbd6d627e811bcbb4c7fcd753bd9d7801564397f7a90365e4aecb0888f"
+    sha256 ventura:        "ebbfa335244e4346cc2fdc3bd86fa069f5f5954f9b8849f70dcf25740e306504"
+    sha256 monterey:       "76867f3e089a5bae9a63277dd43fa274a41b223ab45d646bf49756c1b53ed0f2"
+    sha256 x86_64_linux:   "2bac60e04b3588dbf714041de62c16fa122935c181c9a956fe629e9d52e2c45a"
   end
 
   head do
@@ -51,7 +49,7 @@ class Lilypond < Formula
   depends_on "ghostscript"
   depends_on "guile"
   depends_on "pango"
-  depends_on "python@3.11"
+  depends_on "python@3.12"
 
   uses_from_macos "flex" => :build
   uses_from_macos "perl" => :build
@@ -66,7 +64,7 @@ class Lilypond < Formula
 
     system "./configure", "--datadir=#{share}",
                           "--disable-documentation",
-                          "--with-flexlexer-dir=#{Formula["flex"].include}",
+                          *("--with-flexlexer-dir=#{Formula["flex"].include}" if OS.linux?),
                           "GUILE_FLAVOR=guile-3.0",
                           *std_configure_args
 

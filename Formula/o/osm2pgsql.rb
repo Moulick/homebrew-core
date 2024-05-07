@@ -1,20 +1,20 @@
 class Osm2pgsql < Formula
   desc "OpenStreetMap data to PostgreSQL converter"
   homepage "https://osm2pgsql.org"
-  url "https://github.com/openstreetmap/osm2pgsql/archive/refs/tags/1.9.2.tar.gz"
-  sha256 "dc30a3ad9a27f944e4169be9a8e07ee09711901536ddc8fcf4a292bd3aec51d9"
+  url "https://github.com/openstreetmap/osm2pgsql/archive/refs/tags/1.11.0.tar.gz"
+  sha256 "6b46313813b816f15ce906c04cd4108bbb05362740e0a1a8889055f4e25977d2"
   license "GPL-2.0-only"
   revision 1
   head "https://github.com/openstreetmap/osm2pgsql.git", branch: "master"
 
   bottle do
-    sha256 arm64_sonoma:   "436c3d5c461fca43f027f009280afba593f1633a67ed7754f476425e188c8a29"
-    sha256 arm64_ventura:  "5848e72a69755241e67871c366871088a0dc2ecd5efbe6efd3a52cc55ac81007"
-    sha256 arm64_monterey: "dbe9dfa5082b67b270de05f371a9d1891f61b094a1f9bd42be5b9eed8e36d221"
-    sha256 sonoma:         "2927a5db93d925b946e2d6aa5b2ca5bd5ecb9c3825ea36593b79ca83233446d3"
-    sha256 ventura:        "a5d5939a7e1fddbebed0bcc87c6f8967ccd59df39439bdf34cd584664ef337dc"
-    sha256 monterey:       "6634267d8fbec90d4f70b2e505f7cfa09a805569d8193fafe5dbcdfc1c11be3a"
-    sha256 x86_64_linux:   "bdb1b326f7c147e4d9c82de1f3c7a93be1d64ccdd70edc8f337cbcf4f63d1ed4"
+    sha256 arm64_sonoma:   "78040c337e6e5ba42a3bcd749b24cf0ad280bbd2e3e03c1c6ffc21b10a229957"
+    sha256 arm64_ventura:  "eb27ee12e96c35e5eb96f4451913177f69440aad1704494f8d4ebb12b2dcbb0b"
+    sha256 arm64_monterey: "91a405d0c803d5841c73b5ced38d95c54311672da1f640954aeab18053f7748b"
+    sha256 sonoma:         "c54a0a74bb32c32d4f03fb39e279c2c1b99a40f9c6b52ec94e56c320edf77770"
+    sha256 ventura:        "698af979a0d900e1ba2c8fae8f56cb43265471988cb6f0efd5a3471eb89f64d7"
+    sha256 monterey:       "9cb60ea66b5901c22396e9e7ff83e6561118159fed7669db46000f1759cf1170"
+    sha256 x86_64_linux:   "47140bee36286c930689053f37ae39a76db22c5249ab9ddc97b919e0a97feacf"
   end
 
   depends_on "cmake" => :build
@@ -46,7 +46,9 @@ class Osm2pgsql < Formula
   end
 
   test do
-    assert_match "Connecting to database failed: connection to server",
-                 shell_output("#{bin}/osm2pgsql /dev/null 2>&1", 1)
+    output = shell_output("#{bin}/osm2pgsql /dev/null 2>&1", 1)
+    assert_match "ERROR: Connecting to database failed", output
+
+    assert_match version.to_s, shell_output("#{bin}/osm2pgsql --version 2>&1")
   end
 end

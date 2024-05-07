@@ -3,26 +3,31 @@ class Jc < Formula
 
   desc "Serializes the output of command-line tools to structured JSON output"
   homepage "https://github.com/kellyjonbrazil/jc"
-  url "https://files.pythonhosted.org/packages/3b/c1/304d84db87ae7ccf439e6a9a3834ebc5531a98c92e1e7afbec32171ed11e/jc-1.23.6.tar.gz"
-  sha256 "886568b3819424235c60df7ebbc6cdee98c3eff7785d4b2ce5d78721035d444b"
+  url "https://files.pythonhosted.org/packages/39/2e/c0d557b2ee673e2e0aef24a01e732aa232f6b1e180f339058f674f391ab8/jc-1.25.2.tar.gz"
+  sha256 "97ada193495f79550f06fe0cbfb119ff470bcca57c1cc593a5cdb0008720e0b3"
   license "MIT"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "78c3eded6b2fa50b57610ae528186b9ba10376394c665d052f5a743fadbe4600"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "25c1e7b1a6ad92425b4da3592637ef2d1e9441e5750909eca49acad434585b54"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "2dc1ad582b4c05579a2e80b928778210fee0154ae4f30a3a24c6c8d999a9fe01"
-    sha256 cellar: :any_skip_relocation, sonoma:         "329a3d272c228837621b2ae293bbdcd73404d03de5be12c655158af157ecc1d7"
-    sha256 cellar: :any_skip_relocation, ventura:        "f52ad6182464912473ede2361db8e26e05d4be21a326b3cd3762e00b7978583e"
-    sha256 cellar: :any_skip_relocation, monterey:       "c8273d188d6403de669c717ceabe680f41398342609d98cce8ecf86fdbcd7fef"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "57320788ae0442bd1e694d2bc5da2b214947de2183a566755f89e93b3afb952e"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "a6db27eb0286d49282bd6e7e0addf5783bcb00eb3371ea5513cb8de7f307ac31"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "7bb5ca7f2f59788728a50a427f131e415889653d5d8a6ed1e90f2cb0c2a8ac29"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "4eee336d9fa912b608c0f0eba737e4dce2085af01fdaf7c203247f40b4fd5f09"
+    sha256 cellar: :any_skip_relocation, sonoma:         "ea6067317ed4a784ff46944fae63a19f0cec10d0ec0517d018dcee78b8195def"
+    sha256 cellar: :any_skip_relocation, ventura:        "ec6f130b581c50da24e39848a7a9f07ddbaa96213f98e422307fd8b700eeb67b"
+    sha256 cellar: :any_skip_relocation, monterey:       "b74ade07acbd988ef322c966b3838f130a8d2be01b631b34686625dfad5926e8"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "012623489a33201c9ff584e23bbd5e920fc907fc8aa525b73e0dd642e8bcf09b"
   end
 
-  depends_on "pygments"
+  depends_on "libyaml"
   depends_on "python@3.12"
 
+  resource "pygments" do
+    url "https://files.pythonhosted.org/packages/55/59/8bccf4157baf25e4aa5a0bb7fa3ba8600907de105ebc22b0c78cfbf6f565/pygments-2.17.2.tar.gz"
+    sha256 "da46cec9fd2de5be3a8a784f434e4c4ab670b4ff54d605c4c2717e9d49c4c367"
+  end
+
   resource "ruamel-yaml" do
-    url "https://files.pythonhosted.org/packages/02/35/456b8f54f1b33141bd6940ff021c914606e6b5e760e77f59cd19da096067/ruamel.yaml-0.18.0.tar.gz"
-    sha256 "8b0fc1c60575b6fc2c1ddff9381e422eb2c2d988fc2e3a138389f68cebe0a6f8"
+    url "https://files.pythonhosted.org/packages/29/81/4dfc17eb6ebb1aac314a3eb863c1325b907863a1b8b1382cdffcb6ac0ed9/ruamel.yaml-0.18.6.tar.gz"
+    sha256 "8b27e6a217e786c6fbe5634d8f3f11bc63e0f80f6a5890f28863d9c45aac311b"
   end
 
   resource "ruamel-yaml-clib" do
@@ -36,6 +41,10 @@ class Jc < Formula
   end
 
   def install
+    # Work around ruamel.yaml.clib not building on Xcode 15.3, remove after a new release
+    # has resolved: https://sourceforge.net/p/ruamel-yaml-clib/tickets/32/
+    ENV.append_to_cflags "-Wno-incompatible-function-pointer-types" if DevelopmentTools.clang_build_version >= 1500
+
     virtualenv_install_with_resources
     man1.install "man/jc.1"
     generate_completions_from_executable(bin/"jc", "--bash-comp", shells: [:bash], shell_parameter_format: :none)

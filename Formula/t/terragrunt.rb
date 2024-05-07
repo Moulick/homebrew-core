@@ -1,22 +1,23 @@
 class Terragrunt < Formula
   desc "Thin wrapper for Terraform e.g. for locking state"
   homepage "https://terragrunt.gruntwork.io/"
-  url "https://github.com/gruntwork-io/terragrunt/archive/refs/tags/v0.53.0.tar.gz"
-  sha256 "a8279dc1edc03954c0dbbf986bc5063845fa8a40a3da7b957d3b8bfbac8f5f55"
+  url "https://github.com/gruntwork-io/terragrunt/archive/refs/tags/v0.58.3.tar.gz"
+  sha256 "8c8eb62823e93881f55168860727918e334326eabcdb018fd78747b07544ee3d"
   license "MIT"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "aacbe31259bf2e09a746ab1bf4b09cca55fee6359ebdf13d25852269b6c61b0d"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "2a84a60955d5ddf09d63d02258d99ea31cba07e860c5956391694469630426e8"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "6db56ad71340c7e1e988acbc71496b8133fb9dc8c5a009d8ae0c30288bc1c06f"
-    sha256 cellar: :any_skip_relocation, sonoma:         "937a2ca95908963c1e6369fa647b597a76ad90666c45755e664cdf620549c63b"
-    sha256 cellar: :any_skip_relocation, ventura:        "685d4c2c7c7dd1aea4b630e991b82c2dbd550228e887778870214c8637e8c2b7"
-    sha256 cellar: :any_skip_relocation, monterey:       "e4d042541a3e66e427f54acbd431b6a157d9d66d543d8e77921647a7b7ad25ea"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "2eb9aeff5ef626c0be60e09d9c9eeb1dda710959b31a839f875e580e1de897f1"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "e3ca7d1195c0adc9f7f85a64937317a18c20aa329c506bdb5e06b0b3c7d37558"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "b1a86956ecb4daf6ed87054ddc4f801ded3e6188ad657f18e344f4135a4879e7"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "80f16cdd1904bd91e8a2e537ec89a2983a221d0242bd9d7d5594090f9c3099a3"
+    sha256 cellar: :any_skip_relocation, sonoma:         "e8407814094307f94c18de7ef640b823f33d63b086740bb315919cb17245105b"
+    sha256 cellar: :any_skip_relocation, ventura:        "c39cb83b3c24e568061a7c6e21cef6eb95bd6692c9b279e90d96801bb2d6c02c"
+    sha256 cellar: :any_skip_relocation, monterey:       "1e23cd094ebf8a6fe5ee3824b8591307fdfcf31abab991cd9c34e7b7da5a7d26"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "1063bd082bd95ba4e34a0ade4d81b77c0e4f01e9093bc5f93ad8b7eafdb021a0"
   end
 
   depends_on "go" => :build
 
+  conflicts_with "tenv", because: "both install terragrunt binary"
   conflicts_with "tgenv", because: "tgenv symlinks terragrunt binaries"
 
   def install
@@ -24,7 +25,7 @@ class Terragrunt < Formula
       -s -w
       -X github.com/gruntwork-io/go-commons/version.Version=#{version}
     ]
-    system "go", "build", *std_go_args(ldflags: ldflags)
+    system "go", "build", *std_go_args(ldflags:)
   end
 
   test do

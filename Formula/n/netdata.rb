@@ -1,9 +1,10 @@
 class Netdata < Formula
   desc "Diagnose infrastructure problems with metrics, visualizations & alarms"
   homepage "https://netdata.cloud/"
-  url "https://github.com/netdata/netdata/releases/download/v1.43.2/netdata-v1.43.2.tar.gz"
-  sha256 "d4a7ea2717ac7c8f04865f18e13aeaa0a36784156059f1b5ced75a44f74afc4d"
+  url "https://github.com/netdata/netdata/releases/download/v1.44.3/netdata-v1.44.3.tar.gz"
+  sha256 "50df30a9aaf60d550eb8e607230d982827e04194f7df3eba0e83ff7919270ad2"
   license "GPL-3.0-or-later"
+  revision 3
 
   livecheck do
     url :stable
@@ -11,13 +12,13 @@ class Netdata < Formula
   end
 
   bottle do
-    sha256 arm64_sonoma:   "5fbb70f7698161a699e9c3274797835ac83c1f2e326c17198a55c4c0cc354924"
-    sha256 arm64_ventura:  "c2434ab17a8ef5fafa286da946ce133c2ed4b8baced6d1d194785aec21282b16"
-    sha256 arm64_monterey: "9170da463004cb377cff79348267c526bdcff5c731cbc6b7091252b525698e80"
-    sha256 sonoma:         "ea57b1d815af8109f36b812635d43d63659c7e033e8730477def11c992a9d1ed"
-    sha256 ventura:        "241ec6a0e4b5c10cc35ebc1fd463961a9f55e88d3bc471d8a9ad639133a150cc"
-    sha256 monterey:       "92c2acf2ae459fbab445da6045c5c85836b2bede105eaca8dba1472d21db24d7"
-    sha256 x86_64_linux:   "9fb360350212fa7ac8989faf5625d785a828fc6d3ad99236e5db833e2b2e0345"
+    sha256 arm64_sonoma:   "d3eba2c021fd04c673c5006613e8f83a4f2349dfde9a126c793a8a9a4a331375"
+    sha256 arm64_ventura:  "639b287a0d0adf3a1ac48d9ffdc90842c488e285de1c1ac67aa4938516d7fba1"
+    sha256 arm64_monterey: "d02335d1afe69d3f182f4fe9dfa49ca3b28f74880d703f50cf77afa865fa41e2"
+    sha256 sonoma:         "a70a6541ab4b1e2f64ed051e404f59d87ccfb021783e6a09dfde8c19dfa957ec"
+    sha256 ventura:        "59560f5fdeedcc125fd93009cf2e9292f3b1fc1894d9eb89591990078265986a"
+    sha256 monterey:       "83ece0fc0f2daf9ffb04af4f6bad716b731683b51d93705901a7a1862306237c"
+    sha256 x86_64_linux:   "3dc87fda17794790d40e215bba8edfcda09eb61eff88e84d3c01939cf2005d46"
   end
 
   depends_on "autoconf" => :build
@@ -29,6 +30,7 @@ class Netdata < Formula
   depends_on "libyaml"
   depends_on "lz4"
   depends_on "openssl@3"
+  depends_on "pcre2"
   depends_on "protobuf"
   depends_on "protobuf-c"
 

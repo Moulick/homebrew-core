@@ -2,10 +2,10 @@ class PerconaXtrabackup < Formula
   desc "Open source hot backup tool for InnoDB and XtraDB databases"
   homepage "https://www.percona.com/software/mysql-database/percona-xtrabackup"
   # TODO: Check if we can use unversioned `protobuf` at version bump
-  url "https://downloads.percona.com/downloads/Percona-XtraBackup-LATEST/Percona-XtraBackup-8.0.33-27/source/tarball/percona-xtrabackup-8.0.33-27.tar.gz"
-  sha256 "64b3b0ecaab5a5ee50af02ec40f12664bfe4c94f929ff0c189705ae886da0b12"
+  url "https://downloads.percona.com/downloads/Percona-XtraBackup-LATEST/Percona-XtraBackup-8.0.35-30/source/tarball/percona-xtrabackup-8.0.35-30.tar.gz"
+  sha256 "8a3632a5a7a91834800f4f83902468bccff1d979e82347c0372b39a97b0c85f0"
   license "GPL-2.0-only"
-  revision 2
+  revision 3
 
   livecheck do
     url "https://docs.percona.com/percona-xtrabackup/latest/"
@@ -20,17 +20,16 @@ class PerconaXtrabackup < Formula
   end
 
   bottle do
-    sha256 arm64_sonoma:   "4f7102862711e05f0983fc4f360a8d40905f5cb593d397f07f1e196d523c391c"
-    sha256 arm64_ventura:  "2764795befb42a6e22e8789c31c231e1d2d8e1733ab7c4cbf5fa82ffb9d418aa"
-    sha256 arm64_monterey: "eddbd1568b6e8944ce0b2659d616d1692a2ccd4f82d961eacfd033bd2366c45b"
-    sha256 arm64_big_sur:  "f66796cc3e73e9a02d0522b339655446a5a860cec10a489ff1295e96401f20b0"
-    sha256 sonoma:         "1b3037f50e0f07d4bed46f709daa2036cc2bf70e036c8bd132ae7b68e5e0c886"
-    sha256 ventura:        "4f4cbcfa36e16220e90997bb379c516a9153878ea58cdf04311d5e823c3afc3d"
-    sha256 monterey:       "af8430d405bcf8fbc4df570f501f2a0779cdad689385c885aa0402501940ffd7"
-    sha256 big_sur:        "103b2c76f1d450f2df412784afacd4939fa07c4d3a7d2135878fea0931d81059"
-    sha256 x86_64_linux:   "397d8edc78cfca437bee8a82a71b8d1b4053a4f0ca8b82c719a45161c2f2b6ab"
+    sha256 arm64_sonoma:   "e1a79eda619c2e9c53172f8efc09704ac7df13131da707cf8d6a838819f46057"
+    sha256 arm64_ventura:  "f05e26039c455a07998ea5b586049da2de7a5e7ab50073e396e063f8897ce9de"
+    sha256 arm64_monterey: "d08ecc70736dfa2a9151d6621a57a34db94f063218e26dda6aec8c925b4d5d65"
+    sha256 sonoma:         "0fea5bd755c85be147a607645dc15668310b84d6cdb87af7927ddd742e9c80d9"
+    sha256 ventura:        "fedabe4f80e9e427550fa075f2021c37f05e4802deabccddc6867c86d8259f74"
+    sha256 monterey:       "d2b57a3fb5adade2b88bc4922642026cfcd21f936967c77754c9438706231c6f"
+    sha256 x86_64_linux:   "4082113faad96e48e5247f76d43c77f98d970858f441e06527c496653712bd5d"
   end
 
+  depends_on "bison" => :build # needs bison >= 3.0.4
   depends_on "cmake" => :build
   depends_on "pkg-config" => :build
   depends_on "sphinx-doc" => :build
@@ -40,7 +39,7 @@ class PerconaXtrabackup < Formula
   depends_on "libfido2"
   depends_on "libgcrypt"
   depends_on "lz4"
-  depends_on "mysql"
+  depends_on "mysql-client"
   depends_on "openssl@3"
   depends_on "protobuf@21"
   depends_on "zstd"
@@ -55,11 +54,8 @@ class PerconaXtrabackup < Formula
   on_linux do
     depends_on "patchelf" => :build
     depends_on "libaio"
-    # Incompatible with procps-4 https://jira.percona.com/browse/PXB-2993
-    depends_on "procps@3"
+    depends_on "procps"
   end
-
-  conflicts_with "percona-server", because: "both install a `kmip.h`"
 
   fails_with :gcc do
     version "6"
@@ -79,8 +75,8 @@ class PerconaXtrabackup < Formula
   end
 
   resource "DBD::mysql" do
-    url "https://cpan.metacpan.org/authors/id/D/DV/DVEEDEN/DBD-mysql-4.050.tar.gz"
-    sha256 "4f48541ff15a0a7405f76adc10f81627c33996fbf56c95c26c094444c0928d78"
+    url "https://cpan.metacpan.org/authors/id/D/DV/DVEEDEN/DBD-mysql-5.004.tar.gz"
+    sha256 "33a6bf1b685cc50c46eb1187a3eb259ae240917bc189d26b81418790aa6da5df"
   end
 
   # https://github.com/percona/percona-xtrabackup/blob/percona-xtrabackup-#{version}/cmake/boost.cmake
@@ -92,19 +88,7 @@ class PerconaXtrabackup < Formula
   # Patch out check for Homebrew `boost`.
   # This should not be necessary when building inside `brew`.
   # https://github.com/Homebrew/homebrew-test-bot/pull/820
-  # Re-using variant from mysql
-  patch do
-    url "https://raw.githubusercontent.com/Homebrew/formula-patches/030f7433e89376ffcff836bb68b3903ab90f9cdc/mysql/boost-check.patch"
-    sha256 "af27e4b82c84f958f91404a9661e999ccd1742f57853978d8baec2f993b51153"
-  end
-
-  # Fix for "Cannot find system zlib libraries" even though they are installed.
-  # https://bugs.mysql.com/bug.php?id=110745
-  # https://bugs.mysql.com/bug.php?id=111467
-  patch do
-    url "https://bugs.mysql.com/file.php?id=32361&bug_id=111467"
-    sha256 "3fe1ebb619583fc1778b249042184ef48a4f85555c573fb3618697cf024d19cc"
-  end
+  patch :DATA
 
   def install
     # Disable ABI checking
@@ -129,6 +113,9 @@ class PerconaXtrabackup < Formula
       -DWITH_ZLIB=system
       -DWITH_ZSTD=system
     ]
+    # Work around build script incorrectly looking for procps on macOS.
+    # Issue ref: https://jira.percona.com/browse/PXB-3210
+    cmake_args << "-DPROCPS_INCLUDE_DIR=/dev/null" if OS.mac?
 
     (buildpath/"boost").install resource("boost")
     cmake_args << "-DWITH_BOOST=#{buildpath}/boost"
@@ -141,7 +128,12 @@ class PerconaXtrabackup < Formula
     system "cmake", "--install", "build"
 
     # remove conflicting library that is already installed by mysql
-    rm lib/"libmysqlservices.a"
+    (lib/"libmysqlservices.a").unlink
+    # remove conflicting libraries/headers that are installed by percona-server
+    (lib/"libkmip.a").unlink
+    (lib/"libkmippp.a").unlink
+    (include/"kmip.h").unlink
+    (include/"kmippp.h").unlink
 
     ENV.prepend_create_path "PERL5LIB", buildpath/"build_deps/lib/perl5"
 
@@ -176,3 +168,41 @@ class PerconaXtrabackup < Formula
     assert_match "Failed to connect to MySQL server", output
   end
 end
+
+__END__
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 42e63d0..5d21cc3 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -1942,31 +1942,6 @@ MYSQL_CHECK_RAPIDJSON()
+ MYSQL_CHECK_FIDO()
+ MYSQL_CHECK_FIDO_DLLS()
+ 
+-IF(APPLE)
+-  GET_FILENAME_COMPONENT(HOMEBREW_BASE ${HOMEBREW_HOME} DIRECTORY)
+-  IF(EXISTS ${HOMEBREW_BASE}/include/boost)
+-    FOREACH(SYSTEM_LIB ICU LIBEVENT LZ4 PROTOBUF ZSTD FIDO)
+-      IF(WITH_${SYSTEM_LIB} STREQUAL "system")
+-        MESSAGE(FATAL_ERROR
+-          "WITH_${SYSTEM_LIB}=system is not compatible with Homebrew boost\n"
+-          "MySQL depends on ${BOOST_PACKAGE_NAME} with a set of patches.\n"
+-          "Including headers from ${HOMEBREW_BASE}/include "
+-          "will break the build.\n"
+-          "Please use WITH_${SYSTEM_LIB}=bundled\n"
+-          "or do 'brew uninstall boost' or 'brew unlink boost'"
+-          )
+-      ENDIF()
+-    ENDFOREACH()
+-  ENDIF()
+-  # Ensure that we look in /usr/local/include or /opt/homebrew/include
+-  FOREACH(SYSTEM_LIB ICU LIBEVENT LZ4 PROTOBUF ZSTD FIDO)
+-    IF(WITH_${SYSTEM_LIB} STREQUAL "system")
+-      INCLUDE_DIRECTORIES(SYSTEM ${HOMEBREW_BASE}/include)
+-      BREAK()
+-    ENDIF()
+-  ENDFOREACH()
+-ENDIF()
+-
+ IF(WITH_AUTHENTICATION_FIDO OR WITH_AUTHENTICATION_CLIENT_PLUGINS)
+   IF(WITH_FIDO STREQUAL "system" AND
+     NOT WITH_SSL STREQUAL "system")

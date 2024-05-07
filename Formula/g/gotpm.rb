@@ -1,18 +1,18 @@
 class Gotpm < Formula
   desc "CLI for using TPM 2.0"
   homepage "https://github.com/google/go-tpm-tools"
-  url "https://github.com/google/go-tpm-tools/archive/refs/tags/v0.4.2.tar.gz"
-  sha256 "efaa8fcc40b9552ee5f2a83c66e32980e611e68be5a9dc8ecbdc160f93d06fa8"
+  url "https://github.com/google/go-tpm-tools/archive/refs/tags/v0.4.4.tar.gz"
+  sha256 "9bc935311f2ad3c48763a0e1c77f777b9a8e3db696c7bfea99946ca2ea45fc6e"
   license "Apache-2.0"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "10409852abe9c8eb652bd27f940e49d0f1be7f0bea0550ae7e98d7285b4214c6"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "033fe9d2c32fac0297c409aeac6a746351461ddc009bdc226daf700d37df9cef"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "f0aa423a21df58542cf94d1c08b7e114f71b181eb71e7ff260ad98be5efc4905"
-    sha256 cellar: :any_skip_relocation, sonoma:         "5aa35812ec29fe9a7f1a41e14876fc1a48a2cb512906beaffe7218c67024b697"
-    sha256 cellar: :any_skip_relocation, ventura:        "9ab920734938a43c01f1d168e9768b1a63fa60f116a8862055fe790464a16d81"
-    sha256 cellar: :any_skip_relocation, monterey:       "a44b5e55884ea822754730625a8cb904ab9977b9f8ff3a55b92abcc7af6f20a2"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "e3e8b38dbe5a86e4107b3228bf5bad41ab69c43e401f1bebcf385434184abff9"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "930187e3e5837f74743d683cc103cdd3bd199d6e9bd6bbebebe742cf9b294b71"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "e1ea54bfff6542b961e3e5dd565fea80979fc92c98cdfe330610c7ba3430c099"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "8a49ea96a0bb71641b12bfccd051971e01dc76d1b8a7ef82aef69cf8dea549a5"
+    sha256 cellar: :any_skip_relocation, sonoma:         "1e15b8925ad71cb965d75495c69f961d1105a52b0e839ff9178f12d959405a08"
+    sha256 cellar: :any_skip_relocation, ventura:        "897cc517ea218f776142e3e48471c6ceb6bc53013474c53ea47a9c1bd8f3975c"
+    sha256 cellar: :any_skip_relocation, monterey:       "a7f6eae925bbbc1a2c3d0fb5fab33d9dcf1aeb63f8d4d3a36f9e91f21e8bb613"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "7baa28852e4a91629bae235512db7cdb80c2dfbb55bc0e2cd769d6efb1b8b83f"
   end
 
   depends_on "go" => :build

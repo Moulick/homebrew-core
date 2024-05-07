@@ -1,18 +1,18 @@
 class Cocoapods < Formula
   desc "Dependency manager for Cocoa projects"
   homepage "https://cocoapods.org/"
-  url "https://github.com/CocoaPods/CocoaPods/archive/refs/tags/1.14.2.tar.gz"
-  sha256 "63dea3b89485ae417ba30712e1c898d8fb93d7bb14b14fe576d62b42bf8beb47"
+  url "https://github.com/CocoaPods/CocoaPods/archive/refs/tags/1.15.2.tar.gz"
+  sha256 "324a13efb2c3461f489c275462528e9e721f83108d09d768d2049710d82d933c"
   license "MIT"
 
   bottle do
-    sha256 cellar: :any,                 arm64_sonoma:   "3d97509030c7fe205db528e8a721779f996baee9178e648b5d896cca28de85bf"
-    sha256 cellar: :any,                 arm64_ventura:  "bb420dfa19b74875873bb8ae163c5ebde49c17f82c990ab19cb77103ce70fe7c"
-    sha256 cellar: :any,                 arm64_monterey: "033eac5fc9560e801edd519d11eccd91e54b7848fc035e3c6af8d5076195729a"
-    sha256 cellar: :any,                 sonoma:         "2406f691200c97053887c5659e3f1f52aa413904a7ee64d000f1862fabc956d8"
-    sha256 cellar: :any,                 ventura:        "40aafc727a110f10505ee6b7f4f6d051be72dc467b7c1d4a18f5cd09f608c060"
-    sha256 cellar: :any,                 monterey:       "f87f6f0a7a57fb9a8682f9a685bdf7f576d3223480ec90c4bc605f3007c8ddaf"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "13e24e0309f634de3154d601f9b65f5f915ada547c3f37340240f150bf89650d"
+    sha256 cellar: :any,                 arm64_sonoma:   "4f9825eaf19aba42fc19939c47c49b3d4e322d383f5a79ab029167351d5547c6"
+    sha256 cellar: :any,                 arm64_ventura:  "e1729cced418772a8d8aa810c7cb153ec66db56a9b2cbec3e53adaaa576fb1ba"
+    sha256 cellar: :any,                 arm64_monterey: "e8dc98276c80101c70aa14f6e736e1154b988f3b53f6be357b7a76cf776c3b4b"
+    sha256 cellar: :any,                 sonoma:         "981c5baaab7a26258bfccfb7efc7141b9a88912b5fe06197ac07423fc436ed34"
+    sha256 cellar: :any,                 ventura:        "1cf37b506f2b50d73a26b3b1e1f28009faeb66d6a3ec4671453ac6d360e96cba"
+    sha256 cellar: :any,                 monterey:       "fa000679291ddbfa5792e8b04f71c106c4c3325116215ceb76e46f4c8ed7f85d"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "1cad9d3142ee7623d1ca22773dbeefa0e936e224aecef263a1657a91413c9958"
   end
 
   depends_on "pkg-config" => :build
@@ -20,10 +20,6 @@ class Cocoapods < Formula
   uses_from_macos "libffi", since: :catalina
 
   def install
-    if MacOS.version >= :mojave && MacOS::CLT.installed?
-      ENV["SDKROOT"] = ENV["HOMEBREW_SDKROOT"] = MacOS::CLT.sdk_path(MacOS.version)
-    end
-
     ENV["GEM_HOME"] = libexec
     system "gem", "build", "cocoapods.gemspec"
     system "gem", "install", "cocoapods-#{version}.gem"

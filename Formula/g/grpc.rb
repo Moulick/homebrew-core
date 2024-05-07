@@ -1,11 +1,20 @@
 class Grpc < Formula
   desc "Next generation open source RPC library and framework"
   homepage "https://grpc.io/"
-  url "https://github.com/grpc/grpc.git",
-      tag:      "v1.59.2",
-      revision: "883e5f76976b86afee87415dc67bde58d9b295a4"
   license "Apache-2.0"
   head "https://github.com/grpc/grpc.git", branch: "master"
+
+  stable do
+    url "https://github.com/grpc/grpc.git",
+        tag:      "v1.62.2",
+        revision: "96f984744fe728e196c11d33b91b022566c0d40f"
+
+    # Backport fix for Protobuf 26
+    patch do
+      url "https://github.com/grpc/grpc/commit/98a96c5068da14ed29d70ca23818b5f408a2e7b4.patch?full_index=1"
+      sha256 "5c4fc4307d0943ce3c9a07921bddaa24ca3d504adf38c9b0f071e23327661ac1"
+    end
+  end
 
   # There can be a notable gap between when a version is tagged and a
   # corresponding release is created, so we check releases instead of the Git
@@ -19,13 +28,13 @@ class Grpc < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_sonoma:   "c4ac56f8e07808ab32f3c9a00c749be9310f5b076f50701e9a9bb59378d73f81"
-    sha256 cellar: :any,                 arm64_ventura:  "84ed114e8be9b82d95c8bc3df96343ca57342dbddfe64dfca54e26b9f9f9be9d"
-    sha256 cellar: :any,                 arm64_monterey: "fbaf8d6b587442e0d83b10fc1616061fe8a78cb4492b49a681dcf421c8762be3"
-    sha256 cellar: :any,                 sonoma:         "db7151bbb96b262b8d4245a4572f8d8ce403ae83c3ed37ff6805a57e5f1c3a2d"
-    sha256 cellar: :any,                 ventura:        "c465c05de416204dc4ad6c69476a4c867a8ba62882284875c95bcebb7200fc63"
-    sha256 cellar: :any,                 monterey:       "ff96f97f8992d92e325fdac925fb53857242ded45c60e73e3ddd321ecca39a4f"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "457891f960775e5d775ff340c55001b6b44be1858fddf9f946f6dc34fa43fc8b"
+    sha256 cellar: :any,                 arm64_sonoma:   "1703b2ac056024117f170d58d21b9b650073a02a1e0eb19e255385ab6c3b2989"
+    sha256 cellar: :any,                 arm64_ventura:  "59e73c2550a48bc41011362abca358d1bc5b4e9f3ebb89dbe5a60b3affc5e440"
+    sha256 cellar: :any,                 arm64_monterey: "5989d4001eca8e266e356f3c1fd09e86f99fd5d8d736ec21ef7bd4a974e81008"
+    sha256 cellar: :any,                 sonoma:         "0b6cba081b15a6bf376f2c11e9b7b76914eec012a008b109a378ce825f75032d"
+    sha256 cellar: :any,                 ventura:        "76a6e47a7f9daff701e99fbbe6122a42828da91319a66c33ffb19f6d493b9453"
+    sha256 cellar: :any,                 monterey:       "83f567b98382ee7926a0f5dc13bbf0d4acb6a9178c5c6401731747329f64d65c"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "0285573515a136f5725811578cdde61da6de29d319a9d2d5b83da930a207cd5f"
   end
 
   depends_on "autoconf" => :build
@@ -54,43 +63,35 @@ class Grpc < Formula
 
   def install
     ENV.llvm_clang if OS.mac? && (DevelopmentTools.clang_build_version <= 1100)
-    mkdir "cmake/build" do
-      args = %W[
-        ../..
-        -DCMAKE_CXX_STANDARD=17
-        -DCMAKE_CXX_STANDARD_REQUIRED=TRUE
-        -DCMAKE_INSTALL_RPATH=#{rpath}
-        -DBUILD_SHARED_LIBS=ON
-        -DgRPC_BUILD_TESTS=OFF
-        -DgRPC_INSTALL=ON
-        -DgRPC_ABSL_PROVIDER=package
-        -DgRPC_CARES_PROVIDER=package
-        -DgRPC_PROTOBUF_PROVIDER=package
-        -DgRPC_SSL_PROVIDER=package
-        -DgRPC_ZLIB_PROVIDER=package
-        -DgRPC_RE2_PROVIDER=package
-      ] + std_cmake_args
+    args = %W[
+      -DCMAKE_CXX_STANDARD=17
+      -DCMAKE_CXX_STANDARD_REQUIRED=TRUE
+      -DCMAKE_INSTALL_RPATH=#{rpath}
+      -DBUILD_SHARED_LIBS=ON
+      -DgRPC_BUILD_TESTS=OFF
+      -DgRPC_INSTALL=ON
+      -DgRPC_ABSL_PROVIDER=package
+      -DgRPC_CARES_PROVIDER=package
+      -DgRPC_PROTOBUF_PROVIDER=package
+      -DgRPC_SSL_PROVIDER=package
+      -DgRPC_ZLIB_PROVIDER=package
+      -DgRPC_RE2_PROVIDER=package
+    ]
+    system "cmake", "-S", ".", "-B", "_build", *args, *std_cmake_args
+    system "cmake", "--build", "_build"
+    system "cmake", "--install", "_build"
 
-      system "cmake", *args
-      system "make", "install"
-
-      args = %W[
-        ../..
-        -DCMAKE_INSTALL_RPATH=#{rpath}
-        -DBUILD_SHARED_LIBS=ON
-        -DgRPC_BUILD_TESTS=ON
-      ] + std_cmake_args
-      system "cmake", *args
-      system "make", "grpc_cli"
-      bin.install "grpc_cli"
-      lib.install Dir[shared_library("libgrpc++_test_config", "*")]
-
-      if OS.mac?
-        # These are installed manually, so need to be relocated manually as well
-        MachO::Tools.add_rpath(bin/"grpc_cli", rpath)
-        MachO::Tools.add_rpath(lib/shared_library("libgrpc++_test_config"), rpath)
-      end
-    end
+    # The following are installed manually, so need to use CMAKE_*_LINKER_FLAGS
+    args = %W[
+      -DCMAKE_EXE_LINKER_FLAGS=-Wl,-rpath,#{rpath}
+      -DCMAKE_SHARED_LINKER_FLAGS=-Wl,-rpath,#{rpath}
+      -DBUILD_SHARED_LIBS=ON
+      -DgRPC_BUILD_TESTS=ON
+    ]
+    system "cmake", "-S", ".", "-B", "_build", *args, *std_cmake_args
+    system "cmake", "--build", "_build", "--target", "grpc_cli"
+    bin.install "_build/grpc_cli"
+    lib.install Dir["_build/#{shared_library("libgrpc++_test_config", "*")}"]
   end
 
   test do

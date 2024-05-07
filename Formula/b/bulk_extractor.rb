@@ -1,8 +1,8 @@
 class BulkExtractor < Formula
   desc "Stream-based forensics tool"
   homepage "https://github.com/simsong/bulk_extractor/wiki"
-  url "https://github.com/simsong/bulk_extractor/releases/download/v2.0.3/bulk_extractor-2.0.3.tar.gz"
-  sha256 "3967225075164f7dc5a0326e594cad4da5a49d4f091cfeaade447cc305541e32"
+  url "https://github.com/simsong/bulk_extractor/releases/download/v2.1.1/bulk_extractor-2.1.1.tar.gz"
+  sha256 "0cd57c743581a66ea94d49edac2e89210c80a2a7cc90dd254d56940b3d41b7f7"
   license "MIT"
 
   livecheck do
@@ -11,15 +11,13 @@ class BulkExtractor < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_sonoma:   "a02c64271ce38942dbe692e2a145e68b5e832548c7d912e3241913fe75c7d668"
-    sha256 cellar: :any,                 arm64_ventura:  "59b5564f8ab61ad7fb8d6c4fba343a1444ae10c641e4664047a67322de8c25c2"
-    sha256 cellar: :any,                 arm64_monterey: "0cedcba83153c8af3575d054576e40feace0356ca6d0ab08f5219ef11eb915dc"
-    sha256 cellar: :any,                 arm64_big_sur:  "d103c4b7af058908703d66745fb5381f4f9a23e43679fbdeb7128074a55e939e"
-    sha256 cellar: :any,                 sonoma:         "9c3eda4533bc2763c854cb61791155cc4ea41fd154d34f0f8194d4467e6444cf"
-    sha256 cellar: :any,                 ventura:        "a78899f8e22c873078181c2b6d22adb29a0906e699c59a468e41e30e87a4666a"
-    sha256 cellar: :any,                 monterey:       "f075b4a1369dfbe5eca7449c5a4b5510506a0394e9f74af2989ac5d7b864c354"
-    sha256 cellar: :any,                 big_sur:        "f17f70d4dd78ac6360c5cf2ed17fe5d06193caebfe1a87c836c62d0e22de79ef"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "80ce4ad58e9c5d89b61973ddef9ba95ece3be3058bac97cf93c559bcdc5a4691"
+    sha256 cellar: :any,                 arm64_sonoma:   "0cbca66c6d233701e44105ed24a7ac4c726ce2480592a1ef303bcc59a9e7886d"
+    sha256 cellar: :any,                 arm64_ventura:  "52faa836f21c334c6733f48cc4d1d1ff87bce5bc53c69f62e8eaed685acd9201"
+    sha256 cellar: :any,                 arm64_monterey: "05799a612973ea890465a7e934f7824efe5a47e41663afbe6c6e54bb879b3c06"
+    sha256 cellar: :any,                 sonoma:         "3098a8bf4ab75ff8f51a44d0bf8746380d3da1540fcf85e3019678d868d34d12"
+    sha256 cellar: :any,                 ventura:        "360a71e4b8ea006a59ba71e355bad2f32e695e0626ccdac58f1317e6576b0ba3"
+    sha256 cellar: :any,                 monterey:       "18526411854a3ee4eece4d83defa121e8f7ffddaaeebada24fc47f4e5ad3a5b9"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "d1cca868461a3cfbd8f38cb016e5db562a2152aadc01c6cecd957fed640db2b1"
   end
 
   head do
@@ -28,7 +26,9 @@ class BulkExtractor < Formula
     depends_on "automake" => :build
   end
 
+  depends_on "pkg-config" => :build
   depends_on "openssl@3"
+  depends_on "re2"
 
   uses_from_macos "flex" => :build
   uses_from_macos "expat"

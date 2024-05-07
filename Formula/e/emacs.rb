@@ -1,22 +1,19 @@
 class Emacs < Formula
   desc "GNU Emacs text editor"
   homepage "https://www.gnu.org/software/emacs/"
-  url "https://ftp.gnu.org/gnu/emacs/emacs-29.1.tar.xz"
-  mirror "https://ftpmirror.gnu.org/emacs/emacs-29.1.tar.xz"
-  sha256 "d2f881a5cc231e2f5a03e86f4584b0438f83edd7598a09d24a21bd8d003e2e01"
+  url "https://ftp.gnu.org/gnu/emacs/emacs-29.3.tar.xz"
+  mirror "https://ftpmirror.gnu.org/emacs/emacs-29.3.tar.xz"
+  sha256 "c34c05d3ace666ed9c7f7a0faf070fea3217ff1910d004499bd5453233d742a0"
   license "GPL-3.0-or-later"
-  revision 1
 
   bottle do
-    sha256 arm64_sonoma:   "b962741699550a326396656d5f53a280262b24f9fdc388dcc1706e6c90e8cb4d"
-    sha256 arm64_ventura:  "e91b90491464708d29959aa00caa826051d989f6699429d583988b7aca57df6f"
-    sha256 arm64_monterey: "ec888c0f9c57f7a2c8bff9d33d4fea03237bd53f6b78e0c50cc86a31b5281690"
-    sha256 arm64_big_sur:  "f69a760f4e1a71c234314cd99c8f0773bee2e716bca904894e2e0c6d9202ca82"
-    sha256 sonoma:         "d0eaa9ab18ad860d36dd771d9ca11953000a732e4a4bdd342b87ee19bf55624d"
-    sha256 ventura:        "5b644a5ecf5531d55f884f1fa5f946bc7b21480dc38e2a2cae1e1d9211899c2d"
-    sha256 monterey:       "835b1767489be91a345f40c166ee40b189028a258ee44f5c695c9660123f17f2"
-    sha256 big_sur:        "76c45ba72d1ca34050ab4ffd5f53cc560836a37a0f0ba96b434232368b9fa382"
-    sha256 x86_64_linux:   "86ae488bbc7b6411aecb883e03774da5edc722e3fd0b07441e1b41ab3b6bd6d7"
+    sha256 arm64_sonoma:   "b12c5e622a5deee34290b765420b402e9954b4ecf2ff4a769000c06a052d877c"
+    sha256 arm64_ventura:  "a0ed7c0789772bf97ec57bdfa3c700889380a4534209a35830d8ed590c870588"
+    sha256 arm64_monterey: "0fe859e3f01afc8106824d46fdc6d600e41e195c2288cb33581e29317c941d04"
+    sha256 sonoma:         "641e9baccb0a0c7888f4dd2f9858f86f9cc157215305721e19f724bd7ac91aa6"
+    sha256 ventura:        "3c0d3d684f029b2f0f73e79858b2ae02f6f3627238d8575c10eb044561e720a3"
+    sha256 monterey:       "1d2fd8db496416b05319b39336aa5085f0dcce10ba6cbc8338dd79bff1e4a936"
+    sha256 x86_64_linux:   "46b50c4b1164c0f527134920d174bdc690df601ce41daa32f40e78a9ac3d738b"
   end
 
   head do
@@ -43,7 +40,7 @@ class Emacs < Formula
     # Mojave uses the Catalina SDK which causes issues like
     # https://github.com/Homebrew/homebrew-core/issues/46393
     # https://github.com/Homebrew/homebrew-core/pull/70421
-    ENV["ac_cv_func_aligned_alloc"] = "no" if MacOS.version == :mojave
+    ENV["ac_cv_func_aligned_alloc"] = "no" if OS.mac? && MacOS.version == :mojave
 
     args = %W[
       --disable-silent-rules

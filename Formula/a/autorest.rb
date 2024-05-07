@@ -3,21 +3,18 @@ require "language/node"
 class Autorest < Formula
   desc "Swagger (OpenAPI) Specification code generator"
   homepage "https://github.com/Azure/autorest"
-  url "https://registry.npmjs.org/autorest/-/autorest-3.6.3.tgz"
-  sha256 "d6deb4c56e1e6e2afd802a73f1f3e5654dc81f05528b85b085981ed3e7dd4236"
+  url "https://registry.npmjs.org/autorest/-/autorest-3.7.1.tgz"
+  sha256 "fe148defacd8f859b6f1fb9284e4ff685b242a7581452a1c1b432b5d8c528ee9"
   license "MIT"
 
   bottle do
-    rebuild 1
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "e439aaed393e06226cbe6e372486560980e2884678875dbc2e6152ab82324dad"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "3b4915255e97fe2641111b8dadb313951bc66947513bc3785933ec58d154d7ee"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "3b4915255e97fe2641111b8dadb313951bc66947513bc3785933ec58d154d7ee"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "3b4915255e97fe2641111b8dadb313951bc66947513bc3785933ec58d154d7ee"
-    sha256 cellar: :any_skip_relocation, sonoma:         "8d214a62a050840620091c040183f512a5aa49af046bb3fd8062625471f8e2da"
-    sha256 cellar: :any_skip_relocation, ventura:        "fe4ddfb4c7b22e1549e2cf91d3ed9a1d7f773175cbf2f2b706994546afe876d0"
-    sha256 cellar: :any_skip_relocation, monterey:       "fe4ddfb4c7b22e1549e2cf91d3ed9a1d7f773175cbf2f2b706994546afe876d0"
-    sha256 cellar: :any_skip_relocation, big_sur:        "fe4ddfb4c7b22e1549e2cf91d3ed9a1d7f773175cbf2f2b706994546afe876d0"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "3b4915255e97fe2641111b8dadb313951bc66947513bc3785933ec58d154d7ee"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "30a9674e336cdda3efd1f20619c0fe0064756580ddad82f8fb5b644f70c047d7"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "30a9674e336cdda3efd1f20619c0fe0064756580ddad82f8fb5b644f70c047d7"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "30a9674e336cdda3efd1f20619c0fe0064756580ddad82f8fb5b644f70c047d7"
+    sha256 cellar: :any_skip_relocation, sonoma:         "9541dfcb6f0bdbf17e71c29691892f82a76e86bf54c15adf7d06ac34862df3cd"
+    sha256 cellar: :any_skip_relocation, ventura:        "9541dfcb6f0bdbf17e71c29691892f82a76e86bf54c15adf7d06ac34862df3cd"
+    sha256 cellar: :any_skip_relocation, monterey:       "9541dfcb6f0bdbf17e71c29691892f82a76e86bf54c15adf7d06ac34862df3cd"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "30a9674e336cdda3efd1f20619c0fe0064756580ddad82f8fb5b644f70c047d7"
   end
 
   depends_on "node"

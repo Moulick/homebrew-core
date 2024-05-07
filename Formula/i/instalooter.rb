@@ -6,22 +6,20 @@ class Instalooter < Formula
   url "https://files.pythonhosted.org/packages/30/13/907e6aaba6280e1001080ab47e750068ffc5fb7174203985b3c9d678e3f2/instalooter-2.4.4.tar.gz"
   sha256 "fb9b4a948702361a161cc42e58857e3a6c9dafd9e22568b07bc0d0b09c3c34a9"
   license "GPL-3.0-or-later"
-  revision 6
+  revision 8
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "218bb4d62fcf7d59b67c7f142fa1e2291c55b9e96556e4612ab71848f7c81551"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "c239b06f51a60de52540c565239356fea0a41b11f3cbadadd942fa099e856585"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "b45a88806b1f3f25764dcc25c17decc0d17937e153bcdef2e4dd6e25ffd7846c"
-    sha256 cellar: :any_skip_relocation, sonoma:         "a99e2e11b4865088f180b77966a38443a35736fbb3ec719adbf0f569a0abf3a7"
-    sha256 cellar: :any_skip_relocation, ventura:        "77d49d33ddfeda8487555f1ce7ae01aa93d70625eb132e318cd0ae7e1c3d8082"
-    sha256 cellar: :any_skip_relocation, monterey:       "332915dc629c0147fe75f45aa8bab20f9becc9330e944cafa744bead9267b83d"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "0c7d1ff051ea0a7dceb8c52af8397e45af4e2f0898cf2de578756111960950a5"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "d5fc1f932984b5fdd41522f99bfdb90ba0e81afeff3a1221193a0ebc357f6372"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "d5fc1f932984b5fdd41522f99bfdb90ba0e81afeff3a1221193a0ebc357f6372"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "d5fc1f932984b5fdd41522f99bfdb90ba0e81afeff3a1221193a0ebc357f6372"
+    sha256 cellar: :any_skip_relocation, sonoma:         "7919d8d85bd10703c8e270591c67b525ca2b8b94730261ecc4190bc06174bca7"
+    sha256 cellar: :any_skip_relocation, ventura:        "7919d8d85bd10703c8e270591c67b525ca2b8b94730261ecc4190bc06174bca7"
+    sha256 cellar: :any_skip_relocation, monterey:       "7919d8d85bd10703c8e270591c67b525ca2b8b94730261ecc4190bc06174bca7"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "e365a8172f98c9da24378f7631bcc5d3ffdc6386bddcf7c5c61a94f22af6634e"
   end
 
-  depends_on "python-certifi"
-  depends_on "python-setuptools"
+  depends_on "certifi"
   depends_on "python@3.12"
-  depends_on "six"
 
   resource "appdirs" do
     url "https://files.pythonhosted.org/packages/d7/d8/05696357e0311f5b5c316d7b95f46c669dd9c15aaeecbb48c7d0aeb88c40/appdirs-1.4.4.tar.gz"
@@ -29,8 +27,8 @@ class Instalooter < Formula
   end
 
   resource "charset-normalizer" do
-    url "https://files.pythonhosted.org/packages/cf/ac/e89b2f2f75f51e9859979b56d2ec162f7f893221975d244d8d5277aa9489/charset-normalizer-3.3.0.tar.gz"
-    sha256 "63563193aec44bce707e0c5ca64ff69fa72ed7cf34ce6e11d5127555756fd2f6"
+    url "https://files.pythonhosted.org/packages/63/09/c1bc53dab74b1816a00d8d030de5bf98f724c52c1635e07681d312f20be8/charset-normalizer-3.3.2.tar.gz"
+    sha256 "f30c3cb33b24454a82faecaf01b19c18562b1e89558fb6c56de4d9118a032fd5"
   end
 
   resource "coloredlogs" do
@@ -54,18 +52,28 @@ class Instalooter < Formula
   end
 
   resource "idna" do
-    url "https://files.pythonhosted.org/packages/8b/e1/43beb3d38dba6cb420cefa297822eac205a277ab43e5ba5d5c46faf96438/idna-3.4.tar.gz"
-    sha256 "814f528e8dead7d329833b91c5faa87d60bf71824cd12a7530b5526063d02cb4"
+    url "https://files.pythonhosted.org/packages/21/ed/f86a79a07470cb07819390452f178b3bef1d375f2ec021ecfc709fc7cf07/idna-3.7.tar.gz"
+    sha256 "028ff3aadf0609c1fd278d8ea3089299412a7a8b9bd005dd08b9f8285bcb5cfc"
   end
 
   resource "python-dateutil" do
-    url "https://files.pythonhosted.org/packages/4c/c4/13b4776ea2d76c115c1d1b84579f3764ee6d57204f6be27119f13a61d0a9/python-dateutil-2.8.2.tar.gz"
-    sha256 "0123cacc1627ae19ddf3c27a5de5bd67ee4586fbdd6440d9748f8abb483d3e86"
+    url "https://files.pythonhosted.org/packages/66/c0/0c8b6ad9f17a802ee498c46e004a0eb49bc148f2fd230864601a86dcf6db/python-dateutil-2.9.0.post0.tar.gz"
+    sha256 "37dd54208da7e1cd875388217d5e00ebd4179249f90fb72437e91a35459a0ad3"
   end
 
   resource "requests" do
     url "https://files.pythonhosted.org/packages/9d/be/10918a2eac4ae9f02f6cfe6414b7a155ccd8f7f9d4380d62fd5b955065c3/requests-2.31.0.tar.gz"
     sha256 "942c5a758f98d790eaed1a29cb6eefc7ffb0d1cf7af05c3d2791656dbd6ad1e1"
+  end
+
+  resource "setuptools" do
+    url "https://files.pythonhosted.org/packages/d6/4f/b10f707e14ef7de524fe1f8988a294fb262a29c9b5b12275c7e188864aed/setuptools-69.5.1.tar.gz"
+    sha256 "6c1fccdac05a97e598fb0ae3bbed5904ccb317337a51139dcd51453611bbb987"
+  end
+
+  resource "six" do
+    url "https://files.pythonhosted.org/packages/71/39/171f1c67cd00715f190ba0b100d606d440a28c93c7714febeca8b79af85e/six-1.16.0.tar.gz"
+    sha256 "1e61c37477a1626458e36f7b1d82aa5c9b094fa4802892072e49de9c60c4c926"
   end
 
   resource "tenacity" do
@@ -74,13 +82,13 @@ class Instalooter < Formula
   end
 
   resource "tqdm" do
-    url "https://files.pythonhosted.org/packages/62/06/d5604a70d160f6a6ca5fd2ba25597c24abd5c5ca5f437263d177ac242308/tqdm-4.66.1.tar.gz"
-    sha256 "d88e651f9db8d8551a62556d3cff9e3034274ca5d66e93197cf2490e2dcb69c7"
+    url "https://files.pythonhosted.org/packages/5a/c0/b7599d6e13fe0844b0cda01b9aaef9a0e87dbb10b06e4ee255d3fa1c79a2/tqdm-4.66.4.tar.gz"
+    sha256 "e4d936c9de8727928f3be6079590e97d9abfe8d39a590be678eb5919ffc186bb"
   end
 
   resource "urllib3" do
-    url "https://files.pythonhosted.org/packages/af/47/b215df9f71b4fdba1025fc05a77db2ad243fa0926755a52c5e71659f4e3c/urllib3-2.0.7.tar.gz"
-    sha256 "c97dfde1f7bd43a71c8d2a58e369e9b2bf692d1334ea9f9cae55add7d0dd0f84"
+    url "https://files.pythonhosted.org/packages/7a/50/7fd50a27caa0652cd4caf224aa87741ea41d3265ad13f010886167cfcc79/urllib3-2.2.1.tar.gz"
+    sha256 "d0570876c61ab9e520d776c38acbbb5b05a776d3f9ff98a5c8fd5162a444cf19"
   end
 
   resource "verboselogs" do

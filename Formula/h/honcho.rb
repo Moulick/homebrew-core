@@ -9,14 +9,14 @@ class Honcho < Formula
   head "https://github.com/nickstenning/honcho.git", branch: "main"
 
   bottle do
-    rebuild 3
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "d21e8703c2846aa6b06d9527f33db86ecaeed03ed7a9ea63b0553de9f5979087"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "30fba81633706ff659426883e4f46d8c631a98f5214623e1b8ff60c269a7df96"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "b91f4fe5644d5ee0c2fee58aaea8e3e3a04ae1076a3fcd093080d5d389623991"
-    sha256 cellar: :any_skip_relocation, sonoma:         "f306f3cb168953c490d20c015d0ccd0cef3bc9edb56c645f5dfd2174d993dcf4"
-    sha256 cellar: :any_skip_relocation, ventura:        "d4665935a11af44420a3c3abe26b61257ae9cffc2b029d55ccde7311884bcd3a"
-    sha256 cellar: :any_skip_relocation, monterey:       "bc6ce50a9f87ae0b59268aefdb82c53a86779aac90bec3ce7f1178a8d4418e7c"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "e197e7a87627ce248de6f4e102330b27ce6a38d62a0d5edc8f2030139f589356"
+    rebuild 5
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "d1f50a6405f33ec30d7abc2656664197e313b5ec927214c45f343471bad8366b"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "e7353f7b038e37a1236b3bc177f309ce63fa63ac6cc89c57664701414bdf7f38"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "3b5a319d41ef6ed3825d96665fa038c2019897b6c193ad49e58383acc1cb00b9"
+    sha256 cellar: :any_skip_relocation, sonoma:         "9d78847a700cd9995001c07986b57a21853de400b3a97d07582754c107878921"
+    sha256 cellar: :any_skip_relocation, ventura:        "b18d785ee4915cea8c3d06361a5a8a82a34835227fe4914f9a60c381c62e8fe1"
+    sha256 cellar: :any_skip_relocation, monterey:       "f8461aa1a12f321b47368c55b126c516ff5f037c1f208b6b326787c89d54ee66"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "056f4fb7815940b78ec0e81ec4b08db0dfd4a3b9665cdb71975df4a1eeef4ae6"
   end
 
   depends_on "python@3.12"

@@ -1,9 +1,9 @@
 class Inform6 < Formula
   desc "Design system for interactive fiction"
   homepage "https://inform-fiction.org/inform6.html"
-  url "http://ifarchive.org/if-archive/infocom/compilers/inform6/source/inform-6.41-r6.tar.gz"
-  version "6.41-r6"
-  sha256 "609de4f5cfae611cc8e6f3333d7016bdb2e802fe39096c59db50c5b31e14b557"
+  url "http://ifarchive.org/if-archive/infocom/compilers/inform6/source/inform-6.42-r1.tar.gz"
+  version "6.42-r1"
+  sha256 "25968c840e0cf9f0e0939dad582268906f49fdad7e1501cbefe571013e0f810a"
   license "Artistic-2.0"
   head "https://gitlab.com/DavidGriffith/inform6unix.git", branch: "master"
 
@@ -13,15 +13,13 @@ class Inform6 < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "235f253e1b358f1b624ade58136cd00cb0161d654376f3e3ff6fdeaf703b9f56"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "3f375c1af6d193350be16319b80c545e53985b38cdc1988939c191ce45478703"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "364bd6fa090ec1ca128cf678e2066e1aa3620df42b6d2b8bcf955206b9baa157"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "492008bc56dc0468c0994dac47501a91ee02d179d747544b7e1cd1183b785d9c"
-    sha256 cellar: :any_skip_relocation, sonoma:         "7facb1374525c88c56a7ebf2ebb9acb3ba8c56cccccd28e91e8c4cf386289212"
-    sha256 cellar: :any_skip_relocation, ventura:        "368a1105afc2be3fa8448b91ee93f1d4e13a90e7f2236711a1f1f6bd88662613"
-    sha256 cellar: :any_skip_relocation, monterey:       "0aeaa2879d6ea06fb1373117115e239059da2ed04e68d9a647a13fcb34bea1e0"
-    sha256 cellar: :any_skip_relocation, big_sur:        "a7c8ba8cad52b5652188721bb5c7a98b490d6f23f2479a374d8784b80cdd9fa0"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "74616af11d9700f2ca7f0de9661ace30b5883d728fbb8bc8b91cdca9ffdc5f77"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "324499e408a1dfc47e64dee9d2cf645e985366621367667b3ca452dfcdcf77d9"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "88c5c37d241f3169bf2c50efac01a3526f2485fd7fb772f2fc29cb597fb7f848"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "a8148f5d7163d0fbdd79970cea9029096b0aba6669594a96b0fdb1679c4efe17"
+    sha256 cellar: :any_skip_relocation, sonoma:         "fcf6c3cf5b6618ac5853071e9053b783d98535c980fa189b9154e464c174d394"
+    sha256 cellar: :any_skip_relocation, ventura:        "853644b80084e5384dd4d9a7b6f09dde50b6572be23c2dcc6c715e88fbb96931"
+    sha256 cellar: :any_skip_relocation, monterey:       "8c7e258ceae325a06907d82a32e63cb56bb39fe41eda6d35b2c50b15f5bd0f72"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "a6280dececade4695c3560890475b15f39c38499bd32756d22c3ee4942a5f91b"
   end
 
   resource "homebrew-test_resource" do

@@ -1,10 +1,10 @@
 class OrTools < Formula
   desc "Google's Operations Research tools"
   homepage "https://developers.google.com/optimization/"
-  url "https://github.com/google/or-tools/archive/refs/tags/v9.7.tar.gz"
-  sha256 "054d9517fc6c83f15150c93ef1c2c674ffd7d4a0d1fdc78f6ef8bc3e25c2e339"
+  url "https://github.com/google/or-tools/archive/refs/tags/v9.9.tar.gz"
+  sha256 "8c17b1b5b05d925ed03685522172ca87c2912891d57a5e0d5dcaeff8f06a4698"
   license "Apache-2.0"
-  revision 4
+  revision 1
   head "https://github.com/google/or-tools.git", branch: "stable"
 
   livecheck do
@@ -13,16 +13,16 @@ class OrTools < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_sonoma:   "25cead7bc22693406222e361949769e509f5ae55cac37c61cc49884a09c0ac97"
-    sha256 cellar: :any,                 arm64_ventura:  "de80e7cb943246e4202b2d57624715dffaaee14432cf98638d75d2c20d68ba98"
-    sha256 cellar: :any,                 arm64_monterey: "f83efe4f58984b3de57b78cc85dfa54a0edc481c105947794ae8a26237ec207c"
-    sha256 cellar: :any,                 sonoma:         "f0220a1934ed533aec309f1a5f83c0d33eb8a05c8d8b2d46363d2a98c4d1f966"
-    sha256 cellar: :any,                 ventura:        "bd2d99d46de42d438fcb5ee2b4c7764ca3fa37716e4e44c5357a571a1c877ad5"
-    sha256 cellar: :any,                 monterey:       "135d7551b590526f0edbfe944aec606f6065df780ff3b48c1fcb7afc3bbc8fd7"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "472a2c36a88923235e4533b98813a3e59aec42bf7844ed459fdcfe480d6d7ec9"
+    sha256 cellar: :any,                 arm64_sonoma:   "16002ea5a510050c91f23a94a31126d7b5cc9b91b9d59d5899f4e20e1c15141a"
+    sha256 cellar: :any,                 arm64_ventura:  "f4882d250666ada7cef20183be163d7f62b0d55cfa5a0041df31627353c6a028"
+    sha256 cellar: :any,                 arm64_monterey: "54b1efe09dad109dde7c5d25d44fed263c87d197146f292fa7ba1063c554331e"
+    sha256 cellar: :any,                 sonoma:         "25dd1d7b9dd7b1492ea26dc2013e592721d449090b8c6b351399dadad2a717ae"
+    sha256 cellar: :any,                 ventura:        "ca3cc75acc876f9d50746bddf0d94ff984f068cd1b180c11ed3a0697085c32b5"
+    sha256 cellar: :any,                 monterey:       "381da1388883f7996e8828fb5f5dd9b68967d828843e70788c938294ae708fa7"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "587e8b0fbd6dceb2b4738dd9652bea93e36a0eb22499a71c5b66fe785233cfcb"
   end
 
-  depends_on "cmake" => :build
+  depends_on "cmake" => [:build, :test]
   depends_on "pkg-config" => [:build, :test]
   depends_on "abseil"
   depends_on "cbc"
@@ -39,19 +39,10 @@ class OrTools < Formula
 
   fails_with gcc: "5"
 
-  # Fix build with abseil 20230802. Remove when included in a stable release.
-  # (It suffices to look for commit 734df45, the last of the three below.)
+  # Backport fix for Protobuf 26
   patch do
-    url "https://github.com/google/or-tools/commit/bb7c013bf8a4f1217ef3feb8f9670e6057b43aff.patch?full_index=1"
-    sha256 "ac2618ed0a4106ea0af37ea7fc91e34c2f93c2e17c264d9df31b5867ce302745"
-  end
-  patch do
-    url "https://github.com/google/or-tools/commit/aaf306ca38a4d634113d25a31ae7a558f824cab0.patch?full_index=1"
-    sha256 "e2f3cb11a9db4dc53e3452ae28dcd2160ca86886385acb0a9c3076b179a39e88"
-  end
-  patch do
-    url "https://github.com/google/or-tools/commit/734df45de4cf8c1a59b3fef972182dd0b48ef3e2.patch?full_index=1"
-    sha256 "9bffe6f80ef61da0591ec9970751a90cff5c023089d6bd6331686d8e5d3e87a1"
+    url "https://github.com/google/or-tools/commit/e0a4dcf5a082e7f90b73708fc7ff4a5e4760ed85.patch?full_index=1"
+    sha256 "db8c40e25f68ea052dc74fc0ed163c1354667059632c8173ff42dc0c6a1f9bad"
   end
 
   def install
@@ -70,10 +61,25 @@ class OrTools < Formula
 
   test do
     # Linear Solver & Glop Solver
-    system ENV.cxx, "-std=c++17", pkgshare/"simple_lp_program.cc",
-                    "-I#{include}", "-L#{lib}", "-lortools",
-                    *shell_output("pkg-config --cflags --libs absl_check absl_log").chomp.split,
-                    "-o", "simple_lp_program"
+    (testpath/"CMakeLists.txt").write <<~EOS
+      cmake_minimum_required(VERSION 3.14)
+      project(test LANGUAGES CXX)
+      find_package(ortools CONFIG REQUIRED)
+      add_executable(simple_lp_program #{pkgshare}/simple_lp_program.cc)
+      target_compile_features(simple_lp_program PUBLIC cxx_std_17)
+      target_link_libraries(simple_lp_program PRIVATE ortools::ortools)
+    EOS
+    cmake_args = []
+    build_env = {}
+    if OS.mac?
+      build_env["CPATH"] = nil
+    else
+      cmake_args << "-DCMAKE_BUILD_RPATH=#{lib};#{HOMEBREW_PREFIX}/lib"
+    end
+    with_env(build_env) do
+      system "cmake", "-S", ".", "-B", ".", *cmake_args, *std_cmake_args
+      system "cmake", "--build", "."
+    end
     system "./simple_lp_program"
 
     # Routing Solver

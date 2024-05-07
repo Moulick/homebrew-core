@@ -1,20 +1,18 @@
 class Evince < Formula
   desc "GNOME document viewer"
   homepage "https://wiki.gnome.org/Apps/Evince"
-  url "https://download.gnome.org/sources/evince/45/evince-45.0.tar.xz"
-  sha256 "d18647d4275cbddf0d32817b1d04e307342a85be914ec4dad2d8082aaf8aa4a8"
+  url "https://download.gnome.org/sources/evince/46/evince-46.1.tar.xz"
+  sha256 "94bb525365b060a28c2f6017d22cbf2af5115507254aa42e9bfc000bbc18ab62"
   license "GPL-2.0-or-later"
 
   bottle do
-    sha256 arm64_sonoma:   "e03af0664ea68b59cd1cf48a6103442b39b41011c1213c17be63d2d684838cdc"
-    sha256 arm64_ventura:  "c4e9dc37d42dd89b29d2d4e7d321826ddefbdf84ce6a456075c34a0013af1809"
-    sha256 arm64_monterey: "334f7eaae917ac1f4073a8693740f81eba34cd190b8a16f99785d3609363003f"
-    sha256 arm64_big_sur:  "b29f4b6694bb06a50b1d07db20ce7e5fa3e31abe5de6d439d39f1d4b047be6a5"
-    sha256 sonoma:         "7e0d5f1f4cb8be6ffc6dc532665c350b33ef094ec2f92c9be716c20e22f776e7"
-    sha256 ventura:        "f20de7a8fd7f5bba31f94619bea1302a881baa0122659de7379231e8368c875e"
-    sha256 monterey:       "a8d19658c6432684fb582a8cb6583a2fa87c7c221f921a70812868db1e0f49ca"
-    sha256 big_sur:        "9ba79c6ccb16958bb63b44600f05cee1ad4a0899859ea897fcabde9788bd0a17"
-    sha256 x86_64_linux:   "5fcadf5fe0738904053dff0ece6a4afb50eeb5040d88f35614f084f065d8c455"
+    sha256 arm64_sonoma:   "ec95a235caf027b39df607166736e84cadf3eace6e20cb8e9fbf6d3dbb0b4bcc"
+    sha256 arm64_ventura:  "c66797edb522fb4c96bbfdb21a41ee8b6c57a9ad47c7216ba8ee997781432466"
+    sha256 arm64_monterey: "60a0c9948dc12632a4b42575c2ff76a11dd8c410981b4a246015954c0a7e71ae"
+    sha256 sonoma:         "709281ada16cd5535d0a5f5b4fcf52dff1aab9e9407a43f73b69b42a2d1d98c2"
+    sha256 ventura:        "c7612bb7d4caec292e23cae3f1582030dec1beb15e2372fecf45a5d5514d5aa1"
+    sha256 monterey:       "f616f09080b5cdf6927c48c772f783b94d3bfd42cdd6a569e9d3326ab73ebce8"
+    sha256 x86_64_linux:   "6f118a4bead166de35558897b55f8ee46fe8596813882bd199e2e1b47eca6956"
   end
 
   depends_on "desktop-file-utils" => :build # for update-desktop-database

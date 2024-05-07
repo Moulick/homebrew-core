@@ -11,18 +11,22 @@ class Scour < Formula
   head "https://github.com/scour-project/scour.git", branch: "master"
 
   bottle do
-    rebuild 3
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "c688e78760b8c8f87118d0127b79c47886abe8288f8451365e3a59a0c7377703"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "a533ea0ee18870e2e145fd1bbb99ca77805b54ab4b271e518852167ad90df855"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "a023338435bb50e0c6ccc4518a9662d61c1fdb8d8321e30ef69f80254d34d005"
-    sha256 cellar: :any_skip_relocation, sonoma:         "4a77607761ae0a822ae2c604967ee564a4a3742b3ebd383b616c848241aba8de"
-    sha256 cellar: :any_skip_relocation, ventura:        "8ab4b60f52781665c73102c1b06929463962340550fd5586456e62b517522ea5"
-    sha256 cellar: :any_skip_relocation, monterey:       "619e1bfd3cfe889adcb3c5f3bee930b07ba48f06d19ecad387b9b35c39e6ab92"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "fa73fafa8bc987a621e1654972c49c6c15afd3db53f87994ff2aca7946a6844d"
+    rebuild 5
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "0220221dc5ee13694cc11efe36a4d1a6c7188b5c5f18c08045017380a8d77cad"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "b1f659e358bec5d2c4801d75c5feea350cf9abe74f071ef9fbe267a3fcf7a478"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "79bb6f0e2b7d8b957d0f1395a73053a3657a1baffa16e8910793616515596a04"
+    sha256 cellar: :any_skip_relocation, sonoma:         "1a588f0d41429d6c01c97dd8a47e991635d8f9905026699b9cedf2e4565775ce"
+    sha256 cellar: :any_skip_relocation, ventura:        "7f99b32f82a77ad86dca83b6bc07bea7413799209c985ecb5a060c8ef47d2dc2"
+    sha256 cellar: :any_skip_relocation, monterey:       "c96adfc46d9714759af1d099d5df7adc31d9692a5004d72885b817150d5eefbc"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "30bf1e3a14c6bd8187417b13419af1e29297226b875ff409d873bdd356839147"
   end
 
   depends_on "python@3.12"
-  depends_on "six"
+
+  resource "six" do
+    url "https://files.pythonhosted.org/packages/71/39/171f1c67cd00715f190ba0b100d606d440a28c93c7714febeca8b79af85e/six-1.16.0.tar.gz"
+    sha256 "1e61c37477a1626458e36f7b1d82aa5c9b094fa4802892072e49de9c60c4c926"
+  end
 
   def install
     virtualenv_install_with_resources

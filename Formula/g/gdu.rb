@@ -1,21 +1,18 @@
 class Gdu < Formula
   desc "Disk usage analyzer with console interface written in Go"
   homepage "https://github.com/dundee/gdu"
-  url "https://github.com/dundee/gdu/archive/refs/tags/v5.25.0.tar.gz"
-  sha256 "83fe876d953b4f2f7a856552e758aae4aa0cd9569dcf1aded61bdc834b834275"
+  url "https://github.com/dundee/gdu/archive/refs/tags/v5.28.0.tar.gz"
+  sha256 "b184046e76a97f4205b745d431655b7910f8c7b41a8592d68c4cbf61e3b14125"
   license "MIT"
 
   bottle do
-    rebuild 1
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "a8a302548e25843ccb7e4e4440a0fc974d07406e37f009e64f1ae832440494fe"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "7ddc42b8da31e35f87c722fe3c1912e338b15e4af553e1d0bb1d8ac7a4dd600e"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "7ddc42b8da31e35f87c722fe3c1912e338b15e4af553e1d0bb1d8ac7a4dd600e"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "7ddc42b8da31e35f87c722fe3c1912e338b15e4af553e1d0bb1d8ac7a4dd600e"
-    sha256 cellar: :any_skip_relocation, sonoma:         "25d3f8681835c5a7f154aaa0f3a575e0b20cc6437583cffbcfaf15e042ed79c0"
-    sha256 cellar: :any_skip_relocation, ventura:        "aa1ba23f987df2ec8403887234196d7d548819f4725935e4333ed9802d6bacae"
-    sha256 cellar: :any_skip_relocation, monterey:       "aa1ba23f987df2ec8403887234196d7d548819f4725935e4333ed9802d6bacae"
-    sha256 cellar: :any_skip_relocation, big_sur:        "aa1ba23f987df2ec8403887234196d7d548819f4725935e4333ed9802d6bacae"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "6830146fdaba73d2c0bd32cfd4de1fcd9f1c5d3b097acd6fa0d062ad81a3e5e5"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "8d5a14d7c8dbbb6af220db7cb19e2afaf44fad0286fac1d9086d5a06fe4ae969"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "994dbf2887bc5fd879d49545d5ecd98a8aa825de0e24b61a8223b5ce562eff6d"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "5b02ffd215347cf18b7062098763a72b09c81128965f3759e8f0a20ad5a0cdd1"
+    sha256 cellar: :any_skip_relocation, sonoma:         "2bf9311c8380d46bee207edeff761fa87140d7f0927fd7ebbc2eb4aa6304f4b0"
+    sha256 cellar: :any_skip_relocation, ventura:        "b25ba3ecd84a5cb3b2523a3710882b53543996a49e5b85f8bdbfc89a8e6bee4f"
+    sha256 cellar: :any_skip_relocation, monterey:       "7a40ef760395efb85dc4df87faef35ffe379ac77c9ec0f067bb72725b670da05"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "aad0a688c4e964c109f8c2ac9fe37ba5e0dd0d71e247ff44a338cc9b0c65cbec"
   end
 
   depends_on "go" => :build
@@ -31,7 +28,7 @@ class Gdu < Formula
       -X "github.com/dundee/gdu/v#{major}/build.User=#{user}"
     ]
 
-    system "go", "build", *std_go_args(ldflags: ldflags, output: "#{bin}/gdu-go"), "./cmd/gdu"
+    system "go", "build", *std_go_args(ldflags:, output: "#{bin}/gdu-go"), "./cmd/gdu"
   end
 
   def caveats

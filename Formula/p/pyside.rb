@@ -3,8 +3,8 @@ class Pyside < Formula
 
   desc "Official Python bindings for Qt"
   homepage "https://wiki.qt.io/Qt_for_Python"
-  url "https://download.qt.io/official_releases/QtForPython/pyside6/PySide6-6.5.3-src/pyside-setup-everywhere-src-6.5.3.tar.xz"
-  sha256 "6606b1634fb2981f9ca7ce2e206cc92c252401de328df4ce23f63e8c998de8d3"
+  url "https://download.qt.io/official_releases/QtForPython/pyside6/PySide6-6.7.0-src/pyside-setup-everywhere-src-6.7.0.tar.xz"
+  sha256 "82eae370737df5ecf539c165d09d7c81d5fc6153a541b8d3d37b11275f9e3e8f"
   license all_of: ["GFDL-1.3-only", "GPL-2.0-only", "GPL-3.0-only", "LGPL-3.0-only"]
 
   livecheck do
@@ -13,19 +13,20 @@ class Pyside < Formula
   end
 
   bottle do
-    sha256 cellar: :any, arm64_sonoma:   "abb14f36235226901045373ffc4a55542038f0f21ca1fa78a56c17339689efd9"
-    sha256 cellar: :any, arm64_ventura:  "7d0b6fd4a00f18daacf4ac3c96a8e37afae5dd749da4c6355b47caf4bd3a1726"
-    sha256 cellar: :any, arm64_monterey: "e2e8b81d551182c1ec6f8ae011e6a03bafec016ee1ea7534bceff39730a58fa4"
-    sha256 cellar: :any, sonoma:         "4736d13a8e2f7993f4a76819b7ab81f40775bfec45b37b3894d0d25246d9bc00"
-    sha256 cellar: :any, ventura:        "67d3fbaa68e10ed0a8a27657b10abf6c1747ef25150d1c78a5127c86b4a67145"
-    sha256 cellar: :any, monterey:       "4678f82ebf3dc594af61f7e8da94d2401d2737abe92560a131771220ae6db92c"
+    sha256 cellar: :any, arm64_sonoma:   "f2b5371e496b5bf5c63c2fc225791d66b37905cdd3b1d2a5482b46d08bba977e"
+    sha256 cellar: :any, arm64_ventura:  "2fdb4b589dbd66c6ca3c213ff04ac4135b7ddbf7b5fc049f780b19546a992db0"
+    sha256 cellar: :any, arm64_monterey: "8206ec1cb131fdf33d48bf3e30c434d5ec7d16121603bf130ee92fd48ce1778f"
+    sha256 cellar: :any, sonoma:         "03d185bb327a05d2e842eee24f99e9fd481f4539634a9d7897657b9edacca502"
+    sha256 cellar: :any, ventura:        "0d7af02711c1e15479bf821ec62575c25a10e9d04470dcaefea8d81d70cd5252"
+    sha256 cellar: :any, monterey:       "5b9832524e7f3e2bc3d60cc5676bd8b444f873a8c7640cb0e596a8bac52086cb"
   end
 
   depends_on "cmake" => :build
   depends_on "ninja" => :build
+  depends_on "python-setuptools" => :build
   depends_on xcode: :build
   depends_on "llvm"
-  depends_on "python@3.11"
+  depends_on "python@3.12"
   depends_on "qt"
 
   uses_from_macos "libxml2"
@@ -37,8 +38,12 @@ class Pyside < Formula
 
   fails_with gcc: "5"
 
+  # Fix .../sources/pyside6/qtexampleicons/module.c:4:10: fatal error: 'Python.h' file not found
+  # Upstream issue: https://bugreports.qt.io/browse/PYSIDE-2491
+  patch :DATA
+
   def python3
-    "python3.11"
+    "python3.12"
   end
 
   def install
@@ -123,3 +128,18 @@ class Pyside < Formula
     system "./test"
   end
 end
+
+__END__
+diff --git a/sources/pyside6/qtexampleicons/CMakeLists.txt b/sources/pyside6/qtexampleicons/CMakeLists.txt
+index 1562f7b..0611399 100644
+--- a/sources/pyside6/qtexampleicons/CMakeLists.txt
++++ b/sources/pyside6/qtexampleicons/CMakeLists.txt
+@@ -32,6 +32,8 @@ elseif(CMAKE_BUILD_TYPE STREQUAL "Release")
+     target_compile_definitions(QtExampleIcons PRIVATE "-DNDEBUG")
+ endif()
+
++get_property(SHIBOKEN_PYTHON_INCLUDE_DIRS GLOBAL PROPERTY shiboken_python_include_dirs)
++
+ target_include_directories(QtExampleIcons PRIVATE ${SHIBOKEN_PYTHON_INCLUDE_DIRS})
+
+ get_property(SHIBOKEN_PYTHON_LIBRARIES GLOBAL PROPERTY shiboken_python_libraries)

@@ -1,8 +1,8 @@
 class GnupgAT22 < Formula
   desc "GNU Pretty Good Privacy (PGP) package"
   homepage "https://gnupg.org/"
-  url "https://gnupg.org/ftp/gcrypt/gnupg/gnupg-2.2.41.tar.bz2"
-  sha256 "13f3291007a5e8546fcb7bc0c6610ce44aaa9b3995059d4f8145ba09fd5be3e1"
+  url "https://gnupg.org/ftp/gcrypt/gnupg/gnupg-2.2.43.tar.bz2"
+  sha256 "a3b34c40f455d93054d33cf4cf2a8ce41149d499eca2fbb759619de04822d453"
   license "GPL-3.0-or-later"
 
   livecheck do
@@ -11,21 +11,18 @@ class GnupgAT22 < Formula
   end
 
   bottle do
-    sha256 arm64_sonoma:   "7f0efbe239c4226b8b56ab44d5880e69318df8d6d5f3f34ee5994d65073fed23"
-    sha256 arm64_ventura:  "5789285b2a977cf20b61a346fcf44f5260a20af5432d0cc62732a89609e3c828"
-    sha256 arm64_monterey: "e21c9ae6576afb03b728ed48a4a5a2458bf23cff71944d5f93939d02cca148ee"
-    sha256 arm64_big_sur:  "8fd172c5b153ea13239e921c186329218be6d4506ff4e91167753c756dc1d92c"
-    sha256 sonoma:         "a033569e3c2b8d075e43d039bfb5c28187619a2116da6da81b63659d3f67148a"
-    sha256 ventura:        "35a9d856bd6a1abe7585291295883d3f68d54076af55e881fc0356bcdbd84f88"
-    sha256 monterey:       "1ded70c04491779a692124ff3530e75bff9ed48a0d1d5d4448a03ac59424b3bb"
-    sha256 big_sur:        "00c4f5f0629f45826b4c1c163596c32f13e726c24c85149eb34267901ca0ad10"
-    sha256 x86_64_linux:   "e407d01641735fdeeb789ca26ee6dc4d8dfd445202c9612316981d5209314901"
+    sha256 arm64_sonoma:   "40c89c2b75dfc5664f23467620eca04ce2a521df71c3c27e8d8458fd83e7945c"
+    sha256 arm64_ventura:  "d07caa67766ee2a38396ff98c3a40f8c1706ace3bd74a952fe53e813c3ab002b"
+    sha256 arm64_monterey: "0dde167623f5f5b5b665d9d6bb0dcc17d8c6b323fc93f7dc7c05b262e348e239"
+    sha256 sonoma:         "78b9e6163f29dc21ee8bb2a80949062f85b46a46e6ba930a821ad26752596ca2"
+    sha256 ventura:        "34835eb5e3d0fab2ad90b09d493ade94c95a74ea2a4d7f1d80541caa150f367e"
+    sha256 monterey:       "ef89f38a4413e5b5f0df140c7a555064b861a31dcd4b18ad040a1fb2bdfba6a1"
+    sha256 x86_64_linux:   "9079309d3412821c6edb7710a9cbfce8dfc6b14792bd60a1a2aaff77940c1aa9"
   end
 
   keg_only :versioned_formula
 
   depends_on "pkg-config" => :build
-  depends_on "gettext"
   depends_on "gnutls"
   depends_on "libassuan"
   depends_on "libgcrypt"
@@ -36,13 +33,18 @@ class GnupgAT22 < Formula
   depends_on "pinentry"
   depends_on "readline" # Possible opportunistic linkage. TODO: Check if this can be removed.
 
-  uses_from_macos "sqlite" => :build
+  uses_from_macos "bzip2"
+  uses_from_macos "sqlite"
+  uses_from_macos "zlib"
 
-  on_linux do
-    depends_on "libidn"
+  on_macos do
+    depends_on "gettext"
   end
 
   def install
+    libusb = Formula["libusb"]
+    ENV.append "CPPFLAGS", "-I#{libusb.opt_include}/libusb-#{libusb.version.major_minor}"
+
     system "./configure", "--disable-dependency-tracking",
                           "--disable-silent-rules",
                           "--prefix=#{prefix}",

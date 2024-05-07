@@ -6,23 +6,23 @@ class Bashate < Formula
   url "https://files.pythonhosted.org/packages/4d/0c/35b92b742cc9da7788db16cfafda2f38505e19045ae1ee204ec238ece93f/bashate-2.1.1.tar.gz"
   sha256 "4bab6e977f8305a720535f8f93f1fb42c521fcbc4a6c2b3d3d7671f42f221f4c"
   license "Apache-2.0"
+  revision 1
 
   bottle do
-    rebuild 1
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "d22a13965b8badc19e991a9a271e9f1975f85b96d68dbc22d25cf196f42b4ae3"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "0137ed279d4f0f319d8c50eb4d86e20b25f7bfbe4c07d45fb455fde83516acd6"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "e886d384c41e915700b72256b7cf60e0d33743958eb8bd960544d15918ebede8"
-    sha256 cellar: :any_skip_relocation, sonoma:         "58523165172e73d1b4658e6beb217ad0ce1aecba52185f6b6cd7f7fd3736d75a"
-    sha256 cellar: :any_skip_relocation, ventura:        "f4ff5795ad844e2bd2235e0528b04551fad9264616cd072dba0f806de9c15c2d"
-    sha256 cellar: :any_skip_relocation, monterey:       "314b0d6247591b2812a710cdc133e2fbdce772fb723e44e7dd893a7d08bf0394"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "104403b5c06e8bdb94a82195bbba24462d62cee9717b2a3c29a3da75707f968d"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "cef7fcf0ee622eac38ae68dab65871fefe0b97e31f5c814f8d158627c61ff497"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "81782b93d1a81a96621647b41c65a720c0cf26d995bdce0d5fea85572adc365f"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "77db33d9a146b930bee954a0ea2d42eff50fe0ffde1fa7c82d1c199d600750ab"
+    sha256 cellar: :any_skip_relocation, sonoma:         "d6af41973ffa58f39fbdb94f146cde5ac30bb198688264ca9a58d711c3bc2b23"
+    sha256 cellar: :any_skip_relocation, ventura:        "6db4c350ffbccdf07cd35aa8bf82045ada101b44c77cac84666af30e560da92c"
+    sha256 cellar: :any_skip_relocation, monterey:       "a100cd15d96ec8c367311de80f9561d2db4334a261d30ac8623f50a00311ba2e"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "26d84e8ccddbbcefd2d6de2b2d45c44613f795e2f94c400730666dfec9fab539"
   end
 
   depends_on "python@3.12"
 
   resource "pbr" do
-    url "https://files.pythonhosted.org/packages/02/d8/acee75603f31e27c51134a858e0dea28d321770c5eedb9d1d673eb7d3817/pbr-5.11.1.tar.gz"
-    sha256 "aefc51675b0b533d56bb5fd1c8c6c0522fe31896679882e1c4c63d5e4a0fccb3"
+    url "https://files.pythonhosted.org/packages/8d/c2/ee43b3b11bf2b40e56536183fc9f22afbb04e882720332b6276ee2454c24/pbr-6.0.0.tar.gz"
+    sha256 "d1377122a5a00e2f940ee482999518efe16d745d423a670c27773dfbc3c9a7d9"
   end
 
   def install

@@ -1,8 +1,8 @@
 class MariadbAT110 < Formula
   desc "Drop-in replacement for MySQL"
   homepage "https://mariadb.org/"
-  url "https://archive.mariadb.org/mariadb-11.0.3/source/mariadb-11.0.3.tar.gz"
-  sha256 "529f08a064ee7733a136ec474a4239e8ac9bd6db139b8ba70bff8a7f1303839a"
+  url "https://archive.mariadb.org/mariadb-11.0.5/source/mariadb-11.0.5.tar.gz"
+  sha256 "94fb34a6c161cbbc4365073f45e94ce32a8c2c974be395ec7b587ed3d794910b"
   license "GPL-2.0-only"
 
   livecheck do
@@ -18,15 +18,13 @@ class MariadbAT110 < Formula
   end
 
   bottle do
-    sha256 arm64_sonoma:   "5e2c75072b1ae9ec83ab139fa75d31c95c3c19817674a6342c8e0673df9ded38"
-    sha256 arm64_ventura:  "f3106e1216631422e4603e5cd63560b1c2c2bbc7a5f7a12c80eac5e3afa240ba"
-    sha256 arm64_monterey: "2f96dc9dd3e7214a9a76ec55da25fe919a631d2fd73784e07824793290d7afae"
-    sha256 arm64_big_sur:  "ecd9a13d9ca8e83b5a423c6c779d7f0b9f975320f260840bf211122855afb6d2"
-    sha256 sonoma:         "1149ce04c959fc398fdb11d453a914b1a94afc0be41a2793d8febb87d27e7ce3"
-    sha256 ventura:        "103189c91671e58c7e8bf3c1c06209185ff2057a8439ca8887d8556c9f105930"
-    sha256 monterey:       "3cc8bd1c908109ef59892791111d9b578e7089fd533498e48afc7df19d286cef"
-    sha256 big_sur:        "93aac4368ffebfb33c6c79c949698151ff53d9f8ab19cdf7a8993959ef5f660e"
-    sha256 x86_64_linux:   "e4a3f38db7368b6fa268d7ea4852a8287322a8314e6fadbf5859498dce52aac7"
+    sha256 arm64_sonoma:   "44b5c88cc26886c21fe5c563906d809ec636beaf56536c697359c82de56c6cc8"
+    sha256 arm64_ventura:  "99ff5302879a412c001a22eb6ad9447b605804aab3622c4b6b3cc65896cdbae8"
+    sha256 arm64_monterey: "ddb962f70c5fca8e69b027f8b7d1d7bd51d2ccbf2fc44be80fb12eca692b190c"
+    sha256 sonoma:         "81d9eae791da37accc9b382dbb7b8e7cd2790e72fef367340815f53bb90a6b45"
+    sha256 ventura:        "af128be3c890913850cccd271954bb39691d5f015f043d737512df3df41eaa65"
+    sha256 monterey:       "9cbf9cd395033fc105753a6271b25c7c19dfc07a1e4ef410d65734d17fbe8e53"
+    sha256 x86_64_linux:   "f7001726e7a5ee5e5dcbbfde74414592754280169c3536796e54e96f46c37a48"
   end
 
   keg_only :versioned_formula
@@ -57,15 +55,11 @@ class MariadbAT110 < Formula
 
   fails_with gcc: "5"
 
-  # Fix libfmt usage.
-  # https://github.com/MariaDB/server/pull/2732
+  # upstream patch ref, https://github.com/MariaDB/server/pull/3064
+  # remove when it got merged and released
   patch do
-    url "https://github.com/MariaDB/server/commit/f4cec369a392c8a6056207012992ad4a5639965a.patch?full_index=1"
-    sha256 "1851d5ae209c770e8fd1ba834b840be12d7b537b96c7efa3d4e7c9523f188912"
-  end
-  patch do
-    url "https://github.com/MariaDB/server/commit/cd5808eb8da13c5626d4bdeb452cef6ada29cb1d.patch?full_index=1"
-    sha256 "4d288f82f56c61278aefecba8a90d214810b754e234f40b338e8cc809e0369e9"
+    url "https://github.com/MariaDB/server/commit/3624a36aed0346380255b141cb8a59998aaca4ee.patch?full_index=1"
+    sha256 "c9d0aa64b34c43ac9e3077d74c18532125c459d9d867ade69ce283d27b595b22"
   end
 
   def install

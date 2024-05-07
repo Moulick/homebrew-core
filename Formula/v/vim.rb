@@ -2,28 +2,36 @@ class Vim < Formula
   desc "Vi 'workalike' with many additional features"
   homepage "https://www.vim.org/"
   # vim should only be updated every 50 releases on multiples of 50
-  url "https://github.com/vim/vim/archive/refs/tags/v9.0.2050.tar.gz"
-  sha256 "0387014cba4283d55e3b6611b7b574c81670fbb5d195d0fc7b264b94e95592e3"
+  url "https://github.com/vim/vim/archive/refs/tags/v9.1.0350.tar.gz"
+  sha256 "61340cdab24082776bfddb31b410773dead8a00194ab56610b71a75623b62319"
   license "Vim"
   head "https://github.com/vim/vim.git", branch: "master"
 
   # The Vim repository contains thousands of tags and the `Git` strategy isn't
   # ideal in this context. This is an exceptional situation, so this checks the
-  # first page of tags on GitHub (to minimize data transfer).
+  # first 50 tags using the GitHub API (to minimize data transfer).
   livecheck do
-    url "https://github.com/vim/vim/tags"
-    regex(%r{href=["']?[^"' >]*?/tag/v?(\d+(?:\.\d+)+)["' >]}i)
-    strategy :page_match
+    url "https://api.github.com/repos/vim/vim/tags?per_page=50"
+    regex(/^v?(\d+(?:\.\d+)+)$/i)
+    strategy :json do |json, regex|
+      json.map do |tag|
+        match = tag["name"]&.match(regex)
+        next if match.blank?
+
+        match[1]
+      end
+    end
+    throttle 50
   end
 
   bottle do
-    sha256 arm64_sonoma:   "293d8ae75fb44244bb916e4422401704ab5db8c2b50d01d17073982baa380966"
-    sha256 arm64_ventura:  "ffeea762ce0c0f9e247f1f979353b18a70140d64e8c95cce0fd0cee507e150b9"
-    sha256 arm64_monterey: "2d2f2237bb9506822dde3bcf5fa32ec818cd97a822d6c966ac0c42a466e3c334"
-    sha256 sonoma:         "e318fdc17503ae8721677a6ecce7488aa2910beb6148c05ba48ac363d8a9050f"
-    sha256 ventura:        "5b8ed99f3adaeed4a523fdbffe6b47cbd35f92b7462cacb2eeeee3f86048e7d4"
-    sha256 monterey:       "a2a727cf7cab6dd79055835e8662e838671bc455fd1cbdf3d86f71e684b52b63"
-    sha256 x86_64_linux:   "9d272077004910f255d40e46a36749cd32d8ec2e2ffaea9804a3735052f9d8ad"
+    sha256 arm64_sonoma:   "4a6bba75010972e062c1c430dbd691142b9eeab31e8b7e0b66b33aab9ce3bd74"
+    sha256 arm64_ventura:  "245513ee064d00bb5df2ed61043326a22a29e8cb8876ec4e8b948333229c92e3"
+    sha256 arm64_monterey: "d23505d3fdae0e4e8dc6b33adc990bd20cb41bd096383820a91020bfba54849e"
+    sha256 sonoma:         "a06fd29857d6fcdc5dfefeba827e2ad4dd8b9d07be8181ee2e7a5ea5de878e1c"
+    sha256 ventura:        "2c5676437e92d52accec7f3dca796cd28640c1bbf40398d799a02aa3f24a93fc"
+    sha256 monterey:       "f2b20f5cd8d1c1a87a5e0400a21cb4eb695cce81cda9eb05ff4c40a9cf9c814c"
+    sha256 x86_64_linux:   "ff110b45d18cdab07ee4815397cef3bdc7dc58c3cc061707f834b7ea8623918e"
   end
 
   depends_on "gettext"
@@ -33,6 +41,10 @@ class Vim < Formula
   depends_on "perl"
   depends_on "python@3.12"
   depends_on "ruby"
+
+  on_linux do
+    depends_on "acl"
+  end
 
   conflicts_with "ex-vi",
     because: "vim and ex-vi both install bin/ex and bin/view"

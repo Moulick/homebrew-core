@@ -1,8 +1,8 @@
 class Libsolv < Formula
   desc "Library for solving packages and reading repositories"
   homepage "https://github.com/openSUSE/libsolv"
-  url "https://github.com/openSUSE/libsolv/archive/refs/tags/0.7.25.tar.gz"
-  sha256 "b382bba4196b19c36eb34e0ef02546c0b922be601c6f73390c9ab643895b656a"
+  url "https://github.com/openSUSE/libsolv/archive/refs/tags/0.7.29.tar.gz"
+  sha256 "cb8d36a345ea9491f75d88c3a36a6f575c4e25f08197562f7ab0aa1c6e8c6abd"
   license "BSD-3-Clause"
 
   livecheck do
@@ -11,15 +11,13 @@ class Libsolv < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_sonoma:   "4cab2bf293efaa010409a29f0f103a15e1b66df4a1afd179f74fb18d95725822"
-    sha256 cellar: :any,                 arm64_ventura:  "a2faae4d134eeb5460b19f98d0b504f539575965415681ff3d1285b3b3c21c78"
-    sha256 cellar: :any,                 arm64_monterey: "3dac610064d8a92260f060190c3b7decda2b9583177ae3e55cb1a5f0052b5dcc"
-    sha256 cellar: :any,                 arm64_big_sur:  "41a1c5e694874952b7edc3c8eb760182cf5d4245016e162a16ae6254ad5f263f"
-    sha256 cellar: :any,                 sonoma:         "36f902790c1f5391f2a16b536145f17a877155e48bfb0e513c5f54d3c78cc144"
-    sha256 cellar: :any,                 ventura:        "25a22343e97f06ec995f1b7730b54ae9745eddf40e4e78b3cca834594ab34715"
-    sha256 cellar: :any,                 monterey:       "39a513696e2135e80891e613bd17eb904d7e395d6f279446ade54d1722ebf69f"
-    sha256 cellar: :any,                 big_sur:        "737642d50c0885af0af2f795305bf84b9e22e2cba9625d1ad2bebf04a10ba25d"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "9784c26d446e87a346a04a04616f8a087138d20f0ef44409305a64869c82c1b9"
+    sha256 cellar: :any,                 arm64_sonoma:   "a70ba53840597f8de65c06576e9a5d88892ea6a4b380d4a26872e051ca334539"
+    sha256 cellar: :any,                 arm64_ventura:  "41605225e942e3e0e5621b54b5f4d489557aba35f51a252adfabc22b11635f86"
+    sha256 cellar: :any,                 arm64_monterey: "26fe7182fd012888b8124dad5d7f7a2bdd5ca777fc6f15675dd1e4174b4b3ea8"
+    sha256 cellar: :any,                 sonoma:         "bd39d1a95df35a86d5dee584d851ad615f296ee005f7a4696ceb604468791c21"
+    sha256 cellar: :any,                 ventura:        "8604969fa94a3d76e6b8cd4d52e74ec4c16540fa8479331a43b9415aded99c9a"
+    sha256 cellar: :any,                 monterey:       "40688db345013b8f1854e76cbd7b9a64efaa0e127b6d5d443dd47106873b6eb2"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "48d95699cda764bd5961ad3b049aa0c9d1013a3e9de59e086648165f6f2c1b73"
   end
 
   depends_on "cmake" => :build

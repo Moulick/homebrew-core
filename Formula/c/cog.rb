@@ -1,29 +1,33 @@
 class Cog < Formula
   desc "Containers for machine learning"
-  homepage "https://github.com/replicate/cog"
-  url "https://github.com/replicate/cog/archive/refs/tags/v0.8.6.tar.gz"
-  sha256 "7e83e5f185ed1074863e219cae382759e66821d7ba0d3a89bb0862fc80cc2ef5"
+  homepage "https://cog.run/"
+  url "https://github.com/replicate/cog/archive/refs/tags/v0.9.7.tar.gz"
+  sha256 "f1b9484a04ea6e532354eb5dcf807160c60db2dd06078824d93bb11aaf2ceb94"
   license "Apache-2.0"
   head "https://github.com/replicate/cog.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "92ae7776c73b341f96cbf01cbe24f5b93838b06ef39e1146afacb53a474cebda"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "90f84b4060eff5b94d126b073a1774bfc692017e5fa23799dd0d7474ebf74168"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "7d16b6aac79b6299a1b1600108b74b4057f1a72af64dee1d03252b2072f7c397"
-    sha256 cellar: :any_skip_relocation, ventura:        "e48ad9f026fa7ddbfb7916b346cb7919d3678dce0ca5e5da3784a3538fd0ae51"
-    sha256 cellar: :any_skip_relocation, monterey:       "ba958acf2f97b0c70b9bb889aae36e8d63f7cbec52dce9c23bb6ba40164a25d1"
-    sha256 cellar: :any_skip_relocation, big_sur:        "e810fef9bf4cc329abdf5a7a8f0801ae0e7c134956a355d421c3acd53802c927"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "d09ef7df7733e089a01ab8c7113a9e8d0dd0d2c8fb7de7eecd4eb5c464d15319"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "d136eedd4f2a4c2628677f1f032a2ada3eb65fdde805a6c361c13bedbdf9625f"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "e4e5c1a8d165ab8473d6de043fffa41833689c59e64adcd5d6b8cb4d9575d41b"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "017ce3b656b9871ebe425552f27277639bff445523f469f06260ea0abdeb37c8"
+    sha256 cellar: :any_skip_relocation, sonoma:         "49d124c94604fd9d917e9a1ab56f6dd072558d3ab6b0a01babedb42a2dadf1de"
+    sha256 cellar: :any_skip_relocation, ventura:        "aa23f76de878deb2acb7434e7a54aea85ae75447156bf2f4398c4441e0171a95"
+    sha256 cellar: :any_skip_relocation, monterey:       "ab7793e7bd4c244c5f875955200d00774ad56d0ffaf8efe30c716a807de1c072"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "9dbdf6faa1a40bf7d8e0fc4b351612b191e31806fbd43e84386f3cae1cce6185"
   end
 
   depends_on "go" => :build
-
-  uses_from_macos "python" => :build
+  depends_on "python@3.12" => :build
 
   def install
-    ENV["SETUPTOOLS_SCM_PRETEND_VERSION"] = version.to_s
-    system "make", "COG_VERSION=#{version}", "PYTHON=python3"
-    bin.install "cog"
+    python3 = "python3.12"
+
+    # Prevent Makefile from running `pip install build` by manually creating wheel.
+    # Otherwise it can end up installing binary wheels.
+    system python3, "-m", "pip", "wheel", "--verbose", "--no-deps", "--no-binary=:all:", "."
+    (buildpath/"pkg/dockerfile/embed").install buildpath.glob("cog-*.whl").first => "cog.whl"
+
+    system "make", "install", "COG_VERSION=#{version}", "PYTHON=#{python3}", "PREFIX=#{prefix}"
     generate_completions_from_executable(bin/"cog", "completion")
   end
 

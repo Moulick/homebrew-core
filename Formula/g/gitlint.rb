@@ -8,18 +8,17 @@ class Gitlint < Formula
   license "MIT"
 
   bottle do
-    rebuild 2
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "f132913229a824db2a1248037c6c68b292b86e25b20e9128940e84b6355ffac4"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "c840313e2c51eb693fd53bb0e74b2c5a480df3e87a268ed8bf9d84b36f0724eb"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "56254db8f4bafdc6ef946b5b3e56bc6afde3caab945abe60b67bb812eb5f99b8"
-    sha256 cellar: :any_skip_relocation, sonoma:         "1cbf066c25cdd5cd4c06fd2c2ffbf3ca2022654dbaaa9949462768408e38ca13"
-    sha256 cellar: :any_skip_relocation, ventura:        "64c8eb03905ca67c27b5ef424561457d628fbbd8a6445ba04fe5f0f9408f8560"
-    sha256 cellar: :any_skip_relocation, monterey:       "a36ae1e591e705bca710102ce9cd1de8a25d624ab8978ec0e5f84879af798db2"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "7337c2a46eec782bcda2cb48ae2d1419bf14da25e6c5b32af324ad22a38f75b6"
+    rebuild 4
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "1e70b584b23f2d57c4a30885c40121ea9377f685d30f6954fc776c02b1e37b81"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "4365fab77002837b23a4327991d514c5b025f021eea344862b1f9a3ec1e00a93"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "ee951fb0987fd209503e3407a6fdc6698b7e9cd8eb45838480275672a924fcc7"
+    sha256 cellar: :any_skip_relocation, sonoma:         "b37e4702bde58e0fc57bafa0f08e043608b9fbcebb128ab08f92469a5de61405"
+    sha256 cellar: :any_skip_relocation, ventura:        "17df9675a41869eb0629903d716093caf813715c22b9f68ddaa794020b867c62"
+    sha256 cellar: :any_skip_relocation, monterey:       "c58fd209e14194b759add955b3d79111dd1add1bf3669ae5b964e23289bfd40a"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "dea202d1fca16b893f6105f121b319cf0022f31edc89438fc9cc383c13919bff"
   end
 
   depends_on "python@3.12"
-  depends_on "six"
 
   resource "arrow" do
     url "https://files.pythonhosted.org/packages/2e/00/0f6e8fcdb23ea632c866620cc872729ff43ed91d284c866b515c6342b173/arrow-1.3.0.tar.gz"
@@ -34,6 +33,11 @@ class Gitlint < Formula
   resource "python-dateutil" do
     url "https://files.pythonhosted.org/packages/4c/c4/13b4776ea2d76c115c1d1b84579f3764ee6d57204f6be27119f13a61d0a9/python-dateutil-2.8.2.tar.gz"
     sha256 "0123cacc1627ae19ddf3c27a5de5bd67ee4586fbdd6440d9748f8abb483d3e86"
+  end
+
+  resource "six" do
+    url "https://files.pythonhosted.org/packages/71/39/171f1c67cd00715f190ba0b100d606d440a28c93c7714febeca8b79af85e/six-1.16.0.tar.gz"
+    sha256 "1e61c37477a1626458e36f7b1d82aa5c9b094fa4802892072e49de9c60c4c926"
   end
 
   resource "sh" do

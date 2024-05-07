@@ -1,23 +1,23 @@
 class Libgr < Formula
   desc "GR framework: a graphics library for visualisation applications"
   homepage "https://gr-framework.org/"
-  url "https://github.com/sciapp/gr/archive/refs/tags/v0.72.10.tar.gz"
-  sha256 "32c829660d4634f4097fb0a2729719071e201115900a193f608413850314f3ba"
+  url "https://github.com/sciapp/gr/archive/refs/tags/v0.73.5.tar.gz"
+  sha256 "834f5c0185cdd9750c4a9e4b1c2c1c3cf63f8b49ba62165a3de2dcbf1d072b9e"
   license "MIT"
 
   bottle do
-    sha256 arm64_sonoma:   "a4237b240e6d881a65b9a27a92f6475a1bd7d89bd92fcd6dc1c4f127123269b9"
-    sha256 arm64_ventura:  "2e1eab780ff547ab0c5b81bd8ff523cc5a6add81e62ed2562f04743f3bfc4139"
-    sha256 arm64_monterey: "c84b2e82fbb8b6b0b17336010f1f99fa62ea7c0a46dd8274bf0e56d33da55761"
-    sha256 arm64_big_sur:  "1e2e3b15e2f668d43dd8cba51a5614c2856c706bb70bb380504b2173d8ce6acd"
-    sha256 sonoma:         "7f7a1fd955ba02341f10e3b19983850fbdb53eafbbbee5f88059d3ee0955bad6"
-    sha256 ventura:        "b44eeac18464077c54f95a3fbf579db3fa6dc8084341c4424eb72cb7dc15a58d"
-    sha256 monterey:       "5374ae7fec2483fb6db32084d739cd780e982aea380d0024c433ce02ef9a4209"
-    sha256 big_sur:        "6ee088103e077df839074c71ebcf102d7f5b99fa807f1cd16693c999f5c349a9"
+    sha256 arm64_sonoma:   "3459ea88b3a236639f4c861d13b19ead51d90e3c9e7bd059c5ba6fe2a7601ea7"
+    sha256 arm64_ventura:  "c07c0df4e1e2e644f686a6f8856bd7ef38bbfe390749aa959c54c9f40af00a59"
+    sha256 arm64_monterey: "cda5d679f287b8a9810ed83e93ff03dbc90ef31abee75ca78524dc02aa4ea65c"
+    sha256 sonoma:         "617d35a75d17d503b0ff9f29b886f45ccb6f3616f750e1caff238ca8d26fb313"
+    sha256 ventura:        "090e668393c2e0353c3b899d27045b8793419ed3fe9d5b324790ea429d2b54ad"
+    sha256 monterey:       "d95a4b9be0d1f4881aff17d02d94471ae18fb7f9e1844b45cc94f07759d71074"
+    sha256 x86_64_linux:   "51311a2442498277eb55c74ec5781a25fcca0eaef93e5f6ba2a7cc71a50ee144"
   end
 
   depends_on "cmake" => :build
   depends_on "cairo"
+  depends_on "ffmpeg@6"
   depends_on "glfw"
   depends_on "libtiff"
   depends_on "qhull"

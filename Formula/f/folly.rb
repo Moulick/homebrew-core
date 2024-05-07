@@ -1,19 +1,19 @@
 class Folly < Formula
   desc "Collection of reusable C++ library artifacts developed at Facebook"
   homepage "https://github.com/facebook/folly"
-  url "https://github.com/facebook/folly/archive/refs/tags/v2023.10.30.00.tar.gz"
-  sha256 "18ec1ae678187b5fc38a975e10d9fa981d1da5d4b80b16b67b8407d3db11388c"
+  url "https://github.com/facebook/folly/archive/refs/tags/v2024.05.06.00.tar.gz"
+  sha256 "d50418d0e9fb620def36feb50c4a8c60dd4d7dc3a5ef1acf486724f0e7a5b83e"
   license "Apache-2.0"
   head "https://github.com/facebook/folly.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any,                 arm64_sonoma:   "09c9cf798a18f03979a1d9dd0dde23912e8e2995372a56bf37092fe6abd8e2af"
-    sha256 cellar: :any,                 arm64_ventura:  "b05d2148764c6c298bfde18b4e913d66e91387f0b2319e6df5be890e21c0b9e7"
-    sha256 cellar: :any,                 arm64_monterey: "c1bb50b2ef2c30925e0fddb0f97f0fca2fc64892887e63e49cfe9c6749f79824"
-    sha256 cellar: :any,                 sonoma:         "24547c2c0320821f4791797becfa424094f076eb6cdbe95e7c2f1282e06cda8e"
-    sha256 cellar: :any,                 ventura:        "e4748bab7b491aae3eec424bda522f60ad159740cd7f628ee6685866de21a997"
-    sha256 cellar: :any,                 monterey:       "2d601fcc306d0dd040fe2d542b315865f52962b55f475b920a43b6cfdb7da4f9"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "3d4c2298a9f84933fc6030d38edd824c6e72199395873aa98c7fd8d89a31c495"
+    sha256 cellar: :any,                 arm64_sonoma:   "024d18d018fa9f30c0bceb882cd8724bbe13eb0460fa5cc2eef50c64f0b8afcb"
+    sha256 cellar: :any,                 arm64_ventura:  "b3fe57b121c18a662a44ac829f65fcf552f12cfd17639f498952ac5eec04fcf3"
+    sha256 cellar: :any,                 arm64_monterey: "4a5fe588b2dd0e92975887eabe24f4299e5ce57cc0df6fa390dc9635e1bbefcf"
+    sha256 cellar: :any,                 sonoma:         "d71afaae9aca3f6ee799e515698c2b0d113bd6598575693251b357be86562648"
+    sha256 cellar: :any,                 ventura:        "8b3f5fb90d2566c3c2750a559af7b88665016508d844c704be67c7d8eaeaab33"
+    sha256 cellar: :any,                 monterey:       "12f28c64659a555fdea41a101d81e2301c7d2ecae6a23a626ef83ca967e6c4cd"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "4ec1d77e27966f25f995afc06df44d8590118f876656a3d66382d64cbb346efe"
   end
 
   depends_on "cmake" => :build
@@ -84,7 +84,7 @@ class Folly < Formula
         return 0;
       }
     EOS
-    system ENV.cxx, "-std=c++14", "test.cc", "-I#{include}", "-L#{lib}",
+    system ENV.cxx, "-std=c++17", "test.cc", "-I#{include}", "-L#{lib}",
                     "-lfolly", "-o", "test"
     system "./test"
   end

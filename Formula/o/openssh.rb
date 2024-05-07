@@ -1,10 +1,10 @@
 class Openssh < Formula
   desc "OpenBSD freely-licensed SSH connectivity tools"
   homepage "https://www.openssh.com/"
-  url "https://cdn.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-9.5p1.tar.gz"
-  mirror "https://cloudflare.cdn.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-9.5p1.tar.gz"
-  version "9.5p1"
-  sha256 "f026e7b79ba7fb540f75182af96dc8a8f1db395f922bbc9f6ca603672686086b"
+  url "https://cdn.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-9.7p1.tar.gz"
+  mirror "https://cloudflare.cdn.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-9.7p1.tar.gz"
+  version "9.7p1"
+  sha256 "490426f766d82a2763fcacd8d83ea3d70798750c7bd2aff2e57dc5660f773ffd"
   license "SSH-OpenSSH"
 
   livecheck do
@@ -13,13 +13,13 @@ class Openssh < Formula
   end
 
   bottle do
-    sha256 arm64_sonoma:   "c7c898f3a6e50afd94929e69c90201e7a9a7fc59485e8afe62eadc960b2f1c68"
-    sha256 arm64_ventura:  "7585270636197d459baf48faf639c328e85d01352edc497370ff0b54bf45ac2a"
-    sha256 arm64_monterey: "93a8b3176317e6667ad73f61e2c64273f8912321da40963d3b811d56f11678e9"
-    sha256 sonoma:         "4e429a6cfa9e3187f4ffe98940cb23c2b1206cdc868841ca22d74d189871b346"
-    sha256 ventura:        "66b7c6096a85751971fe424445921bf9bd1b46d2a1b66ae720e251b2e0be9733"
-    sha256 monterey:       "f2082c8e164cf19f7828098af5a4eeaf17dc92701c827c8701e450f3a95586f2"
-    sha256 x86_64_linux:   "b0429083dc9a4ff42256cb938becbf333343bf9790bf2e4664c8fdc5e60c1d00"
+    sha256 arm64_sonoma:   "447bfbf4b1c31720c1bad753cf207f234b52cb1fea5b0a474708a6251e82dff2"
+    sha256 arm64_ventura:  "74ad631d8504351d31259ac7aae694a81097b04739f9a2f1e6a28e42ca60834b"
+    sha256 arm64_monterey: "ba7b58021803bdecef4c8ac9ed33e6f8c3788c47ee00548bbab4bb0a937c8ef9"
+    sha256 sonoma:         "87eedfb466961ad64757901871958b25eb15090aa3b261142bdf21250c6905d8"
+    sha256 ventura:        "379cdb985a280265a8451180838044c8fca07e02c2972ab9da846a602288082c"
+    sha256 monterey:       "119e9396d914c59f94eabab53fb66bdc5f0d180da000c77ee3deddb269fae94c"
+    sha256 x86_64_linux:   "df5724bab105958f71a2ff1d880785d14940bceb7e8da6a6655b55bc64c05ebb"
   end
 
   # Please don't resubmit the keychain patch option. It will never be accepted.
@@ -30,6 +30,7 @@ class Openssh < Formula
   depends_on "libfido2"
   depends_on "openssl@3"
 
+  uses_from_macos "mandoc" => :build
   uses_from_macos "lsof" => :test
   uses_from_macos "krb5"
   uses_from_macos "libedit"
